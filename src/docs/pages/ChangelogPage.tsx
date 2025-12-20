@@ -28,6 +28,7 @@ export default function ChangelogPage() {
             "Docs: Updated CONTRIBUTING.md with Object.assign gotcha and correct wrapper pattern",
             "Docs: Added 'Understanding the WEX Wrapper Architecture' section to contributor guide",
             "Docs: Updated Getting Started page with package options and link to Architecture",
+            "Docs: Added Design Tokens reference section to all 54 component pages for @wex/design-tokens users",
             "Navigation: Added Architecture link under Resources section",
           ]}
         />
