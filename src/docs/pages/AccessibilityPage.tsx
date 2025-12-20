@@ -3,7 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { Check, AlertTriangle, X, HelpCircle, Search, Sun, Moon } from "lucide-react";
 import complianceData from "@/docs/registry/compliance.json";
 import { componentRegistry } from "@/docs/registry/components";
-import { WexInput, WexButton, WexDialog } from "@/components/wex";
+import { WexInput, WexButton, WexDialog, WexTabs } from "@/components/wex";
 
 /**
  * AccessibilityPage - Dashboard for accessibility test results
@@ -276,55 +276,70 @@ export default function AccessibilityPage() {
         })()}
       </section>
 
-      {/* Top Issues */}
-      {stats.topIssues.length > 0 && (
-        <section className="mb-8">
-          <h2 className="text-lg font-semibold text-foreground mb-3">Top Issues</h2>
-          <div className="flex flex-wrap gap-2">
-            {stats.topIssues.map(([issue, count]) => (
-              <span
-                key={issue}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-muted text-sm text-foreground"
-              >
-                <code className="text-xs">{issue}</code>
-                <span className="text-muted-foreground">×{count}</span>
-              </span>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* Reference Tabs: Top Issues, Exemptions, How to Test */}
+      <section className="mb-8">
+        <WexTabs.Root defaultValue="issues" className="w-full">
+          <WexTabs.List className="grid w-full grid-cols-3">
+            <WexTabs.Trigger value="issues" className="text-sm">
+              Top Issues {stats.topIssues.length > 0 && <span className="ml-1.5 text-muted-foreground">({stats.topIssues.length})</span>}
+            </WexTabs.Trigger>
+            <WexTabs.Trigger value="exemptions" className="text-sm">
+              WCAG Exemptions
+            </WexTabs.Trigger>
+            <WexTabs.Trigger value="testing" className="text-sm">
+              How to Test
+            </WexTabs.Trigger>
+          </WexTabs.List>
 
-      {/* WCAG Exemptions Info */}
-      <details className="mb-8 text-sm bg-muted/30 rounded-lg border border-border">
-        <summary className="p-4 font-medium text-foreground cursor-pointer hover:bg-muted/50 rounded-lg select-none">
-          About WCAG Contrast Exemptions
-        </summary>
-        <div className="px-4 pb-4 space-y-3 text-sm text-muted-foreground">
-          <p>
-            <strong className="text-foreground">WCAG 2.1 SC 1.4.3</strong> provides exemptions for certain elements:
-          </p>
-          <ul className="list-disc list-inside space-y-1.5 pl-2">
-            <li><strong className="text-foreground">Disabled elements:</strong> Inactive UI components have no contrast requirement</li>
-            <li><strong className="text-foreground">Decorative text:</strong> Purely visual content is exempt</li>
-            <li><strong className="text-foreground">Incidental text:</strong> Non-essential background content</li>
-            <li><strong className="text-foreground">Logos & brand text:</strong> No contrast requirement</li>
-          </ul>
-          <p className="pt-1">
-            Some flagged <code className="bg-muted px-1 rounded text-xs">color-contrast</code> issues may fall under these exemptions. 
-            The issue details indicate whether something is fixable or a known limitation.
-          </p>
-        </div>
-      </details>
+          {/* Top Issues Tab */}
+          <WexTabs.Content value="issues" className="pt-4">
+            {stats.topIssues.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {stats.topIssues.map(([issue, count]) => (
+                  <span
+                    key={issue}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted text-sm text-foreground"
+                  >
+                    <code className="text-xs">{issue}</code>
+                    <span className="text-muted-foreground">×{count}</span>
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">No issues detected. All components are passing!</p>
+            )}
+          </WexTabs.Content>
 
-      {/* How to Run Tests */}
-      <section className="mb-8 p-4 rounded-lg border border-border bg-card">
-        <h2 className="text-sm font-semibold text-foreground mb-2">How to Run Tests</h2>
-        <p className="text-sm text-muted-foreground mb-2">
-          Generate accessibility test results by running:
-        </p>
-        <code className="block bg-muted px-3 py-2 rounded text-sm font-mono text-foreground">
-          npm run test:a11y
-        </code>
+          {/* WCAG Exemptions Tab */}
+          <WexTabs.Content value="exemptions" className="pt-4 space-y-3 text-sm text-muted-foreground">
+            <p>
+              <strong className="text-foreground">WCAG 2.1 SC 1.4.3</strong> provides exemptions for certain elements:
+            </p>
+            <ul className="list-disc list-inside space-y-1.5 pl-2">
+              <li><strong className="text-foreground">Disabled elements:</strong> Inactive UI components have no contrast requirement</li>
+              <li><strong className="text-foreground">Decorative text:</strong> Purely visual content is exempt</li>
+              <li><strong className="text-foreground">Incidental text:</strong> Non-essential background content</li>
+              <li><strong className="text-foreground">Logos & brand text:</strong> No contrast requirement</li>
+            </ul>
+            <p className="pt-1">
+              Some flagged <code className="bg-muted px-1 rounded text-xs">color-contrast</code> issues may fall under these exemptions. 
+              The issue details indicate whether something is fixable or a known limitation.
+            </p>
+          </WexTabs.Content>
+
+          {/* How to Test Tab */}
+          <WexTabs.Content value="testing" className="pt-4">
+            <p className="text-sm text-muted-foreground mb-3">
+              Generate accessibility test results by running:
+            </p>
+            <code className="block bg-muted px-3 py-2 rounded text-sm font-mono text-foreground">
+              npm run test:a11y
+            </code>
+            <p className="text-xs text-muted-foreground mt-3">
+              Tests run in both light and dark modes using Playwright + axe-core.
+            </p>
+          </WexTabs.Content>
+        </WexTabs.Root>
       </section>
 
       {/* Components Table */}
