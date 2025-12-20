@@ -18,12 +18,14 @@ export default function ChangelogPage() {
         <ChangelogEntry
           version="0.4.1"
           date="December 20, 2024"
-          title="Colors Page Theme Responsiveness"
+          title="Dark Mode Accessibility Fixes"
           changes={[
             "Colors: Added MutationObserver to re-compute contrast when theme changes",
             "Colors: Fixed contrast badge text unreadable in dark mode (AA-large was black-on-dark)",
             "Colors: Updated badge styling to use theme-adaptive text colors",
             "Colors: All contrast indicators now update live when toggling light/dark mode",
+            "A11y: Replaced text-warning-foreground with text-warning across all docs components",
+            "A11y: Fixed warning icons/badges unreadable in dark mode (21 instances)",
           ]}
         />
 

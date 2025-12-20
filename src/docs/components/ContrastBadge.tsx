@@ -125,7 +125,7 @@ function TooltipContentComponent({ ratio, rating, fgVar, bgVar }: TooltipContent
         <p><span className="text-muted-foreground">Foreground:</span> {fgVar}</p>
         <p><span className="text-muted-foreground">Background:</span> {bgVar}</p>
         {rating === "AA-large" && (
-          <p className="text-warning-foreground bg-warning/10 px-1 py-0.5 rounded text-[10px]">
+          <p className="text-warning bg-warning/10 px-1 py-0.5 rounded text-[10px]">
             Passes AA for large text (≥18pt or 14pt bold) only
           </p>
         )}

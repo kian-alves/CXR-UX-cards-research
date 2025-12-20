@@ -178,7 +178,7 @@ export default function AccessibilityPage() {
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <KpiTile label="Tested" value={stats.total} icon={<HelpCircle className="h-5 w-5" />} />
         <KpiTile label="Passing" value={stats.pass} icon={<Check className="h-5 w-5 text-success" />} variant="success" />
-        <KpiTile label="Partial" value={stats.partial} icon={<AlertTriangle className="h-5 w-5 text-warning-foreground" />} variant="warning" />
+        <KpiTile label="Partial" value={stats.partial} icon={<AlertTriangle className="h-5 w-5 text-warning" />} variant="warning" />
         <KpiTile label="Failing" value={stats.fail} icon={<X className="h-5 w-5 text-destructive" />} variant="destructive" />
       </section>
 
@@ -378,9 +378,9 @@ interface StatusBadgeProps {
 function StatusBadge({ status }: StatusBadgeProps) {
   const config = {
     pass: { label: "Pass", className: "border-success/50 bg-success/10 text-success" },
-    partial: { label: "Partial", className: "border-warning/50 bg-warning/10 text-warning-foreground" },
+    partial: { label: "Partial", className: "border-warning/50 bg-warning/10 text-warning" },
     fail: { label: "Fail", className: "border-destructive/50 bg-destructive/10 text-destructive" },
-    no_examples: { label: "No Examples", className: "border-warning/50 bg-warning/10 text-warning-foreground" },
+    no_examples: { label: "No Examples", className: "border-warning/50 bg-warning/10 text-warning" },
     pending: { label: "Pending", className: "border-border bg-muted text-muted-foreground" },
   }[status] || { label: status, className: "border-border bg-muted text-muted-foreground" };
 
@@ -400,7 +400,7 @@ function MiniStatusBadge({ status, violations }: MiniStatusBadgeProps) {
   const icon = status === "pass" 
     ? <Check className="h-3 w-3 text-success" />
     : status === "partial"
-    ? <AlertTriangle className="h-3 w-3 text-warning-foreground" />
+    ? <AlertTriangle className="h-3 w-3 text-warning" />
     : status === "fail"
     ? <X className="h-3 w-3 text-destructive" />
     : <HelpCircle className="h-3 w-3 text-muted-foreground" />;
@@ -609,9 +609,9 @@ function ModeResultCard({ mode, result }: ModeResultCardProps) {
     
   const statusConfig = {
     pass: { bg: "bg-success/10", text: "text-success", icon: <Check className="h-3 w-3" /> },
-    partial: { bg: "bg-warning/10", text: "text-warning-foreground", icon: <AlertTriangle className="h-3 w-3" /> },
+    partial: { bg: "bg-warning/10", text: "text-warning", icon: <AlertTriangle className="h-3 w-3" /> },
     fail: { bg: "bg-destructive/10", text: "text-destructive", icon: <X className="h-3 w-3" /> },
-    no_examples: { bg: "bg-warning/10", text: "text-warning-foreground", icon: <AlertTriangle className="h-3 w-3" /> },
+    no_examples: { bg: "bg-warning/10", text: "text-warning", icon: <AlertTriangle className="h-3 w-3" /> },
     pending: { bg: "bg-muted", text: "text-muted-foreground", icon: <HelpCircle className="h-3 w-3" /> },
   }[result.status] || { bg: "bg-muted", text: "text-muted-foreground", icon: <HelpCircle className="h-3 w-3" /> };
 

@@ -223,11 +223,11 @@ function getStatusIcon(status: ModeComplianceResult["status"]): React.ReactNode 
     case "pass":
       return <Check className="h-3 w-3 text-success" />;
     case "partial":
-      return <AlertTriangle className="h-3 w-3 text-warning-foreground" />;
+      return <AlertTriangle className="h-3 w-3 text-warning" />;
     case "fail":
       return <X className="h-3 w-3 text-destructive" />;
     case "no_examples":
-      return <AlertTriangle className="h-3 w-3 text-warning-foreground" />;
+      return <AlertTriangle className="h-3 w-3 text-warning" />;
     default:
       return <HelpCircle className="h-3 w-3 text-muted-foreground" />;
   }
@@ -257,7 +257,7 @@ function getBadgeConfig(
     case "partial":
       return {
         label: `A11y: Partial${levelAchieved ? ` (${levelAchieved})` : ""}`,
-        className: `${baseClasses} border-warning/50 bg-warning/10 text-warning-foreground`,
+        className: `${baseClasses} border-warning/50 bg-warning/10 text-warning`,
         icon: <AlertTriangle className="h-3 w-3" />,
       };
     case "fail":
@@ -269,7 +269,7 @@ function getBadgeConfig(
     case "no_examples":
       return {
         label: "A11y: No Examples",
-        className: `${baseClasses} border-warning/50 bg-warning/10 text-warning-foreground`,
+        className: `${baseClasses} border-warning/50 bg-warning/10 text-warning`,
         icon: <AlertTriangle className="h-3 w-3" />,
       };
     case "pending":

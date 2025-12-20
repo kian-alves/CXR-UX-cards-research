@@ -193,8 +193,8 @@ function getModeStatusConfig(status: ModeComplianceResult["status"]) {
       };
     case "partial":
       return {
-        icon: <AlertTriangle className="h-3 w-3 text-warning-foreground" />,
-        textClass: "text-warning-foreground",
+        icon: <AlertTriangle className="h-3 w-3 text-warning" />,
+        textClass: "text-warning",
         bgClass: "bg-warning/5",
       };
     case "fail":
@@ -205,8 +205,8 @@ function getModeStatusConfig(status: ModeComplianceResult["status"]) {
       };
     case "no_examples":
       return {
-        icon: <AlertTriangle className="h-3 w-3 text-warning-foreground" />,
-        textClass: "text-warning-foreground",
+        icon: <AlertTriangle className="h-3 w-3 text-warning" />,
+        textClass: "text-warning",
         bgClass: "bg-warning/5",
       };
     default:
@@ -240,9 +240,9 @@ function getStatusConfig(status: ComplianceResult["status"]): StatusConfig {
       return {
         label: "Partial",
         statusText: "Partial",
-        icon: <AlertTriangle className="h-4 w-4 text-warning-foreground" />,
+        icon: <AlertTriangle className="h-4 w-4 text-warning" />,
         bgClass: "bg-warning/10",
-        badgeClass: "border-warning/50 bg-warning/10 text-warning-foreground",
+        badgeClass: "border-warning/50 bg-warning/10 text-warning",
       };
     case "fail":
       return {
@@ -256,9 +256,9 @@ function getStatusConfig(status: ComplianceResult["status"]): StatusConfig {
       return {
         label: "No Examples",
         statusText: "No examples found",
-        icon: <AlertTriangle className="h-4 w-4 text-warning-foreground" />,
+        icon: <AlertTriangle className="h-4 w-4 text-warning" />,
         bgClass: "bg-warning/10",
-        badgeClass: "border-warning/50 bg-warning/10 text-warning-foreground",
+        badgeClass: "border-warning/50 bg-warning/10 text-warning",
       };
     case "pending":
     default:

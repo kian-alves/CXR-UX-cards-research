@@ -40,7 +40,7 @@ export default function ColorsPage() {
                 <dd className="text-muted-foreground">≥4.5:1 ratio — Minimum for normal text (body copy)</dd>
               </div>
               <div className="flex gap-2">
-                <dt className="font-medium text-warning-foreground min-w-[70px]">AA-large</dt>
+                <dt className="font-medium text-warning min-w-[70px]">AA-large</dt>
                 <dd className="text-muted-foreground">≥3.0:1 ratio — Only for large text (≥18pt or 14pt bold)</dd>
               </div>
               <div className="flex gap-2">
@@ -540,7 +540,7 @@ export default function ColorsPage() {
             </div>
 
             <div className="rounded-lg border border-warning/50 bg-warning/5 p-4">
-              <h3 className="font-medium mb-2 text-warning-foreground">
+              <h3 className="font-medium mb-2 text-warning">
                 Palette Tokens (Use Sparingly)
               </h3>
               <p className="text-sm text-muted-foreground">
