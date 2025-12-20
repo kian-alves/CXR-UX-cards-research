@@ -79,23 +79,28 @@ function determineLevelAchieved(status) {
 
 /**
  * Get combined status from both modes
- * Takes the worse status of the two modes
+ * 
+ * Logic:
+ * - Both pass → pass
+ * - Both fail → fail
+ * - One passes, one fails → partial (mixed results)
+ * - Either has no_examples → takes the other's status (or no_examples if both)
+ * - Either pending → takes the other's status
  */
 function getCombinedStatus(lightStatus, darkStatus) {
-  const statusPriority = {
-    "fail": 0,
-    "partial": 1,
-    "no_examples": 2,
-    "pass": 3,
-    "pending": 4,
-  };
+  // Handle no_examples and pending edge cases
+  if (lightStatus === "no_examples" && darkStatus === "no_examples") return "no_examples";
+  if (lightStatus === "pending" && darkStatus === "pending") return "pending";
+  if (lightStatus === "no_examples" || lightStatus === "pending") return darkStatus;
+  if (darkStatus === "no_examples" || darkStatus === "pending") return lightStatus;
   
-  const lightPriority = statusPriority[lightStatus] ?? 4;
-  const darkPriority = statusPriority[darkStatus] ?? 4;
+  // Both have valid test results
+  if (lightStatus === "pass" && darkStatus === "pass") return "pass";
+  if (lightStatus === "fail" && darkStatus === "fail") return "fail";
   
-  // Return the worse status (lower priority number)
-  if (lightPriority <= darkPriority) return lightStatus;
-  return darkStatus;
+  // Mixed results: one passes/partial, one fails → partial
+  // Or: one pass, one partial → partial
+  return "partial";
 }
 
 function main() {

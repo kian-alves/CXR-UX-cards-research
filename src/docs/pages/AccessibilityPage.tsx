@@ -243,11 +243,11 @@ export default function AccessibilityPage() {
       </header>
 
       {/* KPI Tiles */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <KpiTile label="Tested" value={stats.total} icon={<HelpCircle className="h-5 w-5" />} />
-        <KpiTile label="Passing" value={stats.pass} icon={<Check className="h-5 w-5 text-success" />} variant="success" />
-        <KpiTile label="Partial" value={stats.partial} icon={<AlertTriangle className="h-5 w-5 text-warning" />} variant="warning" />
-        <KpiTile label="Failing" value={stats.fail} icon={<X className="h-5 w-5 text-destructive" />} variant="destructive" />
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <KpiTile label="Components Tested" value={stats.total} icon={<HelpCircle className="h-5 w-5" />} />
+        <KpiTile label="Passing" value={stats.pass} icon={<Check className="h-5 w-5" />} variant="success" />
+        <KpiTile label="Mixed Results" value={stats.partial} icon={<AlertTriangle className="h-5 w-5" />} variant="warning" />
+        <KpiTile label="Needs Work" value={stats.fail} icon={<X className="h-5 w-5" />} variant="destructive" />
       </section>
 
       {/* Compliance Progress Bar */}
@@ -450,21 +450,57 @@ interface KpiTileProps {
 }
 
 function KpiTile({ label, value, icon, variant }: KpiTileProps) {
-  const bgClass = variant === "success" 
-    ? "bg-success/10" 
-    : variant === "warning" 
-    ? "bg-warning/10" 
-    : variant === "destructive" 
-    ? "bg-destructive/10" 
-    : "bg-muted";
+  const config = {
+    success: {
+      bg: "bg-gradient-to-br from-success/5 to-success/10",
+      border: "border-success/20",
+      iconBg: "bg-success/10",
+      iconColor: "text-success",
+      accent: "bg-success",
+    },
+    warning: {
+      bg: "bg-gradient-to-br from-warning/5 to-warning/10",
+      border: "border-warning/20",
+      iconBg: "bg-warning/10",
+      iconColor: "text-warning",
+      accent: "bg-warning",
+    },
+    destructive: {
+      bg: "bg-gradient-to-br from-destructive/5 to-destructive/10",
+      border: "border-destructive/20",
+      iconBg: "bg-destructive/10",
+      iconColor: "text-destructive",
+      accent: "bg-destructive",
+    },
+    default: {
+      bg: "bg-gradient-to-br from-muted/30 to-muted/50",
+      border: "border-border",
+      iconBg: "bg-muted",
+      iconColor: "text-muted-foreground",
+      accent: "bg-muted-foreground",
+    },
+  }[variant || "default"];
 
   return (
-    <div className={`rounded-lg border border-border p-4 ${bgClass}`}>
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-sm text-muted-foreground">{label}</span>
-        {icon}
+    <div className={`relative overflow-hidden rounded-xl border ${config.border} ${config.bg} p-3`}>
+      {/* Decorative circle in background */}
+      <div className={`absolute -right-4 -top-4 h-16 w-16 rounded-full ${config.iconBg} opacity-50`} />
+      
+      <div className="relative flex items-center gap-3">
+        {/* Icon container */}
+        <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${config.iconBg}`}>
+          <div className={config.iconColor}>{icon}</div>
+        </div>
+        
+        {/* Content */}
+        <div className="flex-1">
+          <p className="text-2xl font-bold text-foreground leading-none">{value}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">{label}</p>
+        </div>
       </div>
-      <p className="text-2xl font-bold text-foreground">{value}</p>
+      
+      {/* Bottom accent line */}
+      <div className={`absolute bottom-0 left-0 h-0.5 w-full ${config.accent} opacity-30`} />
     </div>
   );
 }
