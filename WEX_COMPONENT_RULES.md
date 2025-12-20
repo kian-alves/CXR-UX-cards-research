@@ -190,3 +190,28 @@ Before any PR or commit, verify:
 - [ ] All components use forwardRef with displayName
 - [ ] Any new state colors follow the extension process (Section 5.3)
 
+---
+
+## 7. Changelog Requirements (MANDATORY)
+
+Any Cursor execution or implementation run that changes code MUST include a Changelog update.
+
+### 7.1 Required Fields
+
+Each changelog entry MUST include:
+- **Date**: When the change was made
+- **Summary**: Brief description of what changed
+- **Pages/Components Affected**: List of files or features touched
+- **Breaking Changes**: If any, explicitly noted
+- **Accessibility Signal Changes**: If a11y tests were affected, note here
+
+### 7.2 Update Location
+
+Update `src/docs/pages/ChangelogPage.tsx` by adding a new `ChangelogEntry` at the top of the entries list.
+
+### 7.3 Version Numbering
+
+- Patch (0.0.X): Bug fixes, minor styling adjustments
+- Minor (0.X.0): New features, new components, significant improvements
+- Major (X.0.0): Breaking changes, major refactors
+

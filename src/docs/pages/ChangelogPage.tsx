@@ -16,6 +16,37 @@ export default function ChangelogPage() {
 
       <div className="space-y-8">
         <ChangelogEntry
+          version="0.4.1"
+          date="December 20, 2024"
+          title="Colors Page Theme Responsiveness"
+          changes={[
+            "Colors: Added MutationObserver to re-compute contrast when theme changes",
+            "Colors: Fixed contrast badge text unreadable in dark mode (AA-large was black-on-dark)",
+            "Colors: Updated badge styling to use theme-adaptive text colors",
+            "Colors: All contrast indicators now update live when toggling light/dark mode",
+          ]}
+        />
+
+        <ChangelogEntry
+          version="0.4.0"
+          date="December 20, 2024"
+          title="Charts, Colors & Governance"
+          changes={[
+            "Charts: Added 4 rendered examples (bar, line, multi-series, area, pie/donut)",
+            "Charts: Created chartColors.ts utility for CSS variable resolution",
+            "Charts: Updated chart page with guidance on when to use each chart type",
+            "Colors: Added 'What These Ratings Mean' definitions section explaining WCAG thresholds",
+            "Colors: Improved contrast badge legibility with larger text, icons, and better contrast",
+            "Colors: Added compact contrast scores to extended palette (50-900) swatches",
+            "Colors: Moved contrast badges from swatch overlay to card section for readability",
+            "Governance: Added Section 7 to WEX_COMPONENT_RULES.md requiring changelog updates",
+            "A11y Dashboard: Removed internal test metadata (scope, scenarios) from modal display",
+            "A11y Dashboard: Added 'Variants Tested' section showing named variants only",
+            "Dialog: Fixed centering issue with inline styles for reliable positioning",
+          ]}
+        />
+
+        <ChangelogEntry
           version="0.3.0"
           date="December 19, 2024"
           title="Accessibility & Polish Update"

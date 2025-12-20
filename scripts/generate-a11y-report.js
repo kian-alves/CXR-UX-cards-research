@@ -9,6 +9,9 @@
  * SCOPING: Tests are scoped to component examples only (data-testid="component-example").
  * Docs UI (sidebar, headers, guidance text) is NOT included in the scan.
  *
+ * MODE SUPPORT: Tests run in both light and dark modes. Results are stored
+ * separately for each mode in the compliance.json.
+ *
  * THRESHOLD RULES (documented here for consistency):
  * - pass: 0 violations
  * - partial: 1-3 non-critical violations (no critical/serious)
@@ -36,13 +39,15 @@ const outputPath = path.join(__dirname, "..", "src", "docs", "registry", "compli
 /**
  * Determine status based on violation counts
  */
-function determineStatus(result) {
+function determineStatus(modeResult) {
+  if (!modeResult) return "pending";
+  
   // Check for no_examples status from test runner
-  if (result.status === "no_examples") {
+  if (modeResult.status === "no_examples" || modeResult.examplesFound === 0) {
     return "no_examples";
   }
   
-  const { violations, criticalViolations, seriousViolations } = result;
+  const { violations, criticalViolations, seriousViolations } = modeResult;
   
   // Fail: any critical/serious violations OR 4+ total
   if (criticalViolations > 0 || seriousViolations > 0 || violations >= 4) {
@@ -72,9 +77,31 @@ function determineLevelAchieved(status) {
   }
 }
 
+/**
+ * Get combined status from both modes
+ * Takes the worse status of the two modes
+ */
+function getCombinedStatus(lightStatus, darkStatus) {
+  const statusPriority = {
+    "fail": 0,
+    "partial": 1,
+    "no_examples": 2,
+    "pass": 3,
+    "pending": 4,
+  };
+  
+  const lightPriority = statusPriority[lightStatus] ?? 4;
+  const darkPriority = statusPriority[darkStatus] ?? 4;
+  
+  // Return the worse status (lower priority number)
+  if (lightPriority <= darkPriority) return lightStatus;
+  return darkStatus;
+}
+
 function main() {
   console.log("Generating A11y compliance report...\n");
-  console.log("Scope: component-examples-only (docs UI excluded)\n");
+  console.log("Scope: component-examples-only (docs UI excluded)");
+  console.log("Modes: light + dark\n");
 
   // Check if results directory exists
   if (!fs.existsSync(resultsDir)) {
@@ -99,6 +126,7 @@ function main() {
       scope: "component-examples-only",
       scopeDescription: "Scanned only [data-testid='component-example'] containers, excluding docs UI",
       rulesetCoverage: "automated (wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa)",
+      modes: ["light", "dark"],
       lastUpdated: new Date().toISOString(),
       totalComponents: resultFiles.length,
     }
@@ -113,37 +141,88 @@ function main() {
     const filePath = path.join(resultsDir, file);
     const result = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    const status = determineStatus(result);
-    const levelAchieved = determineLevelAchieved(status);
+    // Check if result has mode-specific data (new format)
+    const hasModesData = result.modes && (result.modes.light || result.modes.dark);
+    
+    let lightResult, darkResult;
+    let lightStatus, darkStatus;
+    
+    if (hasModesData) {
+      // New format with modes
+      lightResult = result.modes.light;
+      darkResult = result.modes.dark;
+      lightStatus = determineStatus(lightResult);
+      darkStatus = determineStatus(darkResult);
+    } else {
+      // Legacy format - treat as light mode only
+      lightResult = {
+        violations: result.violations || 0,
+        criticalViolations: result.criticalViolations || 0,
+        seriousViolations: result.seriousViolations || 0,
+        issues: result.issues || [],
+        examplesTested: result.examplesTested || [],
+        examplesFound: result.examplesFound || 0,
+        status: result.status,
+      };
+      darkResult = null;
+      lightStatus = determineStatus(lightResult);
+      darkStatus = "pending";
+    }
+    
+    const combinedStatus = getCombinedStatus(lightStatus, darkStatus);
+    const lightLevel = determineLevelAchieved(lightStatus);
+    const darkLevel = determineLevelAchieved(darkStatus);
+    const combinedLevel = determineLevelAchieved(combinedStatus);
 
     compliance[result.key] = {
-      status,
-      levelAchieved,
-      violations: result.violations,
-      issues: result.issues || [],
+      // Combined/summary fields (for backwards compatibility)
+      status: combinedStatus,
+      levelAchieved: combinedLevel,
+      violations: (lightResult?.violations || 0) + (darkResult?.violations || 0),
+      issues: [...new Set([...(lightResult?.issues || []), ...(darkResult?.issues || [])])],
       testedAt: result.testedAt,
       scope: result.scope || "component-examples-only",
-      examplesFound: result.examplesFound || 0,
-      scenariosTested: result.examplesTested || [],
+      examplesFound: lightResult?.examplesFound || darkResult?.examplesFound || 0,
+      scenariosTested: lightResult?.examplesTested || darkResult?.examplesTested || [],
       subject: `Component examples for ${result.name}`,
+      
+      // Mode-specific results (new)
+      modes: {
+        light: lightResult ? {
+          status: lightStatus,
+          levelAchieved: lightLevel,
+          violations: lightResult.violations,
+          issues: lightResult.issues || [],
+          examplesFound: lightResult.examplesFound,
+        } : null,
+        dark: darkResult ? {
+          status: darkStatus,
+          levelAchieved: darkLevel,
+          violations: darkResult.violations,
+          issues: darkResult.issues || [],
+          examplesFound: darkResult.examplesFound,
+        } : null,
+      },
     };
 
     // Count and log status
-    if (status === "pass") passCount++;
-    else if (status === "partial") partialCount++;
-    else if (status === "no_examples") noExamplesCount++;
+    if (combinedStatus === "pass") passCount++;
+    else if (combinedStatus === "partial") partialCount++;
+    else if (combinedStatus === "no_examples") noExamplesCount++;
     else failCount++;
 
-    // Determine icon and log
-    let icon;
-    if (status === "pass") icon = "✅";
-    else if (status === "partial") icon = "⚠️";
-    else if (status === "no_examples") icon = "🚫";
-    else icon = "❌";
+    // Determine icons and log
+    const lightIcon = lightStatus === "pass" ? "✅" : lightStatus === "partial" ? "⚠️" : lightStatus === "no_examples" ? "🚫" : lightStatus === "fail" ? "❌" : "⏳";
+    const darkIcon = darkStatus === "pass" ? "✅" : darkStatus === "partial" ? "⚠️" : darkStatus === "no_examples" ? "🚫" : darkStatus === "fail" ? "❌" : "⏳";
     
-    const level = levelAchieved ? ` (${levelAchieved})` : "";
-    const exampleInfo = result.examplesFound !== undefined ? ` [${result.examplesFound} examples]` : "";
-    console.log(`${icon} ${result.name}: ${status}${level} - ${result.violations} violations${exampleInfo}`);
+    const exampleInfo = `[${lightResult?.examplesFound || 0} examples]`;
+    const lightViolations = lightResult?.violations || 0;
+    const darkViolations = darkResult?.violations || 0;
+    
+    console.log(`${result.name}:`);
+    console.log(`  Light ${lightIcon}: ${lightStatus} - ${lightViolations} violations`);
+    console.log(`  Dark  ${darkIcon}: ${darkStatus} - ${darkViolations} violations`);
+    console.log(`  ${exampleInfo}`);
   }
 
   // Write compliance.json
@@ -151,7 +230,7 @@ function main() {
   console.log(`\n✅ Compliance report written to: ${outputPath}`);
 
   // Summary
-  console.log("\n--- Summary ---");
+  console.log("\n--- Summary (Combined Status) ---");
   console.log(`Pass: ${passCount}`);
   console.log(`Partial: ${partialCount}`);
   console.log(`Fail: ${failCount}`);
@@ -160,6 +239,7 @@ function main() {
   }
   console.log(`Total: ${resultFiles.length}`);
   console.log("\nScope: component-examples-only (docs UI excluded)");
+  console.log("Modes: light + dark");
 }
 
 main();

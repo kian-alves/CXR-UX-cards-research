@@ -4,7 +4,11 @@
     "scope": "component-examples-only",
     "scopeDescription": "Scanned only [data-testid='component-example'] containers, excluding docs UI",
     "rulesetCoverage": "automated (wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa)",
-    "lastUpdated": "2025-12-20T04:09:52.133Z",
+    "modes": [
+      "light",
+      "dark"
+    ],
+    "lastUpdated": "2025-12-20T04:51:52.984Z",
     "totalComponents": 54
   },
   "accordion": {
@@ -12,7 +16,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:24.972Z",
+    "testedAt": "2025-12-20T04:50:59.462Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -20,14 +24,30 @@
       "single-collapsible",
       "multiple"
     ],
-    "subject": "Component examples for Accordion"
+    "subject": "Component examples for Accordion",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      }
+    }
   },
   "alert-dialog": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:29.190Z",
+    "testedAt": "2025-12-20T04:51:07.945Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -35,15 +55,31 @@
       "confirmation",
       "destructive-action"
     ],
-    "subject": "Component examples for Alert Dialog"
+    "subject": "Component examples for Alert Dialog",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      }
+    }
   },
   "alert": {
     "status": "fail",
-    "violations": 1,
+    "violations": 5,
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T04:09:27.394Z",
+    "testedAt": "2025-12-20T04:51:04.328Z",
     "scope": "component-examples-only",
     "examplesFound": 6,
     "scenariosTested": [
@@ -54,14 +90,32 @@
       "with-icons",
       "without-title"
     ],
-    "subject": "Component examples for Alert"
+    "subject": "Component examples for Alert",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 6
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 4,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 6
+      }
+    }
   },
   "aspect-ratio": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:31.028Z",
+    "testedAt": "2025-12-20T04:51:11.833Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -70,14 +124,30 @@
       "4-3",
       "1-1"
     ],
-    "subject": "Component examples for Aspect Ratio"
+    "subject": "Component examples for Aspect Ratio",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      }
+    }
   },
   "avatar": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:33.472Z",
+    "testedAt": "2025-12-20T04:51:16.142Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -86,15 +156,31 @@
       "fallback-only",
       "sizes"
     ],
-    "subject": "Component examples for Avatar"
+    "subject": "Component examples for Avatar",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      }
+    }
   },
   "badge": {
     "status": "fail",
-    "violations": 1,
+    "violations": 7,
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T04:09:36.583Z",
+    "testedAt": "2025-12-20T04:51:22.241Z",
     "scope": "component-examples-only",
     "examplesFound": 9,
     "scenariosTested": [
@@ -108,28 +194,62 @@
       "with-count",
       "grouped-badges"
     ],
-    "subject": "Component examples for Badge"
+    "subject": "Component examples for Badge",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 9
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 6,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 9
+      }
+    }
   },
   "breadcrumb": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:38.098Z",
+    "testedAt": "2025-12-20T04:51:25.412Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
       "example-0",
       "example-0"
     ],
-    "subject": "Component examples for Breadcrumb"
+    "subject": "Component examples for Breadcrumb",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      }
+    }
   },
   "button-group": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:44.199Z",
+    "testedAt": "2025-12-20T04:51:37.001Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -138,14 +258,31 @@
       "vertical",
       "with-separator"
     ],
-    "subject": "Component examples for Button Group"
+    "subject": "Component examples for Button Group",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      }
+    }
   },
   "button": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T04:09:42.246Z",
+    "status": "fail",
+    "violations": 5,
+    "issues": [
+      "color-contrast"
+    ],
+    "testedAt": "2025-12-20T04:51:33.157Z",
     "scope": "component-examples-only",
     "examplesFound": 12,
     "scenariosTested": [
@@ -162,14 +299,32 @@
       "with-icon",
       "full-width"
     ],
-    "subject": "Component examples for Button"
+    "subject": "Component examples for Button",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 12
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 5,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 12
+      }
+    }
   },
   "calendar": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T04:09:49.157Z",
+    "status": "fail",
+    "violations": 5,
+    "issues": [
+      "color-contrast"
+    ],
+    "testedAt": "2025-12-20T04:51:47.126Z",
     "scope": "component-examples-only",
     "examplesFound": 8,
     "scenariosTested": [
@@ -182,15 +337,32 @@
       "two-months",
       "with-footer"
     ],
-    "subject": "Component examples for Calendar"
+    "subject": "Component examples for Calendar",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 8
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 5,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 8
+      }
+    }
   },
   "card": {
     "status": "fail",
-    "violations": 1,
+    "violations": 5,
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T04:09:52.011Z",
+    "testedAt": "2025-12-20T04:51:52.815Z",
     "scope": "component-examples-only",
     "examplesFound": 9,
     "scenariosTested": [
@@ -204,37 +376,85 @@
       "feature-card",
       "stats-card"
     ],
-    "subject": "Component examples for Card"
+    "subject": "Component examples for Card",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 9
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 4,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 9
+      }
+    }
   },
   "carousel": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:24.541Z",
+    "testedAt": "2025-12-20T04:50:58.412Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
       "example-0"
     ],
-    "subject": "Component examples for Carousel"
+    "subject": "Component examples for Carousel",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 1
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 1
+      }
+    }
   },
   "chart": {
     "status": "no_examples",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:25.465Z",
+    "testedAt": "2025-12-20T04:51:00.225Z",
     "scope": "component-examples-only",
     "examplesFound": 0,
     "scenariosTested": [],
-    "subject": "Component examples for Chart"
+    "subject": "Component examples for Chart",
+    "modes": {
+      "light": {
+        "status": "no_examples",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 0
+      },
+      "dark": {
+        "status": "no_examples",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 0
+      }
+    }
   },
   "checkbox": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:28.476Z",
+    "testedAt": "2025-12-20T04:51:06.619Z",
     "scope": "component-examples-only",
     "examplesFound": 8,
     "scenariosTested": [
@@ -247,56 +467,122 @@
       "inline-group",
       "example-0"
     ],
-    "subject": "Component examples for Checkbox"
+    "subject": "Component examples for Checkbox",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 8
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 8
+      }
+    }
   },
   "collapsible": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:29.724Z",
+    "testedAt": "2025-12-20T04:51:08.933Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
       "example-0"
     ],
-    "subject": "Component examples for Collapsible"
+    "subject": "Component examples for Collapsible",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 1
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 1
+      }
+    }
   },
   "command": {
     "status": "fail",
-    "violations": 1,
+    "violations": 2,
     "issues": [
       "aria-required-children"
     ],
-    "testedAt": "2025-12-20T04:09:31.352Z",
+    "testedAt": "2025-12-20T04:51:11.902Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
       "example-0",
       "press-k-to-open"
     ],
-    "subject": "Component examples for Command"
+    "subject": "Component examples for Command",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "aria-required-children"
+        ],
+        "examplesFound": 2
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "aria-required-children"
+        ],
+        "examplesFound": 2
+      }
+    }
   },
   "context-menu": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:32.810Z",
+    "testedAt": "2025-12-20T04:51:14.717Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
       "example-0",
       "example-0"
     ],
-    "subject": "Component examples for Context Menu"
+    "subject": "Component examples for Context Menu",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      }
+    }
   },
   "dialog": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:35.179Z",
+    "testedAt": "2025-12-20T04:51:19.443Z",
     "scope": "component-examples-only",
     "examplesFound": 6,
     "scenariosTested": [
@@ -307,14 +593,30 @@
       "scrollable-content",
       "controlled"
     ],
-    "subject": "Component examples for Dialog"
+    "subject": "Component examples for Dialog",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 6
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 6
+      }
+    }
   },
   "drawer": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:37.368Z",
+    "testedAt": "2025-12-20T04:51:23.613Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -324,14 +626,30 @@
       "with-footer-actions",
       "controlled"
     ],
-    "subject": "Component examples for Drawer"
+    "subject": "Component examples for Drawer",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 5
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 5
+      }
+    }
   },
   "dropdown-menu": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:40.047Z",
+    "testedAt": "2025-12-20T04:51:28.983Z",
     "scope": "component-examples-only",
     "examplesFound": 7,
     "scenariosTested": [
@@ -343,14 +661,31 @@
       "with-disabled-items",
       "with-groups"
     ],
-    "subject": "Component examples for Dropdown Menu"
+    "subject": "Component examples for Dropdown Menu",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 7
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 7
+      }
+    }
   },
   "empty": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T04:09:41.768Z",
+    "status": "fail",
+    "violations": 1,
+    "issues": [
+      "color-contrast"
+    ],
+    "testedAt": "2025-12-20T04:51:32.292Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -358,14 +693,32 @@
       "search-empty",
       "file-not-found"
     ],
-    "subject": "Component examples for Empty"
+    "subject": "Component examples for Empty",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 3
+      }
+    }
   },
   "field": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T04:09:43.984Z",
+    "status": "fail",
+    "violations": 1,
+    "issues": [
+      "color-contrast"
+    ],
+    "testedAt": "2025-12-20T04:51:36.613Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -375,15 +728,33 @@
       "field-group",
       "fieldset-with-legend"
     ],
-    "subject": "Component examples for Field"
+    "subject": "Component examples for Field",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 5
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 5
+      }
+    }
   },
   "form": {
     "status": "fail",
-    "violations": 2,
+    "violations": 6,
     "issues": [
-      "button-name"
+      "button-name",
+      "color-contrast"
     ],
-    "testedAt": "2025-12-20T04:09:28.943Z",
+    "testedAt": "2025-12-20T04:51:07.686Z",
     "scope": "component-examples-only",
     "examplesFound": 18,
     "scenariosTested": [
@@ -406,14 +777,34 @@
       "disabled-switch",
       "example-0"
     ],
-    "subject": "Component examples for Form"
+    "subject": "Component examples for Form",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 2,
+        "issues": [
+          "button-name"
+        ],
+        "examplesFound": 18
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 4,
+        "issues": [
+          "button-name",
+          "color-contrast"
+        ],
+        "examplesFound": 18
+      }
+    }
   },
   "hover-card": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T04:09:31.112Z",
+    "status": "fail",
+    "violations": 4,
+    "issues": [
+      "color-contrast"
+    ],
+    "testedAt": "2025-12-20T04:51:12.031Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -423,14 +814,31 @@
       "repository-info",
       "different-alignments"
     ],
-    "subject": "Component examples for Hover Card"
+    "subject": "Component examples for Hover Card",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 5
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 4,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 5
+      }
+    }
   },
   "input-group": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:38.546Z",
+    "testedAt": "2025-12-20T04:51:26.561Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -440,27 +848,59 @@
       "with-text",
       "with-button"
     ],
-    "subject": "Component examples for Input Group"
+    "subject": "Component examples for Input Group",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 5
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 5
+      }
+    }
   },
   "input-otp": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:39.723Z",
+    "testedAt": "2025-12-20T04:51:28.931Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
       "example-0"
     ],
-    "subject": "Component examples for Input OTP"
+    "subject": "Component examples for Input OTP",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 1
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 1
+      }
+    }
   },
   "input": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:36.304Z",
+    "testedAt": "2025-12-20T04:51:22.079Z",
     "scope": "component-examples-only",
     "examplesFound": 17,
     "scenariosTested": [
@@ -482,15 +922,31 @@
       "required-field",
       "with-helper-text"
     ],
-    "subject": "Component examples for Input"
+    "subject": "Component examples for Input",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 17
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 17
+      }
+    }
   },
   "item": {
     "status": "fail",
-    "violations": 4,
+    "violations": 8,
     "issues": [
       "aria-required-children"
     ],
-    "testedAt": "2025-12-20T04:09:41.710Z",
+    "testedAt": "2025-12-20T04:51:32.797Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -499,14 +955,32 @@
       "multiple-items",
       "with-header-and-footer"
     ],
-    "subject": "Component examples for Item"
+    "subject": "Component examples for Item",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 4,
+        "issues": [
+          "aria-required-children"
+        ],
+        "examplesFound": 4
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 4,
+        "issues": [
+          "aria-required-children"
+        ],
+        "examplesFound": 4
+      }
+    }
   },
   "kbd": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:43.557Z",
+    "testedAt": "2025-12-20T04:51:36.544Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -515,14 +989,30 @@
       "modifier-keys",
       "key-combinations"
     ],
-    "subject": "Component examples for Kbd"
+    "subject": "Component examples for Kbd",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      }
+    }
   },
   "label": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:45.201Z",
+    "testedAt": "2025-12-20T04:51:39.675Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -530,56 +1020,120 @@
       "with-input",
       "required-field"
     ],
-    "subject": "Component examples for Label"
+    "subject": "Component examples for Label",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      }
+    }
   },
   "menubar": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:46.586Z",
+    "testedAt": "2025-12-20T04:51:42.482Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
       "example-0",
       "example-0"
     ],
-    "subject": "Component examples for Menubar"
+    "subject": "Component examples for Menubar",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      }
+    }
   },
   "navigation-menu": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:48.017Z",
+    "testedAt": "2025-12-20T04:51:45.200Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
       "example-0",
       "focus-state"
     ],
-    "subject": "Component examples for Navigation Menu"
+    "subject": "Component examples for Navigation Menu",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      }
+    }
   },
   "pagination": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:49.436Z",
+    "testedAt": "2025-12-20T04:51:48.001Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
       "example-0",
       "example-0"
     ],
-    "subject": "Component examples for Pagination"
+    "subject": "Component examples for Pagination",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      }
+    }
   },
   "popover": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:25.932Z",
+    "testedAt": "2025-12-20T04:51:01.616Z",
     "scope": "component-examples-only",
     "examplesFound": 7,
     "scenariosTested": [
@@ -591,14 +1145,31 @@
       "example-0",
       "example-0"
     ],
-    "subject": "Component examples for Popover"
+    "subject": "Component examples for Popover",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 7
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 7
+      }
+    }
   },
   "progress": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T04:09:28.427Z",
+    "status": "fail",
+    "violations": 1,
+    "issues": [
+      "color-contrast"
+    ],
+    "testedAt": "2025-12-20T04:51:06.870Z",
     "scope": "component-examples-only",
     "examplesFound": 6,
     "scenariosTested": [
@@ -609,56 +1180,125 @@
       "multi-step-process",
       "with-label"
     ],
-    "subject": "Component examples for Progress"
+    "subject": "Component examples for Progress",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 6
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 6
+      }
+    }
   },
   "radio-group": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:29.695Z",
+    "testedAt": "2025-12-20T04:51:09.256Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
       "example-0"
     ],
-    "subject": "Component examples for Radio Group"
+    "subject": "Component examples for Radio Group",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 1
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 1
+      }
+    }
   },
   "resizable": {
     "status": "fail",
-    "violations": 1,
+    "violations": 2,
     "issues": [
       "aria-allowed-attr"
     ],
-    "testedAt": "2025-12-20T04:09:30.920Z",
+    "testedAt": "2025-12-20T04:51:11.588Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
       "example-0"
     ],
-    "subject": "Component examples for Resizable"
+    "subject": "Component examples for Resizable",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "aria-allowed-attr"
+        ],
+        "examplesFound": 1
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "aria-allowed-attr"
+        ],
+        "examplesFound": 1
+      }
+    }
   },
   "scroll-area": {
     "status": "fail",
-    "violations": 1,
+    "violations": 2,
     "issues": [
       "scrollable-region-focusable"
     ],
-    "testedAt": "2025-12-20T04:09:32.122Z",
+    "testedAt": "2025-12-20T04:51:13.924Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
       "example-0"
     ],
-    "subject": "Component examples for Scroll Area"
+    "subject": "Component examples for Scroll Area",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "scrollable-region-focusable"
+        ],
+        "examplesFound": 1
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "scrollable-region-focusable"
+        ],
+        "examplesFound": 1
+      }
+    }
   },
   "select": {
     "status": "fail",
-    "violations": 1,
+    "violations": 2,
     "issues": [
       "button-name"
     ],
-    "testedAt": "2025-12-20T04:09:34.996Z",
+    "testedAt": "2025-12-20T04:51:19.691Z",
     "scope": "component-examples-only",
     "examplesFound": 8,
     "scenariosTested": [
@@ -671,14 +1311,32 @@
       "disabled",
       "disabled-option"
     ],
-    "subject": "Component examples for Select"
+    "subject": "Component examples for Select",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "button-name"
+        ],
+        "examplesFound": 8
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "button-name"
+        ],
+        "examplesFound": 8
+      }
+    }
   },
   "separator": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:36.668Z",
+    "testedAt": "2025-12-20T04:51:22.953Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -686,14 +1344,30 @@
       "horizontal",
       "vertical"
     ],
-    "subject": "Component examples for Separator"
+    "subject": "Component examples for Separator",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      }
+    }
   },
   "sheet": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:38.620Z",
+    "testedAt": "2025-12-20T04:51:26.746Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -702,28 +1376,60 @@
       "with-form",
       "controlled"
     ],
-    "subject": "Component examples for Sheet"
+    "subject": "Component examples for Sheet",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      }
+    }
   },
   "sidebar": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:40.220Z",
+    "testedAt": "2025-12-20T04:51:29.830Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
       "example-0",
       "example-0"
     ],
-    "subject": "Component examples for Sidebar"
+    "subject": "Component examples for Sidebar",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 2
+      }
+    }
   },
   "skeleton": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:42.105Z",
+    "testedAt": "2025-12-20T04:51:33.017Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -731,15 +1437,31 @@
       "card-skeleton",
       "list-skeleton"
     ],
-    "subject": "Component examples for Skeleton"
+    "subject": "Component examples for Skeleton",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      }
+    }
   },
   "slider": {
     "status": "fail",
-    "violations": 9,
+    "violations": 18,
     "issues": [
       "aria-input-field-name"
     ],
-    "testedAt": "2025-12-20T04:09:45.258Z",
+    "testedAt": "2025-12-20T04:51:39.276Z",
     "scope": "component-examples-only",
     "examplesFound": 9,
     "scenariosTested": [
@@ -753,14 +1475,32 @@
       "brightness-control",
       "price-range"
     ],
-    "subject": "Component examples for Slider"
+    "subject": "Component examples for Slider",
+    "modes": {
+      "light": {
+        "status": "fail",
+        "violations": 9,
+        "issues": [
+          "aria-input-field-name"
+        ],
+        "examplesFound": 9
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 9,
+        "issues": [
+          "aria-input-field-name"
+        ],
+        "examplesFound": 9
+      }
+    }
   },
   "sonner": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:25.414Z",
+    "testedAt": "2025-12-20T04:51:00.655Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -770,14 +1510,30 @@
       "example-0",
       "example-0"
     ],
-    "subject": "Component examples for Sonner"
+    "subject": "Component examples for Sonner",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 5
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 5
+      }
+    }
   },
   "spinner": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:27.350Z",
+    "testedAt": "2025-12-20T04:51:04.465Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -786,14 +1542,30 @@
       "in-button",
       "page-loading"
     ],
-    "subject": "Component examples for Spinner"
+    "subject": "Component examples for Spinner",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      }
+    }
   },
   "switch": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:29.929Z",
+    "testedAt": "2025-12-20T04:51:09.741Z",
     "scope": "component-examples-only",
     "examplesFound": 6,
     "scenariosTested": [
@@ -804,14 +1576,31 @@
       "disabled-on",
       "example-0"
     ],
-    "subject": "Component examples for Switch"
+    "subject": "Component examples for Switch",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 6
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 6
+      }
+    }
   },
   "table": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T04:09:31.851Z",
+    "status": "fail",
+    "violations": 1,
+    "issues": [
+      "color-contrast"
+    ],
+    "testedAt": "2025-12-20T04:51:13.178Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -819,14 +1608,32 @@
       "with-badges",
       "selectable-rows"
     ],
-    "subject": "Component examples for Table"
+    "subject": "Component examples for Table",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 3
+      }
+    }
   },
   "tabs": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T04:09:34.111Z",
+    "status": "fail",
+    "violations": 1,
+    "issues": [
+      "color-contrast"
+    ],
+    "testedAt": "2025-12-20T04:51:17.642Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -836,14 +1643,31 @@
       "disabled-tab",
       "controlled-tabs"
     ],
-    "subject": "Component examples for Tabs"
+    "subject": "Component examples for Tabs",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 5
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 5
+      }
+    }
   },
   "textarea": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:37.748Z",
+    "testedAt": "2025-12-20T04:51:24.955Z",
     "scope": "component-examples-only",
     "examplesFound": 11,
     "scenariosTested": [
@@ -859,14 +1683,30 @@
       "custom-height",
       "non-resizable"
     ],
-    "subject": "Component examples for Textarea"
+    "subject": "Component examples for Textarea",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 11
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 11
+      }
+    }
   },
   "toast": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:41.070Z",
+    "testedAt": "2025-12-20T04:51:31.127Z",
     "scope": "component-examples-only",
     "examplesFound": 9,
     "scenariosTested": [
@@ -880,14 +1720,30 @@
       "with-action",
       "loading"
     ],
-    "subject": "Component examples for Toast"
+    "subject": "Component examples for Toast",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 9
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 9
+      }
+    }
   },
   "toggle-group": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:46.603Z",
+    "testedAt": "2025-12-20T04:51:42.139Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -895,14 +1751,30 @@
       "single",
       "multiple"
     ],
-    "subject": "Component examples for Toggle Group"
+    "subject": "Component examples for Toggle Group",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 3
+      }
+    }
   },
   "toggle": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:44.980Z",
+    "testedAt": "2025-12-20T04:51:38.767Z",
     "scope": "component-examples-only",
     "examplesFound": 12,
     "scenariosTested": [
@@ -919,14 +1791,30 @@
       "alignment-toolbar",
       "feature-toggle"
     ],
-    "subject": "Component examples for Toggle"
+    "subject": "Component examples for Toggle",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 12
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 12
+      }
+    }
   },
   "tooltip": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T04:09:48.504Z",
+    "testedAt": "2025-12-20T04:51:45.730Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -935,6 +1823,22 @@
       "with-icon-button",
       "with-delay"
     ],
-    "subject": "Component examples for Tooltip"
+    "subject": "Component examples for Tooltip",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4
+      }
+    }
   }
 }
