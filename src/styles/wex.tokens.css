@@ -33,35 +33,35 @@
   --wex-brand-red: 350 85% 42%; /* #c8102e - Official WEX Logo Red */
 
   /* ===== PRIMARY (3 tokens) ===== */
-  --wex-primary: 208 100% 32%;
+  --wex-primary: var(--wex-palette-blue-700);
   --wex-primary-contrast: 0 0% 100%;
-  --wex-primary-hover: 208 100% 26%;
+  --wex-primary-hover: var(--wex-palette-blue-800);
 
   /* ===== INPUT (1 token) ===== */
   --wex-input-border: 204 9% 68%;
 
   /* ===== FOCUS RING (1 token) ===== */
-  --wex-focus-ring-color: 208 100% 32%;
+  --wex-focus-ring-color: var(--wex-palette-blue-700);
 
   /* ===== DESTRUCTIVE (3 tokens) ===== */
-  --wex-destructive: 350 62% 54%;
+  --wex-destructive: var(--wex-palette-red-500);
   --wex-destructive-foreground: 0 0% 100%;
-  --wex-destructive-hover: 350 62% 48%;
+  --wex-destructive-hover: var(--wex-palette-red-600);
 
   /* ===== SUCCESS (3 tokens) ===== */
-  --wex-success: 142 76% 36%;
+  --wex-success: var(--wex-palette-green-600);
   --wex-success-foreground: 0 0% 100%;
-  --wex-success-hover: 142 76% 30%;
+  --wex-success-hover: var(--wex-palette-green-700);
 
   /* ===== WARNING (3 tokens) ===== */
-  --wex-warning: 38 92% 50%;
+  --wex-warning: var(--wex-palette-amber-500);
   --wex-warning-foreground: 0 0% 0%;
-  --wex-warning-hover: 38 92% 44%;
+  --wex-warning-hover: var(--wex-palette-amber-600);
 
   /* ===== INFO (3 tokens) ===== */
-  --wex-info: 198 87% 47%;
+  --wex-info: var(--wex-palette-cyan-500);
   --wex-info-foreground: 0 0% 100%;
-  --wex-info-hover: 198 87% 40%;
+  --wex-info-hover: var(--wex-palette-cyan-600);
 
   /* ===== HIGHLIGHT (4 tokens) =====
      NOTE: *_alpha tokens are reserved for future utilities.
@@ -142,6 +142,18 @@
   --wex-palette-slate-800: 210 28% 20%;
   --wex-palette-slate-900: 210 31% 13%;
 
+  /* Cyan ramp (derived from info) */
+  --wex-palette-cyan-50: 198 87% 97%;
+  --wex-palette-cyan-100: 198 87% 90%;
+  --wex-palette-cyan-200: 198 87% 80%;
+  --wex-palette-cyan-300: 198 87% 68%;
+  --wex-palette-cyan-400: 198 87% 58%;
+  --wex-palette-cyan-500: 198 87% 47%;
+  --wex-palette-cyan-600: 198 87% 40%;
+  --wex-palette-cyan-700: 198 87% 34%;
+  --wex-palette-cyan-800: 198 87% 28%;
+  --wex-palette-cyan-900: 198 87% 22%;
+
   /* ===== CHART (5 tokens) =====
      DESIGN GAP: These are placeholder values.
      Brand team must define official chart colors.
@@ -165,35 +177,39 @@
   --wex-text-muted: 216 10% 90%;
 
   /* ===== PRIMARY (dark overrides) ===== */
-  --wex-primary: 203 68% 47%;
+  /* Note: Dark mode uses blue-500 (lighter) for better contrast on dark backgrounds */
+  --wex-primary: var(--wex-palette-blue-500);
   --wex-primary-contrast: 216 10% 90%;
-  --wex-primary-hover: 201 73% 41%;
+  --wex-primary-hover: var(--wex-palette-blue-600);
 
   /* ===== INPUT (dark override) ===== */
   --wex-input-border: 206 32% 21%;
 
   /* ===== FOCUS RING (dark override) ===== */
-  --wex-focus-ring-color: 203 68% 47%;
+  --wex-focus-ring-color: var(--wex-palette-blue-500);
 
   /* ===== DESTRUCTIVE (dark overrides) ===== */
-  --wex-destructive: 350 62% 54%;
+  --wex-destructive: var(--wex-palette-red-500);
   --wex-destructive-foreground: 0 0% 100%;
-  --wex-destructive-hover: 350 62% 48%;
+  --wex-destructive-hover: var(--wex-palette-red-600);
 
   /* ===== SUCCESS (dark overrides) ===== */
-  --wex-success: 142 76% 40%;
+  /* Note: Dark mode uses green-500 (slightly lighter) for better contrast */
+  --wex-success: var(--wex-palette-green-500);
   --wex-success-foreground: 0 0% 100%;
-  --wex-success-hover: 142 76% 34%;
+  --wex-success-hover: var(--wex-palette-green-600);
 
   /* ===== WARNING (dark overrides) ===== */
-  --wex-warning: 38 92% 55%;
+  /* Note: Dark mode uses amber-400 (slightly lighter) for better contrast */
+  --wex-warning: var(--wex-palette-amber-400);
   --wex-warning-foreground: 0 0% 0%;
-  --wex-warning-hover: 38 92% 48%;
+  --wex-warning-hover: var(--wex-palette-amber-500);
 
   /* ===== INFO (dark overrides) ===== */
-  --wex-info: 198 87% 55%;
+  /* Note: Dark mode uses cyan-400 (slightly lighter) for better contrast */
+  --wex-info: var(--wex-palette-cyan-400);
   --wex-info-foreground: 0 0% 100%;
-  --wex-info-hover: 198 87% 48%;
+  --wex-info-hover: var(--wex-palette-cyan-500);
 
   /* ===== HIGHLIGHT (dark overrides) ===== */
   --wex-highlight-bg: 201 74% 62%;
