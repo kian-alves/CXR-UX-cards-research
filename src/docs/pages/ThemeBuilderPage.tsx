@@ -137,6 +137,33 @@ export default function ThemeBuilderPage() {
   const { setToken, getToken, resetAll, hasOverrides, exportAsJSON, isLoaded } = useThemeOverrides();
   const { selection, editMode, setEditMode, issueCounts } = useThemeBuilder();
   
+  // Store the original theme to restore on unmount
+  const originalThemeRef = React.useRef<string | null>(null);
+  
+  // Toggle dark mode on the page when editMode changes
+  React.useEffect(() => {
+    // Save original theme on first render
+    if (originalThemeRef.current === null) {
+      originalThemeRef.current = document.documentElement.classList.contains("dark") ? "dark" : "light";
+    }
+    
+    // Apply the edit mode theme
+    if (editMode === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    
+    // Restore original theme on unmount
+    return () => {
+      if (originalThemeRef.current === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    };
+  }, [editMode]);
+  
   // Handle beforeunload for unsaved changes
   React.useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -801,6 +828,31 @@ function ComponentPreview({ componentKey }: { componentKey: string }) {
             <input type="range" className="w-full accent-primary" />
           </div>
         </LabeledExample>
+      );
+    case "radioGroup":
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <LabeledExample label="Unselected" tokens={["--wex-content-bg", "--wex-input-border"]}>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full border-2 border-input bg-background" />
+              <WexLabel>Option A</WexLabel>
+            </div>
+          </LabeledExample>
+          <LabeledExample label="Selected" tokens={["--wex-primary", "--wex-primary-contrast"]}>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full border-2 border-primary bg-primary flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground" />
+              </div>
+              <WexLabel>Option B</WexLabel>
+            </div>
+          </LabeledExample>
+          <LabeledExample label="Disabled" tokens={["--wex-disabled-opacity"]}>
+            <div className="flex items-center gap-2 opacity-50">
+              <div className="w-4 h-4 rounded-full border-2 border-input bg-background" />
+              <WexLabel>Disabled</WexLabel>
+            </div>
+          </LabeledExample>
+        </div>
       );
     case "label":
       return (
