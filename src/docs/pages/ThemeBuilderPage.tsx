@@ -427,30 +427,45 @@ function HslTokenRow({ token, editMode, isSelected, onSelect, onChange }: HslTok
   return (
     <div
       className={cn(
-        "flex items-center gap-2 px-2 py-1.5 rounded-md transition-colors",
-        isSelected && "bg-muted/50"
+        "flex items-center justify-between py-1 px-2 -mx-2 rounded-md transition-colors cursor-pointer",
+        isSelected 
+          ? "bg-primary/5 ring-1 ring-primary/20" 
+          : "hover:bg-muted/30"
       )}
+      onClick={onSelect}
     >
-      {/* Color picker input */}
-      <label className="relative w-6 h-6 rounded-sm border border-border/50 overflow-hidden cursor-pointer flex-shrink-0">
-        <input
-          type="color"
-          value={hexValue}
-          onChange={handleColorChange}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-        />
-        <div 
-          className="w-full h-full"
-          style={{ backgroundColor: `hsl(${currentValue})` }}
-        />
-      </label>
-      <div 
-        className="flex flex-col flex-1 cursor-pointer"
-        onClick={onSelect}
-      >
+      {/* Label and value on the left */}
+      <div className="flex flex-col">
         <span className="text-sm font-medium">{token.label}</span>
         <span className="text-xs text-muted-foreground font-mono">{formattedValue}</span>
       </div>
+      
+      {/* Color picker swatch on the right */}
+      <label className="group flex items-center gap-1.5 rounded-md p-1 hover:bg-muted/50 transition-colors cursor-pointer">
+        <div 
+          className="relative w-6 h-6 rounded-sm ring-1 ring-border/30 group-hover:ring-border overflow-hidden flex-shrink-0"
+        >
+          <input
+            type="color"
+            value={hexValue}
+            onChange={handleColorChange}
+            onClick={(e) => e.stopPropagation()}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          />
+          <div 
+            className="w-full h-full"
+            style={{ backgroundColor: `hsl(${currentValue})` }}
+          />
+        </div>
+        <svg 
+          className="w-3.5 h-3.5 text-muted-foreground/40 group-hover:text-muted-foreground transition-colors" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+      </label>
     </div>
   );
 }
@@ -479,44 +494,49 @@ function TokenGroupCard({
 }: TokenGroupCardProps) {
   return (
     <WexCard>
-      <WexCard.Header className="py-3 px-4">
-        <WexCard.Title className="text-sm">{label}</WexCard.Title>
+      <WexCard.Header className="py-3 px-4 pb-2">
+        <WexCard.Title className="text-sm font-semibold">{label}</WexCard.Title>
         <WexCard.Description className="text-xs">{description}</WexCard.Description>
       </WexCard.Header>
-      <WexCard.Content className="p-2 pt-0 space-y-1">
-        {tokens.map(token => {
-          // For tokens with palette references, use the picker
-          if (token.references) {
+      <WexCard.Content className="px-4 pb-3 pt-0">
+        <div className="divide-y divide-border/50">
+          {tokens.map(token => {
+            // For tokens with palette references, use the picker
+            if (token.references) {
+              return (
+                <div
+                  key={token.name}
+                  className={cn(
+                    "py-1.5 px-2 -mx-2 rounded-md transition-colors cursor-pointer",
+                    selectedToken === token.name 
+                      ? "bg-primary/5 ring-1 ring-primary/20" 
+                      : "hover:bg-muted/30"
+                  )}
+                  onClick={() => onSelect(token.name)}
+                >
+                  <TokenRowWithPicker
+                    label={token.label}
+                    value={assignments[token.name] || "slate-500"}
+                    onChange={(value) => onChange(token.name, value)}
+                  />
+                </div>
+              );
+            }
+            
+            // For surface/text tokens without palette refs, show editable color picker
             return (
-              <div
-                key={token.name}
-                className={cn(
-                  "rounded-md transition-colors",
-                  selectedToken === token.name && "bg-muted/50"
-                )}
-                onClick={() => onSelect(token.name)}
-              >
-                <TokenRowWithPicker
-                  label={token.label}
-                  value={assignments[token.name] || "slate-500"}
-                  onChange={(value) => onChange(token.name, value)}
+              <div key={token.name} className="py-1.5">
+                <HslTokenRow
+                  token={token}
+                  editMode={editMode}
+                  isSelected={selectedToken === token.name}
+                  onSelect={() => onSelect(token.name)}
+                  onChange={(hslValue) => onChange(token.name, hslValue)}
                 />
               </div>
             );
-          }
-          
-          // For surface/text tokens without palette refs, show editable color picker
-          return (
-            <HslTokenRow
-              key={token.name}
-              token={token}
-              editMode={editMode}
-              isSelected={selectedToken === token.name}
-              onSelect={() => onSelect(token.name)}
-              onChange={(hslValue) => onChange(token.name, hslValue)}
-            />
-          );
-        })}
+          })}
+        </div>
       </WexCard.Content>
     </WexCard>
   );
