@@ -6,6 +6,7 @@ import { SidebarNav } from "./SidebarNav";
 import { ScrollToTop } from "@/docs/components/ScrollToTop";
 import { ThemeBuilderNav } from "@/docs/components/ThemeBuilderNav";
 import { TokenMapModal } from "@/docs/components/TokenMapModal";
+import { ThemeBuilderProvider } from "@/docs/context/ThemeBuilderContext";
 
 /**
  * Check if there are unsaved theme overrides in localStorage
@@ -29,14 +30,10 @@ function hasThemeOverrides(): boolean {
  * - Scrollable main content area
  * - Theme Builder mode: replaces sidebar with ThemeBuilderNav
  */
-// Pages that need full-width layout (no max-width constraint)
-const FULL_WIDTH_PAGES = ["/theme-builder"];
-
 export function DocsLayout() {
   const location = useLocation();
   const isHome = location.pathname === "/";
   const isThemeBuilder = location.pathname === "/theme-builder";
-  const isFullWidth = FULL_WIDTH_PAGES.includes(location.pathname);
   
   // Token Map modal state
   const [tokenMapOpen, setTokenMapOpen] = React.useState(false);
@@ -76,32 +73,45 @@ export function DocsLayout() {
       <Header />
       
       {/* Sidebar - hidden on home page for full-bleed landing experience */}
-      {/* Theme Builder gets a different sidebar nav */}
-      {!isHome && (
-        <Sidebar>
-          {isThemeBuilder ? (
+      {/* Theme Builder gets wrapped in its own context provider */}
+      {isThemeBuilder ? (
+        <ThemeBuilderProvider lastVisitedPage={undefined}>
+          <Sidebar>
             <ThemeBuilderNav 
               onOpenTokenMap={() => setTokenMapOpen(true)} 
               hasUnsavedChanges={hasUnsavedChanges}
             />
-          ) : (
-            <SidebarNav />
+          </Sidebar>
+          
+          {/* Token Map Modal */}
+          <TokenMapModal open={tokenMapOpen} onOpenChange={setTokenMapOpen} />
+          
+          <main className="relative z-10 min-h-[calc(100vh-3.5rem)] overflow-x-hidden ml-64 p-0">
+            <div className="">
+              <Outlet />
+            </div>
+          </main>
+        </ThemeBuilderProvider>
+      ) : (
+        <>
+          {/* Regular pages */}
+          {!isHome && (
+            <Sidebar>
+              <SidebarNav />
+            </Sidebar>
           )}
-        </Sidebar>
+          
+          <main 
+            className={`relative z-10 min-h-[calc(100vh-3.5rem)] overflow-x-hidden ${
+              isHome ? "ml-0 p-8" : "ml-64 p-8"
+            }`}
+          >
+            <div className={isHome ? "mx-auto max-w-6xl" : "mx-auto max-w-4xl"}>
+              <Outlet />
+            </div>
+          </main>
+        </>
       )}
-      
-      {/* Token Map Modal */}
-      <TokenMapModal open={tokenMapOpen} onOpenChange={setTokenMapOpen} />
-      
-      <main 
-        className={`relative z-10 min-h-[calc(100vh-3.5rem)] overflow-x-hidden ${
-          isHome ? "ml-0 p-8" : isFullWidth ? "ml-64 p-0" : "ml-64 p-8"
-        }`}
-      >
-        <div className={isHome ? "mx-auto max-w-6xl" : isFullWidth ? "" : "mx-auto max-w-4xl"}>
-          <Outlet />
-        </div>
-      </main>
     </div>
   );
 }

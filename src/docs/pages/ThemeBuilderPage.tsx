@@ -20,8 +20,9 @@
 import * as React from "react";
 import { ColorInput } from "@/docs/components/ColorInput";
 import { useThemeOverrides } from "@/docs/hooks/useThemeOverrides";
-import { useThemeBuilderState, type GlobalCategory } from "@/docs/hooks/useThemeBuilderState";
+import { useThemeBuilder, type GlobalCategory } from "@/docs/context/ThemeBuilderContext";
 import { COMPONENT_TOKENS, getComponentTokens } from "@/docs/data/componentTokenMap";
+import { TOKEN_MAPPINGS } from "@/docs/components/TokenMapping";
 import { resolveColorVariable } from "@/docs/utils/contrast";
 import {
   WexButton,
@@ -134,7 +135,7 @@ const SEMANTIC_TOKENS = [
 
 export default function ThemeBuilderPage() {
   const { setToken, getToken, resetAll, hasOverrides, exportAsJSON, isLoaded } = useThemeOverrides();
-  const { selection, editMode, setEditMode, issueCounts } = useThemeBuilderState();
+  const { selection, editMode, setEditMode, issueCounts } = useThemeBuilder();
   
   // Handle beforeunload for unsaved changes
   React.useEffect(() => {
@@ -285,6 +286,7 @@ export default function ThemeBuilderPage() {
       <div className="flex-1 flex overflow-hidden">
         {/* CENTER WORKSPACE */}
         <div className="flex-1 overflow-y-auto p-6 bg-muted/20">
+          <GettingStartedGuide />
           {selection.type === "global" ? (
             <GlobalWorkspace 
               category={selection.category} 
@@ -312,6 +314,65 @@ export default function ThemeBuilderPage() {
 // ============================================================
 // WORKSPACE COMPONENTS
 // ============================================================
+
+// Local storage key for hiding the getting started guide
+const STORAGE_KEY_HIDE_GUIDE = "wex-theme-builder-hide-guide";
+
+function GettingStartedGuide() {
+  const [isHidden, setIsHidden] = React.useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem(STORAGE_KEY_HIDE_GUIDE) === "true";
+  });
+
+  const handleDismiss = () => {
+    setIsHidden(true);
+    localStorage.setItem(STORAGE_KEY_HIDE_GUIDE, "true");
+  };
+
+  if (isHidden) return null;
+
+  return (
+    <div className="mb-6 p-4 rounded-lg border border-primary/30 bg-primary/5">
+      <div className="flex items-start justify-between">
+        <div className="flex items-start gap-3">
+          <div className="p-2 rounded-lg bg-primary/10">
+            <Info className="h-4 w-4 text-primary" />
+          </div>
+          <div>
+            <h3 className="font-medium text-foreground">Welcome to the Theme Builder</h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              Use this tool to customize WEX design tokens and see changes in real-time.
+            </p>
+            <ul className="text-xs text-muted-foreground mt-3 space-y-1.5">
+              <li className="flex items-start gap-2">
+                <span className="font-mono bg-muted px-1 rounded">1</span>
+                <span>Select a <strong>Global Token</strong> category or <strong>Component</strong> from the left rail</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="font-mono bg-muted px-1 rounded">2</span>
+                <span>Edit colors using the <strong>Properties Panel</strong> on the right</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="font-mono bg-muted px-1 rounded">3</span>
+                <span>Preview changes live in the <strong>center workspace</strong></span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="font-mono bg-muted px-1 rounded">4</span>
+                <span>Click <strong>Export</strong> to download a JSON file for your design tokens package</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button 
+          onClick={handleDismiss} 
+          className="text-muted-foreground hover:text-foreground text-xs"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+  );
+}
 
 interface GlobalWorkspaceProps {
   category: GlobalCategory;
@@ -427,17 +488,28 @@ function ComponentWorkspace({ componentKey, editMode }: ComponentWorkspaceProps)
         <ComponentPreview componentKey={componentKey} />
       </div>
 
-      {/* Tokens Used */}
+      {/* Token to Tailwind Mapping */}
       <div className="p-4 rounded-lg border border-border bg-muted/30">
         <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-          Tokens Used ({component.tokens.length})
+          Token → Tailwind Mapping
         </h3>
-        <div className="flex flex-wrap gap-1.5">
-          {component.tokens.map((token) => (
-            <code key={token} className="text-xs bg-background px-2 py-1 rounded border border-border">
-              {token}
-            </code>
-          ))}
+        <div className="space-y-2">
+          {component.tokens.map((token) => {
+            const mapping = TOKEN_MAPPINGS[token];
+            return (
+              <div key={token} className="flex flex-wrap items-center gap-2 text-xs">
+                <code className="font-mono text-primary bg-background px-1.5 py-0.5 rounded border border-border">
+                  {token}
+                </code>
+                <span className="text-muted-foreground">→</span>
+                {mapping?.tailwindUtilities?.slice(0, 3).map((util) => (
+                  <code key={util} className="font-mono bg-muted px-1.5 py-0.5 rounded text-[10px]">
+                    {util}
+                  </code>
+                )) || <span className="text-muted-foreground">-</span>}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -448,132 +520,293 @@ function ComponentWorkspace({ componentKey, editMode }: ComponentWorkspaceProps)
 // COMPONENT PREVIEW RENDERS
 // ============================================================
 
+/**
+ * Wrapper that labels a component example with its token names
+ */
+function LabeledExample({ 
+  label, 
+  tokens, 
+  children,
+  inline = false,
+}: { 
+  label: string; 
+  tokens: string[]; 
+  children: React.ReactNode;
+  inline?: boolean;
+}) {
+  return (
+    <div className={cn(
+      "rounded-lg border border-border/50 bg-muted/10 p-3",
+      inline && "inline-flex flex-col"
+    )}>
+      <div className="mb-2">{children}</div>
+      <div className="text-[10px] text-muted-foreground">
+        <span className="font-medium">{label}</span>
+        {tokens.length > 0 && (
+          <span className="ml-1 font-mono">
+            {tokens.join(", ")}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ComponentPreview({ componentKey }: { componentKey: string }) {
   switch (componentKey) {
     case "button":
       return (
         <div className="space-y-4">
-          <div className="flex flex-wrap gap-3">
-            <WexButton>Primary</WexButton>
-            <WexButton intent="secondary">Secondary</WexButton>
-            <WexButton intent="destructive">Destructive</WexButton>
-            <WexButton intent="outline">Outline</WexButton>
-            <WexButton intent="ghost">Ghost</WexButton>
+          <div className="text-xs font-medium text-muted-foreground mb-2">Variants</div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <LabeledExample label="Primary" tokens={["--wex-primary", "--wex-primary-contrast"]}>
+              <WexButton>Primary</WexButton>
+            </LabeledExample>
+            <LabeledExample label="Secondary" tokens={["--wex-surface-subtle", "--wex-text"]}>
+              <WexButton intent="secondary">Secondary</WexButton>
+            </LabeledExample>
+            <LabeledExample label="Destructive" tokens={["--wex-danger-bg", "--wex-danger-fg"]}>
+              <WexButton intent="destructive">Destructive</WexButton>
+            </LabeledExample>
+            <LabeledExample label="Outline" tokens={["--wex-content-border", "--wex-text"]}>
+              <WexButton intent="outline">Outline</WexButton>
+            </LabeledExample>
+            <LabeledExample label="Ghost" tokens={["--wex-surface-subtle"]}>
+              <WexButton intent="ghost">Ghost</WexButton>
+            </LabeledExample>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <WexButton size="sm">Small</WexButton>
-            <WexButton size="md">Medium</WexButton>
-            <WexButton size="lg">Large</WexButton>
-            <WexButton disabled>Disabled</WexButton>
+          <div className="text-xs font-medium text-muted-foreground mb-2 mt-4">States</div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <LabeledExample label="Disabled" tokens={["--wex-disabled-opacity"]}>
+              <WexButton disabled>Disabled</WexButton>
+            </LabeledExample>
+            <LabeledExample label="Hover" tokens={["--wex-primary-hover"]}>
+              <WexButton className="bg-primary/90">Hover State</WexButton>
+            </LabeledExample>
           </div>
         </div>
       );
     case "badge":
       return (
-        <div className="flex flex-wrap gap-3">
-          <WexBadge>Default</WexBadge>
-          <WexBadge intent="secondary">Secondary</WexBadge>
-          <WexBadge intent="destructive">Destructive</WexBadge>
-          <WexBadge intent="success">Success</WexBadge>
-          <WexBadge intent="warning">Warning</WexBadge>
-          <WexBadge intent="info">Info</WexBadge>
-          <WexBadge intent="outline">Outline</WexBadge>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <LabeledExample label="Default" tokens={["--wex-primary", "--wex-primary-contrast"]}>
+            <WexBadge>Default</WexBadge>
+          </LabeledExample>
+          <LabeledExample label="Secondary" tokens={["--wex-surface-subtle"]}>
+            <WexBadge intent="secondary">Secondary</WexBadge>
+          </LabeledExample>
+          <LabeledExample label="Destructive" tokens={["--wex-danger-bg", "--wex-danger-fg"]}>
+            <WexBadge intent="destructive">Destructive</WexBadge>
+          </LabeledExample>
+          <LabeledExample label="Success" tokens={["--wex-success-bg", "--wex-success-fg"]}>
+            <WexBadge intent="success">Success</WexBadge>
+          </LabeledExample>
+          <LabeledExample label="Warning" tokens={["--wex-warning-bg", "--wex-warning-fg"]}>
+            <WexBadge intent="warning">Warning</WexBadge>
+          </LabeledExample>
+          <LabeledExample label="Info" tokens={["--wex-info-bg", "--wex-info-fg"]}>
+            <WexBadge intent="info">Info</WexBadge>
+          </LabeledExample>
+          <LabeledExample label="Outline" tokens={["--wex-content-border"]}>
+            <WexBadge intent="outline">Outline</WexBadge>
+          </LabeledExample>
         </div>
       );
     case "alert":
       return (
         <div className="space-y-3">
-          <WexAlert>
-            <Info className="h-4 w-4" />
-            <WexAlert.Title>Default Alert</WexAlert.Title>
-            <WexAlert.Description>This is a default alert message.</WexAlert.Description>
-          </WexAlert>
-          <WexAlert intent="success">
-            <CheckCircle className="h-4 w-4" />
-            <WexAlert.Title>Success</WexAlert.Title>
-          </WexAlert>
-          <WexAlert intent="warning">
-            <AlertTriangle className="h-4 w-4" />
-            <WexAlert.Title>Warning</WexAlert.Title>
-          </WexAlert>
-          <WexAlert intent="destructive">
-            <AlertTriangle className="h-4 w-4" />
-            <WexAlert.Title>Error</WexAlert.Title>
-          </WexAlert>
+          <LabeledExample label="Default" tokens={["--wex-content-bg", "--wex-content-border"]}>
+            <WexAlert>
+              <Info className="h-4 w-4" />
+              <WexAlert.Title>Default Alert</WexAlert.Title>
+              <WexAlert.Description>Default alert styling.</WexAlert.Description>
+            </WexAlert>
+          </LabeledExample>
+          <LabeledExample label="Success" tokens={["--wex-success-bg", "--wex-success-fg"]}>
+            <WexAlert intent="success">
+              <CheckCircle className="h-4 w-4" />
+              <WexAlert.Title>Success</WexAlert.Title>
+            </WexAlert>
+          </LabeledExample>
+          <LabeledExample label="Warning" tokens={["--wex-warning-bg", "--wex-warning-fg"]}>
+            <WexAlert intent="warning">
+              <AlertTriangle className="h-4 w-4" />
+              <WexAlert.Title>Warning</WexAlert.Title>
+            </WexAlert>
+          </LabeledExample>
+          <LabeledExample label="Destructive" tokens={["--wex-danger-bg", "--wex-danger-fg"]}>
+            <WexAlert intent="destructive">
+              <AlertTriangle className="h-4 w-4" />
+              <WexAlert.Title>Error</WexAlert.Title>
+            </WexAlert>
+          </LabeledExample>
+          <LabeledExample label="Info" tokens={["--wex-info-bg", "--wex-info-fg"]}>
+            <WexAlert intent="info">
+              <Info className="h-4 w-4" />
+              <WexAlert.Title>Informational</WexAlert.Title>
+            </WexAlert>
+          </LabeledExample>
         </div>
       );
     case "card":
       return (
-        <WexCard className="max-w-sm">
-          <WexCard.Header>
-            <WexCard.Title>Card Title</WexCard.Title>
-            <WexCard.Description>Card description text goes here.</WexCard.Description>
-          </WexCard.Header>
-          <WexCard.Content>
-            <p className="text-sm text-muted-foreground">
-              This demonstrates surface and text token usage.
-            </p>
-          </WexCard.Content>
-        </WexCard>
+        <LabeledExample label="Card" tokens={["--wex-content-bg", "--wex-content-border", "--wex-text", "--wex-text-muted"]}>
+          <WexCard className="max-w-sm">
+            <WexCard.Header>
+              <WexCard.Title>Card Title</WexCard.Title>
+              <WexCard.Description>Card description text.</WexCard.Description>
+            </WexCard.Header>
+            <WexCard.Content>
+              <p className="text-sm text-muted-foreground">Content area.</p>
+            </WexCard.Content>
+          </WexCard>
+        </LabeledExample>
       );
     case "input":
       return (
-        <div className="space-y-3 max-w-sm">
-          <WexInput placeholder="Default input" />
-          <WexInput placeholder="Disabled" disabled />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-lg">
+          <LabeledExample label="Default" tokens={["--wex-content-bg", "--wex-input-border"]}>
+            <WexInput placeholder="Default input" />
+          </LabeledExample>
+          <LabeledExample label="Disabled" tokens={["--wex-disabled-opacity"]}>
+            <WexInput placeholder="Disabled" disabled />
+          </LabeledExample>
+          <LabeledExample label="Focus" tokens={["--wex-focus-ring-color"]}>
+            <WexInput placeholder="Focus state" className="ring-2 ring-ring" />
+          </LabeledExample>
         </div>
       );
     case "checkbox":
       return (
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <WexCheckbox id="cb1" />
-            <WexLabel htmlFor="cb1">Unchecked</WexLabel>
-          </div>
-          <div className="flex items-center gap-2">
-            <WexCheckbox id="cb2" defaultChecked />
-            <WexLabel htmlFor="cb2">Checked</WexLabel>
-          </div>
-          <div className="flex items-center gap-2">
-            <WexCheckbox id="cb3" disabled />
-            <WexLabel htmlFor="cb3">Disabled</WexLabel>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <LabeledExample label="Unchecked" tokens={["--wex-content-bg", "--wex-input-border"]}>
+            <div className="flex items-center gap-2">
+              <WexCheckbox id="cb1" />
+              <WexLabel htmlFor="cb1">Option</WexLabel>
+            </div>
+          </LabeledExample>
+          <LabeledExample label="Checked" tokens={["--wex-primary", "--wex-primary-contrast"]}>
+            <div className="flex items-center gap-2">
+              <WexCheckbox id="cb2" defaultChecked />
+              <WexLabel htmlFor="cb2">Selected</WexLabel>
+            </div>
+          </LabeledExample>
+          <LabeledExample label="Disabled" tokens={["--wex-disabled-opacity"]}>
+            <div className="flex items-center gap-2">
+              <WexCheckbox id="cb3" disabled />
+              <WexLabel htmlFor="cb3">Disabled</WexLabel>
+            </div>
+          </LabeledExample>
         </div>
       );
     case "switch":
       return (
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <WexSwitch id="sw1" />
-            <WexLabel htmlFor="sw1">Off</WexLabel>
-          </div>
-          <div className="flex items-center gap-2">
-            <WexSwitch id="sw2" defaultChecked />
-            <WexLabel htmlFor="sw2">On</WexLabel>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <LabeledExample label="Off" tokens={["--wex-surface-subtle"]}>
+            <div className="flex items-center gap-2">
+              <WexSwitch id="sw1" />
+              <WexLabel htmlFor="sw1">Off</WexLabel>
+            </div>
+          </LabeledExample>
+          <LabeledExample label="On" tokens={["--wex-primary", "--wex-primary-contrast"]}>
+            <div className="flex items-center gap-2">
+              <WexSwitch id="sw2" defaultChecked />
+              <WexLabel htmlFor="sw2">On</WexLabel>
+            </div>
+          </LabeledExample>
+          <LabeledExample label="Disabled" tokens={["--wex-disabled-opacity"]}>
+            <div className="flex items-center gap-2">
+              <WexSwitch id="sw3" disabled />
+              <WexLabel htmlFor="sw3">Disabled</WexLabel>
+            </div>
+          </LabeledExample>
         </div>
       );
     case "progress":
       return (
         <div className="space-y-3 max-w-md">
-          <WexProgress value={25} />
-          <WexProgress value={50} />
-          <WexProgress value={75} />
-          <WexProgress value={100} />
+          <LabeledExample label="Progress" tokens={["--wex-primary", "--wex-surface-subtle"]}>
+            <div className="space-y-2">
+              <WexProgress value={25} />
+              <WexProgress value={75} />
+            </div>
+          </LabeledExample>
         </div>
       );
     case "tabs":
       return (
-        <WexTabs defaultValue="tab1" className="max-w-md">
-          <WexTabs.List>
-            <WexTabs.Trigger value="tab1">Tab 1</WexTabs.Trigger>
-            <WexTabs.Trigger value="tab2">Tab 2</WexTabs.Trigger>
-            <WexTabs.Trigger value="tab3">Tab 3</WexTabs.Trigger>
-          </WexTabs.List>
-          <WexTabs.Content value="tab1" className="p-4">Tab 1 content</WexTabs.Content>
-          <WexTabs.Content value="tab2" className="p-4">Tab 2 content</WexTabs.Content>
-          <WexTabs.Content value="tab3" className="p-4">Tab 3 content</WexTabs.Content>
-        </WexTabs>
+        <LabeledExample label="Tabs" tokens={["--wex-content-bg", "--wex-surface-subtle", "--wex-text"]}>
+          <WexTabs defaultValue="tab1" className="max-w-md">
+            <WexTabs.List>
+              <WexTabs.Trigger value="tab1">Tab 1</WexTabs.Trigger>
+              <WexTabs.Trigger value="tab2">Tab 2</WexTabs.Trigger>
+              <WexTabs.Trigger value="tab3">Tab 3</WexTabs.Trigger>
+            </WexTabs.List>
+            <WexTabs.Content value="tab1" className="p-4">Tab 1 content</WexTabs.Content>
+            <WexTabs.Content value="tab2" className="p-4">Tab 2 content</WexTabs.Content>
+            <WexTabs.Content value="tab3" className="p-4">Tab 3 content</WexTabs.Content>
+          </WexTabs>
+        </LabeledExample>
+      );
+    case "separator":
+      return (
+        <LabeledExample label="Separator" tokens={["--wex-content-border"]}>
+          <div className="space-y-4">
+            <p className="text-sm">Content above</p>
+            <WexSeparator />
+            <p className="text-sm">Content below</p>
+          </div>
+        </LabeledExample>
+      );
+    case "tooltip":
+      return (
+        <LabeledExample label="Tooltip" tokens={["--wex-primary", "--wex-primary-contrast"]}>
+          <WexTooltip>
+            <WexTooltip.Trigger asChild>
+              <WexButton intent="outline">Hover me</WexButton>
+            </WexTooltip.Trigger>
+            <WexTooltip.Content>
+              <p>Tooltip content</p>
+            </WexTooltip.Content>
+          </WexTooltip>
+        </LabeledExample>
+      );
+    case "skeleton":
+      return (
+        <LabeledExample label="Skeleton" tokens={["--wex-surface-subtle"]}>
+          <div className="space-y-2">
+            <div className="h-4 w-full bg-muted animate-pulse rounded" />
+            <div className="h-4 w-3/4 bg-muted animate-pulse rounded" />
+            <div className="h-4 w-1/2 bg-muted animate-pulse rounded" />
+          </div>
+        </LabeledExample>
+      );
+    case "avatar":
+      return (
+        <LabeledExample label="Avatar" tokens={["--wex-surface-subtle", "--wex-text-muted"]}>
+          <div className="flex gap-3 items-center">
+            <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground text-sm font-medium">
+              JD
+            </div>
+            <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground text-sm font-medium">
+              AB
+            </div>
+          </div>
+        </LabeledExample>
+      );
+    case "slider":
+      return (
+        <LabeledExample label="Slider" tokens={["--wex-primary", "--wex-surface-subtle"]}>
+          <div className="w-64">
+            <input type="range" className="w-full accent-primary" />
+          </div>
+        </LabeledExample>
+      );
+    case "label":
+      return (
+        <LabeledExample label="Label" tokens={["--wex-text"]}>
+          <WexLabel>Form Label</WexLabel>
+        </LabeledExample>
       );
     default:
       return (
@@ -662,13 +895,54 @@ function RadiiPreview() {
 
 function BrandPreview() {
   return (
-    <div className="flex items-center gap-6">
-      <div className="w-24 h-24 bg-[hsl(var(--wex-brand-red))] rounded-lg flex items-center justify-center">
-        <span className="text-white font-bold text-xl">WEX</span>
+    <div className="space-y-6">
+      {/* Primary Brand Mark */}
+      <div className="flex items-center gap-6">
+        <div className="w-24 h-24 bg-[hsl(var(--wex-brand-red))] rounded-lg flex items-center justify-center shadow-md">
+          <span className="text-white font-bold text-2xl">WEX</span>
+        </div>
+        <div>
+          <p className="font-semibold text-foreground">WEX Brand Red</p>
+          <p className="text-sm text-muted-foreground">
+            Core brand color (#C8102E) - typically read-only
+          </p>
+          <code className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded mt-2 inline-block">
+            --wex-brand-red
+          </code>
+        </div>
       </div>
-      <div>
-        <p className="font-semibold text-foreground">WEX Brand Red</p>
-        <p className="text-sm text-muted-foreground">Core brand color - typically read-only</p>
+
+      {/* Usage Examples */}
+      <div className="pt-4 border-t border-border">
+        <p className="text-xs font-medium text-muted-foreground uppercase mb-3">Usage Examples</p>
+        <div className="flex flex-wrap gap-4">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-[hsl(var(--wex-brand-red))] rounded flex items-center justify-center">
+              <span className="text-white font-bold">W</span>
+            </div>
+            <span className="text-xs text-muted-foreground mt-1 block">Logo</span>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-[hsl(var(--wex-brand-red))] rounded flex items-center justify-center">
+              <span className="text-[hsl(var(--wex-brand-red))] font-bold">W</span>
+            </div>
+            <span className="text-xs text-muted-foreground mt-1 block">Border</span>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-[hsl(var(--wex-brand-red))]/10 rounded flex items-center justify-center">
+              <span className="text-[hsl(var(--wex-brand-red))] font-bold">W</span>
+            </div>
+            <span className="text-xs text-muted-foreground mt-1 block">Tinted BG</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Note */}
+      <div className="p-3 rounded-lg bg-muted/50 border border-border/50">
+        <p className="text-xs text-muted-foreground">
+          <strong>Note:</strong> Brand colors are typically not edited by individual developers.
+          Changes to brand colors should go through the central design team and brand guidelines.
+        </p>
       </div>
     </div>
   );
@@ -724,13 +998,12 @@ function PropertiesPanel({
       </div>
       
       {/* Token Editors */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-3 space-y-3">
         {tokensToShow.map((tokenDef) => (
           <ColorInput
             key={tokenDef.token}
             token={tokenDef.token}
             label={tokenDef.label}
-            description={tokenDef.description}
             value={getTokenValue(tokenDef.token)}
             onChange={(v) => onTokenChange(tokenDef.token, v)}
           />

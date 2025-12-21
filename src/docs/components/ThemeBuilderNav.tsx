@@ -27,10 +27,10 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { 
-  useThemeBuilderState, 
+  useThemeBuilder, 
   getComponentsWithIssues,
   type GlobalCategory,
-} from "@/docs/hooks/useThemeBuilderState";
+} from "@/docs/context/ThemeBuilderContext";
 import { COMPONENT_TOKENS, getAllComponentKeys } from "@/docs/data/componentTokenMap";
 
 interface ThemeBuilderNavProps {
@@ -59,7 +59,7 @@ export function ThemeBuilderNav({ onOpenTokenMap, hasUnsavedChanges = false }: T
     selectComponent, 
     exitThemeBuilder,
     editMode,
-  } = useThemeBuilderState();
+  } = useThemeBuilder();
 
   // Handle exit with unsaved changes warning
   const handleExit = React.useCallback(() => {

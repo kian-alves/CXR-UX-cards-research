@@ -11,7 +11,6 @@
 import * as React from "react";
 import { WexInput, WexLabel } from "@/components/wex";
 import { hexToToken, tokenToHex, isValidHex, parseHSL, formatHSL } from "@/docs/utils/color-convert";
-import { TokenMappingInline } from "@/docs/components/TokenMapping";
 import { cn } from "@/lib/utils";
 
 interface ColorInputProps {
@@ -23,8 +22,6 @@ interface ColorInputProps {
   value: string;
   /** Called when value changes */
   onChange: (value: string) => void;
-  /** Optional description */
-  description?: string;
   /** Optional className */
   className?: string;
 }
@@ -34,7 +31,6 @@ export function ColorInput({
   label,
   value,
   onChange,
-  description,
   className,
 }: ColorInputProps) {
   const [hexValue, setHexValue] = React.useState("");
@@ -109,28 +105,19 @@ export function ColorInput({
   const displayHex = tokenToHex(value) || "#000000";
 
   return (
-    <div className={cn("space-y-2", className)}>
-      <div className="space-y-1">
-        <div className="flex items-center gap-2">
-          <WexLabel className="text-sm font-medium">{label}</WexLabel>
-          <code className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-            {token}
-          </code>
-        </div>
-        
-        {description && (
-          <p className="text-xs text-muted-foreground">{description}</p>
-        )}
-        
-        {/* Token to Tailwind mapping */}
-        <TokenMappingInline token={token} />
+    <div className={cn("space-y-1.5", className)}>
+      <div className="flex items-center gap-1.5">
+        <WexLabel className="text-xs font-medium">{label}</WexLabel>
+        <code className="text-[9px] text-muted-foreground bg-muted px-1 py-0.5 rounded">
+          {token}
+        </code>
       </div>
       
-      <div className="flex items-end gap-3">
+      <div className="flex items-end gap-2">
         {/* Color swatch with native picker */}
         <div className="relative flex-shrink-0">
           <div
-            className="w-10 h-10 rounded-md border border-border shadow-sm cursor-pointer"
+            className="w-8 h-8 rounded-md border border-border shadow-sm cursor-pointer"
             style={{ backgroundColor: `hsl(${value})` }}
           />
           <input
@@ -143,51 +130,51 @@ export function ColorInput({
         </div>
         
         {/* Hex input */}
-        <div className="flex flex-col gap-1">
-          <span className="text-[10px] text-muted-foreground">Hex</span>
+        <div className="flex flex-col gap-0.5">
+          <span className="text-[9px] text-muted-foreground">Hex</span>
           <WexInput
             value={hexValue}
             onChange={handleHexChange}
             onFocus={() => setIsHexFocused(true)}
             onBlur={handleHexBlur}
-            placeholder="#000000"
-            className="w-24 font-mono text-sm h-10"
+            placeholder="#000"
+            className="w-20 font-mono text-xs h-8"
           />
         </div>
         
         {/* HSL inputs */}
-        <div className="flex items-end gap-2">
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] text-muted-foreground text-center">H°</span>
+        <div className="flex items-end gap-1">
+          <div className="flex flex-col gap-0.5">
+            <span className="text-[9px] text-muted-foreground text-center">H°</span>
             <WexInput
               type="number"
               min={0}
               max={360}
               value={hsl?.h ?? 0}
               onChange={(e) => handleHSLChange("h", e.target.value)}
-              className="w-14 h-10 text-xs text-center font-mono"
+              className="w-10 h-8 text-[10px] text-center font-mono"
             />
           </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] text-muted-foreground text-center">S%</span>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-[9px] text-muted-foreground text-center">S%</span>
             <WexInput
               type="number"
               min={0}
               max={100}
               value={hsl?.s ?? 0}
               onChange={(e) => handleHSLChange("s", e.target.value)}
-              className="w-14 h-10 text-xs text-center font-mono"
+              className="w-10 h-8 text-[10px] text-center font-mono"
             />
           </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] text-muted-foreground text-center">L%</span>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-[9px] text-muted-foreground text-center">L%</span>
             <WexInput
               type="number"
               min={0}
               max={100}
               value={hsl?.l ?? 0}
               onChange={(e) => handleHSLChange("l", e.target.value)}
-              className="w-14 h-10 text-xs text-center font-mono"
+              className="w-10 h-8 text-[10px] text-center font-mono"
             />
           </div>
         </div>
