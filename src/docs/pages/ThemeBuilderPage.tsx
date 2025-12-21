@@ -16,13 +16,14 @@ import {
   SEMANTIC_TOKENS, 
   SURFACE_TOKENS, 
   TEXT_TOKENS, 
-  getAffectedComponents,
+  getAffectedComponentsForMode,
   detectTokenConflicts,
   type PaletteRamp,
   type TokenDefinition,
 } from "@/docs/data/tokenRegistry";
-import { getSemanticTokensForPalette } from "@/docs/components/TokenMapping";
-import { WexButton, WexBadge, WexAlert, WexCard, WexInput, WexTabs } from "@/components/wex";
+import { getSemanticTokensForPaletteWithMode } from "@/docs/components/TokenMapping";
+import { hexToHSL, hslToHex } from "@/docs/utils/color-convert";
+import { WexButton, WexBadge, WexAlert, WexCard, WexInput, WexTabs, WexProgress, WexSwitch } from "@/components/wex";
 import { 
   Palette, 
   Sun, 
@@ -123,6 +124,7 @@ function TokenEditor({ token, mode, onColorChange }: TokenEditorProps) {
   const [hue, setHue] = React.useState(0);
   const [saturation, setSaturation] = React.useState(0);
   const [lightness, setLightness] = React.useState(0);
+  const [hexValue, setHexValue] = React.useState("");
   
   // Parse the current CSS variable value
   React.useEffect(() => {
@@ -130,22 +132,43 @@ function TokenEditor({ token, mode, onColorChange }: TokenEditorProps) {
     const value = getComputedStyle(root).getPropertyValue(token).trim();
     const parts = value.split(" ");
     if (parts.length >= 3) {
-      setHue(parseFloat(parts[0]) || 0);
-      setSaturation(parseFloat(parts[1]) || 0);
-      setLightness(parseFloat(parts[2]) || 0);
+      const h = parseFloat(parts[0]) || 0;
+      const s = parseFloat(parts[1]) || 0;
+      const l = parseFloat(parts[2]) || 0;
+      setHue(h);
+      setSaturation(s);
+      setLightness(l);
+      setHexValue(hslToHex({ h, s, l }));
     }
   }, [token, mode]);
   
-  const handleChange = (h: number, s: number, l: number) => {
+  const handleHslChange = (h: number, s: number, l: number) => {
     setHue(h);
     setSaturation(s);
     setLightness(l);
+    setHexValue(hslToHex({ h, s, l }));
     onColorChange(token, `${h} ${s}% ${l}%`);
   };
   
-  // Get semantic tokens that reference this palette token
-  const referencingTokens = getSemanticTokensForPalette(token);
-  const affectedComponents = getAffectedComponents(token);
+  const handleHexChange = (hex: string) => {
+    setHexValue(hex);
+    // Only convert if it's a valid hex
+    if (/^#?[0-9A-Fa-f]{6}$/.test(hex)) {
+      const cleanHex = hex.startsWith("#") ? hex : `#${hex}`;
+      const hsl = hexToHSL(cleanHex);
+      if (hsl) {
+        setHue(hsl.h);
+        setSaturation(hsl.s);
+        setLightness(hsl.l);
+        onColorChange(token, `${hsl.h} ${hsl.s}% ${hsl.l}%`);
+      }
+    }
+  };
+  
+  // Get semantic tokens that reference this palette token for CURRENT mode only
+  const paletteRefs = getSemanticTokensForPaletteWithMode(token);
+  const currentModeRefs = paletteRefs.filter(ref => ref.mode === mode || ref.mode === "both");
+  const affectedComponents = getAffectedComponentsForMode(token, mode);
   
   return (
     <div className="space-y-6 p-4">
@@ -158,8 +181,28 @@ function TokenEditor({ token, mode, onColorChange }: TokenEditorProps) {
         />
       </div>
       
+      {/* Hex Input */}
+      <div className="space-y-1">
+        <label className="text-xs text-muted-foreground">Hex</label>
+        <div className="flex gap-2">
+          <input
+            type="color"
+            value={hexValue.startsWith("#") ? hexValue : `#${hexValue}`}
+            onChange={(e) => handleHexChange(e.target.value)}
+            className="w-10 h-8 rounded border border-border cursor-pointer"
+          />
+          <WexInput
+            type="text"
+            value={hexValue}
+            onChange={(e) => handleHexChange(e.target.value)}
+            placeholder="#000000"
+            className="h-8 text-sm font-mono flex-1"
+          />
+        </div>
+      </div>
+      
       {/* HSL Inputs */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-2">
         <div className="space-y-1">
           <label className="text-xs text-muted-foreground">H°</label>
           <WexInput
@@ -167,7 +210,7 @@ function TokenEditor({ token, mode, onColorChange }: TokenEditorProps) {
             min={0}
             max={360}
             value={hue}
-            onChange={(e) => handleChange(Number(e.target.value), saturation, lightness)}
+            onChange={(e) => handleHslChange(Number(e.target.value), saturation, lightness)}
             className="h-8 text-sm"
           />
         </div>
@@ -178,7 +221,7 @@ function TokenEditor({ token, mode, onColorChange }: TokenEditorProps) {
             min={0}
             max={100}
             value={saturation}
-            onChange={(e) => handleChange(hue, Number(e.target.value), lightness)}
+            onChange={(e) => handleHslChange(hue, Number(e.target.value), lightness)}
             className="h-8 text-sm"
           />
         </div>
@@ -189,20 +232,20 @@ function TokenEditor({ token, mode, onColorChange }: TokenEditorProps) {
             min={0}
             max={100}
             value={lightness}
-            onChange={(e) => handleChange(hue, saturation, Number(e.target.value))}
+            onChange={(e) => handleHslChange(hue, saturation, Number(e.target.value))}
             className="h-8 text-sm"
           />
         </div>
       </div>
       
-      {/* Cascade Information */}
-      {referencingTokens.length > 0 && (
+      {/* Cascade Information - filtered to current mode */}
+      {currentModeRefs.length > 0 && (
         <div className="space-y-3 pt-4 border-t border-border/50">
           <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-            Cascade
+            Maps to ({mode} mode)
           </h4>
           <div className="space-y-2">
-            {referencingTokens.map((semantic) => (
+            {currentModeRefs.map(({ token: semantic }) => (
               <div key={semantic} className="flex items-center gap-2 text-xs">
                 <ChevronRight className="w-3 h-3 text-muted-foreground" />
                 <code className="font-mono text-primary">{semantic}</code>
@@ -240,63 +283,114 @@ interface ComponentPreviewProps {
 }
 
 function ComponentPreview({ components }: ComponentPreviewProps) {
-  // Render sample components based on what's affected
-  const hasButton = components.some(c => c.includes("Button"));
-  const hasBadge = components.some(c => c.includes("Badge"));
-  const hasAlert = components.some(c => c.includes("Alert"));
+  // Always show all component examples so users can see full impact
+  // Highlight which ones are affected by the current selection
+  const isAffected = (name: string) => components.some(c => c.includes(name));
   
   return (
     <div className="space-y-4 p-4 bg-muted/20 rounded-lg">
       <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
         Live Preview
+        {components.length > 0 && (
+          <span className="ml-2 text-primary">({components.length} affected)</span>
+        )}
       </h4>
       
       <div className="space-y-4">
-        {hasButton && (
-          <div className="space-y-2">
-            <span className="text-xs text-muted-foreground">Buttons</span>
-            <div className="flex flex-wrap gap-2">
-              <WexButton size="sm">Primary</WexButton>
-              <WexButton size="sm" intent="destructive">Destructive</WexButton>
-              <WexButton size="sm" intent="outline">Outline</WexButton>
-            </div>
+        {/* Buttons */}
+        <div className={cn("space-y-2 p-2 rounded", isAffected("Button") && "bg-primary/5 ring-1 ring-primary/20")}>
+          <span className="text-xs text-muted-foreground flex items-center gap-2">
+            Buttons
+            {isAffected("Button") && <WexBadge intent="info" className="text-[9px] px-1 py-0">affected</WexBadge>}
+          </span>
+          <div className="flex flex-wrap gap-2">
+            <WexButton size="sm">Primary</WexButton>
+            <WexButton size="sm" intent="destructive">Destructive</WexButton>
+            <WexButton size="sm" intent="outline">Outline</WexButton>
+            <WexButton size="sm" intent="secondary">Secondary</WexButton>
+            <WexButton size="sm" intent="ghost">Ghost</WexButton>
           </div>
-        )}
+        </div>
         
-        {hasBadge && (
-          <div className="space-y-2">
-            <span className="text-xs text-muted-foreground">Badges</span>
-            <div className="flex flex-wrap gap-2">
-              <WexBadge>Default</WexBadge>
-              <WexBadge intent="destructive">Destructive</WexBadge>
-              <WexBadge intent="success">Success</WexBadge>
-              <WexBadge intent="warning">Warning</WexBadge>
-              <WexBadge intent="info">Info</WexBadge>
-            </div>
+        {/* Badges */}
+        <div className={cn("space-y-2 p-2 rounded", isAffected("Badge") && "bg-primary/5 ring-1 ring-primary/20")}>
+          <span className="text-xs text-muted-foreground flex items-center gap-2">
+            Badges
+            {isAffected("Badge") && <WexBadge intent="info" className="text-[9px] px-1 py-0">affected</WexBadge>}
+          </span>
+          <div className="flex flex-wrap gap-2">
+            <WexBadge>Default</WexBadge>
+            <WexBadge intent="secondary">Secondary</WexBadge>
+            <WexBadge intent="destructive">Destructive</WexBadge>
+            <WexBadge intent="success">Success</WexBadge>
+            <WexBadge intent="warning">Warning</WexBadge>
+            <WexBadge intent="info">Info</WexBadge>
           </div>
-        )}
+        </div>
         
-        {hasAlert && (
-          <div className="space-y-2">
-            <span className="text-xs text-muted-foreground">Alerts</span>
-            <div className="space-y-2">
-              <WexAlert intent="success">
-                <Check className="h-4 w-4" />
-                <WexAlert.Title>Success</WexAlert.Title>
-              </WexAlert>
-              <WexAlert intent="destructive">
-                <AlertTriangle className="h-4 w-4" />
-                <WexAlert.Title>Error</WexAlert.Title>
-              </WexAlert>
-            </div>
+        {/* Progress */}
+        <div className={cn("space-y-2 p-2 rounded", isAffected("Progress") && "bg-primary/5 ring-1 ring-primary/20")}>
+          <span className="text-xs text-muted-foreground flex items-center gap-2">
+            Progress
+            {isAffected("Progress") && <WexBadge intent="info" className="text-[9px] px-1 py-0">affected</WexBadge>}
+          </span>
+          <WexProgress value={65} className="w-48" />
+        </div>
+        
+        {/* Switch */}
+        <div className={cn("space-y-2 p-2 rounded", isAffected("Switch") && "bg-primary/5 ring-1 ring-primary/20")}>
+          <span className="text-xs text-muted-foreground flex items-center gap-2">
+            Switch
+            {isAffected("Switch") && <WexBadge intent="info" className="text-[9px] px-1 py-0">affected</WexBadge>}
+          </span>
+          <div className="flex items-center gap-4">
+            <WexSwitch defaultChecked />
+            <WexSwitch />
           </div>
-        )}
+        </div>
         
-        {components.length === 0 && (
-          <p className="text-sm text-muted-foreground">
-            Select a token to see affected components
+        {/* Focus Ring */}
+        <div className={cn("space-y-2 p-2 rounded", isAffected("focus") && "bg-primary/5 ring-1 ring-primary/20")}>
+          <span className="text-xs text-muted-foreground flex items-center gap-2">
+            Focus Ring
+            {isAffected("focus") && <WexBadge intent="info" className="text-[9px] px-1 py-0">affected</WexBadge>}
+          </span>
+          <div className="flex flex-wrap gap-3">
+            <WexButton size="sm" intent="outline">
+              Tab to focus
+            </WexButton>
+            <WexInput placeholder="Focus here" className="w-32" />
+          </div>
+          <p className="text-[10px] text-muted-foreground mt-1">
+            Focus ring color applies when elements receive keyboard focus
           </p>
-        )}
+        </div>
+        
+        {/* Alerts */}
+        <div className={cn("space-y-2 p-2 rounded", isAffected("Alert") && "bg-primary/5 ring-1 ring-primary/20")}>
+          <span className="text-xs text-muted-foreground flex items-center gap-2">
+            Alerts
+            {isAffected("Alert") && <WexBadge intent="info" className="text-[9px] px-1 py-0">affected</WexBadge>}
+          </span>
+          <div className="space-y-2">
+            <WexAlert>
+              <Info className="h-4 w-4" />
+              <WexAlert.Title>Default Alert</WexAlert.Title>
+            </WexAlert>
+            <WexAlert intent="success">
+              <Check className="h-4 w-4" />
+              <WexAlert.Title>Success</WexAlert.Title>
+            </WexAlert>
+            <WexAlert intent="warning">
+              <AlertTriangle className="h-4 w-4" />
+              <WexAlert.Title>Warning</WexAlert.Title>
+            </WexAlert>
+            <WexAlert intent="destructive">
+              <AlertTriangle className="h-4 w-4" />
+              <WexAlert.Title>Error</WexAlert.Title>
+            </WexAlert>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -383,9 +477,9 @@ export default function ThemeBuilderPage() {
     }
   }, [resetAll, overrides]);
   
-  // Get affected components for current selection
+  // Get affected components for current selection (mode-aware)
   const affectedComponents = selectedToken 
-    ? getAffectedComponents(selectedToken) 
+    ? getAffectedComponentsForMode(selectedToken, editMode) 
     : [];
   
   // Detect token conflicts
@@ -578,54 +672,68 @@ export default function ThemeBuilderPage() {
               ))}
               
               {/* Cascade Visualization */}
-              {selectedToken && (
-                <WexCard className="mt-6">
-                  <WexCard.Header>
-                    <WexCard.Title className="text-sm">Cascade Chain</WexCard.Title>
-                    <WexCard.Description>
-                      Changing this color affects the following tokens and components
-                    </WexCard.Description>
-                  </WexCard.Header>
-                  <WexCard.Content>
-                    <div className="space-y-4">
-                      {/* Semantic tokens referencing this palette */}
-                      {getSemanticTokensForPalette(selectedToken).length > 0 ? (
-                        <>
-                          <div className="flex items-center gap-2">
-                            <div 
-                              className="w-8 h-8 rounded-md border border-border/50"
-                              style={{ backgroundColor: `hsl(var(${selectedToken}))` }}
-                            />
-                            <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                            <div className="flex flex-wrap gap-2">
-                              {getSemanticTokensForPalette(selectedToken).map((semantic) => (
-                                <code key={semantic} className="text-xs font-mono bg-muted px-2 py-1 rounded">
-                                  {semantic}
-                                </code>
-                              ))}
+              {selectedToken && (() => {
+                const allPaletteRefs = getSemanticTokensForPaletteWithMode(selectedToken);
+                // Filter to show only current mode
+                const currentModeRefs = allPaletteRefs.filter(ref => ref.mode === editMode || ref.mode === "both");
+                const otherModeRefs = allPaletteRefs.filter(ref => ref.mode !== editMode && ref.mode !== "both");
+                
+                return (
+                  <WexCard className="mt-6">
+                    <WexCard.Header>
+                      <WexCard.Title className="text-sm">
+                        Cascade Chain ({editMode === "light" ? "Light" : "Dark"} Mode)
+                      </WexCard.Title>
+                      <WexCard.Description>
+                        Changing this color affects the following tokens and components
+                      </WexCard.Description>
+                    </WexCard.Header>
+                    <WexCard.Content>
+                      <div className="space-y-4">
+                        {/* Current mode references */}
+                        {currentModeRefs.length > 0 ? (
+                          <>
+                            <div className="flex items-start gap-2">
+                              <div 
+                                className="w-8 h-8 rounded-md border border-border/50 flex-shrink-0"
+                                style={{ backgroundColor: `hsl(var(${selectedToken}))` }}
+                              />
+                              <ChevronRight className="w-4 h-4 text-muted-foreground mt-2" />
+                              <div className="flex flex-wrap gap-2">
+                                {currentModeRefs.map(({ token }) => (
+                                  <code key={token} className="text-xs font-mono bg-primary/10 text-primary px-2 py-1 rounded">
+                                    {token}
+                                  </code>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                          
-                          <div className="pl-12 flex items-center gap-2">
-                            <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                            <div className="flex flex-wrap gap-1">
-                              {affectedComponents.map((comp) => (
-                                <WexBadge key={comp} intent="secondary" className="text-xs">
-                                  {comp}
-                                </WexBadge>
-                              ))}
+                            
+                            <div className="pl-12 flex items-center gap-2">
+                              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                              <div className="flex flex-wrap gap-1">
+                                {affectedComponents.map((comp) => (
+                                  <WexBadge key={comp} intent="secondary" className="text-xs">
+                                    {comp}
+                                  </WexBadge>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        </>
-                      ) : (
-                        <p className="text-sm text-muted-foreground">
-                          This palette shade is not currently referenced by any semantic token.
-                        </p>
-                      )}
-                    </div>
-                  </WexCard.Content>
-                </WexCard>
-              )}
+                          </>
+                        ) : (
+                          <p className="text-sm text-muted-foreground">
+                            This palette shade is not used in {editMode} mode.
+                            {otherModeRefs.length > 0 && (
+                              <span className="block mt-1">
+                                (Used in {editMode === "light" ? "dark" : "light"} mode by: {otherModeRefs.map(r => r.token).join(", ")})
+                              </span>
+                            )}
+                          </p>
+                        )}
+                      </div>
+                    </WexCard.Content>
+                  </WexCard>
+                );
+              })()}
               
               {/* Component Preview */}
               {affectedComponents.length > 0 && (

@@ -586,11 +586,53 @@ export function getTokensReferencingPalette(paletteToken: string): string[] {
 }
 
 /**
- * Get components that would be affected by changing a palette token
+ * Get tokens referencing a palette token for a SPECIFIC mode
+ */
+export function getTokensReferencingPaletteForMode(
+  paletteToken: string, 
+  mode: "light" | "dark"
+): string[] {
+  const referencing: string[] = [];
+  
+  for (const token of ALL_TOKENS) {
+    if (mode === "light" && token.references === paletteToken) {
+      referencing.push(token.name);
+    } else if (mode === "dark" && token.darkReferences === paletteToken) {
+      referencing.push(token.name);
+    }
+  }
+  
+  return referencing;
+}
+
+/**
+ * Get components that would be affected by changing a palette token (any mode)
  */
 export function getAffectedComponents(paletteToken: string): string[] {
   const components = new Set<string>();
   const referencingTokens = getTokensReferencingPalette(paletteToken);
+  
+  for (const tokenName of referencingTokens) {
+    const token = ALL_TOKENS.find(t => t.name === tokenName);
+    if (token) {
+      for (const component of token.usedBy) {
+        components.add(component);
+      }
+    }
+  }
+  
+  return Array.from(components);
+}
+
+/**
+ * Get components that would be affected by changing a palette token for a SPECIFIC mode
+ */
+export function getAffectedComponentsForMode(
+  paletteToken: string,
+  mode: "light" | "dark"
+): string[] {
+  const components = new Set<string>();
+  const referencingTokens = getTokensReferencingPaletteForMode(paletteToken, mode);
   
   for (const tokenName of referencingTokens) {
     const token = ALL_TOKENS.find(t => t.name === tokenName);

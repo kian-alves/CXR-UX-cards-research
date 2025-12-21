@@ -291,7 +291,7 @@ const BRIDGE_MAP: Record<string, string> = {
 /**
  * Token to palette reference mapping (light mode)
  */
-const PALETTE_MAP: Record<string, string> = {
+const PALETTE_MAP_LIGHT: Record<string, string> = {
   "--wex-primary": "--wex-palette-blue-700",
   "--wex-primary-hover": "--wex-palette-blue-800",
   "--wex-destructive": "--wex-palette-red-500",
@@ -304,6 +304,26 @@ const PALETTE_MAP: Record<string, string> = {
   "--wex-info-hover": "--wex-palette-cyan-600",
   "--wex-focus-ring-color": "--wex-palette-blue-700",
 };
+
+/**
+ * Token to palette reference mapping (dark mode)
+ */
+const PALETTE_MAP_DARK: Record<string, string> = {
+  "--wex-primary": "--wex-palette-blue-500",
+  "--wex-primary-hover": "--wex-palette-blue-600",
+  "--wex-destructive": "--wex-palette-red-500",
+  "--wex-destructive-hover": "--wex-palette-red-600",
+  "--wex-success": "--wex-palette-green-500",
+  "--wex-success-hover": "--wex-palette-green-600",
+  "--wex-warning": "--wex-palette-amber-400",
+  "--wex-warning-hover": "--wex-palette-amber-500",
+  "--wex-info": "--wex-palette-cyan-400",
+  "--wex-info-hover": "--wex-palette-cyan-500",
+  "--wex-focus-ring-color": "--wex-palette-blue-500",
+};
+
+// Combined for backwards compatibility
+const PALETTE_MAP = PALETTE_MAP_LIGHT;
 
 /**
  * Get the full cascade chain for a semantic token
@@ -322,7 +342,7 @@ export function getCascadeChain(tokenName: string): CascadeChain | null {
 }
 
 /**
- * Find which semantic tokens reference a given palette token
+ * Find which semantic tokens reference a given palette token (light mode only)
  */
 export function getSemanticTokensForPalette(paletteToken: string): string[] {
   const semanticTokens: string[] = [];
@@ -334,6 +354,42 @@ export function getSemanticTokensForPalette(paletteToken: string): string[] {
   }
   
   return semanticTokens;
+}
+
+/**
+ * Find which semantic tokens reference a given palette token with mode info
+ */
+export interface PaletteReference {
+  token: string;
+  mode: "light" | "dark" | "both";
+}
+
+export function getSemanticTokensForPaletteWithMode(paletteToken: string): PaletteReference[] {
+  const references: PaletteReference[] = [];
+  const seen = new Set<string>();
+  
+  // Check light mode
+  for (const [semantic, palette] of Object.entries(PALETTE_MAP_LIGHT)) {
+    if (palette === paletteToken) {
+      seen.add(semantic);
+      // Check if also used in dark mode
+      const darkPalette = PALETTE_MAP_DARK[semantic];
+      if (darkPalette === paletteToken) {
+        references.push({ token: semantic, mode: "both" });
+      } else {
+        references.push({ token: semantic, mode: "light" });
+      }
+    }
+  }
+  
+  // Check dark mode for any not already found
+  for (const [semantic, palette] of Object.entries(PALETTE_MAP_DARK)) {
+    if (palette === paletteToken && !seen.has(semantic)) {
+      references.push({ token: semantic, mode: "dark" });
+    }
+  }
+  
+  return references;
 }
 
 /**
