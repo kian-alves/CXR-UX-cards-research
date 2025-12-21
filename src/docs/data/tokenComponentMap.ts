@@ -377,8 +377,8 @@ export const WARNING_USAGES: ComponentUsage[] = [
     variant: "warning",
     state: "default",
     renderability: "easy",
-    tailwindClasses: ["border-warning/50", "bg-warning/10"],
-    description: "Warning alert",
+    tailwindClasses: ["border-warning/50", "bg-warning/10", "text-warning-foreground"],
+    description: "Warning alert (uses warning-foreground for dark text on amber)",
   },
   {
     component: "Sonner",

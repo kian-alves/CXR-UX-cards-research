@@ -851,9 +851,19 @@ function PrimaryContrastPreview() {
       </PreviewSection>
 
       <PreviewSection label="Components Using primary-foreground">
-        <div className="flex flex-wrap gap-2">
-          <WexButton>Primary Button</WexButton>
-          <WexBadge>Primary Badge</WexBadge>
+        <div className="flex flex-wrap items-center gap-3">
+          <WexButton>Submit</WexButton>
+          <WexBadge>New</WexBadge>
+          <WexCheckbox defaultChecked id="preview-cb" />
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Also Uses (Calendar, Toast)">
+        <div className="p-3 rounded-md bg-muted/30 border border-dashed">
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="px-2 py-1 rounded bg-primary text-primary-foreground">Selected Date</span>
+            <span className="px-2 py-1 rounded bg-primary text-primary-foreground">Toast Action</span>
+          </div>
         </div>
       </PreviewSection>
 
@@ -877,13 +887,13 @@ function DestructiveForegroundPreview() {
       </PreviewSection>
 
       <PreviewSection label="Components Using destructive-foreground">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-3">
           <WexButton intent="destructive">Delete</WexButton>
           <WexBadge intent="destructive">Error</WexBadge>
         </div>
       </PreviewSection>
 
-      <PreviewSection label="Also Uses (not renderable)">
+      <PreviewSection label="Also Uses (Toast)">
         <div className="p-3 rounded-md bg-muted/30 border border-dashed">
           <div className="flex flex-wrap gap-2 text-xs">
             <span className="px-2 py-1 rounded bg-destructive text-destructive-foreground">Error Toast</span>
@@ -905,20 +915,23 @@ function SuccessForegroundPreview() {
       </PreviewSection>
 
       <PreviewSection label="Components Using success-foreground">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-3">
           <WexBadge intent="success">Complete</WexBadge>
-          <WexAlert intent="success">
-            <WexAlert.Title>Success!</WexAlert.Title>
-          </WexAlert>
         </div>
       </PreviewSection>
 
-      <PreviewSection label="Also Uses (not renderable)">
+      <PreviewSection label="Also Uses (Toast)">
         <div className="p-3 rounded-md bg-muted/30 border border-dashed">
           <div className="flex flex-wrap gap-2 text-xs">
             <span className="px-2 py-1 rounded bg-success text-success-foreground">Success Toast</span>
           </div>
         </div>
+      </PreviewSection>
+
+      <PreviewSection label="Note">
+        <p className="text-xs text-muted-foreground">
+          WexAlert success uses <code className="text-xs">text-success</code> (not foreground) for tinted backgrounds.
+        </p>
       </PreviewSection>
     </div>
   );
@@ -965,20 +978,23 @@ function InfoForegroundPreview() {
       </PreviewSection>
 
       <PreviewSection label="Components Using info-foreground">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-3">
           <WexBadge intent="info">Note</WexBadge>
-          <WexAlert intent="info">
-            <WexAlert.Title>Information</WexAlert.Title>
-          </WexAlert>
         </div>
       </PreviewSection>
 
-      <PreviewSection label="Also Uses (not renderable)">
+      <PreviewSection label="Also Uses (Toast)">
         <div className="p-3 rounded-md bg-muted/30 border border-dashed">
           <div className="flex flex-wrap gap-2 text-xs">
             <span className="px-2 py-1 rounded bg-info text-info-foreground">Info Toast</span>
           </div>
         </div>
+      </PreviewSection>
+
+      <PreviewSection label="Note">
+        <p className="text-xs text-muted-foreground">
+          WexAlert info uses <code className="text-xs">text-info</code> (not foreground) for tinted backgrounds.
+        </p>
       </PreviewSection>
     </div>
   );
