@@ -139,6 +139,13 @@ export function FilteredLivePreview({
         {selectedToken === "--wex-text" && <TextPreview />}
         {selectedToken === "--wex-text-muted" && <TextMutedPreview />}
         {selectedToken === "--wex-focus-ring-color" && <FocusRingPreview />}
+        
+        {/* Foreground tokens (text ON colored backgrounds) */}
+        {selectedToken === "--wex-primary-contrast" && <PrimaryContrastPreview />}
+        {selectedToken === "--wex-destructive-foreground" && <DestructiveForegroundPreview />}
+        {selectedToken === "--wex-success-foreground" && <SuccessForegroundPreview />}
+        {selectedToken === "--wex-warning-foreground" && <WarningForegroundPreview />}
+        {selectedToken === "--wex-info-foreground" && <InfoForegroundPreview />}
 
         {/* Show hard-to-render states as swatches */}
         {hardUsages.length > 0 && (
@@ -675,20 +682,60 @@ function TextPreview() {
   return (
     <div className="space-y-4">
       {/* Foreground text */}
-      <PreviewSection label="Foreground Text">
+      <PreviewSection label="Body Text">
         <p className="text-foreground">
           This is primary text content using the foreground color.
         </p>
       </PreviewSection>
 
+      {/* Card title */}
+      <PreviewSection label="Card Title">
+        <WexCard>
+          <WexCard.Header>
+            <WexCard.Title>Card Title (text-foreground)</WexCard.Title>
+          </WexCard.Header>
+        </WexCard>
+      </PreviewSection>
+
+      {/* Alert default */}
+      <PreviewSection label="Alert Default">
+        <WexAlert>
+          <WexAlert.Title>Default Alert</WexAlert.Title>
+          <WexAlert.Description>Uses text-foreground for content.</WexAlert.Description>
+        </WexAlert>
+      </PreviewSection>
+
+      {/* Badge outline */}
+      <PreviewSection label="Badge Outline">
+        <WexBadge variant="outline">Outline Badge</WexBadge>
+      </PreviewSection>
+
       {/* Active tab */}
-      <PreviewSection label="Active Tab Text">
+      <PreviewSection label="Active Tab">
         <WexTabs defaultValue="tab1">
           <WexTabs.List>
             <WexTabs.Trigger value="tab1">Active (foreground)</WexTabs.Trigger>
-            <WexTabs.Trigger value="tab2">Inactive (muted)</WexTabs.Trigger>
+            <WexTabs.Trigger value="tab2">Inactive</WexTabs.Trigger>
           </WexTabs.List>
         </WexTabs>
+      </PreviewSection>
+
+      {/* Hard to show - reference swatches */}
+      <PreviewSection label="Also Uses text-foreground (not renderable)">
+        <div className="p-3 rounded-md bg-muted/30 border border-dashed space-y-2">
+          <p className="text-xs text-muted-foreground italic mb-2">
+            These components use text-foreground but require interaction to view:
+          </p>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="px-2 py-1 rounded bg-background border">Dialog Title</span>
+            <span className="px-2 py-1 rounded bg-background border">Sheet Title</span>
+            <span className="px-2 py-1 rounded bg-background border">Toast Default</span>
+            <span className="px-2 py-1 rounded bg-background border">Popover Content</span>
+            <span className="px-2 py-1 rounded bg-background border">Tooltip Text</span>
+            <span className="px-2 py-1 rounded bg-background border">Dropdown Items</span>
+            <span className="px-2 py-1 rounded bg-background border">Context Menu</span>
+          </div>
+        </div>
       </PreviewSection>
     </div>
   );
@@ -783,6 +830,154 @@ function FocusRingPreview() {
           <div>• WexSwitch, WexSlider, WexInput, WexTextarea</div>
           <div>• WexSelect, WexTabs, WexCalendar, Toggle</div>
           <div>• Dialog/Sheet close buttons, Resizable handles</div>
+        </div>
+      </PreviewSection>
+    </div>
+  );
+}
+
+// =============================================================================
+// FOREGROUND TOKEN PREVIEWS (text ON colored backgrounds)
+// =============================================================================
+
+function PrimaryContrastPreview() {
+  return (
+    <div className="space-y-4">
+      <PreviewSection label="Text on Primary Background">
+        <div className="bg-primary text-primary-foreground p-4 rounded-md">
+          <div className="font-semibold">Primary Button Text</div>
+          <div className="text-sm opacity-90">This text appears on primary-colored backgrounds.</div>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Components Using primary-foreground">
+        <div className="flex flex-wrap gap-2">
+          <WexButton>Primary Button</WexButton>
+          <WexBadge>Primary Badge</WexBadge>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Auto-Derived Note">
+        <p className="text-xs text-muted-foreground">
+          This color is auto-derived from primary luminance: white text for dark backgrounds, black text for light.
+        </p>
+      </PreviewSection>
+    </div>
+  );
+}
+
+function DestructiveForegroundPreview() {
+  return (
+    <div className="space-y-4">
+      <PreviewSection label="Text on Destructive Background">
+        <div className="bg-destructive text-destructive-foreground p-4 rounded-md">
+          <div className="font-semibold">Destructive Action Text</div>
+          <div className="text-sm opacity-90">White text on red for maximum contrast.</div>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Components Using destructive-foreground">
+        <div className="flex flex-wrap gap-2">
+          <WexButton intent="destructive">Delete</WexButton>
+          <WexBadge variant="destructive">Error</WexBadge>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Also Uses (not renderable)">
+        <div className="p-3 rounded-md bg-muted/30 border border-dashed">
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="px-2 py-1 rounded bg-destructive text-destructive-foreground">Error Toast</span>
+          </div>
+        </div>
+      </PreviewSection>
+    </div>
+  );
+}
+
+function SuccessForegroundPreview() {
+  return (
+    <div className="space-y-4">
+      <PreviewSection label="Text on Success Background">
+        <div className="bg-success text-success-foreground p-4 rounded-md">
+          <div className="font-semibold">Success Message</div>
+          <div className="text-sm opacity-90">White text on green for clarity.</div>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Components Using success-foreground">
+        <div className="flex flex-wrap gap-2">
+          <WexBadge variant="success">Complete</WexBadge>
+          <WexAlert intent="success">
+            <WexAlert.Title>Success!</WexAlert.Title>
+          </WexAlert>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Also Uses (not renderable)">
+        <div className="p-3 rounded-md bg-muted/30 border border-dashed">
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="px-2 py-1 rounded bg-success text-success-foreground">Success Toast</span>
+          </div>
+        </div>
+      </PreviewSection>
+    </div>
+  );
+}
+
+function WarningForegroundPreview() {
+  return (
+    <div className="space-y-4">
+      <PreviewSection label="Text on Warning Background">
+        <div className="bg-warning text-warning-foreground p-4 rounded-md">
+          <div className="font-semibold">Warning Message</div>
+          <div className="text-sm opacity-90">Black text on amber for readability.</div>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Components Using warning-foreground">
+        <div className="flex flex-wrap gap-2">
+          <WexBadge variant="warning">Caution</WexBadge>
+          <WexAlert intent="warning">
+            <WexAlert.Title>Warning</WexAlert.Title>
+          </WexAlert>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Also Uses (not renderable)">
+        <div className="p-3 rounded-md bg-muted/30 border border-dashed">
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="px-2 py-1 rounded bg-warning text-warning-foreground">Warning Toast</span>
+          </div>
+        </div>
+      </PreviewSection>
+    </div>
+  );
+}
+
+function InfoForegroundPreview() {
+  return (
+    <div className="space-y-4">
+      <PreviewSection label="Text on Info Background">
+        <div className="bg-info text-info-foreground p-4 rounded-md">
+          <div className="font-semibold">Info Message</div>
+          <div className="text-sm opacity-90">White text on cyan for visibility.</div>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Components Using info-foreground">
+        <div className="flex flex-wrap gap-2">
+          <WexBadge variant="info">Note</WexBadge>
+          <WexAlert intent="info">
+            <WexAlert.Title>Information</WexAlert.Title>
+          </WexAlert>
+        </div>
+      </PreviewSection>
+
+      <PreviewSection label="Also Uses (not renderable)">
+        <div className="p-3 rounded-md bg-muted/30 border border-dashed">
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="px-2 py-1 rounded bg-info text-info-foreground">Info Toast</span>
+          </div>
         </div>
       </PreviewSection>
     </div>
