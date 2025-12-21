@@ -8,6 +8,21 @@ import { ThemeBuilderNav } from "@/docs/components/ThemeBuilderNav";
 import { TokenMapModal } from "@/docs/components/TokenMapModal";
 
 /**
+ * Check if there are unsaved theme overrides in localStorage
+ */
+function hasThemeOverrides(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const stored = localStorage.getItem("wex-theme-overrides");
+    if (!stored) return false;
+    const parsed = JSON.parse(stored);
+    return Object.keys(parsed.light || {}).length > 0 || Object.keys(parsed.dark || {}).length > 0;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Main layout shell for docs site
  * - Header at top with theme toggle
  * - Fixed sidebar on left
@@ -25,6 +40,19 @@ export function DocsLayout() {
   
   // Token Map modal state
   const [tokenMapOpen, setTokenMapOpen] = React.useState(false);
+  
+  // Check for unsaved theme changes (for exit warning)
+  const [hasUnsavedChanges, setHasUnsavedChanges] = React.useState(false);
+  
+  React.useEffect(() => {
+    if (isThemeBuilder) {
+      // Check periodically while in Theme Builder
+      const checkChanges = () => setHasUnsavedChanges(hasThemeOverrides());
+      checkChanges();
+      const interval = setInterval(checkChanges, 500);
+      return () => clearInterval(interval);
+    }
+  }, [isThemeBuilder]);
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
@@ -52,7 +80,10 @@ export function DocsLayout() {
       {!isHome && (
         <Sidebar>
           {isThemeBuilder ? (
-            <ThemeBuilderNav onOpenTokenMap={() => setTokenMapOpen(true)} />
+            <ThemeBuilderNav 
+              onOpenTokenMap={() => setTokenMapOpen(true)} 
+              hasUnsavedChanges={hasUnsavedChanges}
+            />
           ) : (
             <SidebarNav />
           )}

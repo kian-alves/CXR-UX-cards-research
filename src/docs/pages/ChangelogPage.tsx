@@ -16,27 +16,47 @@ export default function ChangelogPage() {
 
       <div className="space-y-8">
         <ChangelogEntry
+          version="0.12.0"
+          date="December 21, 2025"
+          title="Theme Builder V2 - Figma-Style Editing"
+          changes={[
+            "Theme Builder: Complete V2 redesign with Figma-style selection-driven editing",
+            "Left Rail: Replaced sidebar with ThemeBuilderNav for global/component selection",
+            "Left Rail: Global tokens section (Surfaces, Text, Borders, Focus, Radii, Brand)",
+            "Left Rail: Component list with a11y badges showing failing components per mode",
+            "Workspace: Selection-driven preview - click a component to see all its variants",
+            "Workspace: Global category previews with relevant component examples",
+            "Properties: Scoped token editors - only shows tokens used by selected item",
+            "Properties: Each token shows WEX → Tailwind utility mapping",
+            "A11y: Mode toggle shows issue counts for light/dark modes",
+            "A11y: Warning badges on components with accessibility issues",
+            "A11y: Inline guidance for fixing color-contrast issues",
+            "Token Map: New modal showing full WEX → Tailwind → Component mappings",
+            "Token Map: Searchable/filterable reference for all design tokens",
+            "Guards: Unsaved changes warning on exit and browser close",
+            "Guards: Reset confirmation dialog to prevent accidental data loss",
+            "Export: Download overrides as Style Dictionary compatible JSON",
+            "Data: Created componentTokenMap.ts mapping components to their tokens",
+            "Data: Created useThemeBuilderState hook for selection management",
+          ]}
+        />
+
+        <ChangelogEntry
           version="0.11.0"
           date="December 20, 2025"
-          title="Theme Builder Redesign"
+          title="Theme Builder Initial Release"
           changes={[
-            "Theme Builder: Complete redesign with professional app-style layout",
+            "Theme Builder: Initial implementation with app-style layout",
             "Layout: Full-width three-region design (top bar, center workspace, right properties panel)",
             "Layout: Removed docs page constraints for full viewport usage",
             "Properties: Collapsible token groups organized by semantic purpose",
             "Properties: Added Surfaces, Borders, Focus tokens sections",
-            "Properties: Each token shows WEX → Tailwind utility mapping inline",
             "Preview: Live component preview with buttons, badges, alerts, forms, cards",
             "Preview: Contrast validation panel with WCAG rating badges",
             "A11y Tab: Integrated compliance.json data showing all 54 components",
-            "A11y Tab: Summary bar with passing/failing counts",
-            "A11y Tab: Filter to show only failing components",
-            "A11y Tab: Color-contrast failures link to Properties panel guidance",
-            "A11y Tab: Mode-specific results (light/dark) from dual-mode testing",
             "Export: Download theme overrides as Style Dictionary compatible JSON",
             "UX: Mode toggle (light/dark) in top bar for editing either mode",
             "UX: Unsaved changes indicator with reset button",
-            "Palette: Cascade controls for updating entire ramp from H/S values",
           ]}
         />
 

@@ -35,6 +35,7 @@ import { COMPONENT_TOKENS, getAllComponentKeys } from "@/docs/data/componentToke
 
 interface ThemeBuilderNavProps {
   onOpenTokenMap: () => void;
+  hasUnsavedChanges?: boolean;
 }
 
 // Global category configuration
@@ -51,7 +52,7 @@ const GLOBAL_CATEGORIES: Array<{
   { key: "brand", label: "Brand Colors", icon: <Palette className="h-4 w-4" /> },
 ];
 
-export function ThemeBuilderNav({ onOpenTokenMap }: ThemeBuilderNavProps) {
+export function ThemeBuilderNav({ onOpenTokenMap, hasUnsavedChanges = false }: ThemeBuilderNavProps) {
   const { 
     selection, 
     selectGlobal, 
@@ -59,6 +60,17 @@ export function ThemeBuilderNav({ onOpenTokenMap }: ThemeBuilderNavProps) {
     exitThemeBuilder,
     editMode,
   } = useThemeBuilderState();
+
+  // Handle exit with unsaved changes warning
+  const handleExit = React.useCallback(() => {
+    if (hasUnsavedChanges) {
+      if (confirm("You have unsaved changes. Exit anyway?")) {
+        exitThemeBuilder();
+      }
+    } else {
+      exitThemeBuilder();
+    }
+  }, [hasUnsavedChanges, exitThemeBuilder]);
 
   const [componentsExpanded, setComponentsExpanded] = React.useState(true);
   
@@ -75,11 +87,14 @@ export function ThemeBuilderNav({ onOpenTokenMap }: ThemeBuilderNavProps) {
       {/* Exit Button */}
       <div className="p-3 border-b border-border">
         <button
-          onClick={exitThemeBuilder}
+          onClick={handleExit}
           className="flex items-center gap-2 w-full px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           Exit Theme Builder
+          {hasUnsavedChanges && (
+            <span className="ml-auto text-[10px] text-warning">●</span>
+          )}
         </button>
       </div>
 
