@@ -169,6 +169,15 @@ export const PALETTE_RAMPS: PaletteRamp[] = [
 ];
 
 /**
+ * Special neutral tokens (white/black) for surface backgrounds
+ * These are separate from the ramp system as they are extremes.
+ */
+export const NEUTRAL_TOKENS = [
+  { name: "white", label: "White", token: "--wex-palette-white", value: "0 0% 100%" },
+  { name: "black", label: "Black", token: "--wex-palette-black", value: "0 0% 0%" },
+];
+
+/**
  * Semantic tokens that reference palette tokens
  */
 export const SEMANTIC_TOKENS: TokenDefinition[] = [
@@ -382,6 +391,7 @@ export const SEMANTIC_TOKENS: TokenDefinition[] = [
 
 /**
  * Surface tokens for backgrounds and containers
+ * Now reference palette tokens for Theme Builder editability
  */
 export const SURFACE_TOKENS: TokenDefinition[] = [
   {
@@ -391,6 +401,8 @@ export const SURFACE_TOKENS: TokenDefinition[] = [
     type: "color",
     lightValue: "0 0% 100%",
     darkValue: "210 31% 13%",
+    references: "--wex-palette-white",
+    darkReferences: "--wex-palette-slate-900",
     usedBy: ["WexCard", "WexDialog", "WexSheet", "WexPopover"],
     tailwindUtilities: ["bg-background", "bg-card", "bg-popover"],
     description: "Background color for content containers",
@@ -400,8 +412,10 @@ export const SURFACE_TOKENS: TokenDefinition[] = [
     label: "Content Border",
     category: "surface",
     type: "color",
-    lightValue: "216 10% 90%",
-    darkValue: "206 32% 21%",
+    lightValue: "210 16% 90%",
+    darkValue: "210 20% 28%",
+    references: "--wex-palette-slate-200",
+    darkReferences: "--wex-palette-slate-700",
     usedBy: ["WexCard", "WexSeparator", "WexInput", "WexTable"],
     tailwindUtilities: ["border-border", "divide-border"],
     description: "Border color for content containers",
@@ -411,9 +425,11 @@ export const SURFACE_TOKENS: TokenDefinition[] = [
     label: "Surface Subtle",
     category: "surface",
     type: "color",
-    lightValue: "216 10% 96%",
-    darkValue: "206 28% 18%",
-    usedBy: ["WexTabs (selected)", "WexSelect (hover)", "WexCommand"],
+    lightValue: "210 18% 96%",
+    darkValue: "210 28% 20%",
+    references: "--wex-palette-slate-100",
+    darkReferences: "--wex-palette-slate-800",
+    usedBy: ["WexTabs (selected)", "WexSelect (hover)", "WexCommand", "WexCalendar (range middle)"],
     tailwindUtilities: ["bg-muted", "bg-accent"],
     description: "Subtle background for interactive states",
   },
@@ -422,8 +438,10 @@ export const SURFACE_TOKENS: TokenDefinition[] = [
     label: "Input Border",
     category: "surface",
     type: "color",
-    lightValue: "204 9% 68%",
-    darkValue: "206 32% 21%",
+    lightValue: "210 12% 65%",
+    darkValue: "210 20% 28%",
+    references: "--wex-palette-slate-400",
+    darkReferences: "--wex-palette-slate-700",
     usedBy: ["WexInput", "WexSelect", "WexTextarea"],
     tailwindUtilities: ["border-input"],
     description: "Border color for form inputs",
@@ -432,6 +450,7 @@ export const SURFACE_TOKENS: TokenDefinition[] = [
 
 /**
  * Text tokens
+ * Now reference palette tokens for Theme Builder editability
  */
 export const TEXT_TOKENS: TokenDefinition[] = [
   {
@@ -439,8 +458,10 @@ export const TEXT_TOKENS: TokenDefinition[] = [
     label: "Text",
     category: "text",
     type: "color",
-    lightValue: "206 32% 21%",
+    lightValue: "210 28% 20%",
     darkValue: "0 0% 100%",
+    references: "--wex-palette-slate-800",
+    darkReferences: "--wex-palette-white",
     usedBy: ["All text content"],
     tailwindUtilities: ["text-foreground"],
     description: "Primary text color",
@@ -450,8 +471,10 @@ export const TEXT_TOKENS: TokenDefinition[] = [
     label: "Text Muted",
     category: "text",
     type: "color",
-    lightValue: "208 14% 37%",
-    darkValue: "216 10% 90%",
+    lightValue: "210 14% 37%",
+    darkValue: "210 16% 90%",
+    references: "--wex-palette-slate-600",
+    darkReferences: "--wex-palette-slate-200",
     usedBy: ["Labels", "Descriptions", "Placeholders"],
     tailwindUtilities: ["text-muted-foreground"],
     description: "Secondary/muted text color",

@@ -20,14 +20,14 @@
   --wex-focus-ring-width: 2px;
   --wex-focus-ring-offset: 2px;
 
-  /* ===== SURFACES (3 tokens) ===== */
-  --wex-content-bg: 0 0% 100%;
-  --wex-content-border: 216 10% 90%;
-  --wex-surface-subtle: 216 10% 96%;
+  /* ===== SURFACES (3 tokens) - Now reference palette ===== */
+  --wex-content-bg: var(--wex-palette-white);
+  --wex-content-border: var(--wex-palette-slate-200);
+  --wex-surface-subtle: var(--wex-palette-slate-100);
 
-  /* ===== TEXT (2 tokens) ===== */
-  --wex-text: 206 32% 21%;
-  --wex-text-muted: 208 14% 37%;
+  /* ===== TEXT (2 tokens) - Now reference palette ===== */
+  --wex-text: var(--wex-palette-slate-800);
+  --wex-text-muted: var(--wex-palette-slate-600);
 
   /* ===== BRAND (1 token) ===== */
   --wex-brand-red: 350 85% 42%; /* #c8102e - Official WEX Logo Red */
@@ -142,6 +142,10 @@
   --wex-palette-slate-800: 210 28% 20%;
   --wex-palette-slate-900: 210 31% 13%;
 
+  /* Neutral extremes (for backgrounds and text) */
+  --wex-palette-white: 0 0% 100%;
+  --wex-palette-black: 0 0% 0%;
+
   /* Cyan ramp (derived from info) */
   --wex-palette-cyan-50: 198 87% 97%;
   --wex-palette-cyan-100: 198 87% 90%;
@@ -167,14 +171,14 @@
 }
 
 .dark {
-  /* ===== SURFACES (dark overrides) ===== */
-  --wex-content-bg: 210 31% 13%;
-  --wex-content-border: 206 32% 21%;
-  --wex-surface-subtle: 206 28% 18%;
+  /* ===== SURFACES (dark overrides) - Now reference palette ===== */
+  --wex-content-bg: var(--wex-palette-slate-900);
+  --wex-content-border: var(--wex-palette-slate-700);
+  --wex-surface-subtle: var(--wex-palette-slate-800);
 
-  /* ===== TEXT (dark overrides) ===== */
-  --wex-text: 0 0% 100%;
-  --wex-text-muted: 216 10% 90%;
+  /* ===== TEXT (dark overrides) - Now reference palette ===== */
+  --wex-text: var(--wex-palette-white);
+  --wex-text-muted: var(--wex-palette-slate-200);
 
   /* ===== PRIMARY (dark overrides) ===== */
   /* Note: Dark mode uses blue-500 (lighter) for better contrast on dark backgrounds */

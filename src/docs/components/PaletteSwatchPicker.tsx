@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { WexPopover } from "@/components/wex";
-import { PALETTE_RAMPS } from "@/docs/data/tokenRegistry";
+import { PALETTE_RAMPS, NEUTRAL_TOKENS } from "@/docs/data/tokenRegistry";
 import { cn } from "@/lib/utils";
 
 interface PaletteSwatchPickerProps {
@@ -60,6 +60,39 @@ export function PaletteSwatchPicker({
             Select Palette Shade
           </div>
           
+          {/* Neutral colors (white/black) */}
+          <div className="space-y-1">
+            <div className="text-xs text-muted-foreground font-medium">Neutrals</div>
+            <div className="flex gap-1">
+              {NEUTRAL_TOKENS.map((neutral) => {
+                const isSelected = value === neutral.name;
+                return (
+                  <button
+                    key={neutral.name}
+                    type="button"
+                    onClick={() => {
+                      onSelect(neutral.name);
+                      setOpen(false);
+                    }}
+                    title={neutral.label}
+                    className={cn(
+                      "w-6 h-6 rounded-sm transition-all border",
+                      "hover:scale-110 hover:z-10 hover:ring-2 hover:ring-foreground/20",
+                      "focus:outline-none focus:ring-2 focus:ring-primary",
+                      isSelected && "ring-2 ring-primary ring-offset-1",
+                      neutral.name === "white" && "border-border"
+                    )}
+                    style={{ 
+                      backgroundColor: `hsl(${neutral.value})` 
+                    }}
+                  >
+                    <span className="sr-only">{neutral.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {PALETTE_RAMPS.map((ramp) => (
             <div key={ramp.name} className="space-y-1">
               {/* Ramp label */}
@@ -134,7 +167,9 @@ export function SwatchDisplay({ value, size = "md", className }: SwatchDisplayPr
     lg: "w-8 h-8",
   };
 
-  const token = `--wex-palette-${value}`;
+  // Handle neutral tokens (white/black) which don't have a shade number
+  const isNeutral = value === "white" || value === "black";
+  const token = isNeutral ? `--wex-palette-${value}` : `--wex-palette-${value}`;
 
   return (
     <div
@@ -164,9 +199,14 @@ interface TokenRowWithPickerProps {
 }
 
 /**
- * Format a palette value like "blue-700" to "Blue 700"
+ * Format a palette value like "blue-700" to "Blue 700", "white" to "White"
  */
 function formatPaletteValue(value: string): string {
+  // Handle neutral tokens (white/black)
+  if (value === "white" || value === "black") {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+  
   const match = value.match(/^(\w+)-(\d+)$/);
   if (!match) return value;
   const [, name, shade] = match;

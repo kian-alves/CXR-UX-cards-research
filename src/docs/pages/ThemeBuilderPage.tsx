@@ -280,8 +280,10 @@ function SemanticMode() {
       if (t.references) {
         const ref = editMode === "light" ? t.references : (t.darkReferences || t.references);
         if (ref) {
-          const match = ref.match(/--wex-palette-(\w+-\d+)/);
-          initial[t.name] = match ? match[1] : "";
+          // Match both "name-shade" (e.g., blue-700) and simple names (e.g., white, black)
+          const matchWithShade = ref.match(/--wex-palette-(\w+-\d+)/);
+          const matchNeutral = ref.match(/--wex-palette-(white|black)/);
+          initial[t.name] = matchWithShade ? matchWithShade[1] : (matchNeutral ? matchNeutral[1] : "");
         }
       }
     });
@@ -295,20 +297,23 @@ function SemanticMode() {
       if (t.references) {
         const ref = editMode === "light" ? t.references : (t.darkReferences || t.references);
         if (ref) {
-          const match = ref.match(/--wex-palette-(\w+-\d+)/);
-          updated[t.name] = match ? match[1] : "";
+          // Match both "name-shade" (e.g., blue-700) and simple names (e.g., white, black)
+          const matchWithShade = ref.match(/--wex-palette-(\w+-\d+)/);
+          const matchNeutral = ref.match(/--wex-palette-(white|black)/);
+          updated[t.name] = matchWithShade ? matchWithShade[1] : (matchNeutral ? matchNeutral[1] : "");
         }
       }
     });
     setAssignments(updated);
   }, [editMode, allEditableTokens]);
   
-  // Handle assignment change for both palette-referenced tokens and raw HSL tokens
+  // Handle assignment change for palette-referenced tokens
   const handleAssignmentChange = React.useCallback((tokenName: string, value: string) => {
-    // Check if this is a palette reference (like "blue-700") or raw HSL value
-    const isPaletteRef = /^[a-z]+-\d+$/.test(value);
+    // Check if this is a palette reference (like "blue-700" or "white"/"black")
+    const isPaletteRefWithShade = /^[a-z]+-\d+$/.test(value);
+    const isNeutralRef = value === "white" || value === "black";
     
-    if (isPaletteRef) {
+    if (isPaletteRefWithShade || isNeutralRef) {
       // Palette reference - wrap with var()
       const paletteToken = `--wex-palette-${value}`;
       document.documentElement.style.setProperty(tokenName, `var(${paletteToken})`);
