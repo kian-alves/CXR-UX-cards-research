@@ -338,7 +338,34 @@ export function useThemeOverrides() {
   }, [overrides]);
 
   /**
-   * Export overrides as Style Dictionary compatible JSON
+   * Export overrides as CSS variables (human-readable)
+   */
+  const exportAsCSS = React.useCallback((): string => {
+    let css = ":root {\n";
+    
+    // Light mode overrides
+    const lightTokens = Object.entries(overrides.light).sort(([a], [b]) => a.localeCompare(b));
+    lightTokens.forEach(([token, value]) => {
+      css += `  ${token}: ${value};\n`;
+    });
+    
+    css += "}\n";
+    
+    // Dark mode overrides
+    if (Object.keys(overrides.dark).length > 0) {
+      css += "\n.dark {\n";
+      const darkTokens = Object.entries(overrides.dark).sort(([a], [b]) => a.localeCompare(b));
+      darkTokens.forEach(([token, value]) => {
+        css += `  ${token}: ${value};\n`;
+      });
+      css += "}\n";
+    }
+    
+    return css;
+  }, [overrides]);
+
+  /**
+   * Export overrides as Style Dictionary compatible JSON (human-readable)
    */
   const exportAsJSON = React.useCallback((): string => {
     const styleDictionary: Record<string, unknown> = { wex: {} };
@@ -361,6 +388,7 @@ export function useThemeOverrides() {
       });
     });
     
+    // Return formatted JSON (human-readable)
     return JSON.stringify(styleDictionary, null, 2);
   }, [overrides]);
 
@@ -394,6 +422,7 @@ export function useThemeOverrides() {
     resetAll,
     getAllOverrides,
     hasOverrides,
+    exportAsCSS,
     exportAsJSON,
     cascadePalette,
   };

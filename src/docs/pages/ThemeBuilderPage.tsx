@@ -17,10 +17,12 @@ import {
   SEMANTIC_TOKENS,
   SURFACE_TOKENS,
   TEXT_TOKENS,
+  NEUTRAL_TOKENS,
 } from "@/docs/data/tokenRegistry";
 import { WexAlertDialog } from "@/components/wex";
 import { ThemeBuilderNav } from "@/docs/components/ThemeBuilderNav";
 import { FilteredLivePreview } from "@/docs/components/FilteredLivePreview";
+import { ThemeExportView } from "@/docs/components/ThemeExportView";
 
 // ============================================================================
 // Main Theme Builder Page
@@ -28,12 +30,15 @@ import { FilteredLivePreview } from "@/docs/components/FilteredLivePreview";
 
 export default function ThemeBuilderPage() {
   const { setSelectedToken, editMode } = useThemeBuilder();
-  const { resetAll, exportAsJSON, hasOverrides, setToken } = useThemeOverrides();
+  const { resetAll, hasOverrides, setToken } = useThemeOverrides();
 
   // Currently selected token for preview
   const [selectedToken, setSelectedTokenLocal] = React.useState<string | null>(
     null
   );
+
+  // Export view state
+  const [showExportView, setShowExportView] = React.useState(false);
 
   // Reset confirmation dialog
   const [showResetDialog, setShowResetDialog] = React.useState(false);
@@ -134,23 +139,16 @@ export default function ThemeBuilderPage() {
     (token: string) => {
       setSelectedTokenLocal(token);
       setSelectedToken(token);
+      setShowExportView(false); // Close export view when selecting a token
     },
     [setSelectedToken]
   );
 
-  // Handle export
+  // Handle export - toggle export view
   const handleExport = React.useCallback(() => {
-    const json = exportAsJSON();
-    const blob = new Blob([JSON.stringify(json, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "wex-theme-overrides.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  }, [exportAsJSON]);
+    setShowExportView(true);
+    setSelectedTokenLocal(null); // Clear selection when showing export
+  }, []);
 
   // Handle reset all
   const confirmReset = React.useCallback(() => {
@@ -178,26 +176,30 @@ export default function ThemeBuilderPage() {
         />
       </div>
 
-      {/* Main Workspace - Full Width Live Preview */}
+      {/* Main Workspace - Full Width Live Preview or Export View */}
       <div className="flex-1 overflow-y-auto bg-background">
-        <FilteredLivePreview
-          selectedToken={selectedToken}
-          currentValue={selectedToken ? assignments[selectedToken] : undefined}
-          onValueChange={
-            selectedToken
-              ? (value) => handleAssignmentChange(selectedToken, value)
-              : undefined
-          }
-          onRampChange={
-            selectedToken === "--wex-palette-ramps"
-              ? (rampName, hslValue) => {
-                  const token500 = `--wex-palette-${rampName}-500`;
-                  setToken(token500, hslValue, editMode);
-                }
-              : undefined
-          }
-          fullWidth
-        />
+        {showExportView ? (
+          <ThemeExportView onClose={() => setShowExportView(false)} />
+        ) : (
+          <FilteredLivePreview
+            selectedToken={selectedToken}
+            currentValue={selectedToken ? assignments[selectedToken] : undefined}
+            onValueChange={
+              selectedToken
+                ? (value) => handleAssignmentChange(selectedToken, value)
+                : undefined
+            }
+            onRampChange={
+              selectedToken === "--wex-palette-ramps"
+                ? (rampName, hslValue) => {
+                    const token500 = `--wex-palette-${rampName}-500`;
+                    setToken(token500, hslValue, editMode);
+                  }
+                : undefined
+            }
+            fullWidth
+          />
+        )}
       </div>
 
       {/* Reset Confirmation Dialog */}

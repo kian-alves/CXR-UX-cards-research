@@ -49,9 +49,61 @@ interface EditControlProps {
   value: string;
   onChange: (value: string) => void;
   tokenLabel: string;
+  tokenName?: string; // The actual CSS variable name (e.g., "--wex-primary")
 }
 
-function EditControl({ value, onChange, tokenLabel }: EditControlProps) {
+function EditControl({ value, onChange, tokenLabel, tokenName }: EditControlProps) {
+  // Read actual color from CSS variable if tokenName is provided (for semantic tokens)
+  const [actualColor, setActualColor] = React.useState<string | null>(null);
+  
+  React.useEffect(() => {
+    if (!tokenName || typeof window === 'undefined') return;
+
+    const readColor = () => {
+      const cssValue = getComputedStyle(document.documentElement)
+        .getPropertyValue(tokenName)
+        .trim();
+      if (cssValue) {
+        setActualColor(cssValue);
+      } else {
+        setActualColor(null);
+      }
+    };
+
+    // Read immediately
+    readColor();
+
+    // Watch for style changes on documentElement
+    const observer = new MutationObserver(() => {
+      readColor();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['style', 'class'],
+    });
+
+    // Also poll periodically (fallback)
+    const interval = setInterval(readColor, 200);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
+  }, [tokenName, value]); // Re-read when value changes
+
+  // Use actual CSS variable color if available, otherwise use palette reference
+  const swatchColor = React.useMemo(() => {
+    if (actualColor && tokenName) {
+      // Parse HSL and convert to hex for display
+      const hsl = parseHSL(actualColor);
+      if (hsl) {
+        return hslToHex(hsl);
+      }
+    }
+    return null; // Fall back to SwatchDisplay using value
+  }, [actualColor, tokenName]);
+
   return (
     <PaletteSwatchPicker value={value} onSelect={onChange}>
       <button
@@ -59,7 +111,14 @@ function EditControl({ value, onChange, tokenLabel }: EditControlProps) {
         className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-border bg-background hover:bg-muted/50 transition-colors"
         title={`Edit ${tokenLabel}`}
       >
-        <SwatchDisplay value={value} size="sm" className="ring-1 ring-border/50" />
+        {swatchColor ? (
+          <div
+            className="w-4 h-4 rounded-sm border border-border/50 flex-shrink-0 ring-1 ring-border/50"
+            style={{ backgroundColor: swatchColor }}
+          />
+        ) : (
+          <SwatchDisplay value={value} size="sm" className="ring-1 ring-border/50" />
+        )}
         <span className="text-sm font-medium">{formatPaletteValue(value)}</span>
         <svg 
           className="w-4 h-4 text-muted-foreground" 
@@ -137,6 +196,7 @@ export function FilteredLivePreview({
                 value={currentValue} 
                 onChange={onValueChange}
                 tokenLabel={mapping?.label || selectedToken}
+                tokenName={selectedToken}
               />
             )}
           </div>
@@ -213,6 +273,7 @@ export function FilteredLivePreview({
               value={currentValue} 
               onChange={onValueChange}
               tokenLabel={mapping?.label || selectedToken}
+              tokenName={selectedToken}
             />
           )}
         </div>

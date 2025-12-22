@@ -558,13 +558,55 @@ function TokenRow({
   readOnly,
 }: TokenRowProps) {
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
+  const [actualColor, setActualColor] = React.useState<string | null>(null);
+
+  // Read actual CSS variable value (for semantic tokens that have been overridden)
+  React.useEffect(() => {
+    if (typeof window === 'undefined' || !token.name) return;
+
+    const readColor = () => {
+      const cssValue = getComputedStyle(document.documentElement)
+        .getPropertyValue(token.name)
+        .trim();
+      if (cssValue) {
+        setActualColor(cssValue);
+      } else {
+        setActualColor(null);
+      }
+    };
+
+    // Read immediately
+    readColor();
+
+    // Watch for style changes on documentElement
+    const observer = new MutationObserver(() => {
+      readColor();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['style', 'class'],
+    });
+
+    // Also poll periodically (fallback for when style attribute doesn't change)
+    const interval = setInterval(readColor, 200);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
+  }, [token.name, value, editMode]); // Re-read when value or mode changes
 
   const displayValue = value ? formatPaletteValue(value) : "—";
 
-  // Compute HSL directly inline (EXACT same pattern as palette ramps - no useMemo, just direct computation)
+  // Compute HSL - prefer actual CSS variable value, fallback to palette reference
   let swatchBgColor = "hsl(0 0% 50%)"; // default gray
   
-  if (value) {
+  // If we have an actual CSS variable value, use it (means token was overridden)
+  if (actualColor) {
+    swatchBgColor = `hsl(${actualColor})`;
+  } else if (value) {
+    // Otherwise use palette reference
     if (value === "white") {
       swatchBgColor = "hsl(0 0% 100%)";
     } else if (value === "black") {
