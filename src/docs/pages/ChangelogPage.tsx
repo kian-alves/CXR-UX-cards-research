@@ -16,8 +16,30 @@ export default function ChangelogPage() {
 
       <div className="space-y-8">
         <ChangelogEntry
+          version="0.17.0"
+          date="December 21, 2025"
+          title="WCAG Contrast Checker, Complete Component Coverage & NPM Package"
+          changes={[
+            "Contrast: Renamed A11y checker to 'WCAG Contrast' for clarity",
+            "Contrast: Added sun/moon icon to indicate which mode (light/dark) is being checked",
+            "Contrast: Badges now show actual contrast ratio (e.g., '4.8:1') instead of 'AA'",
+            "Contrast: Added contrast pairs for all 57 WEX components",
+            "Components: Added live previews for Spinner, ButtonGroup, Pagination, Avatar, Textarea, Select",
+            "Components: Created 'Additional Components' collapsible lists for non-renderable components",
+            "Components: Added Additional Components sections to Primary, Destructive, Success, Warning, Info tokens",
+            "Components: Added Additional Components sections to Surface Background, Surface Muted, Border, Input Border",
+            "Coverage: All 57 WEX components now accounted for (27 live + 22 additional + 8 structural)",
+            "Package: Created @wex/design-tokens package scaffold in packages/design-tokens/",
+            "Package: Includes tokens.css, shadcn-bridge.css, and tailwind-preset.js",
+            "Package: Added consumer-facing README.md with usage documentation",
+            "Docs: Created PACKAGE_MAINTENANCE.md with versioning strategy and Artifactory publishing guide",
+            "Docs: Updated TOKEN_CASCADE_ANALYSIS.md to reflect complete Theme Builder coverage",
+          ]}
+        />
+
+        <ChangelogEntry
           version="0.16.0"
-          date="January 15, 2025"
+          date="December 21, 2025"
           title="Theme Builder V5 - Production Ready & Code Cleanup"
           changes={[
             "Export: Export theme button now always enabled - export current theme state anytime",
