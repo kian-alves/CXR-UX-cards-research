@@ -5,7 +5,7 @@
  */
 
 import * as React from "react";
-import { ArrowLeft, Copy, Download, Check } from "lucide-react";
+import { Copy, Download, Check } from "lucide-react";
 import Prism from "prismjs";
 import "prismjs/components/prism-css";
 import "prismjs/components/prism-json";
@@ -20,7 +20,6 @@ import {
   NEUTRAL_TOKENS,
 } from "@/docs/data/tokenRegistry";
 import { parseHSL, formatHSL } from "@/docs/utils/color-convert";
-import { cn } from "@/lib/utils";
 
 // Standard lightness values for palette ramps
 const PALETTE_LIGHTNESS_STEPS: Record<number, number> = {
@@ -261,30 +260,33 @@ function generateFullJSON(overrides: { light: Record<string, string>; dark: Reco
 }
 
 interface ThemeExportViewProps {
-  onClose: () => void;
+  onClose?: () => void;
 }
 
-export function ThemeExportView({ onClose }: ThemeExportViewProps) {
+export function ThemeExportView(_props: ThemeExportViewProps) {
   const { getAllOverrides } = useThemeOverrides();
   const overrides = getAllOverrides();
-  const cssRef = React.useRef<HTMLElement>(null);
-  const jsonRef = React.useRef<HTMLElement>(null);
   const [copiedCSS, setCopiedCSS] = React.useState(false);
   const [copiedJSON, setCopiedJSON] = React.useState(false);
 
   const cssCode = React.useMemo(() => generateFullCSS(overrides), [overrides]);
   const jsonCode = React.useMemo(() => generateFullJSON(overrides), [overrides]);
 
-  // Highlight code when it changes
-  React.useEffect(() => {
-    if (cssRef.current) {
-      Prism.highlightElement(cssRef.current);
+  // Generate highlighted HTML for CSS
+  const highlightedCSS = React.useMemo(() => {
+    try {
+      return Prism.highlight(cssCode, Prism.languages.css, "css");
+    } catch (e) {
+      return cssCode;
     }
   }, [cssCode]);
 
-  React.useEffect(() => {
-    if (jsonRef.current) {
-      Prism.highlightElement(jsonRef.current);
+  // Generate highlighted HTML for JSON
+  const highlightedJSON = React.useMemo(() => {
+    try {
+      return Prism.highlight(jsonCode, Prism.languages.json, "json");
+    } catch (e) {
+      return jsonCode;
     }
   }, [jsonCode]);
 
@@ -395,28 +397,6 @@ export function ThemeExportView({ onClose }: ThemeExportViewProps) {
         }
       `}</style>
       <div className="h-full flex flex-col">
-        {/* Header */}
-        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border px-6 py-4">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <WexButton
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Preview
-            </WexButton>
-            <div>
-              <h2 className="text-lg font-semibold">Export Theme</h2>
-              <p className="text-sm text-muted-foreground">
-                Complete token schema with your customizations applied
-              </p>
-            </div>
-          </div>
-        </div>
-        </div>
-
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-6">
         <div className="max-w-7xl mx-auto space-y-6">
@@ -431,7 +411,7 @@ export function ThemeExportView({ onClose }: ThemeExportViewProps) {
               </div>
               <div className="flex items-center gap-1">
                 <WexButton
-                  variant="ghost"
+                  intent="ghost"
                   size="sm"
                   onClick={handleCopyCSS}
                   className="h-7 px-2"
@@ -443,7 +423,7 @@ export function ThemeExportView({ onClose }: ThemeExportViewProps) {
                   )}
                 </WexButton>
                 <WexButton
-                  variant="ghost"
+                  intent="ghost"
                   size="sm"
                   onClick={handleExportCSS}
                   className="h-7 px-2"
@@ -454,9 +434,10 @@ export function ThemeExportView({ onClose }: ThemeExportViewProps) {
             </div>
             <div className="p-4 overflow-x-auto overflow-y-auto max-h-[400px] bg-muted/50 dark:bg-slate-950">
               <pre className="text-xs font-mono !m-0 !bg-transparent text-foreground dark:text-slate-100">
-                <code ref={cssRef} className="language-css !text-sm !leading-relaxed">
-                  {cssCode}
-                </code>
+                <code 
+                  className="language-css !text-sm !leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: highlightedCSS }}
+                />
               </pre>
             </div>
           </div>
@@ -472,7 +453,7 @@ export function ThemeExportView({ onClose }: ThemeExportViewProps) {
               </div>
               <div className="flex items-center gap-1">
                 <WexButton
-                  variant="ghost"
+                  intent="ghost"
                   size="sm"
                   onClick={handleCopyJSON}
                   className="h-7 px-2"
@@ -484,7 +465,7 @@ export function ThemeExportView({ onClose }: ThemeExportViewProps) {
                   )}
                 </WexButton>
                 <WexButton
-                  variant="ghost"
+                  intent="ghost"
                   size="sm"
                   onClick={handleExportJSON}
                   className="h-7 px-2"
@@ -495,9 +476,10 @@ export function ThemeExportView({ onClose }: ThemeExportViewProps) {
             </div>
             <div className="p-4 overflow-x-auto overflow-y-auto max-h-[400px] bg-muted/50 dark:bg-slate-950">
               <pre className="text-xs font-mono !m-0 !bg-transparent text-foreground dark:text-slate-100">
-                <code ref={jsonRef} className="language-json !text-sm !leading-relaxed">
-                  {jsonCode}
-                </code>
+                <code 
+                  className="language-json !text-sm !leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: highlightedJSON }}
+                />
               </pre>
             </div>
           </div>

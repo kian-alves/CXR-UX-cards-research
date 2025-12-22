@@ -19,6 +19,27 @@ export function DocsLayout() {
   const isHome = location.pathname === "/";
   const isThemeBuilder = location.pathname === "/theme-builder";
   
+  // Track previous location to save before entering theme builder
+  const prevLocationRef = React.useRef<string | null>(null);
+  
+  // Save previous page when entering theme builder
+  React.useEffect(() => {
+    const currentPath = location.pathname;
+    const prevPath = prevLocationRef.current;
+    
+    // If we just navigated TO theme builder, save the previous page
+    if (isThemeBuilder && prevPath !== null && prevPath !== "/theme-builder") {
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("wex-theme-builder-last-page", prevPath);
+      }
+    }
+    
+    // Update the ref AFTER checking (only track non-theme-builder pages)
+    if (!isThemeBuilder) {
+      prevLocationRef.current = currentPath;
+    }
+  }, [location.pathname, isThemeBuilder]);
+  
   // Token Map modal state (can be opened from Theme Builder)
   const [tokenMapOpen, setTokenMapOpen] = React.useState(false);
 
@@ -46,7 +67,7 @@ export function DocsLayout() {
       {/* Sidebar - hidden on home page and theme builder */}
       {/* Theme Builder has its own full-page layout with integrated nav */}
       {isThemeBuilder ? (
-        <ThemeBuilderProvider lastVisitedPage={undefined}>
+        <ThemeBuilderProvider>
           {/* Token Map Modal - can be opened from Theme Builder */}
           <TokenMapModal open={tokenMapOpen} onOpenChange={setTokenMapOpen} />
           

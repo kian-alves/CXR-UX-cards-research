@@ -11,7 +11,7 @@
  */
 
 import * as React from "react";
-import { WexSeparator, WexAlertDialog, WexPopover } from "@/components/wex";
+import { WexSeparator, WexPopover } from "@/components/wex";
 import {
   ArrowLeft,
   Download,
@@ -120,9 +120,6 @@ export function ThemeBuilderNav({
   const { exitThemeBuilder, editMode: contextEditMode, setEditMode } = useThemeBuilder();
   const editMode = editModeProp ?? contextEditMode;
 
-  // Exit confirmation dialog state
-  const [showExitDialog, setShowExitDialog] = React.useState(false);
-
   // Section open/closed state
   const [openSections, setOpenSections] = React.useState<
     Record<string, boolean>
@@ -140,14 +137,10 @@ export function ThemeBuilderNav({
     }));
   };
 
-  // Handle exit with unsaved changes warning
+  // Handle exit - changes are auto-saved, so no warning needed
   const handleExit = React.useCallback(() => {
-    if (hasUnsavedChanges) {
-      setShowExitDialog(true);
-    } else {
-      exitThemeBuilder();
-    }
-  }, [hasUnsavedChanges, exitThemeBuilder]);
+    exitThemeBuilder();
+  }, [exitThemeBuilder]);
 
   const tokenSections = getTokenSections();
 
@@ -266,7 +259,6 @@ export function ThemeBuilderNav({
           onClick={onExport}
           icon={<Download className="h-4 w-4" />}
           label="Export Theme"
-          disabled={!hasOverrides}
         />
         <WexSeparator className="my-2" />
         <ActionButton
@@ -275,26 +267,7 @@ export function ThemeBuilderNav({
           label="Exit Theme Builder"
           badge={hasUnsavedChanges ? "●" : undefined}
         />
-      </div>
-
-      {/* Exit Confirmation Dialog */}
-      <WexAlertDialog open={showExitDialog} onOpenChange={setShowExitDialog}>
-        <WexAlertDialog.Content>
-          <WexAlertDialog.Header>
-            <WexAlertDialog.Title>Unsaved Changes</WexAlertDialog.Title>
-            <WexAlertDialog.Description>
-              You have unsaved theme changes. Are you sure you want to exit?
-              Your changes will be lost.
-            </WexAlertDialog.Description>
-          </WexAlertDialog.Header>
-          <WexAlertDialog.Footer>
-            <WexAlertDialog.Cancel>Cancel</WexAlertDialog.Cancel>
-            <WexAlertDialog.Action onClick={exitThemeBuilder}>
-              Exit Anyway
-            </WexAlertDialog.Action>
-          </WexAlertDialog.Footer>
-        </WexAlertDialog.Content>
-      </WexAlertDialog>
+        </div>
     </div>
   );
 }
