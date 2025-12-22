@@ -32,6 +32,8 @@ export { WexField } from "./wex-field";
 export { WexInputGroup } from "./wex-input-group";
 export { WexInputOTP } from "./wex-input-otp";
 export { WexCalendar } from "./wex-calendar";
+export { WexCombobox, type ComboboxProps, type ComboboxOption } from "./wex-combobox";
+export { WexDatePicker, type DatePickerProps, type DatePickerWithInputProps } from "./wex-date-picker";
 
 // ===== OVERLAY COMPONENTS =====
 export { WexDialog } from "./wex-dialog";
@@ -52,6 +54,7 @@ export { WexCommand } from "./wex-command";
 // ===== LAYOUT COMPONENTS =====
 export { WexCard } from "./wex-card";
 export { WexTable } from "./wex-table";
+export { WexDataTable, WexDataTableColumnHeader, WexDataTableViewOptions, WexDataTablePagination, WexDataTableRowActions } from "./wex-data-table";
 export { WexTabs } from "./wex-tabs";
 export { WexAccordion } from "./wex-accordion";
 export { WexSeparator } from "./wex-separator";

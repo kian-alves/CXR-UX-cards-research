@@ -38,6 +38,7 @@ const ChartPage = React.lazy(() => import("@/docs/pages/components/ChartPage"));
 const CheckboxPage = React.lazy(() => import("@/docs/pages/components/CheckboxPage"));
 const CollapsiblePage = React.lazy(() => import("@/docs/pages/components/CollapsiblePage"));
 const CommandPage = React.lazy(() => import("@/docs/pages/components/CommandPage"));
+const ComboboxPage = React.lazy(() => import("@/docs/pages/components/ComboboxPage"));
 const ContextMenuPage = React.lazy(() => import("@/docs/pages/components/ContextMenuPage"));
 const DialogPage = React.lazy(() => import("@/docs/pages/components/DialogPage"));
 const DrawerPage = React.lazy(() => import("@/docs/pages/components/DrawerPage"));
@@ -70,6 +71,8 @@ const SonnerPage = React.lazy(() => import("@/docs/pages/components/SonnerPage")
 const SpinnerPage = React.lazy(() => import("@/docs/pages/components/SpinnerPage"));
 const SwitchPage = React.lazy(() => import("@/docs/pages/components/SwitchPage"));
 const TablePage = React.lazy(() => import("@/docs/pages/components/TablePage"));
+const DataTablePage = React.lazy(() => import("@/docs/pages/components/DataTablePage"));
+const DatePickerPage = React.lazy(() => import("@/docs/pages/components/DatePickerPage"));
 const TabsPage = React.lazy(() => import("@/docs/pages/components/TabsPage"));
 const TextareaPage = React.lazy(() => import("@/docs/pages/components/TextareaPage"));
 const ToastPage = React.lazy(() => import("@/docs/pages/components/ToastPage"));
@@ -133,6 +136,7 @@ export function DocsRoutes() {
           <Route path="components/checkbox" element={<CheckboxPage />} />
           <Route path="components/collapsible" element={<CollapsiblePage />} />
           <Route path="components/command" element={<CommandPage />} />
+          <Route path="components/combobox" element={<ComboboxPage />} />
           <Route path="components/context-menu" element={<ContextMenuPage />} />
           <Route path="components/dialog" element={<DialogPage />} />
           <Route path="components/drawer" element={<DrawerPage />} />
@@ -165,6 +169,8 @@ export function DocsRoutes() {
           <Route path="components/spinner" element={<SpinnerPage />} />
           <Route path="components/switch" element={<SwitchPage />} />
           <Route path="components/table" element={<TablePage />} />
+          <Route path="components/data-table" element={<DataTablePage />} />
+          <Route path="components/date-picker" element={<DatePickerPage />} />
           <Route path="components/tabs" element={<TabsPage />} />
           <Route path="components/textarea" element={<TextareaPage />} />
           <Route path="components/toast" element={<ToastPage />} />
