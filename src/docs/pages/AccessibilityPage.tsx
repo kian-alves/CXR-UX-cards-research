@@ -17,30 +17,30 @@ import { WexInput, WexDialog, WexTabs } from "@/components/wex";
  * FRAMING: Uses "signal" language only - NOT compliance certification
  */
 
-interface ExampleResult {
-  status: "pass" | "fail";
-  violations: number;
-  issues: string[];
+interface FailingElement {
+  selector: string;
+  violationId: string;
+  impact: string;
+  message: string;
 }
 
 interface ModeResult {
-  status: "pass" | "partial" | "fail" | "no_examples" | "pending";
+  status: "pass" | "fail" | "no_examples";
   levelAchieved?: string | null;
   violations: number;
   issues: string[];
   examplesFound: number;
-  examples?: Record<string, ExampleResult>;
+  failingElements?: FailingElement[];
 }
 
 interface ComplianceEntry {
-  status: "pass" | "partial" | "fail" | "no_examples" | "pending";
+  status: "pass" | "partial" | "fail" | "no_examples";
   levelAchieved?: string | null;
   violations: number;
   issues: string[];
   testedAt: string;
   scope: string;
   examplesFound: number;
-  scenariosTested: string[];
   subject: string;
   modes?: {
     light: ModeResult | null;
@@ -52,11 +52,6 @@ type ComplianceData = Record<string, ComplianceEntry | { description: string }>;
 
 /**
  * Issue Fixability Reference
- * 
- * Provides context about each known issue type to help developers understand:
- * - What the issue is and why it occurs
- * - Whether it's fixable at our level
- * - How to address it (if applicable)
  */
 interface IssueInfo {
   title: string;
@@ -201,8 +196,8 @@ export default function AccessibilityPage() {
       if (sortBy === "name") {
         comparison = a.name.localeCompare(b.name);
       } else if (sortBy === "status") {
-        const statusOrder = { pass: 0, partial: 1, fail: 2, no_examples: 3, pending: 4 };
-        comparison = (statusOrder[a.status] || 4) - (statusOrder[b.status] || 4);
+        const statusOrder = { pass: 0, partial: 1, fail: 2, no_examples: 3 };
+        comparison = (statusOrder[a.status] || 3) - (statusOrder[b.status] || 3);
       } else if (sortBy === "violations") {
         comparison = (a.violations || 0) - (b.violations || 0);
       }
@@ -541,7 +536,6 @@ function StatusBadge({ status }: StatusBadgeProps) {
     partial: { label: "Partial", className: "border-warning/50 bg-warning/10 text-warning" },
     fail: { label: "Fail", className: "border-destructive/50 bg-destructive/10 text-destructive" },
     no_examples: { label: "No Examples", className: "border-warning/50 bg-warning/10 text-warning" },
-    pending: { label: "Pending", className: "border-border bg-muted text-muted-foreground" },
   }[status] || { label: status, className: "border-border bg-muted text-muted-foreground" };
 
   return (
@@ -559,8 +553,6 @@ interface MiniStatusBadgeProps {
 function MiniStatusBadge({ status, violations }: MiniStatusBadgeProps) {
   const icon = status === "pass" 
     ? <Check className="h-3 w-3 text-success" />
-    : status === "partial"
-    ? <AlertTriangle className="h-3 w-3 text-warning" />
     : status === "fail"
     ? <X className="h-3 w-3 text-destructive" />
     : <HelpCircle className="h-3 w-3 text-muted-foreground" />;
@@ -620,11 +612,6 @@ function ComponentDetailContent({ registryKey, data, info, onClose }: ComponentD
   }
 
   const testedDate = data.testedAt ? new Date(data.testedAt).toLocaleDateString() : "Never";
-  
-  // Pre-calculate variants (filter out auto-generated IDs)
-  const variants = data.scenariosTested.filter(s => 
-    !s.startsWith("example-_r_") && !/^example-\d+$/.test(s)
-  );
 
   return (
     <>
@@ -659,65 +646,12 @@ function ComponentDetailContent({ registryKey, data, info, onClose }: ComponentD
           </div>
           <div className="h-4 w-px bg-border" />
           <div className="flex items-center gap-1.5">
-            <span className="font-medium">{variants.length || data.examplesFound}</span>
-            <span className="text-muted-foreground">variants</span>
+            <span className="font-medium">{data.examplesFound}</span>
+            <span className="text-muted-foreground">examples</span>
           </div>
         </div>
 
-        {/* Variants List */}
-        {variants.length > 0 && (
-          <div>
-            <p className="text-xs text-muted-foreground mb-2">Tested Variants</p>
-            <div className="flex flex-wrap gap-2">
-              {variants.map((variant) => {
-                const lightResult = data.modes?.light?.examples?.[variant];
-                const darkResult = data.modes?.dark?.examples?.[variant];
-                
-                const lightPass = lightResult?.status === "pass";
-                const darkPass = darkResult?.status === "pass";
-                
-                return (
-                  <div 
-                    key={variant} 
-                    className="inline-flex items-center gap-1.5 px-2 py-1 rounded border border-border bg-card text-xs"
-                  >
-                    <span className="font-mono text-foreground">{variant}</span>
-                    <span className="flex items-center gap-0.5 ml-1">
-                      {/* Light mode indicator */}
-                      <span title={`Light: ${lightResult?.status || 'unknown'}`} className="flex items-center">
-                        <Sun className="h-3 w-3 text-muted-foreground" />
-                        {lightResult ? (
-                          lightPass ? (
-                            <Check className="h-3 w-3 text-success -ml-0.5" />
-                          ) : (
-                            <X className="h-3 w-3 text-destructive -ml-0.5" />
-                          )
-                        ) : (
-                          <HelpCircle className="h-2.5 w-2.5 text-muted-foreground -ml-0.5" />
-                        )}
-                      </span>
-                      {/* Dark mode indicator */}
-                      <span title={`Dark: ${darkResult?.status || 'unknown'}`} className="flex items-center ml-1">
-                        <Moon className="h-3 w-3 text-muted-foreground" />
-                        {darkResult ? (
-                          darkPass ? (
-                            <Check className="h-3 w-3 text-success -ml-0.5" />
-                          ) : (
-                            <X className="h-3 w-3 text-destructive -ml-0.5" />
-                          )
-                        ) : (
-                          <HelpCircle className="h-2.5 w-2.5 text-muted-foreground -ml-0.5" />
-                        )}
-                      </span>
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Issues - More Breathing Room */}
+        {/* Issues */}
         {data.issues.length > 0 && (
           <div className="space-y-3">
             <p className="text-sm font-medium text-foreground">Issues</p>
@@ -740,6 +674,29 @@ function ComponentDetailContent({ registryKey, data, info, onClose }: ComponentD
             })}
           </div>
         )}
+
+        {/* Failing Elements (if any) */}
+        {(data.modes?.light?.failingElements?.length || data.modes?.dark?.failingElements?.length) ? (
+          <div className="space-y-3">
+            <p className="text-sm font-medium text-foreground">Failing Elements</p>
+            <div className="p-3 rounded-lg border border-border bg-muted/30 max-h-48 overflow-y-auto">
+              <ul className="space-y-2 text-xs font-mono">
+                {[...(data.modes?.light?.failingElements || []), ...(data.modes?.dark?.failingElements || [])]
+                  .slice(0, 10)
+                  .map((el, idx) => (
+                    <li key={idx} className="text-muted-foreground truncate" title={el.selector}>
+                      <span className="text-destructive">{el.violationId}</span>: {el.selector.slice(0, 60)}...
+                    </li>
+                  ))}
+              </ul>
+              {((data.modes?.light?.failingElements?.length || 0) + (data.modes?.dark?.failingElements?.length || 0)) > 10 && (
+                <p className="text-xs text-muted-foreground mt-2">
+                  + {((data.modes?.light?.failingElements?.length || 0) + (data.modes?.dark?.failingElements?.length || 0)) - 10} more elements
+                </p>
+              )}
+            </div>
+          </div>
+        ) : null}
 
         {/* Footer with link and metadata */}
         <div className="flex items-center justify-between pt-3 border-t border-border">
@@ -778,4 +735,3 @@ function FixabilityBadge({ fixable, label }: FixabilityBadgeProps) {
     </span>
   );
 }
-
