@@ -5,7 +5,7 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
-const avatarVariants = cva("relative flex shrink-0 overflow-hidden", {
+const avatarVariants = cva("relative flex shrink-0", {
   variants: {
     size: {
       xs: "h-6 w-6 text-xs",
@@ -48,7 +48,7 @@ const AvatarImage = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AvatarPrimitive.Image
     ref={ref}
-    className={cn("aspect-square h-full w-full object-cover", className)}
+    className={cn("aspect-square h-full w-full object-cover overflow-hidden rounded-[inherit]", className)}
     {...props}
   />
 ))
@@ -61,7 +61,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      "flex h-full w-full items-center justify-center bg-muted font-medium",
+      "flex h-full w-full items-center justify-center bg-muted font-medium overflow-hidden rounded-[inherit]",
       className
     )}
     {...props}
