@@ -8,15 +8,15 @@
       "light",
       "dark"
     ],
-    "lastUpdated": "2025-12-20T19:05:07.219Z",
-    "totalComponents": 54
+    "lastUpdated": "2025-12-23T14:20:07.861Z",
+    "totalComponents": 57
   },
   "accordion": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:11.380Z",
+    "testedAt": "2025-12-23T14:18:44.338Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -47,7 +47,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:20.757Z",
+    "testedAt": "2025-12-23T14:18:53.983Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -74,13 +74,12 @@
     }
   },
   "alert": {
-    "status": "partial",
-    "levelAchieved": "A",
-    "violations": 2,
+    "status": "fail",
+    "violations": 6,
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:04:17.457Z",
+    "testedAt": "2025-12-23T14:18:50.575Z",
     "scope": "component-examples-only",
     "examplesFound": 8,
     "scenariosTested": [
@@ -96,15 +95,16 @@
     "subject": "Component examples for Alert",
     "modes": {
       "light": {
-        "status": "pass",
-        "levelAchieved": "AA",
-        "violations": 0,
-        "issues": [],
+        "status": "fail",
+        "violations": 2,
+        "issues": [
+          "color-contrast"
+        ],
         "examplesFound": 8
       },
       "dark": {
         "status": "fail",
-        "violations": 2,
+        "violations": 4,
         "issues": [
           "color-contrast"
         ],
@@ -117,7 +117,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:24.519Z",
+    "testedAt": "2025-12-23T14:18:57.826Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -145,76 +145,66 @@
     }
   },
   "avatar": {
-    "status": "pass",
-    "levelAchieved": "AA",
+    "status": "no_examples",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:29.074Z",
+    "testedAt": "2025-12-23T14:18:59.586Z",
     "scope": "component-examples-only",
-    "examplesFound": 4,
-    "scenariosTested": [
-      "example-_r_1_",
-      "with-image",
-      "fallback-only",
-      "sizes"
-    ],
+    "examplesFound": 0,
+    "scenariosTested": [],
     "subject": "Component examples for Avatar",
     "modes": {
       "light": {
-        "status": "pass",
-        "levelAchieved": "AA",
+        "status": "no_examples",
         "violations": 0,
         "issues": [],
-        "examplesFound": 4
+        "examplesFound": 0
       },
       "dark": {
-        "status": "pass",
-        "levelAchieved": "AA",
+        "status": "no_examples",
         "violations": 0,
         "issues": [],
-        "examplesFound": 4
+        "examplesFound": 0
       }
     }
   },
   "badge": {
-    "status": "partial",
-    "levelAchieved": "A",
-    "violations": 5,
+    "status": "fail",
+    "violations": 14,
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:04:36.347Z",
+    "testedAt": "2025-12-23T14:19:06.048Z",
     "scope": "component-examples-only",
-    "examplesFound": 11,
+    "examplesFound": 9,
     "scenariosTested": [
       "example-_r_1_",
-      "default",
-      "secondary",
-      "outline",
-      "destructive",
-      "success",
-      "warning",
-      "info",
-      "interactive-badge",
-      "with-count",
-      "grouped-badges"
+      "all-sizes",
+      "sizes-with-intents",
+      "default-vs-pill",
+      "pill-with-sizes",
+      "all-intents",
+      "status-indicators",
+      "counts",
+      "tags"
     ],
     "subject": "Component examples for Badge",
     "modes": {
       "light": {
-        "status": "pass",
-        "levelAchieved": "AA",
-        "violations": 0,
-        "issues": [],
-        "examplesFound": 11
-      },
-      "dark": {
         "status": "fail",
-        "violations": 5,
+        "violations": 6,
         "issues": [
           "color-contrast"
         ],
-        "examplesFound": 11
+        "examplesFound": 9
+      },
+      "dark": {
+        "status": "fail",
+        "violations": 8,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 9
       }
     }
   },
@@ -223,7 +213,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:39.389Z",
+    "testedAt": "2025-12-23T14:19:09.048Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
@@ -253,7 +243,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:51.213Z",
+    "testedAt": "2025-12-23T14:19:20.745Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -287,22 +277,19 @@
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:04:47.175Z",
+    "testedAt": "2025-12-23T14:19:16.073Z",
     "scope": "component-examples-only",
-    "examplesFound": 12,
+    "examplesFound": 9,
     "scenariosTested": [
       "example-_r_1_",
-      "primary",
-      "secondary",
-      "ghost",
-      "destructive",
-      "outline",
-      "example-_r_7_",
-      "icon-size",
-      "disabled",
-      "loading",
-      "with-icon",
-      "full-width"
+      "all-severities",
+      "with-icons",
+      "ghost-outline",
+      "link-style",
+      "rounded-pill",
+      "loading-buttons",
+      "example-_r_8_",
+      "icon-size"
     ],
     "subject": "Component examples for Button",
     "modes": {
@@ -311,7 +298,7 @@
         "levelAchieved": "AA",
         "violations": 0,
         "issues": [],
-        "examplesFound": 12
+        "examplesFound": 9
       },
       "dark": {
         "status": "fail",
@@ -319,7 +306,7 @@
         "issues": [
           "color-contrast"
         ],
-        "examplesFound": 12
+        "examplesFound": 9
       }
     }
   },
@@ -330,7 +317,7 @@
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:05:01.296Z",
+    "testedAt": "2025-12-23T14:19:31.505Z",
     "scope": "component-examples-only",
     "examplesFound": 8,
     "scenariosTested": [
@@ -364,30 +351,32 @@
   },
   "card": {
     "status": "fail",
-    "violations": 5,
+    "violations": 6,
     "issues": [
+      "button-name",
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:05:07.061Z",
+    "testedAt": "2025-12-23T14:19:37.474Z",
     "scope": "component-examples-only",
     "examplesFound": 9,
     "scenariosTested": [
       "example-_r_1_",
-      "simple",
-      "with-header-only",
-      "with-footer-actions",
+      "default",
+      "elevated",
+      "outlined",
+      "flat",
       "form-card",
       "settings-card",
       "user-profile-card",
-      "feature-card",
       "stats-card"
     ],
     "subject": "Component examples for Card",
     "modes": {
       "light": {
         "status": "fail",
-        "violations": 1,
+        "violations": 2,
         "issues": [
+          "button-name",
           "color-contrast"
         ],
         "examplesFound": 9
@@ -396,7 +385,8 @@
         "status": "fail",
         "violations": 4,
         "issues": [
-          "color-contrast"
+          "color-contrast",
+          "button-name"
         ],
         "examplesFound": 9
       }
@@ -407,7 +397,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:10.285Z",
+    "testedAt": "2025-12-23T14:18:45.018Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
@@ -437,7 +427,7 @@
     "issues": [
       "svg-img-alt"
     ],
-    "testedAt": "2025-12-20T19:04:15.237Z",
+    "testedAt": "2025-12-23T14:18:50.046Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -472,7 +462,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:21.086Z",
+    "testedAt": "2025-12-23T14:18:56.001Z",
     "scope": "component-examples-only",
     "examplesFound": 8,
     "scenariosTested": [
@@ -508,7 +498,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:23.442Z",
+    "testedAt": "2025-12-23T14:18:58.435Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
@@ -532,13 +522,37 @@
       }
     }
   },
+  "combobox": {
+    "status": "no_examples",
+    "violations": 0,
+    "issues": [],
+    "testedAt": "2025-12-23T14:19:00.142Z",
+    "scope": "component-examples-only",
+    "examplesFound": 0,
+    "scenariosTested": [],
+    "subject": "Component examples for Combobox",
+    "modes": {
+      "light": {
+        "status": "no_examples",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 0
+      },
+      "dark": {
+        "status": "no_examples",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 0
+      }
+    }
+  },
   "command": {
     "status": "fail",
     "violations": 2,
     "issues": [
       "aria-required-children"
     ],
-    "testedAt": "2025-12-20T19:04:26.399Z",
+    "testedAt": "2025-12-23T14:19:03.271Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
@@ -570,7 +584,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:29.232Z",
+    "testedAt": "2025-12-23T14:19:06.134Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
@@ -595,21 +609,67 @@
       }
     }
   },
+  "data-table": {
+    "status": "no_examples",
+    "violations": 0,
+    "issues": [],
+    "testedAt": "2025-12-23T14:19:39.159Z",
+    "scope": "component-examples-only",
+    "examplesFound": 0,
+    "scenariosTested": [],
+    "subject": "Component examples for Data Table",
+    "modes": {
+      "light": {
+        "status": "no_examples",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 0
+      },
+      "dark": {
+        "status": "no_examples",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 0
+      }
+    }
+  },
+  "date-picker": {
+    "status": "no_examples",
+    "violations": 0,
+    "issues": [],
+    "testedAt": "2025-12-23T14:18:42.466Z",
+    "scope": "component-examples-only",
+    "examplesFound": 0,
+    "scenariosTested": [],
+    "subject": "Component examples for Date Picker",
+    "modes": {
+      "light": {
+        "status": "no_examples",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 0
+      },
+      "dark": {
+        "status": "no_examples",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 0
+      }
+    }
+  },
   "dialog": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:34.148Z",
+    "testedAt": "2025-12-23T14:19:10.110Z",
     "scope": "component-examples-only",
-    "examplesFound": 6,
+    "examplesFound": 4,
     "scenariosTested": [
       "example-_r_1_",
-      "simple",
-      "with-form",
-      "with-footer-actions",
-      "scrollable-content",
-      "controlled"
+      "example-_r_13_",
+      "example-_r_17_",
+      "example-_r_1b_"
     ],
     "subject": "Component examples for Dialog",
     "modes": {
@@ -618,14 +678,14 @@
         "levelAchieved": "AA",
         "violations": 0,
         "issues": [],
-        "examplesFound": 6
+        "examplesFound": 4
       },
       "dark": {
         "status": "pass",
         "levelAchieved": "AA",
         "violations": 0,
         "issues": [],
-        "examplesFound": 6
+        "examplesFound": 4
       }
     }
   },
@@ -634,7 +694,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:38.583Z",
+    "testedAt": "2025-12-23T14:19:14.500Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -667,7 +727,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:43.972Z",
+    "testedAt": "2025-12-23T14:19:20.566Z",
     "scope": "component-examples-only",
     "examplesFound": 7,
     "scenariosTested": [
@@ -704,7 +764,7 @@
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:04:47.393Z",
+    "testedAt": "2025-12-23T14:19:24.031Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -738,7 +798,7 @@
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:04:52.059Z",
+    "testedAt": "2025-12-23T14:18:45.291Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -774,7 +834,7 @@
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:04:19.423Z",
+    "testedAt": "2025-12-23T14:18:56.901Z",
     "scope": "component-examples-only",
     "examplesFound": 18,
     "scenariosTested": [
@@ -823,7 +883,7 @@
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:04:23.845Z",
+    "testedAt": "2025-12-23T14:19:01.352Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -857,7 +917,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:38.758Z",
+    "testedAt": "2025-12-23T14:19:17.052Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -890,7 +950,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:41.196Z",
+    "testedAt": "2025-12-23T14:19:19.930Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
@@ -915,47 +975,53 @@
     }
   },
   "input": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T19:04:34.219Z",
+    "status": "fail",
+    "violations": 4,
+    "issues": [
+      "label",
+      "color-contrast"
+    ],
+    "testedAt": "2025-12-23T14:19:12.471Z",
     "scope": "component-examples-only",
-    "examplesFound": 17,
+    "examplesFound": 18,
     "scenariosTested": [
       "example-_r_1_",
+      "all-sizes",
+      "default-outlined",
+      "filled",
+      "left-icon",
+      "right-icon-interactive",
+      "both-icons-interactive-password",
+      "invalid-input",
+      "invalid-with-icon",
       "text",
       "email",
       "password",
       "number",
       "search",
       "url",
-      "tel",
-      "date",
       "default",
-      "with-value",
-      "focused",
       "disabled",
-      "read-only",
-      "standard-label",
-      "required-field",
-      "with-helper-text"
+      "read-only"
     ],
     "subject": "Component examples for Input",
     "modes": {
       "light": {
-        "status": "pass",
-        "levelAchieved": "AA",
-        "violations": 0,
-        "issues": [],
-        "examplesFound": 17
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "label"
+        ],
+        "examplesFound": 18
       },
       "dark": {
-        "status": "pass",
-        "levelAchieved": "AA",
-        "violations": 0,
-        "issues": [],
-        "examplesFound": 17
+        "status": "fail",
+        "violations": 3,
+        "issues": [
+          "color-contrast",
+          "label"
+        ],
+        "examplesFound": 18
       }
     }
   },
@@ -964,7 +1030,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:45.126Z",
+    "testedAt": "2025-12-23T14:19:24.063Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -996,7 +1062,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:48.967Z",
+    "testedAt": "2025-12-23T14:19:27.841Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -1028,7 +1094,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:52.354Z",
+    "testedAt": "2025-12-23T14:19:31.113Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -1059,7 +1125,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:55.088Z",
+    "testedAt": "2025-12-23T14:19:33.838Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
@@ -1089,7 +1155,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:57.855Z",
+    "testedAt": "2025-12-23T14:19:36.585Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
@@ -1115,32 +1181,26 @@
     }
   },
   "pagination": {
-    "status": "pass",
-    "levelAchieved": "AA",
+    "status": "no_examples",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:05:00.582Z",
+    "testedAt": "2025-12-23T14:19:38.335Z",
     "scope": "component-examples-only",
-    "examplesFound": 2,
-    "scenariosTested": [
-      "example-_r_1_",
-      "example-_r_2_"
-    ],
+    "examplesFound": 0,
+    "scenariosTested": [],
     "subject": "Component examples for Pagination",
     "modes": {
       "light": {
-        "status": "pass",
-        "levelAchieved": "AA",
+        "status": "no_examples",
         "violations": 0,
         "issues": [],
-        "examplesFound": 2
+        "examplesFound": 0
       },
       "dark": {
-        "status": "pass",
-        "levelAchieved": "AA",
+        "status": "no_examples",
         "violations": 0,
         "issues": [],
-        "examplesFound": 2
+        "examplesFound": 0
       }
     }
   },
@@ -1149,7 +1209,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:13.500Z",
+    "testedAt": "2025-12-23T14:18:46.468Z",
     "scope": "component-examples-only",
     "examplesFound": 7,
     "scenariosTested": [
@@ -1186,16 +1246,18 @@
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:04:18.425Z",
+    "testedAt": "2025-12-23T14:18:52.515Z",
     "scope": "component-examples-only",
-    "examplesFound": 6,
+    "examplesFound": 8,
     "scenariosTested": [
       "example-_r_1_",
-      "interactive-demo",
-      "different-values",
+      "indeterminate-progress",
+      "labeled-progress",
+      "custom-label-format",
+      "click-to-start",
       "file-upload",
       "multi-step-process",
-      "with-label"
+      "loading-state"
     ],
     "subject": "Component examples for Progress",
     "modes": {
@@ -1204,7 +1266,7 @@
         "levelAchieved": "AA",
         "violations": 0,
         "issues": [],
-        "examplesFound": 6
+        "examplesFound": 8
       },
       "dark": {
         "status": "fail",
@@ -1212,7 +1274,7 @@
         "issues": [
           "color-contrast"
         ],
-        "examplesFound": 6
+        "examplesFound": 8
       }
     }
   },
@@ -1221,11 +1283,14 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:20.801Z",
+    "testedAt": "2025-12-23T14:18:56.674Z",
     "scope": "component-examples-only",
-    "examplesFound": 1,
+    "examplesFound": 4,
     "scenariosTested": [
-      "example-_r_1_"
+      "example-_r_1_",
+      "horizontal",
+      "with-disabled-options",
+      "example-_r_d_"
     ],
     "subject": "Component examples for Radio Group",
     "modes": {
@@ -1234,14 +1299,14 @@
         "levelAchieved": "AA",
         "violations": 0,
         "issues": [],
-        "examplesFound": 1
+        "examplesFound": 4
       },
       "dark": {
         "status": "pass",
         "levelAchieved": "AA",
         "violations": 0,
         "issues": [],
-        "examplesFound": 1
+        "examplesFound": 4
       }
     }
   },
@@ -1251,7 +1316,7 @@
     "issues": [
       "aria-allowed-attr"
     ],
-    "testedAt": "2025-12-20T19:04:23.179Z",
+    "testedAt": "2025-12-23T14:18:59.073Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
@@ -1282,7 +1347,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:25.520Z",
+    "testedAt": "2025-12-23T14:19:01.461Z",
     "scope": "component-examples-only",
     "examplesFound": 1,
     "scenariosTested": [
@@ -1311,7 +1376,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:31.386Z",
+    "testedAt": "2025-12-23T14:19:07.485Z",
     "scope": "component-examples-only",
     "examplesFound": 8,
     "scenariosTested": [
@@ -1347,7 +1412,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:34.795Z",
+    "testedAt": "2025-12-23T14:19:10.846Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -1378,14 +1443,14 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:38.685Z",
+    "testedAt": "2025-12-23T14:19:14.799Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
       "example-_r_1_",
-      "navigation",
-      "with-form",
-      "controlled"
+      "example-_r_10_",
+      "example-_r_14_",
+      "example-_r_18_"
     ],
     "subject": "Component examples for Sheet",
     "modes": {
@@ -1410,7 +1475,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:41.792Z",
+    "testedAt": "2025-12-23T14:19:18.193Z",
     "scope": "component-examples-only",
     "examplesFound": 2,
     "scenariosTested": [
@@ -1436,73 +1501,64 @@
     }
   },
   "skeleton": {
-    "status": "pass",
-    "levelAchieved": "AA",
+    "status": "no_examples",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:45.051Z",
+    "testedAt": "2025-12-23T14:19:20.086Z",
     "scope": "component-examples-only",
-    "examplesFound": 3,
-    "scenariosTested": [
-      "example-_r_1_",
-      "card-skeleton",
-      "list-skeleton"
-    ],
+    "examplesFound": 0,
+    "scenariosTested": [],
     "subject": "Component examples for Skeleton",
     "modes": {
       "light": {
-        "status": "pass",
-        "levelAchieved": "AA",
+        "status": "no_examples",
         "violations": 0,
         "issues": [],
-        "examplesFound": 3
+        "examplesFound": 0
       },
       "dark": {
-        "status": "pass",
-        "levelAchieved": "AA",
+        "status": "no_examples",
         "violations": 0,
         "issues": [],
-        "examplesFound": 3
+        "examplesFound": 0
       }
     }
   },
   "slider": {
     "status": "fail",
-    "violations": 18,
+    "violations": 10,
     "issues": [
       "aria-input-field-name"
     ],
-    "testedAt": "2025-12-20T19:04:51.679Z",
+    "testedAt": "2025-12-23T14:19:25.592Z",
     "scope": "component-examples-only",
-    "examplesFound": 9,
+    "examplesFound": 7,
     "scenariosTested": [
       "example-_r_1_",
-      "default",
+      "basic-slider",
+      "price-range",
+      "time-range",
       "with-steps",
       "custom-range",
-      "small-values",
-      "default",
-      "disabled",
-      "brightness-control",
-      "price-range"
+      "disabled"
     ],
     "subject": "Component examples for Slider",
     "modes": {
       "light": {
         "status": "fail",
-        "violations": 9,
+        "violations": 5,
         "issues": [
           "aria-input-field-name"
         ],
-        "examplesFound": 9
+        "examplesFound": 7
       },
       "dark": {
         "status": "fail",
-        "violations": 9,
+        "violations": 5,
         "issues": [
           "aria-input-field-name"
         ],
-        "examplesFound": 9
+        "examplesFound": 7
       }
     }
   },
@@ -1511,7 +1567,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:12.749Z",
+    "testedAt": "2025-12-23T14:19:29.898Z",
     "scope": "component-examples-only",
     "examplesFound": 5,
     "scenariosTested": [
@@ -1544,7 +1600,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:16.603Z",
+    "testedAt": "2025-12-23T14:18:44.542Z",
     "scope": "component-examples-only",
     "examplesFound": 4,
     "scenariosTested": [
@@ -1576,7 +1632,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:21.392Z",
+    "testedAt": "2025-12-23T14:18:49.526Z",
     "scope": "component-examples-only",
     "examplesFound": 6,
     "scenariosTested": [
@@ -1606,28 +1662,33 @@
     }
   },
   "table": {
-    "status": "partial",
-    "levelAchieved": "A",
-    "violations": 1,
+    "status": "fail",
+    "violations": 2,
     "issues": [
       "color-contrast"
     ],
-    "testedAt": "2025-12-20T19:04:24.900Z",
+    "testedAt": "2025-12-23T14:18:56.102Z",
     "scope": "component-examples-only",
-    "examplesFound": 3,
+    "examplesFound": 8,
     "scenariosTested": [
       "example-_r_1_",
-      "with-badges",
+      "striped-table",
+      "table-with-gridlines",
+      "striped-with-gridlines",
+      "small",
+      "large",
+      "with-status-badges",
       "selectable-rows"
     ],
     "subject": "Component examples for Table",
     "modes": {
       "light": {
-        "status": "pass",
-        "levelAchieved": "AA",
-        "violations": 0,
-        "issues": [],
-        "examplesFound": 3
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "color-contrast"
+        ],
+        "examplesFound": 8
       },
       "dark": {
         "status": "fail",
@@ -1635,82 +1696,71 @@
         "issues": [
           "color-contrast"
         ],
-        "examplesFound": 3
+        "examplesFound": 8
       }
     }
   },
   "tabs": {
-    "status": "partial",
-    "levelAchieved": "A",
-    "violations": 1,
-    "issues": [
-      "color-contrast"
-    ],
-    "testedAt": "2025-12-20T19:04:29.626Z",
+    "status": "no_examples",
+    "violations": 0,
+    "issues": [],
+    "testedAt": "2025-12-23T14:18:57.924Z",
     "scope": "component-examples-only",
-    "examplesFound": 5,
-    "scenariosTested": [
-      "example-_r_1_",
-      "full-width-tabs",
-      "tabs-in-card",
-      "disabled-tab",
-      "controlled-tabs"
-    ],
+    "examplesFound": 0,
+    "scenariosTested": [],
     "subject": "Component examples for Tabs",
     "modes": {
       "light": {
-        "status": "pass",
-        "levelAchieved": "AA",
+        "status": "no_examples",
         "violations": 0,
         "issues": [],
-        "examplesFound": 5
+        "examplesFound": 0
       },
       "dark": {
-        "status": "fail",
-        "violations": 1,
-        "issues": [
-          "color-contrast"
-        ],
-        "examplesFound": 5
+        "status": "no_examples",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 0
       }
     }
   },
   "textarea": {
-    "status": "pass",
-    "levelAchieved": "AA",
-    "violations": 0,
-    "issues": [],
-    "testedAt": "2025-12-20T19:04:37.007Z",
+    "status": "fail",
+    "violations": 2,
+    "issues": [
+      "label"
+    ],
+    "testedAt": "2025-12-23T14:19:04.305Z",
     "scope": "component-examples-only",
-    "examplesFound": 11,
+    "examplesFound": 9,
     "scenariosTested": [
       "example-_r_1_",
-      "default",
-      "with-value",
-      "with-character-limit",
+      "all-sizes",
+      "auto-resize-demo",
+      "with-character-count",
       "required-field",
-      "focus-state",
+      "default",
       "disabled",
       "read-only",
-      "default-height",
-      "custom-height",
       "non-resizable"
     ],
     "subject": "Component examples for Textarea",
     "modes": {
       "light": {
-        "status": "pass",
-        "levelAchieved": "AA",
-        "violations": 0,
-        "issues": [],
-        "examplesFound": 11
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "label"
+        ],
+        "examplesFound": 9
       },
       "dark": {
-        "status": "pass",
-        "levelAchieved": "AA",
-        "violations": 0,
-        "issues": [],
-        "examplesFound": 11
+        "status": "fail",
+        "violations": 1,
+        "issues": [
+          "label"
+        ],
+        "examplesFound": 9
       }
     }
   },
@@ -1719,7 +1769,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:43.271Z",
+    "testedAt": "2025-12-23T14:19:10.773Z",
     "scope": "component-examples-only",
     "examplesFound": 9,
     "scenariosTested": [
@@ -1756,7 +1806,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:54.730Z",
+    "testedAt": "2025-12-23T14:19:23.139Z",
     "scope": "component-examples-only",
     "examplesFound": 3,
     "scenariosTested": [
@@ -1787,7 +1837,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:51.448Z",
+    "testedAt": "2025-12-23T14:19:19.688Z",
     "scope": "component-examples-only",
     "examplesFound": 12,
     "scenariosTested": [
@@ -1827,14 +1877,16 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-20T19:04:58.398Z",
+    "testedAt": "2025-12-23T14:19:28.168Z",
     "scope": "component-examples-only",
-    "examplesFound": 4,
+    "examplesFound": 6,
     "scenariosTested": [
       "example-_r_1_",
-      "example-_r_3_",
-      "with-icon-button",
-      "with-delay"
+      "different-delays",
+      "example-_r_8_",
+      "icon-buttons",
+      "truncated-text",
+      "disabled-button-explanation"
     ],
     "subject": "Component examples for Tooltip",
     "modes": {
@@ -1843,14 +1895,14 @@
         "levelAchieved": "AA",
         "violations": 0,
         "issues": [],
-        "examplesFound": 4
+        "examplesFound": 6
       },
       "dark": {
         "status": "pass",
         "levelAchieved": "AA",
         "violations": 0,
         "issues": [],
-        "examplesFound": 4
+        "examplesFound": 6
       }
     }
   }

@@ -49,6 +49,8 @@ import { hexToHSL, formatHSL, hslToHex, parseHSL } from "@/docs/utils/color-conv
 import { useContrastCompliance, type ContrastCheckResult } from "@/docs/hooks/useContrastCompliance";
 import { WexPopover } from "@/components/wex";
 import { CheckCircle2, AlertTriangle, ChevronRight } from "lucide-react";
+import { TokenCascadeView } from "./TokenCascadeView";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 // =============================================================================
 // EDIT CONTROL COMPONENT
@@ -259,6 +261,16 @@ export function FilteredLivePreview({
             {selectedToken?.startsWith("--wex-palette-") && 
              selectedToken !== "--wex-palette-ramps" && (
               <PaletteTokenPreview tokenName={selectedToken} />
+            )}
+
+            {/* Layer 3 Component Tokens */}
+            {selectedToken?.startsWith("--wex-component-") && (
+              <ComponentTokenPreview tokenName={selectedToken} />
+            )}
+
+            {/* Token Cascade Visualization */}
+            {selectedToken && !selectedToken.includes("-palette-ramps") && (
+              <TokenCascadeView tokenName={selectedToken} className="mt-8" />
             )}
 
             {/* Hard states swatches */}
@@ -2174,6 +2186,226 @@ function PaletteTokenPreview({ tokenName }: { tokenName: string }) {
           Palette tokens define the raw color values. Semantic tokens (like Primary, Destructive) 
           reference palette tokens to get their colors. Changes to this shade will affect all 
           semantic tokens that use it.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Preview for Layer 3 Component Tokens
+ */
+function ComponentTokenPreview({ tokenName }: { tokenName: string }) {
+  // Read actual CSS variable value
+  const [actualColor, setActualColor] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined' || !tokenName) return;
+
+    const readColor = () => {
+      const cssValue = getComputedStyle(document.documentElement)
+        .getPropertyValue(tokenName)
+        .trim();
+      if (cssValue) {
+        setActualColor(cssValue);
+      }
+    };
+
+    readColor();
+    const interval = setInterval(readColor, 200);
+    return () => clearInterval(interval);
+  }, [tokenName]);
+
+  // Parse the token name to extract component and slot info
+  const tokenParts = tokenName.replace("--wex-component-", "").split("-");
+  const componentName = tokenParts[0] || "Unknown";
+  const slotInfo = tokenParts.slice(1).join(" ");
+
+  // Compute swatch color
+  let swatchColor = "hsl(0 0% 50%)";
+  if (actualColor) {
+    if (actualColor.includes("%")) {
+      swatchColor = `hsl(${actualColor})`;
+    } else {
+      swatchColor = actualColor;
+    }
+  }
+
+  // Determine what component to show based on the token
+  const renderPreviewComponent = () => {
+    if (tokenName.includes("button-primary")) {
+      return (
+        <div className="flex flex-wrap gap-2">
+          <WexButton>Primary</WexButton>
+          <WexButton disabled>Disabled</WexButton>
+        </div>
+      );
+    }
+    if (tokenName.includes("button-success")) {
+      return (
+        <div className="flex flex-wrap gap-2">
+          <WexButton intent="success">Success</WexButton>
+          <WexButton intent="success" disabled>Disabled</WexButton>
+        </div>
+      );
+    }
+    if (tokenName.includes("button-info")) {
+      return (
+        <div className="flex flex-wrap gap-2">
+          <WexButton intent="info">Info</WexButton>
+          <WexButton intent="info" disabled>Disabled</WexButton>
+        </div>
+      );
+    }
+    if (tokenName.includes("button-warning")) {
+      return (
+        <div className="flex flex-wrap gap-2">
+          <WexButton intent="warning">Warning</WexButton>
+          <WexButton intent="warning" disabled>Disabled</WexButton>
+        </div>
+      );
+    }
+    if (tokenName.includes("button-destructive")) {
+      return (
+        <div className="flex flex-wrap gap-2">
+          <WexButton intent="destructive">Destructive</WexButton>
+          <WexButton intent="destructive" disabled>Disabled</WexButton>
+        </div>
+      );
+    }
+    if (tokenName.includes("input-")) {
+      return (
+        <div className="space-y-2 max-w-sm">
+          <WexInput placeholder="Default input" />
+          <WexInput variant="filled" placeholder="Filled input" />
+        </div>
+      );
+    }
+    if (tokenName.includes("card-")) {
+      return (
+        <div className="grid grid-cols-2 gap-4">
+          <Card variant="default" className="p-4">
+            <CardHeader className="p-0 pb-2">
+              <CardTitle className="text-sm">Default</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 text-xs text-muted-foreground">
+              With shadow
+            </CardContent>
+          </Card>
+          <Card variant="elevated" className="p-4">
+            <CardHeader className="p-0 pb-2">
+              <CardTitle className="text-sm">Elevated</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 text-xs text-muted-foreground">
+              Strong shadow
+            </CardContent>
+          </Card>
+        </div>
+      );
+    }
+    if (tokenName.includes("tabs-")) {
+      return (
+        <WexTabs defaultValue="tab1">
+          <WexTabs.List>
+            <WexTabs.Trigger value="tab1">Active</WexTabs.Trigger>
+            <WexTabs.Trigger value="tab2">Inactive</WexTabs.Trigger>
+          </WexTabs.List>
+        </WexTabs>
+      );
+    }
+    if (tokenName.includes("badge-")) {
+      return (
+        <div className="flex flex-wrap gap-2">
+          <WexBadge>Default</WexBadge>
+          <WexBadge intent="info">Info</WexBadge>
+          <WexBadge intent="success">Success</WexBadge>
+          <WexBadge intent="warning">Warning</WexBadge>
+          <WexBadge intent="destructive">Destructive</WexBadge>
+        </div>
+      );
+    }
+    if (tokenName.includes("progress-")) {
+      return <WexProgress value={65} className="w-full max-w-md" />;
+    }
+    if (tokenName.includes("tooltip-")) {
+      return (
+        <div 
+          className="inline-block px-3 py-1.5 rounded text-sm"
+          style={{ 
+            backgroundColor: tokenName.includes("-bg") ? swatchColor : undefined,
+            color: tokenName.includes("-fg") ? swatchColor : undefined,
+          }}
+        >
+          Tooltip preview text
+        </div>
+      );
+    }
+    if (tokenName.includes("skeleton-")) {
+      return (
+        <div className="flex items-center gap-3">
+          <WexSkeleton className="h-10 w-10 rounded-full" />
+          <div className="space-y-2">
+            <WexSkeleton className="h-4 w-32" />
+            <WexSkeleton className="h-3 w-24" />
+          </div>
+        </div>
+      );
+    }
+    if (tokenName.includes("separator-")) {
+      return (
+        <div className="space-y-2">
+          <p className="text-sm">Above</p>
+          <WexSeparator />
+          <p className="text-sm">Below</p>
+        </div>
+      );
+    }
+    
+    // Generic color swatch fallback
+    return (
+      <div className="flex items-center gap-4">
+        <div 
+          className="w-16 h-16 rounded-lg border border-border"
+          style={{ backgroundColor: swatchColor }}
+        />
+        <div className="text-sm text-muted-foreground">
+          Token color preview
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="space-y-6">
+      <PreviewCard title={`Layer 3: ${componentName.charAt(0).toUpperCase() + componentName.slice(1)} - ${slotInfo}`}>
+        <div className="space-y-4">
+          {/* Token info */}
+          <div className="flex items-center gap-4 p-3 rounded-md bg-muted/30 border border-dashed">
+            <div 
+              className="w-10 h-10 rounded-md border border-border/50 flex-shrink-0"
+              style={{ backgroundColor: swatchColor }}
+            />
+            <div>
+              <div className="font-mono text-xs">{tokenName}</div>
+              <div className="text-[10px] text-muted-foreground mt-0.5">
+                Layer 3 component token
+              </div>
+            </div>
+          </div>
+
+          {/* Live component preview */}
+          <div>
+            <div className="text-xs font-medium text-muted-foreground mb-2">Live Preview</div>
+            {renderPreviewComponent()}
+          </div>
+        </div>
+      </PreviewCard>
+
+      <div className="p-4 rounded-lg border bg-muted/30">
+        <p className="text-sm text-muted-foreground">
+          Layer 3 component tokens provide granular control over individual component styling.
+          They reference Layer 2 semantic tokens, which in turn reference Layer 1 palette colors.
+          This cascade allows theme customization at any level while maintaining design consistency.
         </p>
       </div>
     </div>

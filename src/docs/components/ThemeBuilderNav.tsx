@@ -30,7 +30,10 @@ import {
   SEMANTIC_TOKENS,
   SURFACE_TOKENS,
   TEXT_TOKENS,
+  COMPONENT_GROUPS,
+  getComponentTokens,
   type TokenDefinition,
+  type ComponentGroup,
 } from "@/docs/data/tokenRegistry";
 import { PaletteSwatchPicker, formatPaletteValue } from "./PaletteSwatchPicker";
 import { useContrastCompliance } from "@/docs/hooks/useContrastCompliance";
@@ -131,7 +134,20 @@ export function ThemeBuilderNav({
     intent: true,
     surfaces: false,
     text: false,
+    components: false,
   });
+
+  // Track which component groups are open within the Components section
+  const [openComponentGroups, setOpenComponentGroups] = React.useState<
+    Record<ComponentGroup, boolean>
+  >({} as Record<ComponentGroup, boolean>);
+
+  const toggleComponentGroup = (group: ComponentGroup) => {
+    setOpenComponentGroups((prev) => ({
+      ...prev,
+      [group]: !prev[group],
+    }));
+  };
 
   const toggleSection = (sectionId: string) => {
     setOpenSections((prev) => ({
@@ -248,6 +264,57 @@ export function ThemeBuilderNav({
             <WexSeparator />
           </React.Fragment>
         ))}
+
+        {/* Layer 3 Component Tokens Section */}
+        <CollapsibleSection
+          label="Component Tokens (L3)"
+          isOpen={openSections.components ?? false}
+          onToggle={() => toggleSection("components")}
+        >
+          <div className="space-y-2">
+            <div className="text-[10px] text-muted-foreground px-1 mb-2">
+              Layer 3 tokens provide granular component styling. Read-only view.
+            </div>
+            {COMPONENT_GROUPS.map((group) => {
+              const groupTokens = getComponentTokens(group.id);
+              if (groupTokens.length === 0) return null;
+              
+              return (
+                <div key={group.id} className="border-l-2 border-border/50 pl-2">
+                  <button
+                    onClick={() => toggleComponentGroup(group.id)}
+                    className="w-full flex items-center gap-1.5 py-1 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <ChevronRight
+                      className={cn(
+                        "h-3 w-3 transition-transform",
+                        openComponentGroups[group.id] && "rotate-90"
+                      )}
+                    />
+                    <span>{group.label}</span>
+                    <span className="ml-auto text-[10px] text-muted-foreground">
+                      {groupTokens.length}
+                    </span>
+                  </button>
+                  {openComponentGroups[group.id] && (
+                    <div className="space-y-0.5 pl-4 pt-1">
+                      {groupTokens.map((token) => (
+                        <ComponentTokenRow
+                          key={token.name}
+                          token={token}
+                          isSelected={selectedToken === token.name}
+                          onSelect={() => onSelectToken(token.name)}
+                          editMode={editMode}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </CollapsibleSection>
+        <WexSeparator />
       </div>
 
       {/* A11y Compliance Summary + Actions at bottom */}
@@ -561,6 +628,95 @@ function TokenRow({
           </WexPopover.Content>
         </WexPopover>
       )}
+    </div>
+  );
+}
+
+// ============================================================================
+// Component Token Row (read-only for Layer 3)
+// ============================================================================
+
+interface ComponentTokenRowProps {
+  token: TokenDefinition;
+  isSelected: boolean;
+  onSelect: () => void;
+  editMode: "light" | "dark";
+}
+
+function ComponentTokenRow({
+  token,
+  isSelected,
+  onSelect,
+  editMode,
+}: ComponentTokenRowProps) {
+  const [actualColor, setActualColor] = React.useState<string | null>(null);
+
+  // Read actual CSS variable value
+  React.useEffect(() => {
+    if (typeof window === 'undefined' || !token.name) return;
+
+    const readColor = () => {
+      const cssValue = getComputedStyle(document.documentElement)
+        .getPropertyValue(token.name)
+        .trim();
+      if (cssValue) {
+        setActualColor(cssValue);
+      } else {
+        setActualColor(null);
+      }
+    };
+
+    readColor();
+    const interval = setInterval(readColor, 500);
+    return () => clearInterval(interval);
+  }, [token.name, editMode]);
+
+  // Compute swatch color
+  let swatchBgColor = "hsl(0 0% 50%)";
+  if (actualColor) {
+    // Check if it's an HSL value
+    if (actualColor.includes("%")) {
+      swatchBgColor = `hsl(${actualColor})`;
+    } else {
+      swatchBgColor = actualColor;
+    }
+  } else {
+    const hsl = editMode === "light" ? token.lightValue : (token.darkValue || token.lightValue);
+    if (hsl && !hsl.startsWith("var(")) {
+      swatchBgColor = `hsl(${hsl})`;
+    }
+  }
+
+  // Show reference info
+  const refInfo = token.references?.replace("--wex-", "") || "";
+
+  return (
+    <div
+      className={cn(
+        "flex items-center gap-2 px-1 py-1 rounded cursor-pointer transition-colors",
+        isSelected
+          ? "bg-primary/10 ring-1 ring-primary/30"
+          : "hover:bg-muted/50"
+      )}
+      onClick={onSelect}
+    >
+      {/* Color swatch */}
+      {token.type === "color" && (
+        <div
+          className="w-3 h-3 rounded-sm border border-border/50 flex-shrink-0"
+          style={{ backgroundColor: swatchBgColor }}
+        />
+      )}
+
+      {/* Label */}
+      <div className="flex-1 min-w-0">
+        <div className="text-[10px] font-medium truncate">{token.label}</div>
+        {refInfo && (
+          <div className="text-[9px] text-muted-foreground truncate">
+            → {refInfo}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

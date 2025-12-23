@@ -13,7 +13,47 @@ export type TokenCategory =
   | "focus" 
   | "chart"
   | "typography"
-  | "accessibility";
+  | "accessibility"
+  | "component";
+
+/**
+ * Component groups for Layer 3 tokens
+ */
+export type ComponentGroup = 
+  | "button"
+  | "input"
+  | "select"
+  | "table"
+  | "card"
+  | "dialog"
+  | "badge"
+  | "alert"
+  | "toast"
+  | "tabs"
+  | "checkbox"
+  | "radio"
+  | "switch"
+  | "slider"
+  | "textarea"
+  | "inputotp"
+  | "progress"
+  | "menu"
+  | "menubar"
+  | "navmenu"
+  | "command"
+  | "sheet"
+  | "drawer"
+  | "alertdialog"
+  | "toggle"
+  | "accordion"
+  | "pagination"
+  | "breadcrumb"
+  | "popover"
+  | "hovercard"
+  | "tooltip"
+  | "skeleton"
+  | "separator"
+  | "kbd";
 
 export type TokenType = "color" | "size" | "font" | "number";
 
@@ -40,6 +80,8 @@ export interface TokenDefinition {
   tailwindUtilities?: string[];
   /** Description for documentation */
   description?: string;
+  /** Component group for Layer 3 tokens */
+  componentGroup?: ComponentGroup;
 }
 
 export interface PaletteRamp {
@@ -580,6 +622,471 @@ export const CHART_TOKENS: TokenDefinition[] = [
 ];
 
 /**
+ * Layer 3 Component Tokens
+ * These provide granular control over individual component styling.
+ * All values reference Layer 1/2 semantic tokens.
+ */
+export const COMPONENT_TOKENS: TokenDefinition[] = [
+  // ============================================================
+  // BUTTON
+  // ============================================================
+  {
+    name: "--wex-component-button-primary-bg",
+    label: "Primary Background",
+    category: "component",
+    componentGroup: "button",
+    type: "color",
+    lightValue: "var(--wex-primary)",
+    references: "--wex-primary",
+    usedBy: ["WexButton (primary)"],
+    tailwindUtilities: ["bg-wex-button-primary-bg"],
+    description: "Primary button background color",
+  },
+  {
+    name: "--wex-component-button-primary-fg",
+    label: "Primary Foreground",
+    category: "component",
+    componentGroup: "button",
+    type: "color",
+    lightValue: "var(--wex-primary-contrast)",
+    references: "--wex-primary-contrast",
+    usedBy: ["WexButton (primary)"],
+    tailwindUtilities: ["text-wex-button-primary-fg"],
+    description: "Primary button text color",
+  },
+  {
+    name: "--wex-component-button-primary-hover-bg",
+    label: "Primary Hover",
+    category: "component",
+    componentGroup: "button",
+    type: "color",
+    lightValue: "var(--wex-primary-hover)",
+    references: "--wex-primary-hover",
+    usedBy: ["WexButton (primary)"],
+    tailwindUtilities: ["hover:bg-wex-button-primary-hover-bg"],
+    description: "Primary button hover background",
+  },
+  {
+    name: "--wex-component-button-secondary-bg",
+    label: "Secondary Background",
+    category: "component",
+    componentGroup: "button",
+    type: "color",
+    lightValue: "var(--wex-surface-subtle)",
+    references: "--wex-surface-subtle",
+    usedBy: ["WexButton (secondary)"],
+    tailwindUtilities: ["bg-wex-button-secondary-bg"],
+    description: "Secondary button background color",
+  },
+  {
+    name: "--wex-component-button-secondary-fg",
+    label: "Secondary Foreground",
+    category: "component",
+    componentGroup: "button",
+    type: "color",
+    lightValue: "var(--wex-text)",
+    references: "--wex-text",
+    usedBy: ["WexButton (secondary)"],
+    tailwindUtilities: ["text-wex-button-secondary-fg"],
+    description: "Secondary button text color",
+  },
+  {
+    name: "--wex-component-button-destructive-bg",
+    label: "Destructive Background",
+    category: "component",
+    componentGroup: "button",
+    type: "color",
+    lightValue: "var(--wex-destructive)",
+    references: "--wex-destructive",
+    usedBy: ["WexButton (destructive)"],
+    tailwindUtilities: ["bg-wex-button-destructive-bg"],
+    description: "Destructive button background color",
+  },
+  {
+    name: "--wex-component-button-success-bg",
+    label: "Success Background",
+    category: "component",
+    componentGroup: "button",
+    type: "color",
+    lightValue: "var(--wex-success)",
+    references: "--wex-success",
+    usedBy: ["WexButton (success)"],
+    tailwindUtilities: ["bg-wex-button-success-bg"],
+    description: "Success button background color",
+  },
+  {
+    name: "--wex-component-button-info-bg",
+    label: "Info Background",
+    category: "component",
+    componentGroup: "button",
+    type: "color",
+    lightValue: "var(--wex-info)",
+    references: "--wex-info",
+    usedBy: ["WexButton (info)"],
+    tailwindUtilities: ["bg-wex-button-info-bg"],
+    description: "Info button background color",
+  },
+  {
+    name: "--wex-component-button-warning-bg",
+    label: "Warning Background",
+    category: "component",
+    componentGroup: "button",
+    type: "color",
+    lightValue: "var(--wex-warning)",
+    references: "--wex-warning",
+    usedBy: ["WexButton (warning)"],
+    tailwindUtilities: ["bg-wex-button-warning-bg"],
+    description: "Warning button background color",
+  },
+  {
+    name: "--wex-component-button-disabled-opacity",
+    label: "Disabled Opacity",
+    category: "component",
+    componentGroup: "button",
+    type: "number",
+    lightValue: "0.5",
+    usedBy: ["WexButton (all variants)"],
+    description: "Opacity applied to disabled buttons",
+  },
+
+  // ============================================================
+  // INPUT
+  // ============================================================
+  {
+    name: "--wex-component-input-bg",
+    label: "Background",
+    category: "component",
+    componentGroup: "input",
+    type: "color",
+    lightValue: "var(--wex-content-bg)",
+    references: "--wex-content-bg",
+    usedBy: ["WexInput", "WexTextarea"],
+    tailwindUtilities: ["bg-wex-input-bg"],
+    description: "Input background color",
+  },
+  {
+    name: "--wex-component-input-fg",
+    label: "Text",
+    category: "component",
+    componentGroup: "input",
+    type: "color",
+    lightValue: "var(--wex-text)",
+    references: "--wex-text",
+    usedBy: ["WexInput", "WexTextarea"],
+    tailwindUtilities: ["text-wex-input-fg"],
+    description: "Input text color",
+  },
+  {
+    name: "--wex-component-input-border",
+    label: "Border",
+    category: "component",
+    componentGroup: "input",
+    type: "color",
+    lightValue: "var(--wex-input-border)",
+    references: "--wex-input-border",
+    usedBy: ["WexInput", "WexTextarea"],
+    tailwindUtilities: ["border-wex-input-border"],
+    description: "Input border color",
+  },
+  {
+    name: "--wex-component-input-focus-ring",
+    label: "Focus Ring",
+    category: "component",
+    componentGroup: "input",
+    type: "color",
+    lightValue: "var(--wex-focus-ring-color)",
+    references: "--wex-focus-ring-color",
+    usedBy: ["WexInput", "WexTextarea"],
+    tailwindUtilities: ["ring-wex-input-focus-ring"],
+    description: "Input focus ring color",
+  },
+  {
+    name: "--wex-component-input-filled-bg",
+    label: "Filled Background",
+    category: "component",
+    componentGroup: "input",
+    type: "color",
+    lightValue: "var(--wex-surface-subtle)",
+    references: "--wex-surface-subtle",
+    usedBy: ["WexInput (filled)"],
+    tailwindUtilities: ["bg-wex-input-filled-bg"],
+    description: "Filled variant input background",
+  },
+  {
+    name: "--wex-component-input-invalid-border",
+    label: "Invalid Border",
+    category: "component",
+    componentGroup: "input",
+    type: "color",
+    lightValue: "var(--wex-destructive)",
+    references: "--wex-destructive",
+    usedBy: ["WexInput (invalid)"],
+    tailwindUtilities: ["border-wex-input-invalid-border"],
+    description: "Input border color when invalid",
+  },
+
+  // ============================================================
+  // CARD
+  // ============================================================
+  {
+    name: "--wex-component-card-bg",
+    label: "Background",
+    category: "component",
+    componentGroup: "card",
+    type: "color",
+    lightValue: "var(--wex-content-bg)",
+    references: "--wex-content-bg",
+    usedBy: ["WexCard"],
+    tailwindUtilities: ["bg-wex-card-bg"],
+    description: "Card background color",
+  },
+  {
+    name: "--wex-component-card-fg",
+    label: "Text",
+    category: "component",
+    componentGroup: "card",
+    type: "color",
+    lightValue: "var(--wex-text)",
+    references: "--wex-text",
+    usedBy: ["WexCard"],
+    tailwindUtilities: ["text-wex-card-fg"],
+    description: "Card text color",
+  },
+  {
+    name: "--wex-component-card-border",
+    label: "Border",
+    category: "component",
+    componentGroup: "card",
+    type: "color",
+    lightValue: "var(--wex-content-border)",
+    references: "--wex-content-border",
+    usedBy: ["WexCard"],
+    tailwindUtilities: ["border-wex-card-border"],
+    description: "Card border color",
+  },
+
+  // ============================================================
+  // TABS
+  // ============================================================
+  {
+    name: "--wex-component-tabs-trigger-fg",
+    label: "Trigger Text",
+    category: "component",
+    componentGroup: "tabs",
+    type: "color",
+    lightValue: "var(--wex-text-muted)",
+    references: "--wex-text-muted",
+    usedBy: ["WexTabs"],
+    description: "Tab trigger inactive text color",
+  },
+  {
+    name: "--wex-component-tabs-trigger-active-fg",
+    label: "Active Trigger Text",
+    category: "component",
+    componentGroup: "tabs",
+    type: "color",
+    lightValue: "var(--wex-primary)",
+    references: "--wex-primary",
+    usedBy: ["WexTabs"],
+    description: "Tab trigger active text color",
+  },
+  {
+    name: "--wex-component-tabs-indicator",
+    label: "Active Indicator",
+    category: "component",
+    componentGroup: "tabs",
+    type: "color",
+    lightValue: "var(--wex-primary)",
+    references: "--wex-primary",
+    usedBy: ["WexTabs"],
+    description: "Tab active indicator/underline color",
+  },
+
+  // ============================================================
+  // BADGE
+  // ============================================================
+  {
+    name: "--wex-component-badge-info-bg",
+    label: "Info Background",
+    category: "component",
+    componentGroup: "badge",
+    type: "color",
+    lightValue: "var(--wex-info)",
+    references: "--wex-info",
+    usedBy: ["WexBadge (info)"],
+    description: "Info badge background color",
+  },
+  {
+    name: "--wex-component-badge-success-bg",
+    label: "Success Background",
+    category: "component",
+    componentGroup: "badge",
+    type: "color",
+    lightValue: "var(--wex-success)",
+    references: "--wex-success",
+    usedBy: ["WexBadge (success)"],
+    description: "Success badge background color",
+  },
+  {
+    name: "--wex-component-badge-warning-bg",
+    label: "Warning Background",
+    category: "component",
+    componentGroup: "badge",
+    type: "color",
+    lightValue: "var(--wex-warning)",
+    references: "--wex-warning",
+    usedBy: ["WexBadge (warning)"],
+    description: "Warning badge background color",
+  },
+  {
+    name: "--wex-component-badge-destructive-bg",
+    label: "Destructive Background",
+    category: "component",
+    componentGroup: "badge",
+    type: "color",
+    lightValue: "var(--wex-destructive)",
+    references: "--wex-destructive",
+    usedBy: ["WexBadge (destructive)"],
+    description: "Destructive badge background color",
+  },
+
+  // ============================================================
+  // DIALOG
+  // ============================================================
+  {
+    name: "--wex-component-dialog-bg",
+    label: "Background",
+    category: "component",
+    componentGroup: "dialog",
+    type: "color",
+    lightValue: "var(--wex-content-bg)",
+    references: "--wex-content-bg",
+    usedBy: ["WexDialog"],
+    description: "Dialog content background",
+  },
+  {
+    name: "--wex-component-dialog-border",
+    label: "Border",
+    category: "component",
+    componentGroup: "dialog",
+    type: "color",
+    lightValue: "var(--wex-content-border)",
+    references: "--wex-content-border",
+    usedBy: ["WexDialog"],
+    description: "Dialog content border",
+  },
+
+  // ============================================================
+  // PROGRESS
+  // ============================================================
+  {
+    name: "--wex-component-progress-track-bg",
+    label: "Track Background",
+    category: "component",
+    componentGroup: "progress",
+    type: "color",
+    lightValue: "var(--wex-surface-subtle)",
+    references: "--wex-surface-subtle",
+    usedBy: ["WexProgress"],
+    description: "Progress bar track background",
+  },
+  {
+    name: "--wex-component-progress-indicator-bg",
+    label: "Indicator Background",
+    category: "component",
+    componentGroup: "progress",
+    type: "color",
+    lightValue: "var(--wex-primary)",
+    references: "--wex-primary",
+    usedBy: ["WexProgress"],
+    description: "Progress bar indicator fill",
+  },
+
+  // ============================================================
+  // TOOLTIP
+  // ============================================================
+  {
+    name: "--wex-component-tooltip-bg",
+    label: "Background",
+    category: "component",
+    componentGroup: "tooltip",
+    type: "color",
+    lightValue: "var(--wex-palette-slate-900)",
+    darkValue: "var(--wex-palette-slate-50)",
+    references: "--wex-palette-slate-900",
+    darkReferences: "--wex-palette-slate-50",
+    usedBy: ["WexTooltip"],
+    description: "Tooltip background (inverts in dark mode)",
+  },
+  {
+    name: "--wex-component-tooltip-fg",
+    label: "Text",
+    category: "component",
+    componentGroup: "tooltip",
+    type: "color",
+    lightValue: "var(--wex-palette-slate-50)",
+    darkValue: "var(--wex-palette-slate-900)",
+    references: "--wex-palette-slate-50",
+    darkReferences: "--wex-palette-slate-900",
+    usedBy: ["WexTooltip"],
+    description: "Tooltip text (inverts in dark mode)",
+  },
+
+  // ============================================================
+  // SKELETON
+  // ============================================================
+  {
+    name: "--wex-component-skeleton-bg",
+    label: "Background",
+    category: "component",
+    componentGroup: "skeleton",
+    type: "color",
+    lightValue: "var(--wex-surface-subtle)",
+    references: "--wex-surface-subtle",
+    usedBy: ["WexSkeleton"],
+    description: "Skeleton loading placeholder background",
+  },
+
+  // ============================================================
+  // SEPARATOR
+  // ============================================================
+  {
+    name: "--wex-component-separator-bg",
+    label: "Background",
+    category: "component",
+    componentGroup: "separator",
+    type: "color",
+    lightValue: "var(--wex-content-border)",
+    references: "--wex-content-border",
+    usedBy: ["WexSeparator"],
+    description: "Separator line color",
+  },
+];
+
+/**
+ * Component groups for organizing Layer 3 tokens in UI
+ */
+export const COMPONENT_GROUPS: { id: ComponentGroup; label: string; description: string }[] = [
+  { id: "button", label: "Button", description: "Button variants and states" },
+  { id: "input", label: "Input", description: "Text input fields" },
+  { id: "card", label: "Card", description: "Card containers" },
+  { id: "tabs", label: "Tabs", description: "Tab navigation" },
+  { id: "badge", label: "Badge", description: "Status badges" },
+  { id: "dialog", label: "Dialog", description: "Modal dialogs" },
+  { id: "progress", label: "Progress", description: "Progress indicators" },
+  { id: "tooltip", label: "Tooltip", description: "Tooltip popups" },
+  { id: "skeleton", label: "Skeleton", description: "Loading placeholders" },
+  { id: "separator", label: "Separator", description: "Divider lines" },
+];
+
+/**
+ * Get Layer 3 tokens for a specific component group
+ */
+export function getComponentTokens(group: ComponentGroup): TokenDefinition[] {
+  return COMPONENT_TOKENS.filter(t => t.componentGroup === group);
+}
+
+/**
  * All tokens combined for easy iteration
  */
 export const ALL_TOKENS: TokenDefinition[] = [
@@ -588,6 +1095,7 @@ export const ALL_TOKENS: TokenDefinition[] = [
   ...TEXT_TOKENS,
   ...FOCUS_TOKENS,
   ...CHART_TOKENS,
+  ...COMPONENT_TOKENS,
 ];
 
 /**
@@ -741,6 +1249,7 @@ export const TOKEN_CATEGORIES = [
   { id: "text", label: "Text", description: "Text and label colors" },
   { id: "focus", label: "Focus", description: "Focus ring styling" },
   { id: "chart", label: "Charts", description: "Data visualization colors" },
+  { id: "component", label: "Components", description: "Layer 3 component-specific tokens" },
 ] as const;
 
 // ============================================================================
