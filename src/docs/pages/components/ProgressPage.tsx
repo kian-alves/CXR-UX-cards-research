@@ -5,8 +5,7 @@ import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { Guidance } from "@/docs/components/ProseBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { Progress } from "@/components/ui/progress";
-import { WexButton } from "@/components/wex";
+import { WexProgress, WexButton } from "@/components/wex";
 
 // Token mappings for Progress
 // Layer 3 component tokens
@@ -49,9 +48,9 @@ export default function ProgressPage() {
       <Section title="Overview">
         <ExampleCard>
           <div className="w-full max-w-md space-y-4">
-            <Progress value={33} aria-label="33% complete" />
-            <Progress value={66} aria-label="66% complete" />
-            <Progress value={100} aria-label="100% complete" />
+            <WexProgress value={33} aria-label="33% complete" />
+            <WexProgress value={66} aria-label="66% complete" />
+            <WexProgress value={100} aria-label="100% complete" />
           </div>
         </ExampleCard>
         <Guidance>
@@ -66,7 +65,7 @@ export default function ProgressPage() {
       <Section title="Indeterminate Mode" description="For operations with unknown duration.">
         <ExampleCard title="Indeterminate Progress">
           <div className="w-full max-w-md space-y-4">
-            <Progress indeterminate aria-label="Loading..." />
+            <WexProgress indeterminate aria-label="Loading..." />
             <p className="text-sm text-muted-foreground text-center">
               Loading data...
             </p>
@@ -84,16 +83,16 @@ export default function ProgressPage() {
       <Section title="With Label" description="Show progress percentage inside the bar.">
         <ExampleCard title="Labeled Progress">
           <div className="w-full max-w-md space-y-4">
-            <Progress value={25} showLabel aria-label="25% complete" />
-            <Progress value={50} showLabel aria-label="50% complete" />
-            <Progress value={75} showLabel aria-label="75% complete" />
-            <Progress value={100} showLabel aria-label="100% complete" />
+            <WexProgress value={25} showLabel aria-label="25% complete" />
+            <WexProgress value={50} showLabel aria-label="50% complete" />
+            <WexProgress value={75} showLabel aria-label="75% complete" />
+            <WexProgress value={100} showLabel aria-label="100% complete" />
           </div>
         </ExampleCard>
 
         <ExampleCard title="Custom Label Format">
           <div className="w-full max-w-md">
-            <Progress 
+            <WexProgress 
               value={67} 
               showLabel 
               labelFormat={(v) => `${Math.round(v)}% done`}
@@ -109,7 +108,7 @@ export default function ProgressPage() {
       <Section title="Interactive Demo" description="Simulated progress animation.">
         <ExampleCard title="Click to Start">
           <div className="w-full max-w-md space-y-4">
-            <Progress value={progress} showLabel aria-label={`${progress}% complete`} />
+            <WexProgress value={progress} showLabel aria-label={`${progress}% complete`} />
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">
                 {progress}% complete
@@ -140,7 +139,7 @@ export default function ProgressPage() {
                 </div>
                 <span className="text-sm text-muted-foreground">48%</span>
               </div>
-              <Progress value={48} aria-labelledby="file-upload-label" />
+              <WexProgress value={48} aria-labelledby="file-upload-label" />
             </div>
           </ExampleCard>
 
@@ -150,7 +149,7 @@ export default function ProgressPage() {
                 <span id="multi-step-label">Step 2 of 4: Configuring</span>
                 <span className="text-muted-foreground">50%</span>
               </div>
-              <Progress value={50} aria-labelledby="multi-step-label" />
+              <WexProgress value={50} aria-labelledby="multi-step-label" />
               <div className="flex gap-2">
                 <div className="flex-1 h-1 rounded-full bg-primary" />
                 <div className="flex-1 h-1 rounded-full bg-primary" />
@@ -165,7 +164,7 @@ export default function ProgressPage() {
               <label className="text-sm font-medium" id="download-label">
                 Downloading updates...
               </label>
-              <Progress indeterminate aria-labelledby="download-label" />
+              <WexProgress indeterminate aria-labelledby="download-label" />
               <p className="text-xs text-muted-foreground">
                 Please wait...
               </p>
@@ -196,26 +195,26 @@ export default function ProgressPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Progress } from "@/components/ui/progress";
+          code={`import { WexProgress } from "@/components/wex";
 
 // Basic determinate progress
-<Progress value={50} />
+<WexProgress value={50} />
 
 // Indeterminate (unknown duration)
-<Progress indeterminate />
+<WexProgress indeterminate />
 
 // With visible label
-<Progress value={75} showLabel />
+<WexProgress value={75} showLabel />
 
 // Custom label format
-<Progress 
+<WexProgress 
   value={67} 
   showLabel 
   labelFormat={(v) => \`\${Math.round(v)}% done\`}
 />
 
 // All props
-<Progress
+<WexProgress
   value={50}
   indeterminate={false}
   showLabel

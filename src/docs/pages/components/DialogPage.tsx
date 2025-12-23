@@ -5,17 +5,7 @@ import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { Guidance } from "@/docs/components/ProseBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
-import { WexButton, WexInput, WexLabel } from "@/components/wex";
+import { WexDialog, WexButton, WexInput, WexLabel } from "@/components/wex";
 
 // Token mappings for Dialog
 // Layer 3 component tokens
@@ -39,22 +29,22 @@ export default function DialogPage() {
     >
       <Section title="Overview">
         <ExampleCard>
-          <Dialog>
-            <DialogTrigger asChild>
+          <WexDialog>
+            <WexDialog.Trigger asChild>
               <WexButton intent="outline">Open Dialog</WexButton>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Dialog Title</DialogTitle>
-                <DialogDescription>
+            </WexDialog.Trigger>
+            <WexDialog.Content>
+              <WexDialog.Header>
+                <WexDialog.Title>Dialog Title</WexDialog.Title>
+                <WexDialog.Description>
                   This is a dialog description. It provides context for the dialog content.
-                </DialogDescription>
-              </DialogHeader>
+                </WexDialog.Description>
+              </WexDialog.Header>
               <p className="text-sm text-muted-foreground">
                 Dialog content goes here.
               </p>
-            </DialogContent>
-          </Dialog>
+            </WexDialog.Content>
+          </WexDialog>
         </ExampleCard>
         <Guidance>
           Use Dialog for content that requires user attention but doesn't require an 
@@ -68,17 +58,17 @@ export default function DialogPage() {
       <Section title="Sizes" description="Five size variants from small to full screen.">
         <div className="flex flex-wrap gap-2">
           {(["sm", "md", "lg", "xl", "full"] as const).map((size) => (
-            <Dialog key={size}>
-              <DialogTrigger asChild>
+            <WexDialog key={size}>
+              <WexDialog.Trigger asChild>
                 <WexButton intent="outline" className="capitalize">{size}</WexButton>
-              </DialogTrigger>
-              <DialogContent size={size}>
-                <DialogHeader>
-                  <DialogTitle className="capitalize">{size} Dialog</DialogTitle>
-                  <DialogDescription>
+              </WexDialog.Trigger>
+              <WexDialog.Content size={size}>
+                <WexDialog.Header>
+                  <WexDialog.Title className="capitalize">{size} Dialog</WexDialog.Title>
+                  <WexDialog.Description>
                     This dialog uses the {size} size variant.
-                  </DialogDescription>
-                </DialogHeader>
+                  </WexDialog.Description>
+                </WexDialog.Header>
                 <div className="py-4">
                   <p className="text-sm text-muted-foreground">
                     {size === "full" 
@@ -87,13 +77,13 @@ export default function DialogPage() {
                     }
                   </p>
                 </div>
-                <DialogFooter>
-                  <DialogClose asChild>
+                <WexDialog.Footer>
+                  <WexDialog.Close asChild>
                     <WexButton>Close</WexButton>
-                  </DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+                  </WexDialog.Close>
+                </WexDialog.Footer>
+              </WexDialog.Content>
+            </WexDialog>
           ))}
         </div>
       </Section>
@@ -104,24 +94,24 @@ export default function DialogPage() {
       <Section title="Positions" description="Dialog can appear from different positions.">
         <div className="flex flex-wrap gap-2">
           {(["center", "top", "bottom", "left", "right"] as const).map((position) => (
-            <Dialog key={position}>
-              <DialogTrigger asChild>
+            <WexDialog key={position}>
+              <WexDialog.Trigger asChild>
                 <WexButton intent="outline" className="capitalize">{position}</WexButton>
-              </DialogTrigger>
-              <DialogContent position={position} size="sm">
-                <DialogHeader>
-                  <DialogTitle className="capitalize">{position} Position</DialogTitle>
-                  <DialogDescription>
+              </WexDialog.Trigger>
+              <WexDialog.Content position={position} size="sm">
+                <WexDialog.Header>
+                  <WexDialog.Title className="capitalize">{position} Position</WexDialog.Title>
+                  <WexDialog.Description>
                     This dialog slides in from the {position}.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <DialogClose asChild>
+                  </WexDialog.Description>
+                </WexDialog.Header>
+                <WexDialog.Footer>
+                  <WexDialog.Close asChild>
                     <WexButton>Close</WexButton>
-                  </DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+                  </WexDialog.Close>
+                </WexDialog.Footer>
+              </WexDialog.Content>
+            </WexDialog>
           ))}
         </div>
       </Section>
@@ -131,30 +121,30 @@ export default function DialogPage() {
           ============================================================ */}
       <Section title="Maximizable" description="Dialog with maximize/restore button.">
         <ExampleCard>
-          <Dialog>
-            <DialogTrigger asChild>
+          <WexDialog>
+            <WexDialog.Trigger asChild>
               <WexButton intent="outline">Maximizable Dialog</WexButton>
-            </DialogTrigger>
-            <DialogContent maximizable size="md">
-              <DialogHeader>
-                <DialogTitle>Maximizable Dialog</DialogTitle>
-                <DialogDescription>
+            </WexDialog.Trigger>
+            <WexDialog.Content maximizable size="md">
+              <WexDialog.Header>
+                <WexDialog.Title>Maximizable Dialog</WexDialog.Title>
+                <WexDialog.Description>
                   Click the maximize button in the header to expand to full screen.
-                </DialogDescription>
-              </DialogHeader>
+                </WexDialog.Description>
+              </WexDialog.Header>
               <div className="py-4">
                 <p className="text-sm text-muted-foreground">
                   This dialog can be maximized for more content space. 
                   Click the expand button to toggle fullscreen mode.
                 </p>
               </div>
-              <DialogFooter>
-                <DialogClose asChild>
+              <WexDialog.Footer>
+                <WexDialog.Close asChild>
                   <WexButton>Done</WexButton>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+                </WexDialog.Close>
+              </WexDialog.Footer>
+            </WexDialog.Content>
+          </WexDialog>
         </ExampleCard>
       </Section>
 
@@ -163,17 +153,17 @@ export default function DialogPage() {
           ============================================================ */}
       <Section title="With Form" description="Dialog containing form elements.">
         <ExampleCard>
-          <Dialog>
-            <DialogTrigger asChild>
+          <WexDialog>
+            <WexDialog.Trigger asChild>
               <WexButton intent="outline">Edit Profile</WexButton>
-            </DialogTrigger>
-            <DialogContent size="md">
-              <DialogHeader>
-                <DialogTitle>Edit Profile</DialogTitle>
-                <DialogDescription>
+            </WexDialog.Trigger>
+            <WexDialog.Content size="md">
+              <WexDialog.Header>
+                <WexDialog.Title>Edit Profile</WexDialog.Title>
+                <WexDialog.Description>
                   Make changes to your profile here. Click save when you're done.
-                </DialogDescription>
-              </DialogHeader>
+                </WexDialog.Description>
+              </WexDialog.Header>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
                   <WexLabel htmlFor="name" className="text-right">Name</WexLabel>
@@ -184,14 +174,14 @@ export default function DialogPage() {
                   <WexInput id="username" defaultValue="@johndoe" className="col-span-3" />
                 </div>
               </div>
-              <DialogFooter>
-                <DialogClose asChild>
+              <WexDialog.Footer>
+                <WexDialog.Close asChild>
                   <WexButton intent="outline">Cancel</WexButton>
-                </DialogClose>
+                </WexDialog.Close>
                 <WexButton>Save changes</WexButton>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+              </WexDialog.Footer>
+            </WexDialog.Content>
+          </WexDialog>
         </ExampleCard>
       </Section>
 
@@ -204,19 +194,19 @@ export default function DialogPage() {
             <WexButton intent="outline" onClick={() => setOpen(true)}>
               Open via State
             </WexButton>
-            <Dialog open={open} onOpenChange={setOpen}>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Controlled Dialog</DialogTitle>
-                  <DialogDescription>
+            <WexDialog open={open} onOpenChange={setOpen}>
+              <WexDialog.Content>
+                <WexDialog.Header>
+                  <WexDialog.Title>Controlled Dialog</WexDialog.Title>
+                  <WexDialog.Description>
                     This dialog is controlled via React state.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
+                  </WexDialog.Description>
+                </WexDialog.Header>
+                <WexDialog.Footer>
                   <WexButton onClick={() => setOpen(false)}>Close</WexButton>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+                </WexDialog.Footer>
+              </WexDialog.Content>
+            </WexDialog>
           </div>
         </ExampleCard>
       </Section>
@@ -243,38 +233,38 @@ export default function DialogPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+          code={`import { WexDialog } from "@/components/wex";
 
 // Basic dialog
-<Dialog>
-  <DialogTrigger asChild>
+<WexDialog>
+  <WexDialog.Trigger asChild>
     <Button>Open</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Title</DialogTitle>
-      <DialogDescription>Description</DialogDescription>
-    </DialogHeader>
+  </WexDialog.Trigger>
+  <WexDialog.Content>
+    <WexDialog.Header>
+      <WexDialog.Title>Title</WexDialog.Title>
+      <WexDialog.Description>Description</WexDialog.Description>
+    </WexDialog.Header>
     Content here
-  </DialogContent>
-</Dialog>
+  </WexDialog.Content>
+</WexDialog>
 
 // With sizes
-<DialogContent size="sm">...</DialogContent>
-<DialogContent size="md">...</DialogContent>  {/* default */}
-<DialogContent size="lg">...</DialogContent>
-<DialogContent size="xl">...</DialogContent>
-<DialogContent size="full">...</DialogContent>
+<WexDialog.Content size="sm">...</WexDialog.Content>
+<WexDialog.Content size="md">...</WexDialog.Content>  {/* default */}
+<WexDialog.Content size="lg">...</WexDialog.Content>
+<WexDialog.Content size="xl">...</WexDialog.Content>
+<WexDialog.Content size="full">...</WexDialog.Content>
 
 // With positions
-<DialogContent position="center">...</DialogContent>
-<DialogContent position="top">...</DialogContent>
-<DialogContent position="bottom">...</DialogContent>
-<DialogContent position="left">...</DialogContent>
-<DialogContent position="right">...</DialogContent>
+<WexDialog.Content position="center">...</WexDialog.Content>
+<WexDialog.Content position="top">...</WexDialog.Content>
+<WexDialog.Content position="bottom">...</WexDialog.Content>
+<WexDialog.Content position="left">...</WexDialog.Content>
+<WexDialog.Content position="right">...</WexDialog.Content>
 
 // Maximizable
-<DialogContent maximizable>...</DialogContent>`}
+<WexDialog.Content maximizable>...</WexDialog.Content>`}
         />
         <div className="mt-4 text-sm text-muted-foreground">
           <p><strong>DialogContent Props:</strong></p>

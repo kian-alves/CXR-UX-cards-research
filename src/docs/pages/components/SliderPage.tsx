@@ -4,8 +4,7 @@ import { Section } from "@/docs/components/Section";
 import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { Slider } from "@/components/ui/slider";
-import { WexLabel } from "@/components/wex";
+import { WexSlider, WexLabel } from "@/components/wex";
 
 // Token mappings for Slider
 // Layer 3 component tokens
@@ -33,7 +32,7 @@ export default function SliderPage() {
         <ExampleCard>
           <div className="w-full max-w-sm space-y-2">
             <WexLabel>Volume: {volume[0]}%</WexLabel>
-            <Slider 
+            <WexSlider 
               value={volume} 
               onValueChange={setVolume} 
               max={100} 
@@ -49,7 +48,7 @@ export default function SliderPage() {
       <Section title="Single Value" description="Standard slider with one thumb.">
         <ExampleCard title="Basic Slider">
           <div className="w-64">
-            <Slider defaultValue={[50]} max={100} />
+            <WexSlider defaultValue={[50]} max={100} />
           </div>
         </ExampleCard>
       </Section>
@@ -64,7 +63,7 @@ export default function SliderPage() {
               <span>Price Range</span>
               <span>${rangeValue[0]} - ${rangeValue[1]}</span>
             </div>
-            <Slider 
+            <WexSlider 
               value={rangeValue}
               onValueChange={setRangeValue}
               max={100}
@@ -76,7 +75,7 @@ export default function SliderPage() {
         <ExampleCard title="Time Range">
           <div className="w-full max-w-sm space-y-2">
             <WexLabel>Select time range (hours)</WexLabel>
-            <Slider 
+            <WexSlider 
               defaultValue={[9, 17]}
               min={0}
               max={24}
@@ -104,7 +103,7 @@ export default function SliderPage() {
           <ExampleCard title="With Steps">
             <div className="w-full max-w-sm space-y-2">
               <WexLabel>Quality (step: 25)</WexLabel>
-              <Slider defaultValue={[50]} max={100} step={25} />
+              <WexSlider defaultValue={[50]} max={100} step={25} />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>Low</span>
                 <span>Medium</span>
@@ -118,7 +117,7 @@ export default function SliderPage() {
           <ExampleCard title="Custom Range">
             <div className="w-full max-w-sm space-y-2">
               <WexLabel>Temperature (°C)</WexLabel>
-              <Slider defaultValue={[20]} min={-10} max={40} step={1} />
+              <WexSlider defaultValue={[20]} min={-10} max={40} step={1} />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>-10°</span>
                 <span>40°</span>
@@ -127,7 +126,7 @@ export default function SliderPage() {
           </ExampleCard>
 
           <ExampleCard title="Disabled">
-            <Slider defaultValue={[50]} max={100} disabled className="w-64" />
+            <WexSlider defaultValue={[50]} max={100} disabled className="w-64" />
           </ExampleCard>
         </div>
       </Section>
@@ -148,20 +147,20 @@ export default function SliderPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Slider } from "@/components/ui/slider";
+          code={`import { WexSlider } from "@/components/wex";
 
 // Basic slider
-<Slider defaultValue={[50]} max={100} />
+<WexSlider defaultValue={[50]} max={100} />
 
 // Range slider (pass two values)
-<Slider defaultValue={[25, 75]} max={100} />
+<WexSlider defaultValue={[25, 75]} max={100} />
 
 // With custom step
-<Slider defaultValue={[50]} max={100} step={25} />
+<WexSlider defaultValue={[50]} max={100} step={25} />
 
 // Controlled
 const [value, setValue] = useState([50]);
-<Slider 
+<WexSlider 
   value={value} 
   onValueChange={setValue} 
   max={100} 

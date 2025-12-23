@@ -5,17 +5,7 @@ import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { Guidance } from "@/docs/components/ProseBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableFooter,
-} from "@/components/ui/table";
-import { WexBadge, WexButton, WexCheckbox } from "@/components/wex";
+import { WexTable, WexBadge, WexButton, WexCheckbox } from "@/components/wex";
 
 // Token mappings for Table
 // Layer 3 component tokens
@@ -59,33 +49,33 @@ export default function TablePage() {
     >
       <Section title="Overview">
         <ExampleCard>
-          <Table>
-            <TableCaption>A list of recent invoices.</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Method</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <WexTable>
+            <WexTable.Caption>A list of recent invoices.</WexTable.Caption>
+            <WexTable.Header>
+              <WexTable.Row>
+                <WexTable.Head className="w-[100px]">Invoice</WexTable.Head>
+                <WexTable.Head>Status</WexTable.Head>
+                <WexTable.Head>Method</WexTable.Head>
+                <WexTable.Head className="text-right">Amount</WexTable.Head>
+              </WexTable.Row>
+            </WexTable.Header>
+            <WexTable.Body>
               {invoices.slice(0, 4).map((inv) => (
-                <TableRow key={inv.invoice}>
-                  <TableCell className="font-medium">{inv.invoice}</TableCell>
-                  <TableCell>{inv.status}</TableCell>
-                  <TableCell>{inv.method}</TableCell>
-                  <TableCell className="text-right">{inv.amount}</TableCell>
-                </TableRow>
+                <WexTable.Row key={inv.invoice}>
+                  <WexTable.Cell className="font-medium">{inv.invoice}</WexTable.Cell>
+                  <WexTable.Cell>{inv.status}</WexTable.Cell>
+                  <WexTable.Cell>{inv.method}</WexTable.Cell>
+                  <WexTable.Cell className="text-right">{inv.amount}</WexTable.Cell>
+                </WexTable.Row>
               ))}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TableCell colSpan={3}>Total</TableCell>
-                <TableCell className="text-right">$1,200.00</TableCell>
-              </TableRow>
-            </TableFooter>
-          </Table>
+            </WexTable.Body>
+            <WexTable.Footer>
+              <WexTable.Row>
+                <WexTable.Cell colSpan={3}>Total</WexTable.Cell>
+                <WexTable.Cell className="text-right">$1,200.00</WexTable.Cell>
+              </WexTable.Row>
+            </WexTable.Footer>
+          </WexTable>
         </ExampleCard>
         <Guidance>
           Use tables for displaying structured data. Keep columns minimal and 
@@ -98,26 +88,26 @@ export default function TablePage() {
           ============================================================ */}
       <Section title="Striped Rows" description="Alternating row colors for better readability.">
         <ExampleCard title="Striped Table">
-          <Table striped>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Method</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <WexTable striped>
+            <WexTable.Header>
+              <WexTable.Row>
+                <WexTable.Head>Invoice</WexTable.Head>
+                <WexTable.Head>Status</WexTable.Head>
+                <WexTable.Head>Method</WexTable.Head>
+                <WexTable.Head className="text-right">Amount</WexTable.Head>
+              </WexTable.Row>
+            </WexTable.Header>
+            <WexTable.Body>
               {invoices.map((inv) => (
-                <TableRow key={inv.invoice}>
-                  <TableCell className="font-medium">{inv.invoice}</TableCell>
-                  <TableCell>{inv.status}</TableCell>
-                  <TableCell>{inv.method}</TableCell>
-                  <TableCell className="text-right">{inv.amount}</TableCell>
-                </TableRow>
+                <WexTable.Row key={inv.invoice}>
+                  <WexTable.Cell className="font-medium">{inv.invoice}</WexTable.Cell>
+                  <WexTable.Cell>{inv.status}</WexTable.Cell>
+                  <WexTable.Cell>{inv.method}</WexTable.Cell>
+                  <WexTable.Cell className="text-right">{inv.amount}</WexTable.Cell>
+                </WexTable.Row>
               ))}
-            </TableBody>
-          </Table>
+            </WexTable.Body>
+          </WexTable>
         </ExampleCard>
       </Section>
 
@@ -126,47 +116,47 @@ export default function TablePage() {
           ============================================================ */}
       <Section title="Gridlines" description="Full grid borders for cell separation.">
         <ExampleCard title="Table with Gridlines">
-          <Table gridlines>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Method</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <WexTable gridlines>
+            <WexTable.Header>
+              <WexTable.Row>
+                <WexTable.Head>Invoice</WexTable.Head>
+                <WexTable.Head>Status</WexTable.Head>
+                <WexTable.Head>Method</WexTable.Head>
+                <WexTable.Head className="text-right">Amount</WexTable.Head>
+              </WexTable.Row>
+            </WexTable.Header>
+            <WexTable.Body>
               {invoices.slice(0, 3).map((inv) => (
-                <TableRow key={inv.invoice}>
-                  <TableCell className="font-medium">{inv.invoice}</TableCell>
-                  <TableCell>{inv.status}</TableCell>
-                  <TableCell>{inv.method}</TableCell>
-                  <TableCell className="text-right">{inv.amount}</TableCell>
-                </TableRow>
+                <WexTable.Row key={inv.invoice}>
+                  <WexTable.Cell className="font-medium">{inv.invoice}</WexTable.Cell>
+                  <WexTable.Cell>{inv.status}</WexTable.Cell>
+                  <WexTable.Cell>{inv.method}</WexTable.Cell>
+                  <WexTable.Cell className="text-right">{inv.amount}</WexTable.Cell>
+                </WexTable.Row>
               ))}
-            </TableBody>
-          </Table>
+            </WexTable.Body>
+          </WexTable>
         </ExampleCard>
 
         <ExampleCard title="Striped with Gridlines">
-          <Table striped gridlines>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <WexTable striped gridlines>
+            <WexTable.Header>
+              <WexTable.Row>
+                <WexTable.Head>Invoice</WexTable.Head>
+                <WexTable.Head>Status</WexTable.Head>
+                <WexTable.Head>Amount</WexTable.Head>
+              </WexTable.Row>
+            </WexTable.Header>
+            <WexTable.Body>
               {invoices.slice(0, 4).map((inv) => (
-                <TableRow key={inv.invoice}>
-                  <TableCell className="font-medium">{inv.invoice}</TableCell>
-                  <TableCell>{inv.status}</TableCell>
-                  <TableCell className="text-right">{inv.amount}</TableCell>
-                </TableRow>
+                <WexTable.Row key={inv.invoice}>
+                  <WexTable.Cell className="font-medium">{inv.invoice}</WexTable.Cell>
+                  <WexTable.Cell>{inv.status}</WexTable.Cell>
+                  <WexTable.Cell className="text-right">{inv.amount}</WexTable.Cell>
+                </WexTable.Row>
               ))}
-            </TableBody>
-          </Table>
+            </WexTable.Body>
+          </WexTable>
         </ExampleCard>
       </Section>
 
@@ -175,45 +165,45 @@ export default function TablePage() {
           ============================================================ */}
       <Section title="Sizes" description="Compact and spacious table densities.">
         <ExampleCard title="Small">
-          <Table size="sm">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <WexTable size="sm">
+            <WexTable.Header>
+              <WexTable.Row>
+                <WexTable.Head>Invoice</WexTable.Head>
+                <WexTable.Head>Status</WexTable.Head>
+                <WexTable.Head className="text-right">Amount</WexTable.Head>
+              </WexTable.Row>
+            </WexTable.Header>
+            <WexTable.Body>
               {invoices.slice(0, 3).map((inv) => (
-                <TableRow key={inv.invoice}>
-                  <TableCell className="font-medium">{inv.invoice}</TableCell>
-                  <TableCell>{inv.status}</TableCell>
-                  <TableCell className="text-right">{inv.amount}</TableCell>
-                </TableRow>
+                <WexTable.Row key={inv.invoice}>
+                  <WexTable.Cell className="font-medium">{inv.invoice}</WexTable.Cell>
+                  <WexTable.Cell>{inv.status}</WexTable.Cell>
+                  <WexTable.Cell className="text-right">{inv.amount}</WexTable.Cell>
+                </WexTable.Row>
               ))}
-            </TableBody>
-          </Table>
+            </WexTable.Body>
+          </WexTable>
         </ExampleCard>
 
         <ExampleCard title="Large">
-          <Table size="lg">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <WexTable size="lg">
+            <WexTable.Header>
+              <WexTable.Row>
+                <WexTable.Head>Invoice</WexTable.Head>
+                <WexTable.Head>Status</WexTable.Head>
+                <WexTable.Head className="text-right">Amount</WexTable.Head>
+              </WexTable.Row>
+            </WexTable.Header>
+            <WexTable.Body>
               {invoices.slice(0, 3).map((inv) => (
-                <TableRow key={inv.invoice}>
-                  <TableCell className="font-medium">{inv.invoice}</TableCell>
-                  <TableCell>{inv.status}</TableCell>
-                  <TableCell className="text-right">{inv.amount}</TableCell>
-                </TableRow>
+                <WexTable.Row key={inv.invoice}>
+                  <WexTable.Cell className="font-medium">{inv.invoice}</WexTable.Cell>
+                  <WexTable.Cell>{inv.status}</WexTable.Cell>
+                  <WexTable.Cell className="text-right">{inv.amount}</WexTable.Cell>
+                </WexTable.Row>
               ))}
-            </TableBody>
-          </Table>
+            </WexTable.Body>
+          </WexTable>
         </ExampleCard>
       </Section>
 
@@ -222,35 +212,35 @@ export default function TablePage() {
           ============================================================ */}
       <Section title="Advanced Examples" description="Tables with badges and selection.">
         <ExampleCard title="With Status Badges">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <WexTable>
+            <WexTable.Header>
+              <WexTable.Row>
+                <WexTable.Head>Invoice</WexTable.Head>
+                <WexTable.Head>Status</WexTable.Head>
+                <WexTable.Head className="text-right">Amount</WexTable.Head>
+              </WexTable.Row>
+            </WexTable.Header>
+            <WexTable.Body>
               {invoices.map((inv) => (
-                <TableRow key={inv.invoice}>
-                  <TableCell className="font-medium">{inv.invoice}</TableCell>
-                  <TableCell>
+                <WexTable.Row key={inv.invoice}>
+                  <WexTable.Cell className="font-medium">{inv.invoice}</WexTable.Cell>
+                  <WexTable.Cell>
                     <WexBadge intent={inv.status === "Paid" ? "success" : inv.status === "Pending" ? "warning" : "destructive"}>
                       {inv.status}
                     </WexBadge>
-                  </TableCell>
-                  <TableCell className="text-right">{inv.amount}</TableCell>
-                </TableRow>
+                  </WexTable.Cell>
+                  <WexTable.Cell className="text-right">{inv.amount}</WexTable.Cell>
+                </WexTable.Row>
               ))}
-            </TableBody>
-          </Table>
+            </WexTable.Body>
+          </WexTable>
         </ExampleCard>
 
         <ExampleCard title="Selectable Rows">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[50px]">
+          <WexTable>
+            <WexTable.Header>
+              <WexTable.Row>
+                <WexTable.Head className="w-[50px]">
                   <WexCheckbox
                     aria-label="Select all"
                     checked={selected.size === invoices.length}
@@ -259,31 +249,31 @@ export default function TablePage() {
                       else setSelected(new Set(invoices.map(i => i.invoice)));
                     }}
                   />
-                </TableHead>
-                <TableHead>Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+                </WexTable.Head>
+                <WexTable.Head>Invoice</WexTable.Head>
+                <WexTable.Head>Status</WexTable.Head>
+                <WexTable.Head className="text-right">Actions</WexTable.Head>
+              </WexTable.Row>
+            </WexTable.Header>
+            <WexTable.Body>
               {invoices.map((inv) => (
-                <TableRow key={inv.invoice} className={selected.has(inv.invoice) ? "bg-muted/50" : ""}>
-                  <TableCell>
+                <WexTable.Row key={inv.invoice} className={selected.has(inv.invoice) ? "bg-muted/50" : ""}>
+                  <WexTable.Cell>
                     <WexCheckbox
                       aria-label={`Select ${inv.invoice}`}
                       checked={selected.has(inv.invoice)}
                       onCheckedChange={() => toggleRow(inv.invoice)}
                     />
-                  </TableCell>
-                  <TableCell className="font-medium">{inv.invoice}</TableCell>
-                  <TableCell>{inv.status}</TableCell>
-                  <TableCell className="text-right">
+                  </WexTable.Cell>
+                  <WexTable.Cell className="font-medium">{inv.invoice}</WexTable.Cell>
+                  <WexTable.Cell>{inv.status}</WexTable.Cell>
+                  <WexTable.Cell className="text-right">
                     <WexButton intent="ghost" size="sm">View</WexButton>
-                  </TableCell>
-                </TableRow>
+                  </WexTable.Cell>
+                </WexTable.Row>
               ))}
-            </TableBody>
-          </Table>
+            </WexTable.Body>
+          </WexTable>
         </ExampleCard>
       </Section>
 
@@ -299,38 +289,35 @@ export default function TablePage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { 
-  Table, TableHeader, TableBody, TableRow, 
-  TableHead, TableCell, TableFooter, TableCaption 
-} from "@/components/ui/table";
+          code={`import { WexTable } from "@/components/wex";
 
 // Basic table
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Column</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>Value</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+<WexTable>
+  <WexTable.Header>
+    <WexTable.Row>
+      <WexTable.Head>Column</WexTable.Head>
+    </WexTable.Row>
+  </WexTable.Header>
+  <WexTable.Body>
+    <WexTable.Row>
+      <WexTable.Cell>Value</WexTable.Cell>
+    </WexTable.Row>
+  </WexTable.Body>
+</WexTable>
 
 // Striped rows
-<Table striped>...</Table>
+<WexTable striped>...</WexTable>
 
 // With gridlines
-<Table gridlines>...</Table>
+<WexTable gridlines>...</WexTable>
 
 // Sizes
-<Table size="sm">...</Table>
-<Table size="md">...</Table>  {/* default */}
-<Table size="lg">...</Table>
+<WexTable size="sm">...</WexTable>
+<WexTable size="md">...</WexTable>  {/* default */}
+<WexTable size="lg">...</WexTable>
 
 // Combined
-<Table striped gridlines size="sm">...</Table>`}
+<WexTable striped gridlines size="sm">...</WexTable>`}
         />
         <div className="mt-4 text-sm text-muted-foreground">
           <p><strong>Table Props:</strong></p>

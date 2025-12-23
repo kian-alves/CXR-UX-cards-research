@@ -4,8 +4,7 @@ import { Section } from "@/docs/components/Section";
 import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { Input } from "@/components/ui/input";
-import { WexLabel } from "@/components/wex";
+import { WexInput, WexLabel } from "@/components/wex";
 import { Search, Mail, Eye, EyeOff, Lock, Calendar, Phone } from "lucide-react";
 
 // Token mappings for Input - Layer 3 component tokens
@@ -28,7 +27,7 @@ function PasswordInputDemo({ withLeftIcon = false }: { withLeftIcon?: boolean })
   const [showPassword, setShowPassword] = React.useState(false);
   
   return (
-    <Input 
+    <WexInput 
       leftIcon={withLeftIcon ? <Lock className="h-4 w-4" /> : undefined}
       rightIcon={
         <button 
@@ -59,7 +58,7 @@ export default function InputPage() {
         <ExampleCard>
           <div className="w-full max-w-sm space-y-2">
             <WexLabel htmlFor="demo-input">Email address</WexLabel>
-            <Input id="demo-input" type="email" placeholder="you@example.com" />
+            <WexInput id="demo-input" type="email" placeholder="you@example.com" />
           </div>
         </ExampleCard>
       </Section>
@@ -72,15 +71,15 @@ export default function InputPage() {
           <div className="w-full max-w-sm space-y-4">
             <div className="space-y-2">
               <WexLabel>Small</WexLabel>
-              <Input inputSize="sm" placeholder="Small input" />
+              <WexInput inputSize="sm" placeholder="Small input" />
             </div>
             <div className="space-y-2">
               <WexLabel>Medium (Default)</WexLabel>
-              <Input inputSize="md" placeholder="Medium input" />
+              <WexInput inputSize="md" placeholder="Medium input" />
             </div>
             <div className="space-y-2">
               <WexLabel>Large</WexLabel>
-              <Input inputSize="lg" placeholder="Large input" />
+              <WexInput inputSize="lg" placeholder="Large input" />
             </div>
           </div>
         </ExampleCard>
@@ -91,11 +90,11 @@ export default function InputPage() {
           ============================================================ */}
       <Section title="Variants" description="Default outlined and filled styles.">
         <ExampleCard title="Default (Outlined)">
-          <Input placeholder="Outlined input" className="max-w-sm" />
+          <WexInput placeholder="Outlined input" className="max-w-sm" />
         </ExampleCard>
 
         <ExampleCard title="Filled">
-          <Input variant="filled" placeholder="Filled input" className="max-w-sm" />
+          <WexInput variant="filled" placeholder="Filled input" className="max-w-sm" />
         </ExampleCard>
       </Section>
 
@@ -105,16 +104,16 @@ export default function InputPage() {
       <Section title="With Icons" description="Icons for visual context and affordance.">
         <ExampleCard title="Left Icon">
           <div className="max-w-sm space-y-4">
-            <Input 
+            <WexInput 
               leftIcon={<Search className="h-4 w-4" />} 
               placeholder="Search..." 
             />
-            <Input 
+            <WexInput 
               leftIcon={<Mail className="h-4 w-4" />} 
               placeholder="Email address" 
               type="email"
             />
-            <Input 
+            <WexInput 
               leftIcon={<Phone className="h-4 w-4" />} 
               placeholder="Phone number" 
               type="tel"
@@ -124,7 +123,7 @@ export default function InputPage() {
 
         <ExampleCard title="Right Icon (Interactive)">
           <div className="max-w-sm space-y-4">
-            <Input 
+            <WexInput 
               rightIcon={<Calendar className="h-4 w-4" />} 
               placeholder="Select date" 
             />
@@ -150,7 +149,7 @@ export default function InputPage() {
         <ExampleCard title="Invalid Input">
           <div className="w-full max-w-sm space-y-2">
             <WexLabel htmlFor="invalid-input">Email</WexLabel>
-            <Input 
+            <WexInput 
               id="invalid-input" 
               invalid 
               defaultValue="invalid-email" 
@@ -165,7 +164,7 @@ export default function InputPage() {
         <ExampleCard title="Invalid with Icon">
           <div className="w-full max-w-sm space-y-2">
             <WexLabel htmlFor="invalid-icon-input">Password</WexLabel>
-            <Input 
+            <WexInput 
               id="invalid-icon-input" 
               invalid 
               leftIcon={<Lock className="h-4 w-4" />}
@@ -185,22 +184,22 @@ export default function InputPage() {
       <Section title="Input Types" description="Common HTML5 input types.">
         <div className="grid gap-4 max-w-sm">
           <ExampleCard title="Text">
-            <Input type="text" placeholder="Full name" />
+            <WexInput type="text" placeholder="Full name" />
           </ExampleCard>
           <ExampleCard title="Email">
-            <Input type="email" placeholder="email@example.com" />
+            <WexInput type="email" placeholder="email@example.com" />
           </ExampleCard>
           <ExampleCard title="Password">
-            <Input type="password" placeholder="Enter password" />
+            <WexInput type="password" placeholder="Enter password" />
           </ExampleCard>
           <ExampleCard title="Number">
-            <Input type="number" placeholder="0" min={0} max={100} />
+            <WexInput type="number" placeholder="0" min={0} max={100} />
           </ExampleCard>
           <ExampleCard title="Search">
-            <Input type="search" placeholder="Search..." />
+            <WexInput type="search" placeholder="Search..." />
           </ExampleCard>
           <ExampleCard title="URL">
-            <Input type="url" placeholder="https://example.com" />
+            <WexInput type="url" placeholder="https://example.com" />
           </ExampleCard>
         </div>
       </Section>
@@ -211,13 +210,13 @@ export default function InputPage() {
       <Section title="States" description="Interactive and visual states.">
         <div className="space-y-4 max-w-sm">
           <ExampleCard title="Default">
-            <Input placeholder="Default input" />
+            <WexInput placeholder="Default input" />
           </ExampleCard>
           <ExampleCard title="Disabled">
-            <Input disabled placeholder="Disabled input" />
+            <WexInput disabled placeholder="Disabled input" />
           </ExampleCard>
           <ExampleCard title="Read Only">
-            <Input readOnly defaultValue="Read-only value" />
+            <WexInput readOnly defaultValue="Read-only value" />
           </ExampleCard>
         </div>
       </Section>
@@ -247,22 +246,22 @@ export default function InputPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Input } from "@/components/ui/input";
+          code={`import { WexInput } from "@/components/wex";
 import { Search, Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 // Sizes
-<Input inputSize="sm" placeholder="Small" />
-<Input inputSize="md" placeholder="Medium (default)" />
-<Input inputSize="lg" placeholder="Large" />
+<WexInput inputSize="sm" placeholder="Small" />
+<WexInput inputSize="md" placeholder="Medium (default)" />
+<WexInput inputSize="lg" placeholder="Large" />
 
 // Variants
-<Input placeholder="Default (outlined)" />
-<Input variant="filled" placeholder="Filled" />
+<WexInput placeholder="Default (outlined)" />
+<WexInput variant="filled" placeholder="Filled" />
 
 // With icons
-<Input leftIcon={<Search />} placeholder="Search..." />
-<Input rightIcon={<Eye />} placeholder="Password" type="password" />
-<Input 
+<WexInput leftIcon={<Search />} placeholder="Search..." />
+<WexInput rightIcon={<Eye />} placeholder="Password" type="password" />
+<WexInput 
   leftIcon={<Lock />} 
   rightIcon={<Eye />} 
   placeholder="Both icons" 
@@ -270,7 +269,7 @@ import { Search, Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 // Interactive password toggle
 const [showPassword, setShowPassword] = useState(false);
-<Input
+<WexInput
   type={showPassword ? "text" : "password"}
   rightIcon={
     <button onClick={() => setShowPassword(!showPassword)}>
@@ -281,7 +280,7 @@ const [showPassword, setShowPassword] = useState(false);
 />
 
 // Invalid state
-<Input invalid placeholder="Invalid input" />
+<WexInput invalid placeholder="Invalid input" />
 <p className="text-destructive">Error message</p>`}
         />
         <div className="mt-4 text-sm text-muted-foreground">

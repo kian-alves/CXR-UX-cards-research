@@ -3,8 +3,7 @@ import { Section } from "@/docs/components/Section";
 import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { Checkbox } from "@/components/ui/checkbox";
-import { WexLabel } from "@/components/wex";
+import { WexCheckbox, WexLabel } from "@/components/wex";
 
 // Token mappings for Checkbox
 // Layer 3 component tokens
@@ -28,7 +27,7 @@ export default function CheckboxPage() {
       <Section title="Overview">
         <ExampleCard>
           <div className="flex items-center space-x-2">
-            <Checkbox id="terms" />
+            <WexCheckbox id="terms" />
             <WexLabel htmlFor="terms">Accept terms and conditions</WexLabel>
           </div>
         </ExampleCard>
@@ -41,21 +40,21 @@ export default function CheckboxPage() {
         <div className="space-y-4">
           <ExampleCard title="Unchecked">
             <div className="flex items-center space-x-2">
-              <Checkbox id="unchecked" />
+              <WexCheckbox id="unchecked" />
               <WexLabel htmlFor="unchecked">Unchecked option</WexLabel>
             </div>
           </ExampleCard>
 
           <ExampleCard title="Checked">
             <div className="flex items-center space-x-2">
-              <Checkbox id="checked" defaultChecked />
+              <WexCheckbox id="checked" defaultChecked />
               <WexLabel htmlFor="checked">Checked option</WexLabel>
             </div>
           </ExampleCard>
 
           <ExampleCard title="Disabled Unchecked">
             <div className="flex items-center space-x-2">
-              <Checkbox id="disabled-unchecked" disabled />
+              <WexCheckbox id="disabled-unchecked" disabled />
               <WexLabel htmlFor="disabled-unchecked" className="text-muted-foreground">
                 Disabled option
               </WexLabel>
@@ -64,7 +63,7 @@ export default function CheckboxPage() {
 
           <ExampleCard title="Disabled Checked">
             <div className="flex items-center space-x-2">
-              <Checkbox id="disabled-checked" disabled defaultChecked />
+              <WexCheckbox id="disabled-checked" disabled defaultChecked />
               <WexLabel htmlFor="disabled-checked" className="text-muted-foreground">
                 Locked selection
               </WexLabel>
@@ -82,15 +81,15 @@ export default function CheckboxPage() {
             <WexLabel className="text-base font-medium">Select your interests</WexLabel>
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
-                <Checkbox id="tech" />
+                <WexCheckbox id="tech" />
                 <WexLabel htmlFor="tech">Technology</WexLabel>
               </div>
               <div className="flex items-center space-x-2">
-                <Checkbox id="design" defaultChecked />
+                <WexCheckbox id="design" defaultChecked />
                 <WexLabel htmlFor="design">Design</WexLabel>
               </div>
               <div className="flex items-center space-x-2">
-                <Checkbox id="business" />
+                <WexCheckbox id="business" />
                 <WexLabel htmlFor="business">Business</WexLabel>
               </div>
             </div>
@@ -102,15 +101,15 @@ export default function CheckboxPage() {
             <WexLabel className="text-base font-medium">Notifications</WexLabel>
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center space-x-2">
-                <Checkbox id="email-notify" defaultChecked />
+                <WexCheckbox id="email-notify" defaultChecked />
                 <WexLabel htmlFor="email-notify">Email</WexLabel>
               </div>
               <div className="flex items-center space-x-2">
-                <Checkbox id="sms-notify" />
+                <WexCheckbox id="sms-notify" />
                 <WexLabel htmlFor="sms-notify">SMS</WexLabel>
               </div>
               <div className="flex items-center space-x-2">
-                <Checkbox id="push-notify" defaultChecked />
+                <WexCheckbox id="push-notify" defaultChecked />
                 <WexLabel htmlFor="push-notify">Push</WexLabel>
               </div>
             </div>
@@ -124,7 +123,7 @@ export default function CheckboxPage() {
       <Section title="With Description" description="Checkbox with additional helper text.">
         <ExampleCard>
           <div className="items-top flex space-x-2">
-            <Checkbox id="newsletter" />
+            <WexCheckbox id="newsletter" />
             <div className="grid gap-1.5 leading-none">
               <WexLabel htmlFor="newsletter">Subscribe to newsletter</WexLabel>
               <p className="text-sm text-muted-foreground">
@@ -155,17 +154,17 @@ export default function CheckboxPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Checkbox } from "@/components/ui/checkbox";
+          code={`import { WexCheckbox } from "@/components/wex";
 
 // With label
 <div className="flex items-center space-x-2">
-  <Checkbox id="option" />
+  <WexCheckbox id="option" />
   <Label htmlFor="option">Option label</Label>
 </div>
 
 // Controlled
 const [checked, setChecked] = useState(false);
-<Checkbox 
+<WexCheckbox 
   checked={checked} 
   onCheckedChange={setChecked} 
 />`}

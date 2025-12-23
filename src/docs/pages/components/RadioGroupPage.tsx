@@ -3,8 +3,7 @@ import { Section } from "@/docs/components/Section";
 import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { WexLabel } from "@/components/wex";
+import { WexRadioGroup, WexLabel } from "@/components/wex";
 
 // Token mappings for RadioGroup
 // Layer 3 component tokens
@@ -26,20 +25,20 @@ export default function RadioGroupPage() {
     >
       <Section title="Overview">
         <ExampleCard>
-          <RadioGroup defaultValue="option-one">
+          <WexRadioGroup defaultValue="option-one">
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-one" id="option-one" />
+              <WexRadioGroup.Item value="option-one" id="option-one" />
               <WexLabel htmlFor="option-one">Option One</WexLabel>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-two" id="option-two" />
+              <WexRadioGroup.Item value="option-two" id="option-two" />
               <WexLabel htmlFor="option-two">Option Two</WexLabel>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-three" id="option-three" />
+              <WexRadioGroup.Item value="option-three" id="option-three" />
               <WexLabel htmlFor="option-three">Option Three</WexLabel>
             </div>
-          </RadioGroup>
+          </WexRadioGroup>
         </ExampleCard>
       </Section>
 
@@ -48,20 +47,20 @@ export default function RadioGroupPage() {
           ============================================================ */}
       <Section title="Layouts" description="Vertical and horizontal arrangements.">
         <ExampleCard title="Horizontal">
-          <RadioGroup defaultValue="h-1" className="flex gap-6">
+          <WexRadioGroup defaultValue="h-1" className="flex gap-6">
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="h-1" id="h-1" />
+              <WexRadioGroup.Item value="h-1" id="h-1" />
               <WexLabel htmlFor="h-1">Option 1</WexLabel>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="h-2" id="h-2" />
+              <WexRadioGroup.Item value="h-2" id="h-2" />
               <WexLabel htmlFor="h-2">Option 2</WexLabel>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="h-3" id="h-3" />
+              <WexRadioGroup.Item value="h-3" id="h-3" />
               <WexLabel htmlFor="h-3">Option 3</WexLabel>
             </div>
-          </RadioGroup>
+          </WexRadioGroup>
         </ExampleCard>
       </Section>
 
@@ -70,20 +69,20 @@ export default function RadioGroupPage() {
           ============================================================ */}
       <Section title="States" description="Disabled options.">
         <ExampleCard title="With Disabled Options">
-          <RadioGroup defaultValue="enabled">
+          <WexRadioGroup defaultValue="enabled">
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="enabled" id="enabled" />
+              <WexRadioGroup.Item value="enabled" id="enabled" />
               <WexLabel htmlFor="enabled">Available option</WexLabel>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="disabled" id="disabled" disabled />
+              <WexRadioGroup.Item value="disabled" id="disabled" disabled />
               <WexLabel htmlFor="disabled" className="text-muted-foreground">Unavailable option</WexLabel>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="another" id="another" />
+              <WexRadioGroup.Item value="another" id="another" />
               <WexLabel htmlFor="another">Another option</WexLabel>
             </div>
-          </RadioGroup>
+          </WexRadioGroup>
         </ExampleCard>
       </Section>
 
@@ -92,9 +91,9 @@ export default function RadioGroupPage() {
           ============================================================ */}
       <Section title="With Descriptions" description="Radio options with helper text.">
         <ExampleCard>
-          <RadioGroup defaultValue="card" className="space-y-4">
+          <WexRadioGroup defaultValue="card" className="space-y-4">
             <div className="flex items-start space-x-3">
-              <RadioGroupItem value="card" id="card" className="mt-1" />
+              <WexRadioGroup.Item value="card" id="card" className="mt-1" />
               <div>
                 <WexLabel htmlFor="card" className="font-medium">Credit Card</WexLabel>
                 <p className="text-sm text-muted-foreground">
@@ -103,7 +102,7 @@ export default function RadioGroupPage() {
               </div>
             </div>
             <div className="flex items-start space-x-3">
-              <RadioGroupItem value="bank" id="bank" className="mt-1" />
+              <WexRadioGroup.Item value="bank" id="bank" className="mt-1" />
               <div>
                 <WexLabel htmlFor="bank" className="font-medium">Bank Transfer</WexLabel>
                 <p className="text-sm text-muted-foreground">
@@ -112,7 +111,7 @@ export default function RadioGroupPage() {
               </div>
             </div>
             <div className="flex items-start space-x-3">
-              <RadioGroupItem value="paypal" id="paypal" className="mt-1" />
+              <WexRadioGroup.Item value="paypal" id="paypal" className="mt-1" />
               <div>
                 <WexLabel htmlFor="paypal" className="font-medium">PayPal</WexLabel>
                 <p className="text-sm text-muted-foreground">
@@ -120,7 +119,7 @@ export default function RadioGroupPage() {
                 </p>
               </div>
             </div>
-          </RadioGroup>
+          </WexRadioGroup>
         </ExampleCard>
       </Section>
 
@@ -144,30 +143,30 @@ export default function RadioGroupPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+          code={`import { WexRadioGroup } from "@/components/wex";
 
 // Basic usage
-<RadioGroup defaultValue="option-1">
+<WexRadioGroup defaultValue="option-1">
   <div className="flex items-center space-x-2">
-    <RadioGroupItem value="option-1" id="r1" />
+    <WexRadioGroup.Item value="option-1" id="r1" />
     <Label htmlFor="r1">Option 1</Label>
   </div>
   <div className="flex items-center space-x-2">
-    <RadioGroupItem value="option-2" id="r2" />
+    <WexRadioGroup.Item value="option-2" id="r2" />
     <Label htmlFor="r2">Option 2</Label>
   </div>
-</RadioGroup>
+</WexRadioGroup>
 
 // Horizontal layout
-<RadioGroup className="flex gap-6">
+<WexRadioGroup className="flex gap-6">
   ...
-</RadioGroup>
+</WexRadioGroup>
 
 // Controlled
 const [value, setValue] = useState("option-1");
-<RadioGroup value={value} onValueChange={setValue}>
+<WexRadioGroup value={value} onValueChange={setValue}>
   ...
-</RadioGroup>`}
+</WexRadioGroup>`}
         />
         <div className="mt-4 text-sm text-muted-foreground">
           <p><strong>RadioGroup Props:</strong></p>

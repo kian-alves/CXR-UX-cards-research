@@ -3,7 +3,7 @@ import { Section } from "@/docs/components/Section";
 import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { Skeleton, SkeletonCard, SkeletonList } from "@/components/ui/skeleton";
+import { WexSkeleton } from "@/components/wex";
 
 // Token mappings for Skeleton
 // Layer 3 component tokens
@@ -23,10 +23,10 @@ export default function SkeletonPage() {
       <Section title="Overview">
         <ExampleCard>
           <div className="flex items-center space-x-4">
-            <Skeleton shape="circle" className="h-12 w-12" />
+            <WexSkeleton shape="circle" className="h-12 w-12" />
             <div className="space-y-2">
-              <Skeleton className="h-4 w-[200px]" />
-              <Skeleton className="h-4 w-[150px]" />
+              <WexSkeleton className="h-4 w-[200px]" />
+              <WexSkeleton className="h-4 w-[150px]" />
             </div>
           </div>
         </ExampleCard>
@@ -38,25 +38,25 @@ export default function SkeletonPage() {
       <Section title="Shapes" description="Three shape variants for different content types.">
         <ExampleCard title="Rectangle (Default)">
           <div className="space-y-2 w-64">
-            <Skeleton shape="rectangle" className="h-32 w-full" />
+            <WexSkeleton shape="rectangle" className="h-32 w-full" />
             <p className="text-xs text-muted-foreground">For images, cards, content blocks</p>
           </div>
         </ExampleCard>
 
         <ExampleCard title="Circle">
           <div className="flex items-center gap-4">
-            <Skeleton shape="circle" className="h-10 w-10" />
-            <Skeleton shape="circle" className="h-12 w-12" />
-            <Skeleton shape="circle" className="h-16 w-16" />
+            <WexSkeleton shape="circle" className="h-10 w-10" />
+            <WexSkeleton shape="circle" className="h-12 w-12" />
+            <WexSkeleton shape="circle" className="h-16 w-16" />
           </div>
           <p className="text-xs text-muted-foreground mt-2">For avatars, icons</p>
         </ExampleCard>
 
         <ExampleCard title="Text">
           <div className="space-y-2 w-64">
-            <Skeleton shape="text" />
-            <Skeleton shape="text" className="w-3/4" />
-            <Skeleton shape="text" className="w-1/2" />
+            <WexSkeleton shape="text" />
+            <WexSkeleton shape="text" className="w-3/4" />
+            <WexSkeleton shape="text" className="w-1/2" />
           </div>
           <p className="text-xs text-muted-foreground mt-2">For text lines, paragraphs</p>
         </ExampleCard>
@@ -67,15 +67,15 @@ export default function SkeletonPage() {
           ============================================================ */}
       <Section title="Animations" description="Three animation options.">
         <ExampleCard title="Pulse (Default)">
-          <Skeleton animation="pulse" className="h-12 w-48" />
+          <WexSkeleton animation="pulse" className="h-12 w-48" />
         </ExampleCard>
 
         <ExampleCard title="Wave">
-          <Skeleton animation="wave" className="h-12 w-48" />
+          <WexSkeleton animation="wave" className="h-12 w-48" />
         </ExampleCard>
 
         <ExampleCard title="None">
-          <Skeleton animation="none" className="h-12 w-48" />
+          <WexSkeleton animation="none" className="h-12 w-48" />
           <p className="text-xs text-muted-foreground mt-2">
             Use for reduced motion preferences or static placeholders
           </p>
@@ -88,19 +88,19 @@ export default function SkeletonPage() {
       <Section title="Presets" description="Pre-built skeleton patterns for common layouts.">
         <ExampleCard title="SkeletonCard">
           <div className="w-64">
-            <SkeletonCard />
+            <WexSkeleton.Card />
           </div>
         </ExampleCard>
 
         <ExampleCard title="SkeletonList">
           <div className="w-64">
-            <SkeletonList count={3} />
+            <WexSkeleton.List count={3} />
           </div>
         </ExampleCard>
 
         <ExampleCard title="SkeletonList with 5 items">
           <div className="w-64">
-            <SkeletonList count={5} />
+            <WexSkeleton.List count={5} />
           </div>
         </ExampleCard>
       </Section>
@@ -112,30 +112,30 @@ export default function SkeletonPage() {
         <div className="space-y-4">
           <ExampleCard title="User Profile">
             <div className="flex items-center space-x-4">
-              <Skeleton shape="circle" className="h-12 w-12" />
+              <WexSkeleton shape="circle" className="h-12 w-12" />
               <div className="space-y-2">
-                <Skeleton className="h-4 w-[120px]" />
-                <Skeleton className="h-3 w-[80px]" />
+                <WexSkeleton className="h-4 w-[120px]" />
+                <WexSkeleton className="h-3 w-[80px]" />
               </div>
             </div>
           </ExampleCard>
 
           <ExampleCard title="Article Preview">
             <div className="space-y-3 w-full max-w-md">
-              <Skeleton className="h-48 w-full" />
-              <Skeleton className="h-6 w-3/4" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-2/3" />
+              <WexSkeleton className="h-48 w-full" />
+              <WexSkeleton className="h-6 w-3/4" />
+              <WexSkeleton className="h-4 w-full" />
+              <WexSkeleton className="h-4 w-full" />
+              <WexSkeleton className="h-4 w-2/3" />
             </div>
           </ExampleCard>
 
           <ExampleCard title="Table Row">
             <div className="flex items-center gap-4 w-full max-w-md">
-              <Skeleton shape="circle" className="h-8 w-8" />
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-4 w-32" />
-              <Skeleton className="h-4 w-16 ml-auto" />
+              <WexSkeleton shape="circle" className="h-8 w-8" />
+              <WexSkeleton className="h-4 w-24" />
+              <WexSkeleton className="h-4 w-32" />
+              <WexSkeleton className="h-4 w-16 ml-auto" />
             </div>
           </ExampleCard>
         </div>
@@ -162,24 +162,24 @@ export default function SkeletonPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Skeleton, SkeletonCard, SkeletonList } from "@/components/ui/skeleton";
+          code={`import { WexSkeleton } from "@/components/wex";
 
 // Shapes
-<Skeleton shape="rectangle" className="h-32 w-full" />
-<Skeleton shape="circle" className="h-12 w-12" />
-<Skeleton shape="text" className="h-4 w-[200px]" />
+<WexSkeleton shape="rectangle" className="h-32 w-full" />
+<WexSkeleton shape="circle" className="h-12 w-12" />
+<WexSkeleton shape="text" className="h-4 w-[200px]" />
 
 // Animations
-<Skeleton animation="pulse" />  {/* default */}
-<Skeleton animation="wave" />
-<Skeleton animation="none" />
+<WexSkeleton animation="pulse" />  {/* default */}
+<WexSkeleton animation="wave" />
+<WexSkeleton animation="none" />
 
 // Presets
-<SkeletonCard />
-<SkeletonList count={3} />
+<WexSkeleton.Card />
+<WexSkeleton.List count={3} />
 
 // Combined
-<Skeleton 
+<WexSkeleton 
   shape="rectangle" 
   animation="pulse" 
   className="h-48 w-full" 

@@ -4,13 +4,7 @@ import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { Guidance } from "@/docs/components/ProseBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { WexButton } from "@/components/wex";
+import { WexTooltip, WexButton } from "@/components/wex";
 import { Settings, Info, HelpCircle } from "lucide-react";
 
 // Token mappings for Tooltip
@@ -31,16 +25,16 @@ export default function TooltipPage() {
     >
       <Section title="Overview">
         <ExampleCard>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
+          <WexTooltip.Provider>
+            <WexTooltip>
+              <WexTooltip.Trigger asChild>
                 <WexButton intent="outline">Hover me</WexButton>
-              </TooltipTrigger>
-              <TooltipContent>
+              </WexTooltip.Trigger>
+              <WexTooltip.Content>
                 <p>This is a tooltip</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+              </WexTooltip.Content>
+            </WexTooltip>
+          </WexTooltip.Provider>
         </ExampleCard>
         <Guidance>
           Use Tooltip for simple text hints. For interactive content or
@@ -53,45 +47,45 @@ export default function TooltipPage() {
           ============================================================ */}
       <Section title="Delay Duration" description="Control how quickly the tooltip appears.">
         <ExampleCard title="Different Delays">
-          <TooltipProvider>
+          <WexTooltip.Provider>
             <div className="flex gap-4">
-              <Tooltip>
-                <TooltipTrigger asChild>
+              <WexTooltip>
+                <WexTooltip.Trigger asChild>
                   <WexButton intent="outline" size="sm">Default (700ms)</WexButton>
-                </TooltipTrigger>
-                <TooltipContent>
+                </WexTooltip.Trigger>
+                <WexTooltip.Content>
                   <p>Standard delay</p>
-                </TooltipContent>
-              </Tooltip>
+                </WexTooltip.Content>
+              </WexTooltip>
 
-              <Tooltip delayDuration={0}>
-                <TooltipTrigger asChild>
+              <WexTooltip delayDuration={0}>
+                <WexTooltip.Trigger asChild>
                   <WexButton intent="outline" size="sm">Instant (0ms)</WexButton>
-                </TooltipTrigger>
-                <TooltipContent>
+                </WexTooltip.Trigger>
+                <WexTooltip.Content>
                   <p>No delay!</p>
-                </TooltipContent>
-              </Tooltip>
+                </WexTooltip.Content>
+              </WexTooltip>
 
-              <Tooltip delayDuration={300}>
-                <TooltipTrigger asChild>
+              <WexTooltip delayDuration={300}>
+                <WexTooltip.Trigger asChild>
                   <WexButton intent="outline" size="sm">Quick (300ms)</WexButton>
-                </TooltipTrigger>
-                <TooltipContent>
+                </WexTooltip.Trigger>
+                <WexTooltip.Content>
                   <p>Quick delay</p>
-                </TooltipContent>
-              </Tooltip>
+                </WexTooltip.Content>
+              </WexTooltip>
 
-              <Tooltip delayDuration={1500}>
-                <TooltipTrigger asChild>
+              <WexTooltip delayDuration={1500}>
+                <WexTooltip.Trigger asChild>
                   <WexButton intent="outline" size="sm">Slow (1500ms)</WexButton>
-                </TooltipTrigger>
-                <TooltipContent>
+                </WexTooltip.Trigger>
+                <WexTooltip.Content>
                   <p>Longer delay</p>
-                </TooltipContent>
-              </Tooltip>
+                </WexTooltip.Content>
+              </WexTooltip>
             </div>
-          </TooltipProvider>
+          </WexTooltip.Provider>
         </ExampleCard>
         <Guidance>
           Use instant tooltips (0ms) for icon buttons where users need immediate feedback.
@@ -104,22 +98,22 @@ export default function TooltipPage() {
           ============================================================ */}
       <Section title="Positions" description="Tooltip can appear on any side.">
         <ExampleCard>
-          <TooltipProvider>
+          <WexTooltip.Provider>
             <div className="flex gap-4">
               {(["top", "right", "bottom", "left"] as const).map((side) => (
-                <Tooltip key={side}>
-                  <TooltipTrigger asChild>
+                <WexTooltip key={side}>
+                  <WexTooltip.Trigger asChild>
                     <WexButton intent="outline" size="sm" className="capitalize">
                       {side}
                     </WexButton>
-                  </TooltipTrigger>
-                  <TooltipContent side={side}>
+                  </WexTooltip.Trigger>
+                  <WexTooltip.Content side={side}>
                     <p>Tooltip on {side}</p>
-                  </TooltipContent>
-                </Tooltip>
+                  </WexTooltip.Content>
+                </WexTooltip>
               ))}
             </div>
-          </TooltipProvider>
+          </WexTooltip.Provider>
         </ExampleCard>
       </Section>
 
@@ -129,69 +123,69 @@ export default function TooltipPage() {
       <Section title="Use Cases" description="Common tooltip patterns.">
         <div className="space-y-6">
           <ExampleCard title="Icon Buttons" description="Essential for icon-only buttons.">
-            <TooltipProvider>
+            <WexTooltip.Provider>
               <div className="flex gap-2">
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger asChild>
+                <WexTooltip delayDuration={0}>
+                  <WexTooltip.Trigger asChild>
                     <WexButton intent="ghost" size="icon">
                       <span className="sr-only">Settings</span>
                       <Settings className="h-4 w-4" />
                     </WexButton>
-                  </TooltipTrigger>
-                  <TooltipContent>Settings</TooltipContent>
-                </Tooltip>
+                  </WexTooltip.Trigger>
+                  <WexTooltip.Content>Settings</WexTooltip.Content>
+                </WexTooltip>
 
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger asChild>
+                <WexTooltip delayDuration={0}>
+                  <WexTooltip.Trigger asChild>
                     <WexButton intent="ghost" size="icon">
                       <span className="sr-only">Information</span>
                       <Info className="h-4 w-4" />
                     </WexButton>
-                  </TooltipTrigger>
-                  <TooltipContent>More information</TooltipContent>
-                </Tooltip>
+                  </WexTooltip.Trigger>
+                  <WexTooltip.Content>More information</WexTooltip.Content>
+                </WexTooltip>
 
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger asChild>
+                <WexTooltip delayDuration={0}>
+                  <WexTooltip.Trigger asChild>
                     <WexButton intent="ghost" size="icon">
                       <span className="sr-only">Help</span>
                       <HelpCircle className="h-4 w-4" />
                     </WexButton>
-                  </TooltipTrigger>
-                  <TooltipContent>Get help</TooltipContent>
-                </Tooltip>
+                  </WexTooltip.Trigger>
+                  <WexTooltip.Content>Get help</WexTooltip.Content>
+                </WexTooltip>
               </div>
-            </TooltipProvider>
+            </WexTooltip.Provider>
           </ExampleCard>
 
           <ExampleCard title="Truncated Text" description="Show full text on hover.">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
+            <WexTooltip.Provider>
+              <WexTooltip>
+                <WexTooltip.Trigger asChild>
                   <div className="w-32 truncate cursor-help">
                     This is a very long text that gets truncated
                   </div>
-                </TooltipTrigger>
-                <TooltipContent>
+                </WexTooltip.Trigger>
+                <WexTooltip.Content>
                   <p>This is a very long text that gets truncated</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+                </WexTooltip.Content>
+              </WexTooltip>
+            </WexTooltip.Provider>
           </ExampleCard>
 
           <ExampleCard title="Disabled Button Explanation" description="Explain why an action is disabled.">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
+            <WexTooltip.Provider>
+              <WexTooltip>
+                <WexTooltip.Trigger asChild>
                   <span tabIndex={0}>
                     <WexButton disabled>Submit</WexButton>
                   </span>
-                </TooltipTrigger>
-                <TooltipContent>
+                </WexTooltip.Trigger>
+                <WexTooltip.Content>
                   <p>Complete all required fields to submit</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+                </WexTooltip.Content>
+              </WexTooltip>
+            </WexTooltip.Provider>
           </ExampleCard>
         </div>
       </Section>
@@ -218,42 +212,42 @@ export default function TooltipPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+          code={`import { WexTooltip } from "@/components/wex";
 
 // Wrap your app or section with Provider (once)
-<TooltipProvider>
+<WexTooltip.Provider>
   {/* Your app content */}
-</TooltipProvider>
+</WexTooltip.Provider>
 
 // Basic tooltip
-<Tooltip>
-  <TooltipTrigger asChild>
+<WexTooltip>
+  <WexTooltip.Trigger asChild>
     <Button>Hover me</Button>
-  </TooltipTrigger>
-  <TooltipContent>
+  </WexTooltip.Trigger>
+  <WexTooltip.Content>
     Tooltip text
-  </TooltipContent>
-</Tooltip>
+  </WexTooltip.Content>
+</WexTooltip>
 
 // Custom delay (instant for icon buttons)
-<Tooltip delayDuration={0}>
-  <TooltipTrigger asChild>
+<WexTooltip delayDuration={0}>
+  <WexTooltip.Trigger asChild>
     <Button size="icon">
       <Settings />
     </Button>
-  </TooltipTrigger>
-  <TooltipContent>Settings</TooltipContent>
-</Tooltip>
+  </WexTooltip.Trigger>
+  <WexTooltip.Content>Settings</WexTooltip.Content>
+</WexTooltip>
 
 // Custom position
-<Tooltip>
-  <TooltipTrigger asChild>
+<WexTooltip>
+  <WexTooltip.Trigger asChild>
     <Button>Trigger</Button>
-  </TooltipTrigger>
-  <TooltipContent side="right" sideOffset={8}>
+  </WexTooltip.Trigger>
+  <WexTooltip.Content side="right" sideOffset={8}>
     Right side tooltip
-  </TooltipContent>
-</Tooltip>`}
+  </WexTooltip.Content>
+</WexTooltip>`}
         />
         <div className="mt-4 text-sm text-muted-foreground">
           <p><strong>Tooltip Props:</strong></p>

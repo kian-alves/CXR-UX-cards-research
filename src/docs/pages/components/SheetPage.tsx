@@ -5,17 +5,7 @@ import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { Guidance } from "@/docs/components/ProseBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  SheetClose,
-} from "@/components/ui/sheet";
-import { WexButton, WexInput, WexLabel } from "@/components/wex";
+import { WexSheet, WexButton, WexInput, WexLabel } from "@/components/wex";
 
 // Token mappings for Sheet
 // Layer 3 component tokens
@@ -38,20 +28,20 @@ export default function SheetPage() {
     >
       <Section title="Overview">
         <ExampleCard>
-          <Sheet>
-            <SheetTrigger asChild>
+          <WexSheet>
+            <WexSheet.Trigger asChild>
               <WexButton intent="outline">Open Sheet</WexButton>
-            </SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>Sheet Title</SheetTitle>
-                <SheetDescription>Sheet description text.</SheetDescription>
-              </SheetHeader>
+            </WexSheet.Trigger>
+            <WexSheet.Content>
+              <WexSheet.Header>
+                <WexSheet.Title>Sheet Title</WexSheet.Title>
+                <WexSheet.Description>Sheet description text.</WexSheet.Description>
+              </WexSheet.Header>
               <div className="py-4">
                 <p className="text-sm text-muted-foreground">Sheet content goes here.</p>
               </div>
-            </SheetContent>
-          </Sheet>
+            </WexSheet.Content>
+          </WexSheet>
         </ExampleCard>
         <Guidance>
           Use Sheet for desktop side panels, navigation drawers, or focused content
@@ -65,17 +55,17 @@ export default function SheetPage() {
       <Section title="Sizes" description="Five size variants for different content needs.">
         <div className="flex flex-wrap gap-2">
           {(["sm", "md", "lg", "xl", "full"] as const).map((size) => (
-            <Sheet key={size}>
-              <SheetTrigger asChild>
+            <WexSheet key={size}>
+              <WexSheet.Trigger asChild>
                 <WexButton intent="outline" className="capitalize">{size}</WexButton>
-              </SheetTrigger>
-              <SheetContent size={size}>
-                <SheetHeader>
-                  <SheetTitle className="capitalize">{size} Sheet</SheetTitle>
-                  <SheetDescription>
+              </WexSheet.Trigger>
+              <WexSheet.Content size={size}>
+                <WexSheet.Header>
+                  <WexSheet.Title className="capitalize">{size} Sheet</WexSheet.Title>
+                  <WexSheet.Description>
                     This sheet uses the {size} size variant.
-                  </SheetDescription>
-                </SheetHeader>
+                  </WexSheet.Description>
+                </WexSheet.Header>
                 <div className="py-4">
                   <p className="text-sm text-muted-foreground">
                     {size === "full" 
@@ -84,13 +74,13 @@ export default function SheetPage() {
                     }
                   </p>
                 </div>
-                <SheetFooter>
-                  <SheetClose asChild>
+                <WexSheet.Footer>
+                  <WexSheet.Close asChild>
                     <WexButton>Close</WexButton>
-                  </SheetClose>
-                </SheetFooter>
-              </SheetContent>
-            </Sheet>
+                  </WexSheet.Close>
+                </WexSheet.Footer>
+              </WexSheet.Content>
+            </WexSheet>
           ))}
         </div>
       </Section>
@@ -101,24 +91,24 @@ export default function SheetPage() {
       <Section title="Sides" description="Sheet can slide from any edge of the screen.">
         <div className="flex flex-wrap gap-2">
           {(["top", "right", "bottom", "left"] as const).map((side) => (
-            <Sheet key={side}>
-              <SheetTrigger asChild>
+            <WexSheet key={side}>
+              <WexSheet.Trigger asChild>
                 <WexButton intent="outline" className="capitalize">{side}</WexButton>
-              </SheetTrigger>
-              <SheetContent side={side}>
-                <SheetHeader>
-                  <SheetTitle className="capitalize">{side} Sheet</SheetTitle>
-                  <SheetDescription>
+              </WexSheet.Trigger>
+              <WexSheet.Content side={side}>
+                <WexSheet.Header>
+                  <WexSheet.Title className="capitalize">{side} Sheet</WexSheet.Title>
+                  <WexSheet.Description>
                     This sheet slides in from the {side}.
-                  </SheetDescription>
-                </SheetHeader>
+                  </WexSheet.Description>
+                </WexSheet.Header>
                 <div className="py-4">
                   <p className="text-sm text-muted-foreground">
                     Content for the {side} sheet.
                   </p>
                 </div>
-              </SheetContent>
-            </Sheet>
+              </WexSheet.Content>
+            </WexSheet>
           ))}
         </div>
       </Section>
@@ -128,14 +118,14 @@ export default function SheetPage() {
           ============================================================ */}
       <Section title="Navigation Pattern" description="Sheet as navigation menu.">
         <ExampleCard>
-          <Sheet>
-            <SheetTrigger asChild>
+          <WexSheet>
+            <WexSheet.Trigger asChild>
               <WexButton intent="outline">Open Menu</WexButton>
-            </SheetTrigger>
-            <SheetContent side="left" size="sm">
-              <SheetHeader>
-                <SheetTitle>Navigation</SheetTitle>
-              </SheetHeader>
+            </WexSheet.Trigger>
+            <WexSheet.Content side="left" size="sm">
+              <WexSheet.Header>
+                <WexSheet.Title>Navigation</WexSheet.Title>
+              </WexSheet.Header>
               <nav className="flex flex-col gap-2 py-4">
                 <a href="#" className="block px-2 py-2 text-sm rounded-md hover:bg-accent">
                   Dashboard
@@ -150,8 +140,8 @@ export default function SheetPage() {
                   Logout
                 </a>
               </nav>
-            </SheetContent>
-          </Sheet>
+            </WexSheet.Content>
+          </WexSheet>
         </ExampleCard>
       </Section>
 
@@ -160,17 +150,17 @@ export default function SheetPage() {
           ============================================================ */}
       <Section title="With Form" description="Sheet containing form elements.">
         <ExampleCard>
-          <Sheet>
-            <SheetTrigger asChild>
+          <WexSheet>
+            <WexSheet.Trigger asChild>
               <WexButton intent="outline">Edit Profile</WexButton>
-            </SheetTrigger>
-            <SheetContent size="md">
-              <SheetHeader>
-                <SheetTitle>Edit Profile</SheetTitle>
-                <SheetDescription>
+            </WexSheet.Trigger>
+            <WexSheet.Content size="md">
+              <WexSheet.Header>
+                <WexSheet.Title>Edit Profile</WexSheet.Title>
+                <WexSheet.Description>
                   Make changes to your profile here. Click save when you're done.
-                </SheetDescription>
-              </SheetHeader>
+                </WexSheet.Description>
+              </WexSheet.Header>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
                   <WexLabel htmlFor="sheet-name" className="text-right">Name</WexLabel>
@@ -181,14 +171,14 @@ export default function SheetPage() {
                   <WexInput id="sheet-email" defaultValue="john@example.com" className="col-span-3" />
                 </div>
               </div>
-              <SheetFooter>
-                <SheetClose asChild>
+              <WexSheet.Footer>
+                <WexSheet.Close asChild>
                   <WexButton intent="outline">Cancel</WexButton>
-                </SheetClose>
+                </WexSheet.Close>
                 <WexButton>Save changes</WexButton>
-              </SheetFooter>
-            </SheetContent>
-          </Sheet>
+              </WexSheet.Footer>
+            </WexSheet.Content>
+          </WexSheet>
         </ExampleCard>
       </Section>
 
@@ -201,19 +191,19 @@ export default function SheetPage() {
             <WexButton intent="outline" onClick={() => setOpen(true)}>
               Open via State
             </WexButton>
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetContent>
-                <SheetHeader>
-                  <SheetTitle>Controlled Sheet</SheetTitle>
-                  <SheetDescription>
+            <WexSheet open={open} onOpenChange={setOpen}>
+              <WexSheet.Content>
+                <WexSheet.Header>
+                  <WexSheet.Title>Controlled Sheet</WexSheet.Title>
+                  <WexSheet.Description>
                     This sheet is controlled via React state.
-                  </SheetDescription>
-                </SheetHeader>
-                <SheetFooter>
+                  </WexSheet.Description>
+                </WexSheet.Header>
+                <WexSheet.Footer>
                   <WexButton onClick={() => setOpen(false)}>Close</WexButton>
-                </SheetFooter>
-              </SheetContent>
-            </Sheet>
+                </WexSheet.Footer>
+              </WexSheet.Content>
+            </WexSheet>
           </div>
         </ExampleCard>
       </Section>
@@ -240,34 +230,34 @@ export default function SheetPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+          code={`import { WexSheet } from "@/components/wex";
 
 // Basic sheet
-<Sheet>
-  <SheetTrigger asChild>
+<WexSheet>
+  <WexSheet.Trigger asChild>
     <Button>Open</Button>
-  </SheetTrigger>
-  <SheetContent>
-    <SheetHeader>
-      <SheetTitle>Title</SheetTitle>
-      <SheetDescription>Description</SheetDescription>
-    </SheetHeader>
+  </WexSheet.Trigger>
+  <WexSheet.Content>
+    <WexSheet.Header>
+      <WexSheet.Title>Title</WexSheet.Title>
+      <WexSheet.Description>Description</WexSheet.Description>
+    </WexSheet.Header>
     Content here
-  </SheetContent>
-</Sheet>
+  </WexSheet.Content>
+</WexSheet>
 
 // With sizes
-<SheetContent size="sm">...</SheetContent>
-<SheetContent size="md">...</SheetContent>  {/* default */}
-<SheetContent size="lg">...</SheetContent>
-<SheetContent size="xl">...</SheetContent>
-<SheetContent size="full">...</SheetContent>
+<WexSheet.Content size="sm">...</WexSheet.Content>
+<WexSheet.Content size="md">...</WexSheet.Content>  {/* default */}
+<WexSheet.Content size="lg">...</WexSheet.Content>
+<WexSheet.Content size="xl">...</WexSheet.Content>
+<WexSheet.Content size="full">...</WexSheet.Content>
 
 // With sides
-<SheetContent side="left">...</SheetContent>
-<SheetContent side="right">...</SheetContent>  {/* default */}
-<SheetContent side="top">...</SheetContent>
-<SheetContent side="bottom">...</SheetContent>`}
+<WexSheet.Content side="left">...</WexSheet.Content>
+<WexSheet.Content side="right">...</WexSheet.Content>  {/* default */}
+<WexSheet.Content side="top">...</WexSheet.Content>
+<WexSheet.Content side="bottom">...</WexSheet.Content>`}
         />
         <div className="mt-4 text-sm text-muted-foreground">
           <p><strong>SheetContent Props:</strong></p>

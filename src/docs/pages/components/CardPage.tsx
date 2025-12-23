@@ -4,16 +4,7 @@ import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { Guidance } from "@/docs/components/ProseBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { WexButton, WexInput, WexLabel, WexSwitch } from "@/components/wex";
+import { WexCard, WexAvatar, WexButton, WexInput, WexLabel, WexSwitch } from "@/components/wex";
 import { CreditCard, Settings, User } from "lucide-react";
 
 // Token mappings for Card
@@ -36,18 +27,18 @@ export default function CardPage() {
     >
       <Section title="Overview">
         <ExampleCard>
-          <Card className="w-full max-w-sm">
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-            <CardContent>
+          <WexCard className="w-full max-w-sm">
+            <WexCard.Header>
+              <WexCard.Title>Card Title</WexCard.Title>
+              <WexCard.Description>Card Description</WexCard.Description>
+            </WexCard.Header>
+            <WexCard.Content>
               <p>Card content goes here. Use cards to group related information.</p>
-            </CardContent>
-            <CardFooter>
+            </WexCard.Content>
+            <WexCard.Footer>
               <WexButton>Action</WexButton>
-            </CardFooter>
-          </Card>
+            </WexCard.Footer>
+          </WexCard>
         </ExampleCard>
         <Guidance>
           Cards are versatile containers for grouping related content. They work 
@@ -61,59 +52,59 @@ export default function CardPage() {
       <Section title="Variants" description="Four visual styles for different contexts.">
         <div className="grid gap-6 md:grid-cols-2">
           <ExampleCard title="Default">
-            <Card variant="default" className="w-full">
-              <CardHeader>
-                <CardTitle>Default Card</CardTitle>
-                <CardDescription>Standard card with shadow</CardDescription>
-              </CardHeader>
-              <CardContent>
+            <WexCard variant="default" className="w-full">
+              <WexCard.Header>
+                <WexCard.Title>Default Card</WexCard.Title>
+                <WexCard.Description>Standard card with shadow</WexCard.Description>
+              </WexCard.Header>
+              <WexCard.Content>
                 <p className="text-sm text-muted-foreground">
                   The default card has a subtle shadow for elevation.
                 </p>
-              </CardContent>
-            </Card>
+              </WexCard.Content>
+            </WexCard>
           </ExampleCard>
 
           <ExampleCard title="Elevated">
-            <Card variant="elevated" className="w-full">
-              <CardHeader>
-                <CardTitle>Elevated Card</CardTitle>
-                <CardDescription>Card with stronger shadow</CardDescription>
-              </CardHeader>
-              <CardContent>
+            <WexCard variant="elevated" className="w-full">
+              <WexCard.Header>
+                <WexCard.Title>Elevated Card</WexCard.Title>
+                <WexCard.Description>Card with stronger shadow</WexCard.Description>
+              </WexCard.Header>
+              <WexCard.Content>
                 <p className="text-sm text-muted-foreground">
                   Elevated cards have a more prominent shadow for emphasis.
                 </p>
-              </CardContent>
-            </Card>
+              </WexCard.Content>
+            </WexCard>
           </ExampleCard>
 
           <ExampleCard title="Outlined">
-            <Card variant="outlined" className="w-full">
-              <CardHeader>
-                <CardTitle>Outlined Card</CardTitle>
-                <CardDescription>Card with border, no shadow</CardDescription>
-              </CardHeader>
-              <CardContent>
+            <WexCard variant="outlined" className="w-full">
+              <WexCard.Header>
+                <WexCard.Title>Outlined Card</WexCard.Title>
+                <WexCard.Description>Card with border, no shadow</WexCard.Description>
+              </WexCard.Header>
+              <WexCard.Content>
                 <p className="text-sm text-muted-foreground">
                   Outlined cards have a visible border without shadow.
                 </p>
-              </CardContent>
-            </Card>
+              </WexCard.Content>
+            </WexCard>
           </ExampleCard>
 
           <ExampleCard title="Flat">
-            <Card variant="flat" className="w-full">
-              <CardHeader>
-                <CardTitle>Flat Card</CardTitle>
-                <CardDescription>Card without border or shadow</CardDescription>
-              </CardHeader>
-              <CardContent>
+            <WexCard variant="flat" className="w-full">
+              <WexCard.Header>
+                <WexCard.Title>Flat Card</WexCard.Title>
+                <WexCard.Description>Card without border or shadow</WexCard.Description>
+              </WexCard.Header>
+              <WexCard.Content>
                 <p className="text-sm text-muted-foreground">
                   Flat cards blend into the background, no border or shadow.
                 </p>
-              </CardContent>
-            </Card>
+              </WexCard.Content>
+            </WexCard>
           </ExampleCard>
         </div>
       </Section>
@@ -124,12 +115,12 @@ export default function CardPage() {
       <Section title="Use Cases" description="Common card patterns.">
         <div className="grid gap-6 md:grid-cols-2">
           <ExampleCard title="Form Card">
-            <Card variant="elevated" className="w-full max-w-sm">
-              <CardHeader>
-                <CardTitle>Create Account</CardTitle>
-                <CardDescription>Enter your details to create an account.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
+            <WexCard variant="elevated" className="w-full max-w-sm">
+              <WexCard.Header>
+                <WexCard.Title>Create Account</WexCard.Title>
+                <WexCard.Description>Enter your details to create an account.</WexCard.Description>
+              </WexCard.Header>
+              <WexCard.Content className="space-y-4">
                 <div className="space-y-2">
                   <WexLabel htmlFor="email">Email</WexLabel>
                   <WexInput id="email" type="email" placeholder="m@example.com" />
@@ -138,20 +129,20 @@ export default function CardPage() {
                   <WexLabel htmlFor="password">Password</WexLabel>
                   <WexInput id="password" type="password" />
                 </div>
-              </CardContent>
-              <CardFooter>
+              </WexCard.Content>
+              <WexCard.Footer>
                 <WexButton className="w-full">Create Account</WexButton>
-              </CardFooter>
-            </Card>
+              </WexCard.Footer>
+            </WexCard>
           </ExampleCard>
 
           <ExampleCard title="Settings Card">
-            <Card variant="outlined" className="w-full max-w-sm">
-              <CardHeader>
-                <CardTitle>Notifications</CardTitle>
-                <CardDescription>Manage your notification preferences.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
+            <WexCard variant="outlined" className="w-full max-w-sm">
+              <WexCard.Header>
+                <WexCard.Title>Notifications</WexCard.Title>
+                <WexCard.Description>Manage your notification preferences.</WexCard.Description>
+              </WexCard.Header>
+              <WexCard.Content className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
                     <WexLabel>Email notifications</WexLabel>
@@ -166,47 +157,47 @@ export default function CardPage() {
                   </div>
                   <WexSwitch />
                 </div>
-              </CardContent>
-            </Card>
+              </WexCard.Content>
+            </WexCard>
           </ExampleCard>
 
           <ExampleCard title="User Profile Card">
-            <Card className="w-full max-w-sm">
-              <CardHeader>
+            <WexCard className="w-full max-w-sm">
+              <WexCard.Header>
                 <div className="flex items-center gap-4">
-                  <Avatar>
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
+                  <WexAvatar>
+                    <WexAvatar.Fallback>JD</WexAvatar.Fallback>
+                  </WexAvatar>
                   <div>
-                    <CardTitle>John Doe</CardTitle>
-                    <CardDescription>@johndoe</CardDescription>
+                    <WexCard.Title>John Doe</WexCard.Title>
+                    <WexCard.Description>@johndoe</WexCard.Description>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent>
+              </WexCard.Header>
+              <WexCard.Content>
                 <p className="text-sm text-muted-foreground">
                   Software engineer at WEX. Building great products.
                 </p>
-              </CardContent>
-              <CardFooter className="flex gap-2">
+              </WexCard.Content>
+              <WexCard.Footer className="flex gap-2">
                 <WexButton intent="outline" size="sm">Message</WexButton>
                 <WexButton size="sm">Follow</WexButton>
-              </CardFooter>
-            </Card>
+              </WexCard.Footer>
+            </WexCard>
           </ExampleCard>
 
           <ExampleCard title="Stats Card">
-            <Card variant="elevated" className="w-full max-w-sm">
-              <CardHeader className="pb-2">
-                <CardDescription>Total Revenue</CardDescription>
-                <CardTitle className="text-3xl">$45,231.89</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <WexCard variant="elevated" className="w-full max-w-sm">
+              <WexCard.Header className="pb-2">
+                <WexCard.Description>Total Revenue</WexCard.Description>
+                <WexCard.Title className="text-3xl">$45,231.89</WexCard.Title>
+              </WexCard.Header>
+              <WexCard.Content>
                 <p className="text-xs text-muted-foreground">
                   <span className="text-green-600">+20.1%</span> from last month
                 </p>
-              </CardContent>
-            </Card>
+              </WexCard.Content>
+            </WexCard>
           </ExampleCard>
         </div>
       </Section>
@@ -221,17 +212,17 @@ export default function CardPage() {
             { icon: CreditCard, title: "Billing", description: "View billing information" },
             { icon: Settings, title: "Settings", description: "Configure preferences" },
           ].map((item) => (
-            <Card 
+            <WexCard 
               key={item.title} 
               variant="outlined"
               className="cursor-pointer hover:bg-accent/50 transition-colors"
             >
-              <CardHeader>
+              <WexCard.Header>
                 <item.icon className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">{item.title}</CardTitle>
-                <CardDescription>{item.description}</CardDescription>
-              </CardHeader>
-            </Card>
+                <WexCard.Title className="text-lg">{item.title}</WexCard.Title>
+                <WexCard.Description>{item.description}</WexCard.Description>
+              </WexCard.Header>
+            </WexCard>
           ))}
         </div>
       </Section>
@@ -248,35 +239,35 @@ export default function CardPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+          code={`import { WexCard } from "@/components/wex";
 
 // With variants
-<Card variant="default">...</Card>    {/* default */}
-<Card variant="elevated">...</Card>   {/* stronger shadow */}
-<Card variant="outlined">...</Card>   {/* border, no shadow */}
-<Card variant="flat">...</Card>       {/* no border or shadow */}
+<WexCard variant="default">...</WexCard>    {/* default */}
+<WexCard variant="elevated">...</WexCard>   {/* stronger shadow */}
+<WexCard variant="outlined">...</WexCard>   {/* border, no shadow */}
+<WexCard variant="flat">...</WexCard>       {/* no border or shadow */}
 
 // Full card structure
-<Card variant="elevated">
-  <CardHeader>
-    <CardTitle>Title</CardTitle>
-    <CardDescription>Description</CardDescription>
-  </CardHeader>
-  <CardContent>
+<WexCard variant="elevated">
+  <WexCard.Header>
+    <WexCard.Title>Title</WexCard.Title>
+    <WexCard.Description>Description</WexCard.Description>
+  </WexCard.Header>
+  <WexCard.Content>
     Content goes here
-  </CardContent>
-  <CardFooter>
+  </WexCard.Content>
+  <WexCard.Footer>
     <Button>Action</Button>
-  </CardFooter>
-</Card>
+  </WexCard.Footer>
+</WexCard>
 
 // Interactive card
-<Card 
+<WexCard 
   variant="outlined"
   className="cursor-pointer hover:bg-accent/50 transition-colors"
 >
   ...
-</Card>`}
+</WexCard>`}
         />
         <div className="mt-4 text-sm text-muted-foreground">
           <p><strong>Card Props:</strong></p>

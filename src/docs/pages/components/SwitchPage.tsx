@@ -3,8 +3,7 @@ import { Section } from "@/docs/components/Section";
 import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { Switch } from "@/components/ui/switch";
-import { WexLabel } from "@/components/wex";
+import { WexSwitch, WexLabel } from "@/components/wex";
 
 // Token mappings for Switch
 // Layer 3 component tokens
@@ -27,7 +26,7 @@ export default function SwitchPage() {
       <Section title="Overview">
         <ExampleCard>
           <div className="flex items-center space-x-2">
-            <Switch id="airplane-mode" />
+            <WexSwitch id="airplane-mode" />
             <WexLabel htmlFor="airplane-mode">Airplane Mode</WexLabel>
           </div>
         </ExampleCard>
@@ -40,21 +39,21 @@ export default function SwitchPage() {
         <div className="space-y-4">
           <ExampleCard title="Off">
             <div className="flex items-center space-x-2">
-              <Switch id="off-state" />
+              <WexSwitch id="off-state" />
               <WexLabel htmlFor="off-state">Feature disabled</WexLabel>
             </div>
           </ExampleCard>
 
           <ExampleCard title="On">
             <div className="flex items-center space-x-2">
-              <Switch id="on-state" defaultChecked />
+              <WexSwitch id="on-state" defaultChecked />
               <WexLabel htmlFor="on-state">Feature enabled</WexLabel>
             </div>
           </ExampleCard>
 
           <ExampleCard title="Disabled Off">
             <div className="flex items-center space-x-2">
-              <Switch id="disabled-off" disabled />
+              <WexSwitch id="disabled-off" disabled />
               <WexLabel htmlFor="disabled-off" className="text-muted-foreground">
                 Unavailable feature
               </WexLabel>
@@ -63,7 +62,7 @@ export default function SwitchPage() {
 
           <ExampleCard title="Disabled On">
             <div className="flex items-center space-x-2">
-              <Switch id="disabled-on" disabled defaultChecked />
+              <WexSwitch id="disabled-on" disabled defaultChecked />
               <WexLabel htmlFor="disabled-on" className="text-muted-foreground">
                 Locked enabled
               </WexLabel>
@@ -85,7 +84,7 @@ export default function SwitchPage() {
                   Receive push notifications on your device.
                 </p>
               </div>
-              <Switch id="notifications" defaultChecked />
+              <WexSwitch id="notifications" defaultChecked />
             </div>
             
             <div className="flex items-center justify-between">
@@ -95,7 +94,7 @@ export default function SwitchPage() {
                   Receive emails about new features and products.
                 </p>
               </div>
-              <Switch id="marketing" />
+              <WexSwitch id="marketing" />
             </div>
             
             <div className="flex items-center justify-between">
@@ -105,7 +104,7 @@ export default function SwitchPage() {
                   Use dark theme across the application.
                 </p>
               </div>
-              <Switch id="dark-mode" defaultChecked />
+              <WexSwitch id="dark-mode" defaultChecked />
             </div>
           </div>
         </ExampleCard>
@@ -138,17 +137,17 @@ export default function SwitchPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Switch } from "@/components/ui/switch";
+          code={`import { WexSwitch } from "@/components/wex";
 
 // With label
 <div className="flex items-center space-x-2">
-  <Switch id="feature" />
+  <WexSwitch id="feature" />
   <Label htmlFor="feature">Enable feature</Label>
 </div>
 
 // Controlled
 const [enabled, setEnabled] = useState(false);
-<Switch 
+<WexSwitch 
   checked={enabled} 
   onCheckedChange={setEnabled} 
 />`}

@@ -5,20 +5,7 @@ import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { Guidance } from "@/docs/components/ProseBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationFirst,
-  PaginationLast,
-  RowsPerPage,
-  PageReport,
-  JumpToPage,
-} from "@/components/ui/pagination";
+import { WexPagination } from "@/components/wex";
 
 // Token mappings for Pagination
 // Layer 3 component tokens
@@ -46,25 +33,25 @@ export default function PaginationPage() {
     >
       <Section title="Overview">
         <ExampleCard>
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" isActive>2</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <WexPagination>
+            <WexPagination.Content>
+              <WexPagination.Item>
+                <WexPagination.Previous href="#" />
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Link href="#">1</WexPagination.Link>
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Link href="#" isActive>2</WexPagination.Link>
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Link href="#">3</WexPagination.Link>
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Next href="#" />
+              </WexPagination.Item>
+            </WexPagination.Content>
+          </WexPagination>
         </ExampleCard>
       </Section>
 
@@ -73,37 +60,37 @@ export default function PaginationPage() {
           ============================================================ */}
       <Section title="First & Last Buttons" description="Navigate to first or last page.">
         <ExampleCard>
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationFirst href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" isActive>5</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">10</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLast href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <WexPagination>
+            <WexPagination.Content>
+              <WexPagination.Item>
+                <WexPagination.First href="#" />
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Previous href="#" />
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Link href="#">1</WexPagination.Link>
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Ellipsis />
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Link href="#" isActive>5</WexPagination.Link>
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Ellipsis />
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Link href="#">10</WexPagination.Link>
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Next href="#" />
+              </WexPagination.Item>
+              <WexPagination.Item>
+                <WexPagination.Last href="#" />
+              </WexPagination.Item>
+            </WexPagination.Content>
+          </WexPagination>
         </ExampleCard>
       </Section>
 
@@ -113,7 +100,7 @@ export default function PaginationPage() {
       <Section title="Rows Per Page" description="Let users control page size.">
         <ExampleCard>
           <div className="flex items-center gap-4">
-            <RowsPerPage
+            <WexPagination.RowsPerPage
               value={rowsPerPage}
               onChange={setRowsPerPage}
               options={[10, 25, 50, 100]}
@@ -131,7 +118,7 @@ export default function PaginationPage() {
       <Section title="Page Report" description="Show current range and total.">
         <ExampleCard>
           <div className="space-y-4">
-            <PageReport
+            <WexPagination.PageReport
               currentPage={currentPage}
               totalPages={totalPages}
               totalItems={totalItems}
@@ -161,7 +148,7 @@ export default function PaginationPage() {
       <Section title="Jump To Page" description="Direct page number input.">
         <ExampleCard>
           <div className="flex items-center gap-4">
-            <JumpToPage
+            <WexPagination.JumpToPage
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={setCurrentPage}
@@ -180,12 +167,12 @@ export default function PaginationPage() {
         <ExampleCard>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <RowsPerPage
+              <WexPagination.RowsPerPage
                 value={rowsPerPage}
                 onChange={setRowsPerPage}
                 options={[10, 25, 50]}
               />
-              <PageReport
+              <WexPagination.PageReport
                 currentPage={currentPage}
                 totalPages={totalPages}
                 totalItems={totalItems}
@@ -193,75 +180,75 @@ export default function PaginationPage() {
               />
             </div>
             
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationFirst 
+            <WexPagination>
+              <WexPagination.Content>
+                <WexPagination.Item>
+                  <WexPagination.First 
                     href="#" 
                     onClick={() => setCurrentPage(1)}
                   />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationPrevious 
+                </WexPagination.Item>
+                <WexPagination.Item>
+                  <WexPagination.Previous 
                     href="#" 
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                   />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink 
+                </WexPagination.Item>
+                <WexPagination.Item>
+                  <WexPagination.Link 
                     href="#" 
                     isActive={currentPage === 1}
                     onClick={() => setCurrentPage(1)}
                   >
                     1
-                  </PaginationLink>
-                </PaginationItem>
+                  </WexPagination.Link>
+                </WexPagination.Item>
                 {currentPage > 3 && (
-                  <PaginationItem>
-                    <PaginationEllipsis />
-                  </PaginationItem>
+                  <WexPagination.Item>
+                    <WexPagination.Ellipsis />
+                  </WexPagination.Item>
                 )}
                 {currentPage > 2 && currentPage < totalPages && (
-                  <PaginationItem>
-                    <PaginationLink 
+                  <WexPagination.Item>
+                    <WexPagination.Link 
                       href="#" 
                       isActive
                     >
                       {currentPage}
-                    </PaginationLink>
-                  </PaginationItem>
+                    </WexPagination.Link>
+                  </WexPagination.Item>
                 )}
                 {currentPage < totalPages - 2 && (
-                  <PaginationItem>
-                    <PaginationEllipsis />
-                  </PaginationItem>
+                  <WexPagination.Item>
+                    <WexPagination.Ellipsis />
+                  </WexPagination.Item>
                 )}
-                <PaginationItem>
-                  <PaginationLink 
+                <WexPagination.Item>
+                  <WexPagination.Link 
                     href="#" 
                     isActive={currentPage === totalPages}
                     onClick={() => setCurrentPage(totalPages)}
                   >
                     {totalPages}
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext 
+                  </WexPagination.Link>
+                </WexPagination.Item>
+                <WexPagination.Item>
+                  <WexPagination.Next 
                     href="#" 
                     onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                   />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLast 
+                </WexPagination.Item>
+                <WexPagination.Item>
+                  <WexPagination.Last 
                     href="#" 
                     onClick={() => setCurrentPage(totalPages)}
                   />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+                </WexPagination.Item>
+              </WexPagination.Content>
+            </WexPagination>
 
             <div className="flex justify-end">
-              <JumpToPage
+              <WexPagination.JumpToPage
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={setCurrentPage}
@@ -297,41 +284,36 @@ export default function PaginationPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { 
-  Pagination, PaginationContent, PaginationItem,
-  PaginationLink, PaginationPrevious, PaginationNext,
-  PaginationFirst, PaginationLast, PaginationEllipsis,
-  RowsPerPage, PageReport, JumpToPage
-} from "@/components/ui/pagination";
+          code={`import { WexPagination } from "@/components/wex";
 
 // Basic pagination
-<Pagination>
-  <PaginationContent>
-    <PaginationItem>
-      <PaginationPrevious href="#" />
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink href="#" isActive>1</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationNext href="#" />
-    </PaginationItem>
-  </PaginationContent>
-</Pagination>
+<WexPagination>
+  <WexPagination.Content>
+    <WexPagination.Item>
+      <WexPagination.Previous href="#" />
+    </WexPagination.Item>
+    <WexPagination.Item>
+      <WexPagination.Link href="#" isActive>1</WexPagination.Link>
+    </WexPagination.Item>
+    <WexPagination.Item>
+      <WexPagination.Next href="#" />
+    </WexPagination.Item>
+  </WexPagination.Content>
+</WexPagination>
 
 // First & Last buttons
-<PaginationFirst href="#" />
-<PaginationLast href="#" />
+<WexPagination.First href="#" />
+<WexPagination.Last href="#" />
 
 // Rows per page
-<RowsPerPage
+<WexPagination.RowsPerPage
   value={rowsPerPage}
   onChange={setRowsPerPage}
   options={[10, 25, 50, 100]}
 />
 
 // Page report
-<PageReport
+<WexPagination.PageReport
   currentPage={5}
   totalPages={25}
   totalItems={250}
@@ -339,7 +321,7 @@ export default function PaginationPage() {
 />
 
 // Jump to page
-<JumpToPage
+<WexPagination.JumpToPage
   currentPage={5}
   totalPages={25}
   onPageChange={setCurrentPage}

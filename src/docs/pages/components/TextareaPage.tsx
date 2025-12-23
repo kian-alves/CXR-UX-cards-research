@@ -4,8 +4,7 @@ import { Section } from "@/docs/components/Section";
 import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { Textarea } from "@/components/ui/textarea";
-import { WexLabel } from "@/components/wex";
+import { WexTextarea, WexLabel } from "@/components/wex";
 
 // Token mappings for Textarea
 // Layer 3 component tokens
@@ -33,7 +32,7 @@ export default function TextareaPage() {
         <ExampleCard>
           <div className="w-full max-w-md space-y-2">
             <WexLabel htmlFor="demo-textarea">Message</WexLabel>
-            <Textarea id="demo-textarea" placeholder="Type your message here..." />
+            <WexTextarea id="demo-textarea" placeholder="Type your message here..." />
           </div>
         </ExampleCard>
       </Section>
@@ -46,15 +45,15 @@ export default function TextareaPage() {
           <div className="w-full max-w-md space-y-4">
             <div className="space-y-2">
               <WexLabel>Small</WexLabel>
-              <Textarea textareaSize="sm" placeholder="Small textarea" />
+              <WexTextarea textareaSize="sm" placeholder="Small textarea" />
             </div>
             <div className="space-y-2">
               <WexLabel>Medium (Default)</WexLabel>
-              <Textarea textareaSize="md" placeholder="Medium textarea" />
+              <WexTextarea textareaSize="md" placeholder="Medium textarea" />
             </div>
             <div className="space-y-2">
               <WexLabel>Large</WexLabel>
-              <Textarea textareaSize="lg" placeholder="Large textarea" />
+              <WexTextarea textareaSize="lg" placeholder="Large textarea" />
             </div>
           </div>
         </ExampleCard>
@@ -67,7 +66,7 @@ export default function TextareaPage() {
         <ExampleCard title="Auto-Resize Demo">
           <div className="w-full max-w-md space-y-2">
             <WexLabel htmlFor="auto-textarea">Type to see auto-resize</WexLabel>
-            <Textarea 
+            <WexTextarea 
               id="auto-textarea"
               autoResize
               placeholder="Start typing... the textarea will grow as you add more lines."
@@ -93,7 +92,7 @@ export default function TextareaPage() {
           <ExampleCard title="With Character Count">
             <div className="w-full max-w-md space-y-2">
               <WexLabel htmlFor="char-count-textarea">Bio (max 200 characters)</WexLabel>
-              <Textarea 
+              <WexTextarea 
                 id="char-count-textarea" 
                 placeholder="Write a brief bio..."
                 maxLength={200}
@@ -109,7 +108,7 @@ export default function TextareaPage() {
               <WexLabel htmlFor="required-textarea">
                 Feedback <span className="text-destructive">*</span>
               </WexLabel>
-              <Textarea 
+              <WexTextarea 
                 id="required-textarea" 
                 placeholder="Please share your feedback..."
                 required
@@ -125,22 +124,22 @@ export default function TextareaPage() {
       <Section title="States" description="Interactive and visual states.">
         <div className="space-y-4 max-w-md">
           <ExampleCard title="Default">
-            <Textarea placeholder="Default textarea" />
+            <WexTextarea placeholder="Default textarea" />
           </ExampleCard>
 
           <ExampleCard title="Disabled">
-            <Textarea disabled placeholder="Disabled textarea" />
+            <WexTextarea disabled placeholder="Disabled textarea" />
           </ExampleCard>
 
           <ExampleCard title="Read Only">
-            <Textarea 
+            <WexTextarea 
               readOnly 
               defaultValue="This content is read-only and cannot be modified."
             />
           </ExampleCard>
 
           <ExampleCard title="Non-Resizable">
-            <Textarea 
+            <WexTextarea 
               placeholder="Cannot resize this textarea..." 
               className="resize-none"
             />
@@ -168,21 +167,21 @@ export default function TextareaPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Textarea } from "@/components/ui/textarea";
+          code={`import { WexTextarea } from "@/components/wex";
 
 // Sizes
-<Textarea textareaSize="sm" placeholder="Small" />
-<Textarea textareaSize="md" placeholder="Medium (default)" />
-<Textarea textareaSize="lg" placeholder="Large" />
+<WexTextarea textareaSize="sm" placeholder="Small" />
+<WexTextarea textareaSize="md" placeholder="Medium (default)" />
+<WexTextarea textareaSize="lg" placeholder="Large" />
 
 // Auto-resize (grows with content)
-<Textarea autoResize placeholder="Type and watch it grow..." />
+<WexTextarea autoResize placeholder="Type and watch it grow..." />
 
 // Non-resizable
-<Textarea className="resize-none" />
+<WexTextarea className="resize-none" />
 
 // All props
-<Textarea
+<WexTextarea
   textareaSize="md"
   autoResize
   placeholder="Full example"

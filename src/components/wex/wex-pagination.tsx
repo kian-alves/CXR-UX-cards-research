@@ -6,6 +6,11 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationFirst,
+  PaginationLast,
+  RowsPerPage,
+  PageReport,
+  JumpToPage,
 } from "@/components/ui/pagination";
 
 /**
@@ -40,5 +45,10 @@ export const WexPagination = Object.assign(Pagination, {
   Link: PaginationLink,
   Next: PaginationNext,
   Previous: PaginationPrevious,
+  First: PaginationFirst,
+  Last: PaginationLast,
+  RowsPerPage: RowsPerPage,
+  PageReport: PageReport,
+  JumpToPage: JumpToPage,
 });
 

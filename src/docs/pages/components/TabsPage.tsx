@@ -5,8 +5,7 @@ import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { Guidance } from "@/docs/components/ProseBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { Tabs, TabsContent, TabsList, TabsTrigger, ScrollableTabsList, ClosableTabsTrigger } from "@/components/ui/tabs";
-import { WexCard, WexButton, WexInput, WexLabel } from "@/components/wex";
+import { WexTabs, WexCard, WexButton, WexInput, WexLabel } from "@/components/wex";
 
 // Token mappings for Tabs
 // Layer 3 component tokens
@@ -36,18 +35,18 @@ export default function TabsPage() {
     >
       <Section title="Overview">
         <ExampleCard>
-          <Tabs defaultValue="account" className="w-full max-w-md">
-            <TabsList>
-              <TabsTrigger value="account">Account</TabsTrigger>
-              <TabsTrigger value="password">Password</TabsTrigger>
-            </TabsList>
-            <TabsContent value="account" className="p-4">
+          <WexTabs defaultValue="account" className="w-full max-w-md">
+            <WexTabs.List>
+              <WexTabs.Trigger value="account">Account</WexTabs.Trigger>
+              <WexTabs.Trigger value="password">Password</WexTabs.Trigger>
+            </WexTabs.List>
+            <WexTabs.Content value="account" className="p-4">
               <p className="text-sm text-muted-foreground">Account settings content.</p>
-            </TabsContent>
-            <TabsContent value="password" className="p-4">
+            </WexTabs.Content>
+            <WexTabs.Content value="password" className="p-4">
               <p className="text-sm text-muted-foreground">Password settings content.</p>
-            </TabsContent>
-          </Tabs>
+            </WexTabs.Content>
+          </WexTabs>
         </ExampleCard>
         <Guidance>
           Use tabs to organize related content into panels. Each panel should 
@@ -61,42 +60,42 @@ export default function TabsPage() {
       <Section title="Scrollable Tabs" description="Tabs with navigation arrows when overflow occurs.">
         <ExampleCard title="Scrollable Tab List">
           <div className="w-full max-w-md">
-            <Tabs defaultValue="tab1">
-              <ScrollableTabsList>
-                <TabsTrigger value="tab1">Dashboard</TabsTrigger>
-                <TabsTrigger value="tab2">Analytics</TabsTrigger>
-                <TabsTrigger value="tab3">Reports</TabsTrigger>
-                <TabsTrigger value="tab4">Settings</TabsTrigger>
-                <TabsTrigger value="tab5">Integrations</TabsTrigger>
-                <TabsTrigger value="tab6">Notifications</TabsTrigger>
-                <TabsTrigger value="tab7">Security</TabsTrigger>
-                <TabsTrigger value="tab8">Billing</TabsTrigger>
-              </ScrollableTabsList>
-              <TabsContent value="tab1" className="p-4">
+            <WexTabs defaultValue="tab1">
+              <WexTabs.ScrollableList>
+                <WexTabs.Trigger value="tab1">Dashboard</WexTabs.Trigger>
+                <WexTabs.Trigger value="tab2">Analytics</WexTabs.Trigger>
+                <WexTabs.Trigger value="tab3">Reports</WexTabs.Trigger>
+                <WexTabs.Trigger value="tab4">Settings</WexTabs.Trigger>
+                <WexTabs.Trigger value="tab5">Integrations</WexTabs.Trigger>
+                <WexTabs.Trigger value="tab6">Notifications</WexTabs.Trigger>
+                <WexTabs.Trigger value="tab7">Security</WexTabs.Trigger>
+                <WexTabs.Trigger value="tab8">Billing</WexTabs.Trigger>
+              </WexTabs.ScrollableList>
+              <WexTabs.Content value="tab1" className="p-4">
                 <p className="text-sm text-muted-foreground">Dashboard overview content.</p>
-              </TabsContent>
-              <TabsContent value="tab2" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="tab2" className="p-4">
                 <p className="text-sm text-muted-foreground">Analytics data and charts.</p>
-              </TabsContent>
-              <TabsContent value="tab3" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="tab3" className="p-4">
                 <p className="text-sm text-muted-foreground">Generated reports.</p>
-              </TabsContent>
-              <TabsContent value="tab4" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="tab4" className="p-4">
                 <p className="text-sm text-muted-foreground">Application settings.</p>
-              </TabsContent>
-              <TabsContent value="tab5" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="tab5" className="p-4">
                 <p className="text-sm text-muted-foreground">Third-party integrations.</p>
-              </TabsContent>
-              <TabsContent value="tab6" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="tab6" className="p-4">
                 <p className="text-sm text-muted-foreground">Notification preferences.</p>
-              </TabsContent>
-              <TabsContent value="tab7" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="tab7" className="p-4">
                 <p className="text-sm text-muted-foreground">Security settings.</p>
-              </TabsContent>
-              <TabsContent value="tab8" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="tab8" className="p-4">
                 <p className="text-sm text-muted-foreground">Billing and subscription.</p>
-              </TabsContent>
-            </Tabs>
+              </WexTabs.Content>
+            </WexTabs>
           </div>
         </ExampleCard>
         <Guidance>
@@ -111,26 +110,26 @@ export default function TabsPage() {
       <Section title="Closable Tabs" description="Tabs with close button for dynamic content.">
         <ExampleCard title="Closable Tabs">
           <div className="w-full max-w-md">
-            <Tabs defaultValue={closableTabs[0]}>
-              <TabsList>
+            <WexTabs defaultValue={closableTabs[0]}>
+              <WexTabs.List>
                 {closableTabs.map((tabId) => (
-                  <ClosableTabsTrigger 
+                  <WexTabs.ClosableTrigger 
                     key={tabId} 
                     value={tabId}
                     onClose={() => handleCloseTab(tabId)}
                   >
                     Document {tabId.replace('tab', '')}
-                  </ClosableTabsTrigger>
+                  </WexTabs.ClosableTrigger>
                 ))}
-              </TabsList>
+              </WexTabs.List>
               {closableTabs.map((tabId) => (
-                <TabsContent key={tabId} value={tabId} className="p-4">
+                <WexTabs.Content key={tabId} value={tabId} className="p-4">
                   <p className="text-sm text-muted-foreground">
                     Content for {tabId}. Click the X to close this tab.
                   </p>
-                </TabsContent>
+                </WexTabs.Content>
               ))}
-            </Tabs>
+            </WexTabs>
             {closableTabs.length === 0 && (
               <p className="text-sm text-muted-foreground p-4">All tabs closed. Refresh to reset.</p>
             )}
@@ -148,22 +147,22 @@ export default function TabsPage() {
       <Section title="Variants" description="Different tab configurations.">
         <div className="space-y-8">
           <ExampleCard title="Full-Width Tabs">
-            <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="analytics">Analytics</TabsTrigger>
-                <TabsTrigger value="reports">Reports</TabsTrigger>
-              </TabsList>
-              <TabsContent value="overview" className="p-4">
+            <WexTabs defaultValue="overview" className="w-full">
+              <WexTabs.List className="grid w-full grid-cols-3">
+                <WexTabs.Trigger value="overview">Overview</WexTabs.Trigger>
+                <WexTabs.Trigger value="analytics">Analytics</WexTabs.Trigger>
+                <WexTabs.Trigger value="reports">Reports</WexTabs.Trigger>
+              </WexTabs.List>
+              <WexTabs.Content value="overview" className="p-4">
                 <p className="text-sm text-muted-foreground">Overview dashboard content.</p>
-              </TabsContent>
-              <TabsContent value="analytics" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="analytics" className="p-4">
                 <p className="text-sm text-muted-foreground">Detailed analytics data.</p>
-              </TabsContent>
-              <TabsContent value="reports" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="reports" className="p-4">
                 <p className="text-sm text-muted-foreground">Generated reports.</p>
-              </TabsContent>
-            </Tabs>
+              </WexTabs.Content>
+            </WexTabs>
           </ExampleCard>
 
           <ExampleCard title="Tabs in Card">
@@ -173,56 +172,56 @@ export default function TabsPage() {
                 <WexCard.Description>Manage your account preferences.</WexCard.Description>
               </WexCard.Header>
               <WexCard.Content className="p-0">
-                <Tabs defaultValue="profile">
-                  <TabsList className="w-full rounded-none border-b">
-                    <TabsTrigger value="profile" className="rounded-none">Profile</TabsTrigger>
-                    <TabsTrigger value="notifications" className="rounded-none">Notifications</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="profile" className="p-6 space-y-4">
+                <WexTabs defaultValue="profile">
+                  <WexTabs.List className="w-full rounded-none border-b">
+                    <WexTabs.Trigger value="profile" className="rounded-none">Profile</WexTabs.Trigger>
+                    <WexTabs.Trigger value="notifications" className="rounded-none">Notifications</WexTabs.Trigger>
+                  </WexTabs.List>
+                  <WexTabs.Content value="profile" className="p-6 space-y-4">
                     <div className="space-y-2">
                       <WexLabel htmlFor="tab-name">Name</WexLabel>
                       <WexInput id="tab-name" defaultValue="Wex User" />
                     </div>
                     <WexButton>Save Profile</WexButton>
-                  </TabsContent>
-                  <TabsContent value="notifications" className="p-6">
+                  </WexTabs.Content>
+                  <WexTabs.Content value="notifications" className="p-6">
                     <p className="text-sm text-muted-foreground">Notification settings.</p>
-                  </TabsContent>
-                </Tabs>
+                  </WexTabs.Content>
+                </WexTabs>
               </WexCard.Content>
             </WexCard>
           </ExampleCard>
 
           <ExampleCard title="Disabled Tab">
-            <Tabs defaultValue="active" className="w-full max-w-md">
-              <TabsList>
-                <TabsTrigger value="active">Active</TabsTrigger>
-                <TabsTrigger value="disabled" disabled>Disabled</TabsTrigger>
-                <TabsTrigger value="pending">Pending</TabsTrigger>
-              </TabsList>
-              <TabsContent value="active" className="p-4">
+            <WexTabs defaultValue="active" className="w-full max-w-md">
+              <WexTabs.List>
+                <WexTabs.Trigger value="active">Active</WexTabs.Trigger>
+                <WexTabs.Trigger value="disabled" disabled>Disabled</WexTabs.Trigger>
+                <WexTabs.Trigger value="pending">Pending</WexTabs.Trigger>
+              </WexTabs.List>
+              <WexTabs.Content value="active" className="p-4">
                 <p className="text-sm text-muted-foreground">Content for active tab.</p>
-              </TabsContent>
-              <TabsContent value="pending" className="p-4">
+              </WexTabs.Content>
+              <WexTabs.Content value="pending" className="p-4">
                 <p className="text-sm text-muted-foreground">Content for pending tab.</p>
-              </TabsContent>
-            </Tabs>
+              </WexTabs.Content>
+            </WexTabs>
           </ExampleCard>
 
           <ExampleCard title="Controlled Tabs">
             <div className="w-full max-w-md space-y-4">
-              <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <TabsList>
-                  <TabsTrigger value="home">Home</TabsTrigger>
-                  <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-                </TabsList>
-                <TabsContent value="home" className="p-4">
+              <WexTabs value={activeTab} onValueChange={setActiveTab}>
+                <WexTabs.List>
+                  <WexTabs.Trigger value="home">Home</WexTabs.Trigger>
+                  <WexTabs.Trigger value="dashboard">Dashboard</WexTabs.Trigger>
+                </WexTabs.List>
+                <WexTabs.Content value="home" className="p-4">
                   <p className="text-sm text-muted-foreground">Home content.</p>
-                </TabsContent>
-                <TabsContent value="dashboard" className="p-4">
+                </WexTabs.Content>
+                <WexTabs.Content value="dashboard" className="p-4">
                   <p className="text-sm text-muted-foreground">Dashboard content.</p>
-                </TabsContent>
-              </Tabs>
+                </WexTabs.Content>
+              </WexTabs>
               <div className="flex gap-2">
                 <WexButton intent="outline" size="sm" onClick={() => setActiveTab("home")}>Go to Home</WexButton>
                 <WexButton intent="outline" size="sm" onClick={() => setActiveTab("dashboard")}>Go to Dashboard</WexButton>
@@ -254,44 +253,40 @@ export default function TabsPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { 
-  Tabs, TabsList, TabsTrigger, TabsContent,
-  ScrollableTabsList,
-  ClosableTabsTrigger 
-} from "@/components/ui/tabs";
+          code={`import { WexTabs } from "@/components/wex";
 
 // Basic tabs
-<Tabs defaultValue="tab1">
-  <TabsList>
-    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-  </TabsList>
-  <TabsContent value="tab1">Content 1</TabsContent>
-  <TabsContent value="tab2">Content 2</TabsContent>
-</Tabs>
+<WexTabs defaultValue="tab1">
+  <WexTabs.List>
+    <WexTabs.Trigger value="tab1">Tab 1</WexTabs.Trigger>
+    <WexTabs.Trigger value="tab2">Tab 2</WexTabs.Trigger>
+  </WexTabs.List>
+  <WexTabs.Content value="tab1">Content 1</WexTabs.Content>
+  <WexTabs.Content value="tab2">Content 2</WexTabs.Content>
+</WexTabs>
 
 // Scrollable tabs (many tabs)
-<Tabs defaultValue="tab1">
-  <ScrollableTabsList>
-    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+<WexTabs defaultValue="tab1">
+  <WexTabs.ScrollableList>
+    <WexTabs.Trigger value="tab1">Tab 1</WexTabs.Trigger>
+    <WexTabs.Trigger value="tab2">Tab 2</WexTabs.Trigger>
     {/* ... more tabs */}
-  </ScrollableTabsList>
+  </WexTabs.ScrollableList>
   ...
-</Tabs>
+</WexTabs>
 
 // Closable tabs
-<Tabs defaultValue="tab1">
-  <TabsList>
-    <ClosableTabsTrigger 
+<WexTabs defaultValue="tab1">
+  <WexTabs.List>
+    <WexTabs.ClosableTrigger 
       value="tab1" 
       onClose={() => handleClose("tab1")}
     >
       Document 1
-    </ClosableTabsTrigger>
-  </TabsList>
+    </WexTabs.ClosableTrigger>
+  </WexTabs.List>
   ...
-</Tabs>`}
+</WexTabs>`}
         />
         <div className="mt-4 text-sm text-muted-foreground">
           <p><strong>New Components:</strong></p>

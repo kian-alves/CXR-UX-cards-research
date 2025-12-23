@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent, ScrollableTabsList, ClosableTabsTrigger } from "@/components/ui/tabs";
 
 /**
  * WexTabs - WEX Design System Tabs Component
@@ -19,7 +19,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export const WexTabs = Object.assign(Tabs, {
   List: TabsList,
+  ScrollableList: ScrollableTabsList,
   Trigger: TabsTrigger,
+  ClosableTrigger: ClosableTabsTrigger,
   Content: TabsContent,
 });
 

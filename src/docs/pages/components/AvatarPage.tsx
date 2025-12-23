@@ -3,7 +3,7 @@ import { Section } from "@/docs/components/Section";
 import { ExampleCard } from "@/docs/components/ExampleCard";
 import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
-import { Avatar, AvatarImage, AvatarFallback, AvatarGroup, AvatarBadge } from "@/components/ui/avatar";
+import { WexAvatar } from "@/components/wex";
 
 // Token mappings for Avatar
 const avatarTokens: TokenRow[] = [
@@ -26,13 +26,13 @@ export default function AvatarPage() {
       <Section title="Overview">
         <ExampleCard>
           <div className="flex items-center gap-4">
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="User avatar" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <Avatar>
-              <AvatarFallback>JD</AvatarFallback>
-            </Avatar>
+            <WexAvatar>
+              <WexAvatar.Image src="https://github.com/shadcn.png" alt="User avatar" />
+              <WexAvatar.Fallback>CN</WexAvatar.Fallback>
+            </WexAvatar>
+            <WexAvatar>
+              <WexAvatar.Fallback>JD</WexAvatar.Fallback>
+            </WexAvatar>
           </div>
         </ExampleCard>
       </Section>
@@ -44,39 +44,39 @@ export default function AvatarPage() {
         <ExampleCard title="All Sizes">
           <div className="flex items-end gap-4">
             <div className="text-center">
-              <Avatar size="xs">
-                <AvatarFallback>XS</AvatarFallback>
-              </Avatar>
+              <WexAvatar size="xs">
+                <WexAvatar.Fallback>XS</WexAvatar.Fallback>
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">xs</p>
             </div>
             <div className="text-center">
-              <Avatar size="sm">
-                <AvatarFallback>SM</AvatarFallback>
-              </Avatar>
+              <WexAvatar size="sm">
+                <WexAvatar.Fallback>SM</WexAvatar.Fallback>
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">sm</p>
             </div>
             <div className="text-center">
-              <Avatar size="md">
-                <AvatarFallback>MD</AvatarFallback>
-              </Avatar>
+              <WexAvatar size="md">
+                <WexAvatar.Fallback>MD</WexAvatar.Fallback>
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">md</p>
             </div>
             <div className="text-center">
-              <Avatar size="lg">
-                <AvatarFallback>LG</AvatarFallback>
-              </Avatar>
+              <WexAvatar size="lg">
+                <WexAvatar.Fallback>LG</WexAvatar.Fallback>
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">lg</p>
             </div>
             <div className="text-center">
-              <Avatar size="xl">
-                <AvatarFallback>XL</AvatarFallback>
-              </Avatar>
+              <WexAvatar size="xl">
+                <WexAvatar.Fallback>XL</WexAvatar.Fallback>
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">xl</p>
             </div>
             <div className="text-center">
-              <Avatar size="2xl">
-                <AvatarFallback>2XL</AvatarFallback>
-              </Avatar>
+              <WexAvatar size="2xl">
+                <WexAvatar.Fallback>2XL</WexAvatar.Fallback>
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">2xl</p>
             </div>
           </div>
@@ -90,17 +90,17 @@ export default function AvatarPage() {
         <ExampleCard title="Circle vs Square">
           <div className="flex items-center gap-8">
             <div className="text-center">
-              <Avatar size="xl" shape="circle">
-                <AvatarImage src="https://github.com/shadcn.png" alt="Circle avatar" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
+              <WexAvatar size="xl" shape="circle">
+                <WexAvatar.Image src="https://github.com/shadcn.png" alt="Circle avatar" />
+                <WexAvatar.Fallback>CN</WexAvatar.Fallback>
+              </WexAvatar>
               <p className="text-sm text-muted-foreground mt-2">Circle</p>
             </div>
             <div className="text-center">
-              <Avatar size="xl" shape="square">
-                <AvatarImage src="https://github.com/shadcn.png" alt="Square avatar" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
+              <WexAvatar size="xl" shape="square">
+                <WexAvatar.Image src="https://github.com/shadcn.png" alt="Square avatar" />
+                <WexAvatar.Fallback>CN</WexAvatar.Fallback>
+              </WexAvatar>
               <p className="text-sm text-muted-foreground mt-2">Square</p>
             </div>
           </div>
@@ -112,53 +112,53 @@ export default function AvatarPage() {
           ============================================================ */}
       <Section title="Avatar Group" description="Stack multiple avatars with overflow indicator.">
         <ExampleCard title="Grouped Avatars">
-          <AvatarGroup max={4} size="lg">
-            <Avatar size="lg">
-              <AvatarImage src="https://i.pravatar.cc/150?img=1" alt="User 1" />
-              <AvatarFallback>U1</AvatarFallback>
-            </Avatar>
-            <Avatar size="lg">
-              <AvatarImage src="https://i.pravatar.cc/150?img=2" alt="User 2" />
-              <AvatarFallback>U2</AvatarFallback>
-            </Avatar>
-            <Avatar size="lg">
-              <AvatarImage src="https://i.pravatar.cc/150?img=3" alt="User 3" />
-              <AvatarFallback>U3</AvatarFallback>
-            </Avatar>
-            <Avatar size="lg">
-              <AvatarImage src="https://i.pravatar.cc/150?img=4" alt="User 4" />
-              <AvatarFallback>U4</AvatarFallback>
-            </Avatar>
-            <Avatar size="lg">
-              <AvatarImage src="https://i.pravatar.cc/150?img=5" alt="User 5" />
-              <AvatarFallback>U5</AvatarFallback>
-            </Avatar>
-            <Avatar size="lg">
-              <AvatarImage src="https://i.pravatar.cc/150?img=6" alt="User 6" />
-              <AvatarFallback>U6</AvatarFallback>
-            </Avatar>
-          </AvatarGroup>
+          <WexAvatar.Group max={4} size="lg">
+            <WexAvatar size="lg">
+              <WexAvatar.Image src="https://i.pravatar.cc/150?img=1" alt="User 1" />
+              <WexAvatar.Fallback>U1</WexAvatar.Fallback>
+            </WexAvatar>
+            <WexAvatar size="lg">
+              <WexAvatar.Image src="https://i.pravatar.cc/150?img=2" alt="User 2" />
+              <WexAvatar.Fallback>U2</WexAvatar.Fallback>
+            </WexAvatar>
+            <WexAvatar size="lg">
+              <WexAvatar.Image src="https://i.pravatar.cc/150?img=3" alt="User 3" />
+              <WexAvatar.Fallback>U3</WexAvatar.Fallback>
+            </WexAvatar>
+            <WexAvatar size="lg">
+              <WexAvatar.Image src="https://i.pravatar.cc/150?img=4" alt="User 4" />
+              <WexAvatar.Fallback>U4</WexAvatar.Fallback>
+            </WexAvatar>
+            <WexAvatar size="lg">
+              <WexAvatar.Image src="https://i.pravatar.cc/150?img=5" alt="User 5" />
+              <WexAvatar.Fallback>U5</WexAvatar.Fallback>
+            </WexAvatar>
+            <WexAvatar size="lg">
+              <WexAvatar.Image src="https://i.pravatar.cc/150?img=6" alt="User 6" />
+              <WexAvatar.Fallback>U6</WexAvatar.Fallback>
+            </WexAvatar>
+          </WexAvatar.Group>
         </ExampleCard>
 
         <ExampleCard title="Different Group Sizes">
           <div className="flex flex-col gap-4">
             <div>
               <p className="text-sm text-muted-foreground mb-2">Small</p>
-              <AvatarGroup max={3} size="sm">
-                <Avatar size="sm"><AvatarFallback>A</AvatarFallback></Avatar>
-                <Avatar size="sm"><AvatarFallback>B</AvatarFallback></Avatar>
-                <Avatar size="sm"><AvatarFallback>C</AvatarFallback></Avatar>
-                <Avatar size="sm"><AvatarFallback>D</AvatarFallback></Avatar>
-              </AvatarGroup>
+              <WexAvatar.Group max={3} size="sm">
+                <WexAvatar size="sm"><WexAvatar.Fallback>A</WexAvatar.Fallback></WexAvatar>
+                <WexAvatar size="sm"><WexAvatar.Fallback>B</WexAvatar.Fallback></WexAvatar>
+                <WexAvatar size="sm"><WexAvatar.Fallback>C</WexAvatar.Fallback></WexAvatar>
+                <WexAvatar size="sm"><WexAvatar.Fallback>D</WexAvatar.Fallback></WexAvatar>
+              </WexAvatar.Group>
             </div>
             <div>
               <p className="text-sm text-muted-foreground mb-2">Large</p>
-              <AvatarGroup max={3} size="lg">
-                <Avatar size="lg"><AvatarFallback>A</AvatarFallback></Avatar>
-                <Avatar size="lg"><AvatarFallback>B</AvatarFallback></Avatar>
-                <Avatar size="lg"><AvatarFallback>C</AvatarFallback></Avatar>
-                <Avatar size="lg"><AvatarFallback>D</AvatarFallback></Avatar>
-              </AvatarGroup>
+              <WexAvatar.Group max={3} size="lg">
+                <WexAvatar size="lg"><WexAvatar.Fallback>A</WexAvatar.Fallback></WexAvatar>
+                <WexAvatar size="lg"><WexAvatar.Fallback>B</WexAvatar.Fallback></WexAvatar>
+                <WexAvatar size="lg"><WexAvatar.Fallback>C</WexAvatar.Fallback></WexAvatar>
+                <WexAvatar size="lg"><WexAvatar.Fallback>D</WexAvatar.Fallback></WexAvatar>
+              </WexAvatar.Group>
             </div>
           </div>
         </ExampleCard>
@@ -171,35 +171,35 @@ export default function AvatarPage() {
         <ExampleCard title="Status Indicators">
           <div className="flex items-center gap-6">
             <div className="text-center">
-              <Avatar size="lg">
-                <AvatarImage src="https://i.pravatar.cc/150?img=10" alt="Online user" />
-                <AvatarFallback>ON</AvatarFallback>
-                <AvatarBadge status="online" size="lg" />
-              </Avatar>
+              <WexAvatar size="lg">
+                <WexAvatar.Image src="https://i.pravatar.cc/150?img=10" alt="Online user" />
+                <WexAvatar.Fallback>ON</WexAvatar.Fallback>
+                <WexAvatar.Badge status="online" size="lg" />
+              </WexAvatar>
               <p className="text-sm text-muted-foreground mt-2">Online</p>
             </div>
             <div className="text-center">
-              <Avatar size="lg">
-                <AvatarImage src="https://i.pravatar.cc/150?img=11" alt="Away user" />
-                <AvatarFallback>AW</AvatarFallback>
-                <AvatarBadge status="away" size="lg" />
-              </Avatar>
+              <WexAvatar size="lg">
+                <WexAvatar.Image src="https://i.pravatar.cc/150?img=11" alt="Away user" />
+                <WexAvatar.Fallback>AW</WexAvatar.Fallback>
+                <WexAvatar.Badge status="away" size="lg" />
+              </WexAvatar>
               <p className="text-sm text-muted-foreground mt-2">Away</p>
             </div>
             <div className="text-center">
-              <Avatar size="lg">
-                <AvatarImage src="https://i.pravatar.cc/150?img=12" alt="Busy user" />
-                <AvatarFallback>BY</AvatarFallback>
-                <AvatarBadge status="busy" size="lg" />
-              </Avatar>
+              <WexAvatar size="lg">
+                <WexAvatar.Image src="https://i.pravatar.cc/150?img=12" alt="Busy user" />
+                <WexAvatar.Fallback>BY</WexAvatar.Fallback>
+                <WexAvatar.Badge status="busy" size="lg" />
+              </WexAvatar>
               <p className="text-sm text-muted-foreground mt-2">Busy</p>
             </div>
             <div className="text-center">
-              <Avatar size="lg">
-                <AvatarImage src="https://i.pravatar.cc/150?img=13" alt="Offline user" />
-                <AvatarFallback>OF</AvatarFallback>
-                <AvatarBadge status="offline" size="lg" />
-              </Avatar>
+              <WexAvatar size="lg">
+                <WexAvatar.Image src="https://i.pravatar.cc/150?img=13" alt="Offline user" />
+                <WexAvatar.Fallback>OF</WexAvatar.Fallback>
+                <WexAvatar.Badge status="offline" size="lg" />
+              </WexAvatar>
               <p className="text-sm text-muted-foreground mt-2">Offline</p>
             </div>
           </div>
@@ -208,31 +208,31 @@ export default function AvatarPage() {
         <ExampleCard title="Badge Positions">
           <div className="flex items-center gap-6">
             <div className="text-center">
-              <Avatar size="xl">
-                <AvatarFallback>BR</AvatarFallback>
-                <AvatarBadge status="online" size="xl" position="bottom-right" />
-              </Avatar>
+              <WexAvatar size="xl">
+                <WexAvatar.Fallback>BR</WexAvatar.Fallback>
+                <WexAvatar.Badge status="online" size="xl" position="bottom-right" />
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">bottom-right</p>
             </div>
             <div className="text-center">
-              <Avatar size="xl">
-                <AvatarFallback>BL</AvatarFallback>
-                <AvatarBadge status="online" size="xl" position="bottom-left" />
-              </Avatar>
+              <WexAvatar size="xl">
+                <WexAvatar.Fallback>BL</WexAvatar.Fallback>
+                <WexAvatar.Badge status="online" size="xl" position="bottom-left" />
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">bottom-left</p>
             </div>
             <div className="text-center">
-              <Avatar size="xl">
-                <AvatarFallback>TR</AvatarFallback>
-                <AvatarBadge status="online" size="xl" position="top-right" />
-              </Avatar>
+              <WexAvatar size="xl">
+                <WexAvatar.Fallback>TR</WexAvatar.Fallback>
+                <WexAvatar.Badge status="online" size="xl" position="top-right" />
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">top-right</p>
             </div>
             <div className="text-center">
-              <Avatar size="xl">
-                <AvatarFallback>TL</AvatarFallback>
-                <AvatarBadge status="online" size="xl" position="top-left" />
-              </Avatar>
+              <WexAvatar size="xl">
+                <WexAvatar.Fallback>TL</WexAvatar.Fallback>
+                <WexAvatar.Badge status="online" size="xl" position="top-left" />
+              </WexAvatar>
               <p className="text-xs text-muted-foreground mt-1">top-left</p>
             </div>
           </div>
@@ -250,7 +250,7 @@ export default function AvatarPage() {
           <div className="rounded-lg border border-border bg-card p-4">
             <h3 className="font-medium mb-2">ARIA Requirements</h3>
             <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-              <li><code className="bg-muted px-1 rounded">alt</code>: Required on AvatarImage for screen readers</li>
+              <li><code className="bg-muted px-1 rounded">alt</code>: Required on WexAvatar.Image for screen readers</li>
               <li>Fallback text provides meaningful identification when image fails to load</li>
               <li>Status badges should have aria-label describing the status</li>
             </ul>
@@ -260,33 +260,33 @@ export default function AvatarPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`import { Avatar, AvatarImage, AvatarFallback, AvatarGroup, AvatarBadge } from "@/components/ui/avatar";
+          code={`import { WexAvatar } from "@/components/wex";
 
 // Basic with sizes
-<Avatar size="lg">
-  <AvatarImage src="/avatar.png" alt="User" />
-  <AvatarFallback>JD</AvatarFallback>
-</Avatar>
+<WexAvatar size="lg">
+  <WexAvatar.Image src="/avatar.png" alt="User" />
+  <WexAvatar.Fallback>JD</WexAvatar.Fallback>
+</WexAvatar>
 
 // Square shape
-<Avatar size="xl" shape="square">
-  <AvatarFallback>SQ</AvatarFallback>
-</Avatar>
+<WexAvatar size="xl" shape="square">
+  <WexAvatar.Fallback>SQ</WexAvatar.Fallback>
+</WexAvatar>
 
 // With status badge
-<Avatar size="lg">
-  <AvatarImage src="/avatar.png" alt="User" />
-  <AvatarFallback>JD</AvatarFallback>
-  <AvatarBadge status="online" />
-</Avatar>
+<WexAvatar size="lg">
+  <WexAvatar.Image src="/avatar.png" alt="User" />
+  <WexAvatar.Fallback>JD</WexAvatar.Fallback>
+  <WexAvatar.Badge status="online" />
+</WexAvatar>
 
 // Grouped avatars
-<AvatarGroup max={3} size="md">
-  <Avatar><AvatarFallback>A</AvatarFallback></Avatar>
-  <Avatar><AvatarFallback>B</AvatarFallback></Avatar>
-  <Avatar><AvatarFallback>C</AvatarFallback></Avatar>
-  <Avatar><AvatarFallback>D</AvatarFallback></Avatar>
-</AvatarGroup>`}
+<WexAvatar.Group max={3} size="md">
+  <WexAvatar><WexAvatar.Fallback>A</WexAvatar.Fallback></WexAvatar>
+  <WexAvatar><WexAvatar.Fallback>B</WexAvatar.Fallback></WexAvatar>
+  <WexAvatar><WexAvatar.Fallback>C</WexAvatar.Fallback></WexAvatar>
+  <WexAvatar><WexAvatar.Fallback>D</WexAvatar.Fallback></WexAvatar>
+</WexAvatar.Group>`}
         />
       </Section>
 
