@@ -21,6 +21,7 @@ const ColorsPage = React.lazy(() => import("@/docs/pages/foundations/ColorsPage"
 const TypographyPage = React.lazy(() => import("@/docs/pages/foundations/TypographyPage"));
 const SpacingPage = React.lazy(() => import("@/docs/pages/foundations/SpacingPage"));
 const ElevationPage = React.lazy(() => import("@/docs/pages/foundations/ElevationPage"));
+const PrimeNGParityPage = React.lazy(() => import("@/docs/pages/foundations/PrimeNGParityPage"));
 
 // Component pages - lazy loaded
 const AccordionPage = React.lazy(() => import("@/docs/pages/components/AccordionPage"));
@@ -120,6 +121,7 @@ export function DocsRoutes() {
           <Route path="foundations/typography" element={<TypographyPage />} />
           <Route path="foundations/spacing" element={<SpacingPage />} />
           <Route path="foundations/elevation" element={<ElevationPage />} />
+          <Route path="foundations/primeng-parity" element={<PrimeNGParityPage />} />
 
           {/* Component pages */}
           <Route path="components/accordion" element={<AccordionPage />} />

@@ -172,16 +172,11 @@ const wexButtonVariants = cva(
         true: "rounded-full",
         false: "rounded-md",
       },
-      raised: {
-        true: "shadow-[var(--wex-component-button-raised-shadow)]",
-        false: "",
-      },
     },
     defaultVariants: {
       intent: "primary",
       size: "md",
       rounded: false,
-      raised: false,
     },
   }
 );
@@ -194,13 +189,13 @@ export interface WexButtonProps
 }
 
 const WexButton = React.forwardRef<HTMLButtonElement, WexButtonProps>(
-  ({ className, intent, size, rounded, raised, asChild = false, loading = false, disabled, children, ...props }, ref) => {
+  ({ className, intent, size, rounded, asChild = false, loading = false, disabled, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     const isDisabled = disabled || loading;
     
     return (
       <Comp
-        className={cn(wexButtonVariants({ intent, size, rounded, raised, className }))}
+        className={cn(wexButtonVariants({ intent, size, rounded, className }))}
         ref={ref}
         disabled={isDisabled}
         aria-busy={loading}

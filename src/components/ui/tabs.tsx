@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 const Tabs = TabsPrimitive.Root
 
 // ============================================================
-// TabsList - Basic tab list
+// TabsList - Basic tab list with underline style
 // ============================================================
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -15,8 +15,8 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "inline-flex h-9 items-center justify-center rounded-lg p-1",
-      "bg-muted border-b border-wex-tabs-divider",
+      "inline-flex h-10 items-center gap-1",
+      "border-b border-wex-tabs-divider",
       "text-wex-tabs-trigger-fg",
       className
     )}
@@ -91,8 +91,8 @@ const ScrollableTabsList = React.forwardRef<
         <TabsPrimitive.List
           ref={ref}
           className={cn(
-            "inline-flex h-9 items-center p-1",
-            "bg-muted border-b border-wex-tabs-divider",
+            "inline-flex h-10 items-center gap-1",
+            "border-b border-wex-tabs-divider",
             "text-wex-tabs-trigger-fg",
             className
           )}
@@ -117,7 +117,7 @@ const ScrollableTabsList = React.forwardRef<
 ScrollableTabsList.displayName = "ScrollableTabsList"
 
 // ============================================================
-// TabsTrigger - Basic tab trigger
+// TabsTrigger - Basic tab trigger with underline indicator
 // ============================================================
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
@@ -126,11 +126,12 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-all",
+      "inline-flex items-center justify-center whitespace-nowrap px-4 py-2.5 text-sm font-medium transition-all",
       "text-wex-tabs-trigger-fg",
-      "hover:bg-wex-tabs-trigger-hover-bg",
+      "border-b-2 border-transparent -mb-px",
+      "hover:text-wex-tabs-trigger-active-fg hover:border-wex-tabs-trigger-hover-bg",
       "data-[state=active]:text-wex-tabs-trigger-active-fg",
-      "data-[state=active]:bg-background data-[state=active]:shadow",
+      "data-[state=active]:border-wex-tabs-indicator",
       "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wex-tabs-focus-ring focus-visible:ring-offset-2",
       "disabled:pointer-events-none disabled:opacity-50",
       className
@@ -156,11 +157,12 @@ const ClosableTabsTrigger = React.forwardRef<
     ref={ref}
     value={value}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-md pl-3 pr-1.5 py-1 text-sm font-medium transition-all gap-1.5",
+      "inline-flex items-center justify-center whitespace-nowrap pl-4 pr-2 py-2.5 text-sm font-medium transition-all gap-1.5",
       "text-wex-tabs-trigger-fg",
-      "hover:bg-wex-tabs-trigger-hover-bg",
+      "border-b-2 border-transparent -mb-px",
+      "hover:text-wex-tabs-trigger-active-fg hover:border-wex-tabs-trigger-hover-bg",
       "data-[state=active]:text-wex-tabs-trigger-active-fg",
-      "data-[state=active]:bg-background data-[state=active]:shadow",
+      "data-[state=active]:border-wex-tabs-indicator",
       "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wex-tabs-focus-ring focus-visible:ring-offset-2",
       "disabled:pointer-events-none disabled:opacity-50",
       className
@@ -174,7 +176,7 @@ const ClosableTabsTrigger = React.forwardRef<
         e.stopPropagation()
         onClose?.(value)
       }}
-      className="rounded-sm opacity-70 hover:opacity-100 hover:bg-wex-tabs-trigger-hover-bg p-0.5 -mr-0.5"
+      className="rounded-sm opacity-70 hover:opacity-100 hover:bg-muted p-0.5"
       aria-label={`Close ${children} tab`}
     >
       <X className="h-3.5 w-3.5" />

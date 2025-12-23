@@ -1,3 +1,4 @@
+import * as React from "react";
 import { ComponentPage } from "@/docs/components/ComponentPage";
 import { Section } from "@/docs/components/Section";
 import { ExampleCard } from "@/docs/components/ExampleCard";
@@ -5,7 +6,7 @@ import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
 import { Input } from "@/components/ui/input";
 import { WexLabel } from "@/components/wex";
-import { Search, Mail, Eye, Lock, Calendar, Phone } from "lucide-react";
+import { Search, Mail, Eye, EyeOff, Lock, Calendar, Phone } from "lucide-react";
 
 // Token mappings for Input - Layer 3 component tokens
 const inputTokens: TokenRow[] = [
@@ -21,6 +22,30 @@ const inputTokens: TokenRow[] = [
   { element: "Disabled", property: "Background", token: "--wex-component-input-disabled-bg" },
   { element: "Disabled", property: "Opacity", token: "--wex-component-input-disabled-opacity" },
 ];
+
+// Interactive password input component for documentation
+function PasswordInputDemo({ withLeftIcon = false }: { withLeftIcon?: boolean }) {
+  const [showPassword, setShowPassword] = React.useState(false);
+  
+  return (
+    <Input 
+      leftIcon={withLeftIcon ? <Lock className="h-4 w-4" /> : undefined}
+      rightIcon={
+        <button 
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="cursor-pointer hover:text-foreground transition-colors"
+          aria-label={showPassword ? "Hide password" : "Show password"}
+        >
+          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+        </button>
+      }
+      placeholder="Enter password" 
+      type={showPassword ? "text" : "password"}
+      className="max-w-sm"
+    />
+  );
+}
 
 export default function InputPage() {
   return (
@@ -97,28 +122,24 @@ export default function InputPage() {
           </div>
         </ExampleCard>
 
-        <ExampleCard title="Right Icon">
+        <ExampleCard title="Right Icon (Interactive)">
           <div className="max-w-sm space-y-4">
             <Input 
               rightIcon={<Calendar className="h-4 w-4" />} 
               placeholder="Select date" 
             />
-            <Input 
-              rightIcon={<Eye className="h-4 w-4" />} 
-              placeholder="Password" 
-              type="password"
-            />
+            <div className="space-y-2">
+              <WexLabel>Password (click eye to toggle)</WexLabel>
+              <PasswordInputDemo />
+            </div>
           </div>
         </ExampleCard>
 
-        <ExampleCard title="Both Icons">
-          <Input 
-            leftIcon={<Lock className="h-4 w-4" />}
-            rightIcon={<Eye className="h-4 w-4" />} 
-            placeholder="Enter password" 
-            type="password"
-            className="max-w-sm"
-          />
+        <ExampleCard title="Both Icons (Interactive Password)">
+          <div className="space-y-2">
+            <WexLabel>Secure Password</WexLabel>
+            <PasswordInputDemo withLeftIcon />
+          </div>
         </ExampleCard>
       </Section>
 
@@ -216,10 +237,9 @@ export default function InputPage() {
             </p>
           </div>
           <div className="rounded-lg border border-border bg-card p-4">
-            <h3 className="font-medium mb-2">Icons</h3>
+            <h3 className="font-medium mb-2">Password Toggle</h3>
             <p className="text-sm text-muted-foreground">
-              Icons are decorative and hidden from screen readers. Important 
-              information should be in labels or helper text.
+              Interactive password toggles include proper aria-label for accessibility.
             </p>
           </div>
         </div>
@@ -228,7 +248,7 @@ export default function InputPage() {
       <Section title="Usage">
         <CodeBlock
           code={`import { Input } from "@/components/ui/input";
-import { Search, Mail, Lock, Eye } from "lucide-react";
+import { Search, Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 // Sizes
 <Input inputSize="sm" placeholder="Small" />
@@ -248,19 +268,21 @@ import { Search, Mail, Lock, Eye } from "lucide-react";
   placeholder="Both icons" 
 />
 
+// Interactive password toggle
+const [showPassword, setShowPassword] = useState(false);
+<Input
+  type={showPassword ? "text" : "password"}
+  rightIcon={
+    <button onClick={() => setShowPassword(!showPassword)}>
+      {showPassword ? <EyeOff /> : <Eye />}
+    </button>
+  }
+  placeholder="Password"
+/>
+
 // Invalid state
 <Input invalid placeholder="Invalid input" />
-<p className="text-destructive">Error message</p>
-
-// All props
-<Input
-  inputSize="md"
-  variant="default"
-  invalid={false}
-  leftIcon={<Search />}
-  rightIcon={<Eye />}
-  placeholder="Full example"
-/>`}
+<p className="text-destructive">Error message</p>`}
         />
         <div className="mt-4 text-sm text-muted-foreground">
           <p><strong>Props:</strong></p>

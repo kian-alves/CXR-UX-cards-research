@@ -36,7 +36,6 @@ const buttonTokens: TokenRow[] = [
   // Link (Layer 3)
   { element: "Link", property: "Text", token: "--wex-component-button-link-fg" },
   // Shared
-  { element: "Raised", property: "Shadow", token: "--wex-component-button-raised-shadow" },
   { element: "All Variants", property: "Disabled Opacity", token: "--wex-component-button-disabled-opacity" },
 ];
 
@@ -117,29 +116,13 @@ export default function ButtonPage() {
       {/* ============================================================
           MODIFIERS
           ============================================================ */}
-      <Section title="Modifiers" description="Rounded and raised modifiers for different visual styles.">
+      <Section title="Modifiers" description="Rounded modifier for pill-shaped buttons.">
         <ExampleCard title="Rounded (Pill)">
           <div className="flex flex-wrap gap-3">
             <WexButton rounded>Rounded</WexButton>
             <WexButton intent="success" rounded>Success Pill</WexButton>
             <WexButton intent="info" rounded>Info Pill</WexButton>
             <WexButton intent="warning" rounded>Warning Pill</WexButton>
-          </div>
-        </ExampleCard>
-        
-        <ExampleCard title="Raised (Elevated Shadow)">
-          <div className="flex flex-wrap gap-3">
-            <WexButton raised>Raised</WexButton>
-            <WexButton intent="secondary" raised>Raised Secondary</WexButton>
-            <WexButton intent="success" raised>Raised Success</WexButton>
-          </div>
-        </ExampleCard>
-
-        <ExampleCard title="Combined Modifiers">
-          <div className="flex flex-wrap gap-3">
-            <WexButton rounded raised>Rounded + Raised</WexButton>
-            <WexButton intent="success" rounded raised>Success Pill Raised</WexButton>
-            <WexButton intent="contrast" rounded raised>Contrast Pill Raised</WexButton>
           </div>
         </ExampleCard>
       </Section>
@@ -206,7 +189,6 @@ export default function ButtonPage() {
                 <th className="text-left py-3 px-4 font-medium text-muted-foreground">Intent</th>
                 <th className="text-left py-3 px-4 font-medium text-muted-foreground">Default</th>
                 <th className="text-left py-3 px-4 font-medium text-muted-foreground">Rounded</th>
-                <th className="text-left py-3 px-4 font-medium text-muted-foreground">Raised</th>
                 <th className="text-left py-3 px-4 font-medium text-muted-foreground">Disabled</th>
               </tr>
             </thead>
@@ -216,7 +198,6 @@ export default function ButtonPage() {
                   <td className="py-3 px-4 font-medium capitalize">{intent}</td>
                   <td className="py-3 px-4"><WexButton intent={intent} size="sm">{intent}</WexButton></td>
                   <td className="py-3 px-4"><WexButton intent={intent} size="sm" rounded>Pill</WexButton></td>
-                  <td className="py-3 px-4"><WexButton intent={intent} size="sm" raised>Raised</WexButton></td>
                   <td className="py-3 px-4"><WexButton intent={intent} size="sm" disabled>Disabled</WexButton></td>
                 </tr>
               ))}
@@ -272,8 +253,6 @@ export default function ButtonPage() {
 
 // Modifiers
 <WexButton rounded>Pill Button</WexButton>
-<WexButton raised>Elevated Button</WexButton>
-<WexButton rounded raised>Pill + Elevated</WexButton>
 
 // Loading state
 <WexButton loading>Saving...</WexButton>
@@ -294,7 +273,6 @@ export default function ButtonPage() {
             <li><code className="bg-muted px-1 rounded">intent</code>: "primary" | "secondary" | "success" | "info" | "warning" | "destructive" | "help" | "contrast" | "ghost" | "outline" | "link"</li>
             <li><code className="bg-muted px-1 rounded">size</code>: "sm" | "md" | "lg" | "icon"</li>
             <li><code className="bg-muted px-1 rounded">rounded</code>: boolean - Pill shape</li>
-            <li><code className="bg-muted px-1 rounded">raised</code>: boolean - Elevated shadow</li>
             <li><code className="bg-muted px-1 rounded">loading</code>: boolean - Shows spinner, disables button</li>
             <li><code className="bg-muted px-1 rounded">asChild</code>: boolean - Render as child element</li>
           </ul>

@@ -20,6 +20,7 @@ const textareaTokens: TokenRow[] = [
 
 export default function TextareaPage() {
   const [autoResizeValue, setAutoResizeValue] = useState("");
+  const [bioText, setBioText] = useState("");
 
   return (
     <ComponentPage
@@ -96,8 +97,10 @@ export default function TextareaPage() {
                 id="char-count-textarea" 
                 placeholder="Write a brief bio..."
                 maxLength={200}
+                value={bioText}
+                onChange={(e) => setBioText(e.target.value)}
               />
-              <p className="text-sm text-muted-foreground text-right">0 / 200</p>
+              <p className="text-sm text-muted-foreground text-right">{bioText.length} / 200</p>
             </div>
           </ExampleCard>
 

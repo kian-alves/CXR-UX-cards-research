@@ -40,5 +40,11 @@ export const foundationRegistry: FoundationRegistryEntry[] = [
     importPath: "@/docs/pages/foundations/ElevationPage",
     description: "Shadow and layering system",
   },
+  {
+    name: "PrimeNG Parity",
+    route: "/foundations/primeng-parity",
+    importPath: "@/docs/pages/foundations/PrimeNGParityPage",
+    description: "Component comparison with PrimeNG",
+  },
 ];
 

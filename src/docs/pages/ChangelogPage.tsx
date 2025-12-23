@@ -16,6 +16,39 @@ export default function ChangelogPage() {
 
       <div className="space-y-8">
         <ChangelogEntry
+          version="0.18.0"
+          date="December 22, 2025"
+          title="Phase 4: PrimeNG Variant Parity & Token Architecture Polish"
+          changes={[
+            "Components: Added 11 button intent variants (primary, secondary, success, info, warning, destructive, help, contrast, ghost, outline, link)",
+            "Components: Added button modifiers (rounded/pill) and loading state with spinner",
+            "Components: Removed raised button modifier (not needed)",
+            "Components: Added Input sizes (sm, md, lg), filled variant, icons, and invalid state",
+            "Components: Added Textarea sizes and autoResize functionality",
+            "Components: Added Checkbox, RadioGroup, Switch sizes (sm, md, lg)",
+            "Components: Added Slider range mode support",
+            "Components: Added Progress indeterminate and showLabel props",
+            "Components: Added Avatar sizes, shapes (circle/square), groups, and badge variants",
+            "Components: Added Card variants (default, elevated, outlined, flat)",
+            "Components: Added Dialog sizes, positions, and maximizable props",
+            "Components: Added Sheet sizes",
+            "Components: Added Tabs underline indicator styling (PrimeNG style)",
+            "Components: Added ScrollableTabsList and ClosableTabsTrigger for Tabs",
+            "Components: Added Pagination RowsPerPage, PageReport, JumpToPage, First/Last components",
+            "Components: Added Badge sizes and pill modifier",
+            "Components: Added Skeleton shapes and animations",
+            "Components: Added Tooltip delayDuration prop",
+            "Components: Added Table striped, gridlines, and size variants",
+            "Docs: Updated 18 component documentation pages with Phase 4 variants",
+            "Docs: Added interactive password toggle example to Input page",
+            "Docs: Added reactive character counter example to Textarea page",
+            "Docs: Created PrimeNG Parity tracking page under Foundations",
+            "Tokens: Extended Layer 3 component tokens for all Phase 4 variants",
+            "Architecture: Maintained 4-layer token system integrity throughout Phase 4",
+          ]}
+        />
+
+        <ChangelogEntry
           version="0.17.0"
           date="December 21, 2025"
           title="WCAG Contrast Checker, Complete Component Coverage & NPM Package"
