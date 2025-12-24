@@ -149,10 +149,11 @@ function TooltipContent({
   const isNoExamples = status === "no_examples";
   const hasModesData = modes && (modes.light || modes.dark);
   
+  // Tooltip inherits text-wex-tooltip-fg from parent - use opacity for muted text
   return (
     <div className="space-y-2 text-xs">
-      <p className="font-semibold text-foreground">Accessibility Test Signal</p>
-      <p className="text-muted-foreground">
+      <p className="font-semibold">Accessibility Test Signal</p>
+      <p className="opacity-70">
         {isNoExamples 
           ? "No component examples found on this page. Check that ExampleCard components have data-testid attributes."
           : "Automated axe-core results for component examples. Tests run in both light and dark modes. This is a test signal, not a compliance certification."
@@ -161,8 +162,8 @@ function TooltipContent({
       
       {/* Mode-specific results */}
       {hasModesData && !isNoExamples && (
-        <div className="border-t border-border pt-2 space-y-2">
-          <p className="font-medium text-foreground">Mode Results:</p>
+        <div className="border-t border-wex-tooltip-fg/20 pt-2 space-y-2">
+          <p className="font-medium">Mode Results:</p>
           <div className="grid grid-cols-2 gap-2">
             {modes?.light && (
               <ModeResultDisplay mode="light" result={modes.light} />
@@ -174,19 +175,19 @@ function TooltipContent({
         </div>
       )}
       
-      <div className="border-t border-border pt-2 space-y-1">
-        <p><span className="text-muted-foreground">Subject:</span> {subject}</p>
-        <p><span className="text-muted-foreground">Scope:</span> {scope}</p>
-        <p><span className="text-muted-foreground">Examples found:</span> {examplesFound}</p>
-        <p><span className="text-muted-foreground">Combined status:</span> {status}</p>
+      <div className="border-t border-wex-tooltip-fg/20 pt-2 space-y-1">
+        <p><span className="opacity-70">Subject:</span> {subject}</p>
+        <p><span className="opacity-70">Scope:</span> {scope}</p>
+        <p><span className="opacity-70">Examples found:</span> {examplesFound}</p>
+        <p><span className="opacity-70">Combined status:</span> {status}</p>
         {levelAchieved && (
-          <p><span className="text-muted-foreground">Level:</span> {levelAchieved} (based on automated ruleset)</p>
+          <p><span className="opacity-70">Level:</span> {levelAchieved} (based on automated ruleset)</p>
         )}
-        <p><span className="text-muted-foreground">Last tested:</span> {testedDate}</p>
+        <p><span className="opacity-70">Last tested:</span> {testedDate}</p>
       </div>
       
       {linkToDashboard && (
-        <p className="text-muted-foreground text-[10px] pt-1 border-t border-border">
+        <p className="opacity-50 text-[10px] pt-1 border-t border-wex-tooltip-fg/20">
           Click badge for full details
         </p>
       )}
@@ -204,32 +205,33 @@ function ModeResultDisplay({ mode, result }: ModeResultDisplayProps) {
   const statusLabel = result.status.replace("_", " ");
   
   return (
-    <div className="flex items-center gap-1.5 p-1.5 rounded bg-muted/50">
+    <div className="flex items-center gap-1.5 p-1.5 rounded bg-wex-tooltip-fg/10">
       {mode === "light" ? (
-        <Sun className="h-3 w-3 text-muted-foreground" />
+        <Sun className="h-3 w-3 opacity-70" />
       ) : (
-        <Moon className="h-3 w-3 text-muted-foreground" />
+        <Moon className="h-3 w-3 opacity-70" />
       )}
-      <span className="capitalize text-muted-foreground">{mode}:</span>
+      <span className="capitalize opacity-70">{mode}:</span>
       {statusIcon}
       <span className="capitalize">{statusLabel}</span>
-      <span className="text-muted-foreground">({result.violations})</span>
+      <span className="opacity-70">({result.violations})</span>
     </div>
   );
 }
 
 function getStatusIcon(status: ModeComplianceResult["status"]): React.ReactNode {
+  // Using inline colors that work on both light and dark tooltip backgrounds
   switch (status) {
     case "pass":
-      return <Check className="h-3 w-3 text-success" />;
+      return <Check className="h-3 w-3 text-green-400" />;
     case "partial":
-      return <AlertTriangle className="h-3 w-3 text-warning" />;
+      return <AlertTriangle className="h-3 w-3 text-amber-400" />;
     case "fail":
-      return <X className="h-3 w-3 text-destructive" />;
+      return <X className="h-3 w-3 text-red-400" />;
     case "no_examples":
-      return <AlertTriangle className="h-3 w-3 text-warning" />;
+      return <AlertTriangle className="h-3 w-3 text-amber-400" />;
     default:
-      return <HelpCircle className="h-3 w-3 text-muted-foreground" />;
+      return <HelpCircle className="h-3 w-3 opacity-70" />;
   }
 }
 
