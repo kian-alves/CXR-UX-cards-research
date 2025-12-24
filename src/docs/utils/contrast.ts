@@ -275,69 +275,125 @@ export interface ContrastPair {
 
 export const CONTRAST_PAIRS: ContrastPair[] = [
   // ==========================================================================
-  // BUTTONS
+  // BUTTONS (Layer 3 component tokens)
   // ==========================================================================
   {
     name: "Primary Button Text",
-    component: "WexButton (default)",
-    foreground: "--primary-foreground",
-    background: "--primary",
+    component: "WexButton (primary)",
+    foreground: "--wex-component-button-primary-fg",
+    background: "--wex-component-button-primary-bg",
+    previewCard: "Buttons",
+    registryKey: "button",
+  },
+  {
+    name: "Secondary Button Text",
+    component: "WexButton (secondary)",
+    foreground: "--wex-component-button-secondary-fg",
+    background: "--wex-component-button-secondary-bg",
     previewCard: "Buttons",
     registryKey: "button",
   },
   {
     name: "Destructive Button Text",
     component: "WexButton (destructive)",
-    foreground: "--destructive-foreground",
-    background: "--destructive",
+    foreground: "--wex-component-button-destructive-fg",
+    background: "--wex-component-button-destructive-bg",
+    previewCard: "Buttons",
+    registryKey: "button",
+  },
+  {
+    name: "Success Button Text",
+    component: "WexButton (success)",
+    foreground: "--wex-component-button-success-fg",
+    background: "--wex-component-button-success-bg",
+    previewCard: "Buttons",
+    registryKey: "button",
+  },
+  {
+    name: "Info Button Text",
+    component: "WexButton (info)",
+    foreground: "--wex-component-button-info-fg",
+    background: "--wex-component-button-info-bg",
+    previewCard: "Buttons",
+    registryKey: "button",
+  },
+  {
+    name: "Warning Button Text",
+    component: "WexButton (warning)",
+    foreground: "--wex-component-button-warning-fg",
+    background: "--wex-component-button-warning-bg",
+    previewCard: "Buttons",
+    registryKey: "button",
+  },
+  {
+    name: "Help Button Text",
+    component: "WexButton (help)",
+    foreground: "--wex-component-button-help-fg",
+    background: "--wex-component-button-help-bg",
+    previewCard: "Buttons",
+    registryKey: "button",
+  },
+  {
+    name: "Contrast Button Text",
+    component: "WexButton (contrast)",
+    foreground: "--wex-component-button-contrast-fg",
+    background: "--wex-component-button-contrast-bg",
     previewCard: "Buttons",
     registryKey: "button",
   },
 
   // ==========================================================================
-  // BADGES
+  // BADGES (Layer 3 component tokens)
   // ==========================================================================
   {
     name: "Default Badge Text",
-    component: "WexBadge (default)",
-    foreground: "--primary-foreground",
-    background: "--primary",
+    component: "WexBadge (default/neutral)",
+    foreground: "--wex-component-badge-neutral-fg",
+    background: "--wex-component-badge-neutral-bg",
     previewCard: "Badge",
     registryKey: "badge",
   },
   {
     name: "Success Badge Text",
     component: "WexBadge (success)",
-    foreground: "--success-foreground",
-    background: "--success",
+    foreground: "--wex-component-badge-success-fg",
+    background: "--wex-component-badge-success-bg",
     previewCard: "Badge",
     registryKey: "badge",
   },
   {
     name: "Warning Badge Text",
     component: "WexBadge (warning)",
-    foreground: "--warning-foreground",
-    background: "--warning",
+    foreground: "--wex-component-badge-warning-fg",
+    background: "--wex-component-badge-warning-bg",
     previewCard: "Badge",
     registryKey: "badge",
   },
   {
     name: "Info Badge Text",
     component: "WexBadge (info)",
-    foreground: "--info-foreground",
-    background: "--info",
+    foreground: "--wex-component-badge-info-fg",
+    background: "--wex-component-badge-info-bg",
+    previewCard: "Badge",
+    registryKey: "badge",
+  },
+  {
+    name: "Destructive Badge Text",
+    component: "WexBadge (destructive)",
+    foreground: "--wex-component-badge-destructive-fg",
+    background: "--wex-component-badge-destructive-bg",
     previewCard: "Badge",
     registryKey: "badge",
   },
 
   // ==========================================================================
-  // PROGRESS
+  // PROGRESS (Layer 3 component tokens)
   // ==========================================================================
   {
-    name: "Progress Bar on Track",
+    name: "Progress Indicator on Track",
     component: "WexProgress",
-    foreground: "--primary",
-    background: "--muted",
+    foreground: "--wex-component-progress-indicator-bg",
+    background: "--wex-component-progress-track-bg",
     previewCard: "Progress",
     registryKey: "progress",
   },
@@ -348,44 +404,52 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
   {
     name: "Switch Checked State",
     component: "WexSwitch (checked)",
-    foreground: "--primary-foreground",
-    background: "--primary",
+    foreground: "--wex-component-switch-thumb",
+    background: "--wex-component-switch-checked-bg",
     previewCard: "Switch",
     registryKey: "switch",
   },
 
   // ==========================================================================
-  // CHECKBOX
+  // CHECKBOX (Layer 3 component tokens)
   // ==========================================================================
   {
     name: "Checkbox Checked State",
     component: "WexCheckbox (checked)",
-    foreground: "--primary-foreground",
-    background: "--primary",
+    foreground: "--wex-component-checkbox-checked-fg",
+    background: "--wex-component-checkbox-checked-bg",
     previewCard: "Checkbox",
     registryKey: "checkbox",
   },
 
   // ==========================================================================
-  // RADIO GROUP
+  // RADIO GROUP (Layer 3 component tokens)
   // ==========================================================================
   {
     name: "Radio Selected State",
     component: "WexRadioGroup (selected)",
-    foreground: "--primary-foreground",
-    background: "--primary",
+    foreground: "--wex-component-radio-checked-fg",
+    background: "--wex-component-radio-checked-bg",
     previewCard: "Radio Group",
     registryKey: "radio-group",
   },
 
   // ==========================================================================
-  // SLIDER
+  // SLIDER (Layer 3 component tokens)
   // ==========================================================================
   {
-    name: "Slider Track Fill",
+    name: "Slider Range on Track",
     component: "WexSlider",
-    foreground: "--primary",
-    background: "--muted",
+    foreground: "--wex-component-slider-range-bg",
+    background: "--wex-component-slider-track-bg",
+    previewCard: "Slider",
+    registryKey: "slider",
+  },
+  {
+    name: "Slider Thumb Border",
+    component: "WexSlider (thumb)",
+    foreground: "--wex-component-slider-thumb-border",
+    background: "--wex-component-slider-thumb-bg",
     previewCard: "Slider",
     registryKey: "slider",
   },
@@ -414,49 +478,65 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
   },
 
   // ==========================================================================
-  // CALENDAR
+  // CALENDAR (Layer 3 component tokens)
   // ==========================================================================
   {
     name: "Calendar Selected Date",
     component: "WexCalendar (selected)",
-    foreground: "--primary-foreground",
-    background: "--primary",
+    foreground: "--wex-component-calendar-day-selected-fg",
+    background: "--wex-component-calendar-day-selected-bg",
+    previewCard: "Calendar",
+    registryKey: "calendar",
+  },
+  {
+    name: "Calendar Day Text",
+    component: "WexCalendar (day)",
+    foreground: "--wex-component-calendar-day-fg",
+    background: "--wex-component-calendar-bg",
     previewCard: "Calendar",
     registryKey: "calendar",
   },
 
   // ==========================================================================
-  // ALERTS
+  // ALERTS (Layer 3 component tokens - tinted style with dark text on light bg)
   // ==========================================================================
   {
     name: "Destructive Alert Text",
     component: "WexAlert (destructive)",
-    foreground: "--destructive",
-    background: "--background",
+    foreground: "--wex-component-alert-destructive-fg",
+    background: "--wex-component-alert-destructive-bg",
     previewCard: "Alert",
     registryKey: "alert",
   },
   {
     name: "Success Alert Text",
     component: "WexAlert (success)",
-    foreground: "--success",
-    background: "--background",
+    foreground: "--wex-component-alert-success-fg",
+    background: "--wex-component-alert-success-bg",
     previewCard: "Alert",
     registryKey: "alert",
   },
   {
     name: "Warning Alert Text",
     component: "WexAlert (warning)",
-    foreground: "--warning",
-    background: "--background",
+    foreground: "--wex-component-alert-warning-fg",
+    background: "--wex-component-alert-warning-bg",
     previewCard: "Alert",
     registryKey: "alert",
   },
   {
     name: "Info Alert Text",
     component: "WexAlert (info)",
-    foreground: "--info",
-    background: "--background",
+    foreground: "--wex-component-alert-info-fg",
+    background: "--wex-component-alert-info-bg",
+    previewCard: "Alert",
+    registryKey: "alert",
+  },
+  {
+    name: "Default Alert Text",
+    component: "WexAlert (default)",
+    foreground: "--wex-component-alert-default-fg",
+    background: "--wex-component-alert-default-bg",
     previewCard: "Alert",
     registryKey: "alert",
   },
@@ -497,25 +577,33 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
   },
 
   // ==========================================================================
-  // BUTTON GROUP
+  // BUTTON GROUP (uses button component tokens)
   // ==========================================================================
   {
     name: "Button Group Primary",
     component: "WexButtonGroup (primary)",
-    foreground: "--primary-foreground",
-    background: "--primary",
+    foreground: "--wex-component-button-primary-fg",
+    background: "--wex-component-button-primary-bg",
     previewCard: "Button Group",
     registryKey: "button-group",
   },
 
   // ==========================================================================
-  // PAGINATION
+  // PAGINATION (Layer 3 component tokens)
   // ==========================================================================
   {
     name: "Pagination Active Page",
     component: "WexPagination (active)",
-    foreground: "--primary-foreground",
-    background: "--primary",
+    foreground: "--wex-component-pagination-active-fg",
+    background: "--wex-component-pagination-active-bg",
+    previewCard: "Pagination",
+    registryKey: "pagination",
+  },
+  {
+    name: "Pagination Item Text",
+    component: "WexPagination (item)",
+    foreground: "--wex-component-pagination-item-fg",
+    background: "--wex-component-pagination-item-bg",
     previewCard: "Pagination",
     registryKey: "pagination",
   },
@@ -581,29 +669,29 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
   },
 
   // ==========================================================================
-  // TOAST PREVIEWS
+  // TOAST PREVIEWS (Layer 3 component tokens - tinted style)
   // ==========================================================================
   {
     name: "Success Toast Text",
     component: "WexToast/Sonner (success)",
-    foreground: "--success-foreground",
-    background: "--success",
-    previewCard: "Toast Preview",
-    registryKey: "sonner",
-  },
-  {
-    name: "Warning Toast Text",
-    component: "WexToast/Sonner (warning)",
-    foreground: "--warning-foreground",
-    background: "--warning",
+    foreground: "--wex-component-toast-success-fg",
+    background: "--wex-component-toast-success-bg",
     previewCard: "Toast Preview",
     registryKey: "sonner",
   },
   {
     name: "Info Toast Text",
     component: "WexToast/Sonner (info)",
-    foreground: "--info-foreground",
-    background: "--info",
+    foreground: "--wex-component-toast-info-fg",
+    background: "--wex-component-toast-info-bg",
+    previewCard: "Toast Preview",
+    registryKey: "sonner",
+  },
+  {
+    name: "Destructive Toast Text",
+    component: "WexToast/Sonner (destructive)",
+    foreground: "--wex-component-toast-destructive-fg",
+    background: "--wex-component-toast-destructive-bg",
     previewCard: "Toast Preview",
     registryKey: "sonner",
   },
@@ -963,13 +1051,13 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
   },
 
   // ==========================================================================
-  // DATE PICKER
+  // DATE PICKER (uses calendar component tokens)
   // ==========================================================================
   {
     name: "Date Picker Selected Date",
     component: "WexDatePicker (selected)",
-    foreground: "--primary-foreground",
-    background: "--primary",
+    foreground: "--wex-component-calendar-day-selected-fg",
+    background: "--wex-component-calendar-day-selected-bg",
     registryKey: "date-picker",
   },
 
