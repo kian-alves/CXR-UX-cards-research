@@ -1,6 +1,16 @@
 import complianceData from "@/docs/registry/compliance.json";
 
 /**
+ * Contrast ratio info extracted from color-contrast violations
+ */
+export interface ContrastInfo {
+  /** Actual contrast ratio achieved */
+  actual: number;
+  /** Required contrast ratio (typically 4.5 for AA) */
+  required: number;
+}
+
+/**
  * Result for a single example/variant in a mode
  */
 export interface ExampleResult {
@@ -10,6 +20,8 @@ export interface ExampleResult {
   violations: number;
   /** Array of axe rule IDs that failed for this example */
   issues: string[];
+  /** Contrast ratio info if there was a color-contrast violation */
+  contrastRatio?: ContrastInfo;
 }
 
 /**

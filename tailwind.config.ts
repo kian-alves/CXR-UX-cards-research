@@ -25,6 +25,11 @@ const config: Config = {
           foreground: "hsl(var(--primary-foreground) / <alpha-value>)",
           hover: "hsl(var(--primary-hover) / <alpha-value>)",
         },
+        link: {
+          DEFAULT: "hsl(var(--link) / <alpha-value>)",
+          hover: "hsl(var(--link-hover) / <alpha-value>)",
+          active: "hsl(var(--link-active) / <alpha-value>)",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary) / <alpha-value>)",
           foreground: "hsl(var(--secondary-foreground) / <alpha-value>)",
@@ -543,6 +548,13 @@ const config: Config = {
             "toolbar-fg": "hsl(var(--wex-component-datatable-toolbar-fg) / <alpha-value>)",
             "filter-bg": "hsl(var(--wex-component-datatable-filter-bg) / <alpha-value>)",
             "filter-border": "hsl(var(--wex-component-datatable-filter-border) / <alpha-value>)",
+          },
+          // Text utility colors (adaptive for dark mode)
+          text: {
+            success: "hsl(var(--wex-component-text-success) / <alpha-value>)",
+            destructive: "hsl(var(--wex-component-text-destructive) / <alpha-value>)",
+            info: "hsl(var(--wex-component-text-info) / <alpha-value>)",
+            warning: "hsl(var(--wex-component-text-warning) / <alpha-value>)",
           },
         },
       },

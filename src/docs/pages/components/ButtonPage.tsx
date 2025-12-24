@@ -64,50 +64,52 @@ export default function ButtonPage() {
       </Section>
 
       {/* ============================================================
-          SEVERITIES (All Intents)
+          SEVERITIES (All Intents) - Each tested individually
           ============================================================ */}
-      <Section title="Severities" description="Full range of semantic button severities inspired by PrimeNG.">
-        <ExampleCard title="All Severities">
-          <div className="flex flex-wrap gap-3">
+      <Section title="Severities" description="Full range of semantic button severities - each tested individually for accessibility.">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <ExampleCard title="Primary">
             <WexButton intent="primary">Primary</WexButton>
+          </ExampleCard>
+          <ExampleCard title="Secondary">
             <WexButton intent="secondary">Secondary</WexButton>
+          </ExampleCard>
+          <ExampleCard title="Success">
             <WexButton intent="success">Success</WexButton>
+          </ExampleCard>
+          <ExampleCard title="Info">
             <WexButton intent="info">Info</WexButton>
+          </ExampleCard>
+          <ExampleCard title="Warning">
             <WexButton intent="warning">Warning</WexButton>
+          </ExampleCard>
+          <ExampleCard title="Danger">
             <WexButton intent="destructive">Danger</WexButton>
+          </ExampleCard>
+          <ExampleCard title="Help">
             <WexButton intent="help">Help</WexButton>
+          </ExampleCard>
+          <ExampleCard title="Contrast">
             <WexButton intent="contrast">Contrast</WexButton>
-          </div>
-        </ExampleCard>
-        
-        <ExampleCard title="With Icons">
-          <div className="flex flex-wrap gap-3">
-            <WexButton intent="success"><Check className="h-4 w-4" />Complete</WexButton>
-            <WexButton intent="info"><Info className="h-4 w-4" />Information</WexButton>
-            <WexButton intent="warning"><AlertTriangle className="h-4 w-4" />Warning</WexButton>
-            <WexButton intent="destructive"><Trash2 className="h-4 w-4" />Delete</WexButton>
-            <WexButton intent="help"><HelpCircle className="h-4 w-4" />Need Help?</WexButton>
-          </div>
-        </ExampleCard>
+          </ExampleCard>
+        </div>
       </Section>
 
       {/* ============================================================
-          TEXT VARIANTS
+          TEXT VARIANTS - Each tested individually
           ============================================================ */}
       <Section title="Text Variants" description="Outline, ghost, and link styles for subtle actions.">
-        <ExampleCard title="Ghost & Outline">
-          <div className="flex flex-wrap gap-3">
+        <div className="grid grid-cols-3 gap-4">
+          <ExampleCard title="Ghost">
             <WexButton intent="ghost">Ghost</WexButton>
+          </ExampleCard>
+          <ExampleCard title="Outline">
             <WexButton intent="outline">Outline</WexButton>
-          </div>
-        </ExampleCard>
-
-        <ExampleCard title="Link Style">
-          <div className="flex items-center gap-3">
+          </ExampleCard>
+          <ExampleCard title="Link">
             <WexButton intent="link">Learn More</WexButton>
-            <WexButton intent="link"><ExternalLink className="h-4 w-4" />External Link</WexButton>
-          </div>
-        </ExampleCard>
+          </ExampleCard>
+        </div>
         <Guidance>
           Link buttons render as text with underline on hover, perfect for inline actions.
         </Guidance>

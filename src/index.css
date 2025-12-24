@@ -13,6 +13,16 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Text selection colors */
+  ::selection {
+    background-color: hsl(var(--wex-palette-blue-100));
+    color: hsl(var(--wex-palette-blue-900));
+  }
+  .dark ::selection {
+    background-color: hsl(var(--wex-palette-blue-800));
+    color: hsl(var(--wex-palette-blue-100));
+  }
 }
 
 @layer utilities {

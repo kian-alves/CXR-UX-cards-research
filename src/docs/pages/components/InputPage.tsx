@@ -155,7 +155,7 @@ export default function InputPage() {
               defaultValue="invalid-email" 
               type="email"
             />
-            <p className="text-sm text-destructive">
+            <p className="text-sm text-wex-field-error-fg">
               Please enter a valid email address.
             </p>
           </div>
@@ -216,7 +216,7 @@ export default function InputPage() {
             <WexInput disabled placeholder="Disabled input" />
           </ExampleCard>
           <ExampleCard title="Read Only">
-            <WexInput readOnly defaultValue="Read-only value" />
+            <WexInput readOnly defaultValue="Read-only value" aria-label="Read only input" />
           </ExampleCard>
         </div>
       </Section>

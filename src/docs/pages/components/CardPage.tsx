@@ -145,17 +145,17 @@ export default function CardPage() {
               <WexCard.Content className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <WexLabel>Email notifications</WexLabel>
+                    <WexLabel htmlFor="email-notifications">Email notifications</WexLabel>
                     <p className="text-sm text-muted-foreground">Receive emails about activity.</p>
                   </div>
-                  <WexSwitch defaultChecked />
+                  <WexSwitch id="email-notifications" defaultChecked aria-label="Email notifications" />
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <WexLabel>Push notifications</WexLabel>
+                    <WexLabel htmlFor="push-notifications">Push notifications</WexLabel>
                     <p className="text-sm text-muted-foreground">Receive push notifications.</p>
                   </div>
-                  <WexSwitch />
+                  <WexSwitch id="push-notifications" aria-label="Push notifications" />
                 </div>
               </WexCard.Content>
             </WexCard>
@@ -194,7 +194,7 @@ export default function CardPage() {
               </WexCard.Header>
               <WexCard.Content>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-green-600">+20.1%</span> from last month
+                  <span className="text-wex-text-success">+20.1%</span> from last month
                 </p>
               </WexCard.Content>
             </WexCard>

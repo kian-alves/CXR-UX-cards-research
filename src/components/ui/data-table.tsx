@@ -244,6 +244,7 @@ export function DataTablePagination<TData>({
             onChange={(e) => {
               table.setPageSize(Number(e.target.value))
             }}
+            aria-label="Rows per page"
             className="h-8 w-[70px] rounded-md border border-wex-datatable-filter-border bg-wex-datatable-filter-bg"
           >
             {[10, 20, 30, 40, 50].map((pageSize) => (

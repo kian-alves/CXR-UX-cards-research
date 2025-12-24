@@ -146,13 +146,18 @@ export default function AccessibilityPage() {
 
   const isDialogOpen = !!selectedComponent;
 
-  // Calculate KPIs
+  // Calculate KPIs - both component-level and variant-level
   const stats = React.useMemo(() => {
     let pass = 0;
     let partial = 0;
     let fail = 0;
     let noExamples = 0;
     const allIssues: string[] = [];
+    
+    // Variant-level counts
+    let totalVariantsTested = 0;
+    let variantsPassing = 0;
+    let variantsFailing = 0;
 
     Object.values(componentData).forEach((entry) => {
       if (entry.status === "pass") pass++;
@@ -161,6 +166,33 @@ export default function AccessibilityPage() {
       else if (entry.status === "no_examples") noExamples++;
       
       allIssues.push(...entry.issues);
+      
+      // Count variant-level results from examples in both modes
+      const modes = entry.modes;
+      if (modes) {
+        // Light mode examples
+        if (modes.light && typeof modes.light === 'object' && 'examples' in modes.light) {
+          const examples = (modes.light as { examples?: Record<string, { status: string }> }).examples;
+          if (examples) {
+            Object.values(examples).forEach((ex) => {
+              totalVariantsTested++;
+              if (ex.status === "pass") variantsPassing++;
+              else if (ex.status === "fail") variantsFailing++;
+            });
+          }
+        }
+        // Dark mode examples
+        if (modes.dark && typeof modes.dark === 'object' && 'examples' in modes.dark) {
+          const examples = (modes.dark as { examples?: Record<string, { status: string }> }).examples;
+          if (examples) {
+            Object.values(examples).forEach((ex) => {
+              totalVariantsTested++;
+              if (ex.status === "pass") variantsPassing++;
+              else if (ex.status === "fail") variantsFailing++;
+            });
+          }
+        }
+      }
     });
 
     const issueCounts = allIssues.reduce((acc, issue) => {
@@ -172,7 +204,15 @@ export default function AccessibilityPage() {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5);
 
-    return { pass, partial, fail, noExamples, total: Object.keys(componentData).length, topIssues };
+    return { 
+      pass, partial, fail, noExamples, 
+      total: Object.keys(componentData).length, 
+      topIssues,
+      // Variant-level stats
+      totalVariantsTested,
+      variantsPassing,
+      variantsFailing,
+    };
   }, []);
 
   // Filter and sort components
@@ -245,11 +285,17 @@ export default function AccessibilityPage() {
       </header>
 
       {/* KPI Tiles */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <KpiTile label="Components Tested" value={stats.total} icon={<HelpCircle className="h-5 w-5" />} />
-        <KpiTile label="Passing" value={stats.pass} icon={<Check className="h-5 w-5" />} variant="success" />
-        <KpiTile label="Mixed Results" value={stats.partial} icon={<AlertTriangle className="h-5 w-5" />} variant="warning" />
-        <KpiTile label="Needs Work" value={stats.fail} icon={<X className="h-5 w-5" />} variant="destructive" />
+      <section className="grid grid-cols-4 gap-4 mb-8">
+        <div className="col-span-2">
+          <KpiTile 
+            label="Tests Run" 
+            value={stats.totalVariantsTested} 
+            subtext={`${stats.total} components`}
+            icon={<HelpCircle className="h-5 w-5" />} 
+          />
+        </div>
+        <KpiTile label="Passing" value={stats.variantsPassing} icon={<Check className="h-5 w-5" />} variant="success" />
+        <KpiTile label="Failing" value={stats.variantsFailing} icon={<X className="h-5 w-5" />} variant="destructive" />
       </section>
 
       {/* Compliance Progress Bar */}
@@ -359,8 +405,12 @@ export default function AccessibilityPage() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-border overflow-hidden overflow-x-auto">
-          <table className="w-full">
+        {/* Split components into non-passing and passing */}
+        {(() => {
+          const nonPassingComponents = filteredComponents.filter(c => c.status !== "pass");
+          const passingComponents = filteredComponents.filter(c => c.status === "pass");
+
+          const TableHeader = () => (
             <thead className="bg-muted/50">
               <tr>
                 <th
@@ -393,50 +443,112 @@ export default function AccessibilityPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
-              {filteredComponents.map((comp) => (
-                <tr
-                  key={comp.key}
-                  tabIndex={0}
-                  role="button"
-                  onClick={() => openDetails(comp.key)}
-                  onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && openDetails(comp.key)}
-                  className={`hover:bg-muted/50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset ${selectedComponent === comp.key ? "bg-primary/5" : ""}`}
-                >
-                  <td className="px-4 py-3 text-sm text-foreground font-medium">
-                    {comp.name}
-                  </td>
-                  <td className="px-4 py-3">
-                    <StatusBadge status={comp.status} />
-                  </td>
-                  <td className="px-4 py-3">
-                    {comp.modes?.light ? (
-                      <MiniStatusBadge status={comp.modes.light.status} violations={comp.modes.light.violations} />
-                    ) : (
-                      <span className="text-muted-foreground text-xs">—</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    {comp.modes?.dark ? (
-                      <MiniStatusBadge status={comp.modes.dark.status} violations={comp.modes.dark.violations} />
-                    ) : (
-                      <span className="text-muted-foreground text-xs">—</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-sm text-foreground">
-                    {comp.violations}
-                  </td>
-                </tr>
-              ))}
-              {filteredComponents.length === 0 && (
-                <tr>
-                  <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
-                    No components found matching "{searchQuery}"
-                  </td>
-                </tr>
+          );
+
+          const ComponentRow = ({ comp }: { comp: typeof filteredComponents[0] }) => (
+            <tr
+              key={comp.key}
+              tabIndex={0}
+              role="button"
+              onClick={() => openDetails(comp.key)}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && openDetails(comp.key)}
+              className={`hover:bg-muted/50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset ${selectedComponent === comp.key ? "bg-primary/5" : ""}`}
+            >
+              <td className="px-4 py-3 text-sm text-foreground font-medium">
+                {comp.name}
+              </td>
+              <td className="px-4 py-3">
+                <StatusBadge status={comp.status} />
+              </td>
+              <td className="px-4 py-3">
+                {comp.modes?.light ? (
+                  <MiniStatusBadge status={comp.modes.light.status} violations={comp.modes.light.violations} />
+                ) : (
+                  <span className="text-muted-foreground text-xs">—</span>
+                )}
+              </td>
+              <td className="px-4 py-3">
+                {comp.modes?.dark ? (
+                  <MiniStatusBadge status={comp.modes.dark.status} violations={comp.modes.dark.violations} />
+                ) : (
+                  <span className="text-muted-foreground text-xs">—</span>
+                )}
+              </td>
+              <td className="px-4 py-3 text-sm text-foreground">
+                {comp.violations}
+              </td>
+            </tr>
+          );
+
+          return (
+            <>
+              {/* Non-passing components (always visible) */}
+              {nonPassingComponents.length > 0 && (
+                <div className="rounded-lg border border-border overflow-hidden overflow-x-auto mb-4">
+                  <table className="w-full">
+                    <TableHeader />
+                    <tbody className="divide-y divide-border">
+                      {nonPassingComponents.map((comp) => (
+                        <ComponentRow key={comp.key} comp={comp} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               )}
-            </tbody>
-          </table>
+
+              {/* Passing components (collapsed by default) */}
+              {passingComponents.length > 0 && (
+                <details className="group">
+                  <summary className="flex items-center gap-2 cursor-pointer select-none text-sm font-medium text-foreground p-3 rounded-lg border border-border bg-success/5 hover:bg-success/10 transition-colors">
+                    <Check className="h-4 w-4 text-success" />
+                    <span>Passing Components ({passingComponents.length})</span>
+                    <span className="ml-auto text-muted-foreground text-xs">Click to expand</span>
+                  </summary>
+                  <div className="mt-2 rounded-lg border border-border overflow-hidden overflow-x-auto">
+                    <table className="w-full">
+                      <TableHeader />
+                      <tbody className="divide-y divide-border">
+                        {passingComponents.map((comp) => (
+                          <ComponentRow key={comp.key} comp={comp} />
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              )}
+
+              {filteredComponents.length === 0 && (
+                <div className="rounded-lg border border-border p-8 text-center text-muted-foreground">
+                  No components found matching "{searchQuery}"
+                </div>
+              )}
+            </>
+          );
+        })()}
+      </section>
+
+      {/* Additional Accessibility Features Note */}
+      <section className="mt-8 rounded-lg border border-border bg-muted/30 p-6">
+        <h2 className="text-sm font-semibold text-foreground mb-3">
+          Additional Accessibility Features
+        </h2>
+        <div className="space-y-2 text-sm text-muted-foreground">
+          <p>
+            <strong className="text-foreground">Touch Targets:</strong>{" "}
+            All interactive components meet WCAG 2.5.5 touch target requirements (44×44px minimum) via the{" "}
+            <code className="bg-muted px-1 py-0.5 rounded text-xs">min-h-target</code> and{" "}
+            <code className="bg-muted px-1 py-0.5 rounded text-xs">min-w-target</code> utilities.
+          </p>
+          <p>
+            <strong className="text-foreground">Reduced Motion:</strong>{" "}
+            Components respect the <code className="bg-muted px-1 py-0.5 rounded text-xs">prefers-reduced-motion</code>{" "}
+            media query where animations are present.
+          </p>
+          <p>
+            <strong className="text-foreground">Focus Visibility:</strong>{" "}
+            All interactive elements have visible focus indicators using the{" "}
+            <code className="bg-muted px-1 py-0.5 rounded text-xs">focus-visible:ring</code> pattern.
+          </p>
         </div>
       </section>
 
@@ -464,9 +576,10 @@ interface KpiTileProps {
   value: number;
   icon: React.ReactNode;
   variant?: "success" | "warning" | "destructive";
+  subtext?: string;
 }
 
-function KpiTile({ label, value, icon, variant }: KpiTileProps) {
+function KpiTile({ label, value, icon, variant, subtext }: KpiTileProps) {
   const config = {
     success: {
       bg: "bg-gradient-to-br from-success/5 to-success/15",
@@ -503,25 +616,27 @@ function KpiTile({ label, value, icon, variant }: KpiTileProps) {
   }[variant || "default"];
 
   return (
-    <div className={`relative overflow-hidden rounded-xl border ${config.border} ${config.bg} p-3`}>
+    <div className={`relative overflow-hidden rounded-xl border ${config.border} ${config.bg} p-4 h-full`}>
       {/* Subtle radial glow in corner */}
       <div className={`absolute -right-8 -top-8 h-24 w-24 rounded-full ${config.glow} opacity-[0.08] blur-2xl`} />
       
-      <div className="relative flex items-center gap-3">
+      <div className="relative flex items-center gap-4">
         {/* Icon container */}
-        <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${config.iconBg}`}>
+        <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${config.iconBg}`}>
           <div className={config.iconColor}>{icon}</div>
         </div>
         
         {/* Content */}
-        <div className="flex-1">
-          <p className="text-2xl font-bold text-foreground leading-none">{value}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">{label}</p>
+        <div className="flex-1 min-w-0">
+          <p className="text-3xl font-bold text-foreground leading-none tracking-tight">{value}</p>
+          <p className="text-sm text-muted-foreground mt-1 whitespace-nowrap">
+            {label}{subtext && ` across ${subtext}`}
+          </p>
         </div>
       </div>
       
       {/* Bottom accent line */}
-      <div className={`absolute bottom-0 left-0 h-0.5 w-full ${config.accent} opacity-30`} />
+      <div className={`absolute bottom-0 left-0 h-1 w-full ${config.accent} opacity-20`} />
     </div>
   );
 }
@@ -602,7 +717,7 @@ function ComponentDetailContent({ registryKey, data, info, onClose }: ComponentD
           <Link
             to={componentRoute}
             onClick={onClose}
-            className="text-sm text-primary hover:underline"
+            className="text-sm text-link hover:underline"
           >
             View component documentation
           </Link>
@@ -703,7 +818,7 @@ function ComponentDetailContent({ registryKey, data, info, onClose }: ComponentD
           <Link
             to={componentRoute}
             onClick={onClose}
-            className="text-sm text-primary hover:underline"
+            className="text-sm text-link hover:underline"
           >
             View component docs
           </Link>

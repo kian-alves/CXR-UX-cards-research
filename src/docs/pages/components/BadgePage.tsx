@@ -114,18 +114,28 @@ export default function BadgePage() {
       {/* ============================================================
           VARIANTS (INTENT)
           ============================================================ */}
-      <Section title="Variants (Intent)" description="Semantic intent variants.">
-        <div className="space-y-4">
-          <ExampleCard title="All Intents">
-            <div className="flex flex-wrap gap-2">
-              <WexBadge intent="default">Default</WexBadge>
-              <WexBadge intent="secondary">Secondary</WexBadge>
-              <WexBadge intent="outline">Outline</WexBadge>
-              <WexBadge intent="success">Success</WexBadge>
-              <WexBadge intent="warning">Warning</WexBadge>
-              <WexBadge intent="destructive">Destructive</WexBadge>
-              <WexBadge intent="info">Info</WexBadge>
-            </div>
+      <Section title="Variants (Intent)" description="Semantic intent variants - each tested individually for accessibility.">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <ExampleCard title="Default">
+            <WexBadge intent="default">Default</WexBadge>
+          </ExampleCard>
+          <ExampleCard title="Secondary">
+            <WexBadge intent="secondary">Secondary</WexBadge>
+          </ExampleCard>
+          <ExampleCard title="Outline">
+            <WexBadge intent="outline">Outline</WexBadge>
+          </ExampleCard>
+          <ExampleCard title="Success">
+            <WexBadge intent="success">Success</WexBadge>
+          </ExampleCard>
+          <ExampleCard title="Warning">
+            <WexBadge intent="warning">Warning</WexBadge>
+          </ExampleCard>
+          <ExampleCard title="Destructive">
+            <WexBadge intent="destructive">Destructive</WexBadge>
+          </ExampleCard>
+          <ExampleCard title="Info">
+            <WexBadge intent="info">Info</WexBadge>
           </ExampleCard>
         </div>
       </Section>

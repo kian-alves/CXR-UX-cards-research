@@ -16,6 +16,30 @@ export default function ChangelogPage() {
 
       <div className="space-y-8">
         <ChangelogEntry
+          version="0.21.0"
+          date="December 23, 2025"
+          title="100% Accessibility Pass Rate"
+          changes={[
+            "A11y: All 56 components now pass accessibility tests (386 tests, 0 failures)",
+            "A11y: Fixed InputOTP route and manifest - now properly tested",
+            "A11y: Redesigned AccessibilityPage KPIs - consolidated into single row",
+            "A11y: Redesigned A11yResultsSection with light/dark mode indicators (☀️/🌙)",
+            "A11y: Added last tested date to component accessibility summaries",
+            "Tokens: Added adaptive text tokens (text-success, text-destructive, text-info, text-warning) for dark mode contrast",
+            "Tokens: Added link tokens (--wex-link, --wex-link-hover, --wex-link-active) with proper dark mode overrides",
+            "Tokens: Darkened success (green-700) and info (cyan-700) for WCAG 4.5:1 contrast",
+            "Components: Fixed Slider ARIA - labels now on thumbs, not root element",
+            "Components: Added grab/grabbing cursor to Slider thumb for better UX",
+            "Components: Fixed Tabs nested-interactive ARIA issue in ClosableTabsTrigger",
+            "Components: Fixed Field error text to use Layer 3 token for dark mode contrast",
+            "Styles: Added text selection styles (blue-100 light, blue-800 dark)",
+            "Manifest: Created a11y-test-manifest.json for explicit test control per component",
+            "Docs: Split Badge and Button pages into individual ExampleCards for granular testing",
+            "Docs: Updated 8 component pages with proper aria-labels",
+          ]}
+        />
+
+        <ChangelogEntry
           version="0.20.0"
           date="December 23, 2025"
           title="Layer 3 Complete Token Migration for axe-core Reliability"

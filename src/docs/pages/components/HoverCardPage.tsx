@@ -27,7 +27,7 @@ export default function HoverCardPage() {
         <ExampleCard>
           <WexHoverCard>
             <WexHoverCard.Trigger asChild>
-              <WexButton intent="ghost" className="text-primary underline underline-offset-4">@wexinc</WexButton>
+              <WexButton intent="ghost" className="text-link underline underline-offset-4">@wexinc</WexButton>
             </WexHoverCard.Trigger>
             <WexHoverCard.Content className="w-80">
               <div className="flex justify-between space-x-4">
@@ -62,7 +62,7 @@ export default function HoverCardPage() {
           <ExampleCard title="User Profile" description="Preview user information on hover.">
             <WexHoverCard>
               <WexHoverCard.Trigger asChild>
-                <WexButton intent="ghost" className="text-primary underline underline-offset-4">View Profile</WexButton>
+                <WexButton intent="ghost" className="text-link underline underline-offset-4">View Profile</WexButton>
               </WexHoverCard.Trigger>
               <WexHoverCard.Content className="w-80">
                 <div className="flex justify-between space-x-4">
@@ -89,7 +89,7 @@ export default function HoverCardPage() {
           <ExampleCard title="Link Preview" description="Preview external links on hover.">
             <WexHoverCard>
               <WexHoverCard.Trigger asChild>
-                <a href="#" className="inline-flex items-center gap-1 text-primary underline underline-offset-4 hover:text-primary/80">
+                <a href="#" className="inline-flex items-center gap-1 text-link underline underline-offset-4 hover:text-link-hover">
                   <ExternalLink className="h-4 w-4" />
                   External Link
                 </a>
@@ -112,7 +112,7 @@ export default function HoverCardPage() {
           <ExampleCard title="Repository Info" description="Preview repository details.">
             <WexHoverCard>
               <WexHoverCard.Trigger asChild>
-                <a href="#" className="inline-flex items-center gap-2 text-primary underline underline-offset-4 hover:text-primary/80">
+                <a href="#" className="inline-flex items-center gap-2 text-link underline underline-offset-4 hover:text-link-hover">
                   <Github className="h-4 w-4" />
                   wex-brand
                 </a>

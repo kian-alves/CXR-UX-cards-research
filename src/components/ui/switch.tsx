@@ -51,9 +51,10 @@ export interface SwitchProps
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   SwitchProps
->(({ className, switchSize, ...props }, ref) => (
+>(({ className, switchSize, "aria-label": ariaLabel = "Toggle", ...props }, ref) => (
   <SwitchPrimitives.Root
     className={cn(switchVariants({ switchSize }), className)}
+    aria-label={ariaLabel}
     {...props}
     ref={ref}
   >

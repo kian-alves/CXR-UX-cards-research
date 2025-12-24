@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 /**
- * A11y Report Generator (Simplified)
+ * A11y Report Generator
  *
  * Reads individual axe-core test results and generates the compliance.json
- * file used by the A11ySignalBadge component.
+ * file used by the A11yResultsSection component.
  *
- * SIMPLIFIED APPROACH:
- * - Tests scan all component examples on each page at once (not per-example)
- * - axe-core automatically deduplicates violations by element
- * - Results show pass/fail per component per mode
+ * FEATURES:
+ * - Per-example pass/fail tracking for the variant dropdown
+ * - Contrast ratio extraction (actual vs required) for color-contrast failures
+ * - Light and dark mode results
  *
  * THRESHOLD RULES:
  * - pass: 0 violations
@@ -53,6 +53,31 @@ function getCombinedStatus(lightStatus, darkStatus) {
   
   // Mixed: one passes, one fails
   return "partial";
+}
+
+/**
+ * Transform mode result to include examples object
+ */
+function transformModeResult(modeResult) {
+  if (!modeResult) return null;
+  
+  const status = modeResult.status || "no_examples";
+  
+  return {
+    status,
+    levelAchieved: determineLevelAchieved(status),
+    violations: modeResult.violations || 0,
+    issues: modeResult.issues || [],
+    examplesFound: modeResult.examplesFound || 0,
+    failingElements: modeResult.failingElements || [],
+    // NEW: Per-example results for the dropdown
+    examples: modeResult.examples || {},
+    examplesTested: modeResult.examplesTested || [],
+    examplesSkipped: modeResult.examplesSkipped || [],
+    // Count of passed/failed examples
+    examplesPassed: Object.values(modeResult.examples || {}).filter(e => e.status === "pass").length,
+    examplesFailed: Object.values(modeResult.examples || {}).filter(e => e.status === "fail").length,
+  };
 }
 
 function main() {
@@ -107,6 +132,12 @@ function main() {
     const combinedStatus = getCombinedStatus(lightStatus, darkStatus);
     const combinedLevel = determineLevelAchieved(combinedStatus);
 
+    // Get all unique example IDs from both modes
+    const allExampleIds = new Set([
+      ...Object.keys(lightResult?.examples || {}),
+      ...Object.keys(darkResult?.examples || {}),
+    ]);
+
     compliance[result.key] = {
       status: combinedStatus,
       levelAchieved: combinedLevel,
@@ -115,26 +146,13 @@ function main() {
       testedAt: result.testedAt,
       scope: result.scope || "component-examples-only",
       examplesFound: result.examplesFound || 0,
+      scenariosTested: Array.from(allExampleIds),
       subject: `Component examples for ${result.name}`,
       
-      // Mode-specific results
+      // Mode-specific results with per-example breakdown
       modes: {
-        light: lightResult ? {
-          status: lightStatus,
-          levelAchieved: determineLevelAchieved(lightStatus),
-          violations: lightResult.violations || 0,
-          issues: lightResult.issues || [],
-          examplesFound: lightResult.examplesFound || 0,
-          failingElements: lightResult.failingElements || [],
-        } : null,
-        dark: darkResult ? {
-          status: darkStatus,
-          levelAchieved: determineLevelAchieved(darkStatus),
-          violations: darkResult.violations || 0,
-          issues: darkResult.issues || [],
-          examplesFound: darkResult.examplesFound || 0,
-          failingElements: darkResult.failingElements || [],
-        } : null,
+        light: transformModeResult(lightResult),
+        dark: transformModeResult(darkResult),
       },
     };
 

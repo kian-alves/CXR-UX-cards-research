@@ -464,7 +464,7 @@ function PrimaryPreview() {
         <div className="flex flex-wrap gap-2">
           <WexButton size="sm">Primary</WexButton>
           <WexButton size="sm" disabled>Disabled</WexButton>
-          <a href="#" onClick={e => e.preventDefault()} className="text-primary text-sm hover:underline">Link</a>
+          <a href="#" onClick={e => e.preventDefault()} className="text-link text-sm hover:underline">Link</a>
         </div>
       </PreviewSection>
 

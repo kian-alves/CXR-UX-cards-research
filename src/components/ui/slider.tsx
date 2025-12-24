@@ -11,10 +11,17 @@ export interface SliderProps
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   SliderProps
->(({ className, orientation = "horizontal", showValue, value, defaultValue, ...props }, ref) => {
+>(({ className, orientation = "horizontal", showValue, value, defaultValue, "aria-label": ariaLabel = "Slider", ...props }, ref) => {
   const isVertical = orientation === "vertical"
   const currentValue = value ?? defaultValue ?? [0]
   const thumbCount = Array.isArray(currentValue) ? currentValue.length : 1
+
+  // Generate aria-labels for thumbs (range sliders get "min" and "max" labels)
+  const getThumbLabel = (index: number): string => {
+    if (thumbCount === 1) return ariaLabel
+    if (thumbCount === 2) return index === 0 ? `${ariaLabel} minimum` : `${ariaLabel} maximum`
+    return `${ariaLabel} value ${index + 1}`
+  }
 
   return (
     <div className={cn("relative", isVertical && "h-full")}>
@@ -48,7 +55,8 @@ const Slider = React.forwardRef<
         {Array.from({ length: thumbCount }).map((_, i) => (
           <SliderPrimitive.Thumb
             key={i}
-            className="block h-5 w-5 rounded-full border-2 border-wex-slider-thumb-border bg-wex-slider-thumb-bg shadow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wex-slider-focus-ring disabled:pointer-events-none disabled:opacity-[var(--wex-component-slider-disabled-opacity)]"
+            aria-label={getThumbLabel(i)}
+            className="block h-5 w-5 rounded-full border-2 border-wex-slider-thumb-border bg-wex-slider-thumb-bg shadow transition-colors cursor-grab active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wex-slider-focus-ring disabled:pointer-events-none disabled:opacity-[var(--wex-component-slider-disabled-opacity)]"
           />
         ))}
       </SliderPrimitive.Root>

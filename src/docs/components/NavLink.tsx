@@ -38,9 +38,9 @@ export const DocsNavLink = React.forwardRef<HTMLAnchorElement, DocsNavLinkProps>
             // Text color
             "text-foreground",
             // Hover state - lighter blue tint matching brand
-            "hover:bg-primary/5 hover:text-primary",
+            "hover:bg-link/5 hover:text-link",
             // Active state - subtle blue
-            isActive && "bg-primary/8 text-primary",
+            isActive && "bg-link/8 text-link",
             isActive && level === 2 && "font-semibold",
             isActive && level === 3 && "font-medium",
             // Focus ring - matches WexButton pattern

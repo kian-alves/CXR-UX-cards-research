@@ -117,34 +117,42 @@ export function DatePickerWithInput({
   }
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <div className={cn("relative", className)}>
-          <Input
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder={placeholder}
+    <div className={cn("relative", className)}>
+      <Input
+        value={inputValue}
+        onChange={handleInputChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        className={cn("pr-10", inputClassName)}
+        aria-label="Date input"
+      />
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
             disabled={disabled}
-            className={cn("pr-10", inputClassName)}
-            onFocus={() => setOpen(true)}
+            aria-label="Open calendar"
+          >
+            <CalendarIcon className="h-4 w-4 text-muted-foreground" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={(selectedDate) => {
+              onDateChange?.(selectedDate as Date | undefined)
+              setOpen(false)
+            }}
+            fromDate={fromDate}
+            toDate={toDate}
+            initialFocus
           />
-          <CalendarIcon className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-        </div>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={(selectedDate) => {
-            onDateChange?.(selectedDate as Date | undefined)
-            setOpen(false)
-          }}
-          fromDate={fromDate}
-          toDate={toDate}
-          initialFocus
-        />
-      </PopoverContent>
-    </Popover>
+        </PopoverContent>
+      </Popover>
+    </div>
   )
 }
 

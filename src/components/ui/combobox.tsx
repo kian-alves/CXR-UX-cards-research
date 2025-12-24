@@ -34,6 +34,8 @@ export interface ComboboxProps {
   emptyText?: string
   disabled?: boolean
   className?: string
+  /** Accessible label for the combobox trigger button */
+  "aria-label"?: string
 }
 
 export function Combobox({
@@ -45,6 +47,7 @@ export function Combobox({
   emptyText = "No option found.",
   disabled = false,
   className,
+  "aria-label": ariaLabel,
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false)
 
@@ -57,6 +60,7 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
+          aria-label={ariaLabel || placeholder}
           className={cn("w-full justify-between", className)}
           disabled={disabled}
         >

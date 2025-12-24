@@ -100,7 +100,7 @@
   --wex-component-button-tertiary-disabled-border: transparent;
   
   /* ----- Button: Success ----- */
-  --wex-component-button-success-bg: var(--wex-success);
+  --wex-component-button-success-bg: var(--wex-palette-green-700); /* One shade darker for WCAG contrast */
   --wex-component-button-success-fg: var(--wex-success-foreground);
   --wex-component-button-success-border: var(--wex-success);
   --wex-component-button-success-hover-bg: var(--wex-palette-green-600);
@@ -110,7 +110,7 @@
   --wex-component-button-success-disabled-fg: var(--wex-success-foreground);
   
   /* ----- Button: Info ----- */
-  --wex-component-button-info-bg: var(--wex-info);
+  --wex-component-button-info-bg: var(--wex-palette-cyan-700); /* Two shades darker for WCAG 4.5:1 contrast */
   --wex-component-button-info-fg: var(--wex-info-foreground);
   --wex-component-button-info-border: var(--wex-info);
   --wex-component-button-info-hover-bg: var(--wex-palette-cyan-600);
@@ -150,9 +150,9 @@
   --wex-component-button-contrast-disabled-fg: var(--wex-palette-slate-50);
   
   /* ----- Button: Link ----- */
-  --wex-component-button-link-fg: var(--wex-primary);
-  --wex-component-button-link-hover-fg: var(--wex-primary-hover);
-  --wex-component-button-link-active-fg: var(--wex-primary-active);
+  --wex-component-button-link-fg: var(--wex-link);
+  --wex-component-button-link-hover-fg: var(--wex-link-hover);
+  --wex-component-button-link-active-fg: var(--wex-link-active);
   --wex-component-button-link-disabled-fg: var(--wex-text-muted);
   
   /* ----- Button: Shared ----- */
@@ -279,25 +279,25 @@
   
   /* ----- Alert: Info (tinted style) ----- */
   --wex-component-alert-info-bg: var(--wex-palette-cyan-50);
-  --wex-component-alert-info-fg: var(--wex-info);
+  --wex-component-alert-info-fg: var(--wex-palette-cyan-700); /* Two shades darker for 4.5:1 contrast */
   --wex-component-alert-info-border: var(--wex-palette-cyan-200);
   --wex-component-alert-info-icon: var(--wex-info);
   
   /* ----- Alert: Success (tinted style) ----- */
   --wex-component-alert-success-bg: var(--wex-palette-green-50);
-  --wex-component-alert-success-fg: var(--wex-success);
+  --wex-component-alert-success-fg: var(--wex-palette-green-800); /* Two shades darker for 4.5:1 contrast */
   --wex-component-alert-success-border: var(--wex-palette-green-200);
   --wex-component-alert-success-icon: var(--wex-success);
   
   /* ----- Alert: Warning (tinted style) ----- */
   --wex-component-alert-warning-bg: var(--wex-palette-amber-50);
-  --wex-component-alert-warning-fg: var(--wex-warning);
+  --wex-component-alert-warning-fg: var(--wex-palette-amber-800); /* Three shades darker for 4.5:1 contrast */
   --wex-component-alert-warning-border: var(--wex-palette-amber-200);
   --wex-component-alert-warning-icon: var(--wex-warning);
   
   /* ----- Alert: Destructive (tinted style) ----- */
   --wex-component-alert-destructive-bg: var(--wex-palette-red-50);
-  --wex-component-alert-destructive-fg: var(--wex-destructive);
+  --wex-component-alert-destructive-fg: var(--wex-palette-red-600); /* One shade darker for contrast */
   --wex-component-alert-destructive-border: var(--wex-palette-red-200);
   --wex-component-alert-destructive-icon: var(--wex-destructive);
 
@@ -608,7 +608,7 @@
      ============================================================ */
   --wex-component-field-label-fg: var(--wex-text);
   --wex-component-field-description-fg: var(--wex-text-muted);
-  --wex-component-field-error-fg: var(--wex-destructive);
+  --wex-component-field-error-fg: var(--wex-palette-red-600); /* One shade darker for WCAG contrast */
   --wex-component-field-required-fg: var(--wex-destructive);
 
   /* ============================================================
@@ -656,6 +656,16 @@
   --wex-component-datatable-toolbar-fg: var(--wex-text);
   --wex-component-datatable-filter-bg: var(--wex-content-bg);
   --wex-component-datatable-filter-border: var(--wex-content-border);
+
+  /* ============================================================
+     TEXT UTILITY COLORS
+     ============================================================
+     For text on any background (light or dark mode aware)
+     ============================================================ */
+  --wex-component-text-success: var(--wex-success);
+  --wex-component-text-destructive: var(--wex-destructive);
+  --wex-component-text-info: var(--wex-info);
+  --wex-component-text-warning: var(--wex-warning);
 }
 
 /* ============================================================
@@ -695,6 +705,13 @@
   --wex-component-alert-destructive-bg: var(--wex-palette-red-900);
   --wex-component-alert-destructive-border: var(--wex-palette-red-700);
   
+  /* Alert text: white for contrast on dark tinted backgrounds */
+  --wex-component-alert-default-fg: var(--wex-palette-white);
+  --wex-component-alert-info-fg: var(--wex-palette-white);
+  --wex-component-alert-success-fg: var(--wex-palette-white);
+  --wex-component-alert-warning-fg: var(--wex-palette-white);
+  --wex-component-alert-destructive-fg: var(--wex-palette-white);
+  
   --wex-component-toast-info-bg: var(--wex-palette-cyan-900);
   --wex-component-toast-info-border: var(--wex-palette-cyan-700);
   
@@ -707,5 +724,26 @@
   /* ----- Tooltip: invert colors in dark mode ----- */
   --wex-component-tooltip-bg: var(--wex-palette-slate-50);
   --wex-component-tooltip-fg: var(--wex-palette-slate-900);
+  
+  /* ----- Text/Foreground uses of link color: now inherit from --wex-link tokens ----- */
+  /* Button link now uses --wex-link which has proper dark mode overrides */
+  
+  --wex-component-tabs-trigger-active-fg: var(--wex-link);
+  --wex-component-tabs-indicator: var(--wex-link);
+  
+  --wex-component-navmenu-indicator: var(--wex-link);
+  
+  --wex-component-sidebar-item-active-fg: var(--wex-link);
+  
+  --wex-component-item-selected-fg: var(--wex-link);
+  
+  /* ----- Field error: brighter red for contrast on dark backgrounds ----- */
+  --wex-component-field-error-fg: var(--wex-palette-red-300);
+
+  /* ----- Text utility colors: brighter for contrast on dark backgrounds ----- */
+  --wex-component-text-success: var(--wex-palette-green-400);
+  --wex-component-text-destructive: var(--wex-palette-red-400);
+  --wex-component-text-info: var(--wex-palette-cyan-400);
+  --wex-component-text-warning: var(--wex-palette-amber-400);
 }
 

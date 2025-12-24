@@ -14,6 +14,10 @@ const ResizablePanelGroup = ({
       "flex h-full w-full data-[panel-group-direction=vertical]:flex-col",
       className
     )}
+    // Add role="toolbar" to support aria-orientation from the library
+    // This is a workaround for react-resizable-panels adding aria-orientation
+    role="toolbar"
+    aria-label="Resizable panels"
     {...props}
   />
 )

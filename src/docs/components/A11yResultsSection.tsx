@@ -1,14 +1,15 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-import { Check, AlertTriangle, X, HelpCircle, ArrowRight, Sun, Moon, ChevronDown, ChevronUp } from "lucide-react";
-import { useA11yCompliance, useA11yExampleResults, type ComplianceResult, type ModeComplianceResult, type ExampleResult } from "@/docs/hooks/useA11yCompliance";
+import { Check, AlertTriangle, X, HelpCircle, ChevronDown, ChevronUp, FlaskConical, Sun, Moon } from "lucide-react";
+import { useA11yCompliance, useA11yExampleResults, type ComplianceResult, type ExampleResult } from "@/docs/hooks/useA11yCompliance";
 
 /**
- * A11yResultsSection - Lightweight accessibility results summary for component pages
+ * A11yResultsSection - Accessibility results summary for component pages
  *
- * Shows a summary of accessibility test results with a link to the full dashboard.
- * Now displays results for both light and dark modes with per-example breakdown.
- * Uses "signal" language only - this is NOT a compliance certification.
+ * Displays a compact summary of accessibility test results showing:
+ * - Overall pass/fail status with light/dark mode indicators
+ * - Contrast and ARIA check status
+ * - Collapsible variant details
+ * - Last tested date
  */
 
 interface A11yResultsSectionProps {
@@ -20,41 +21,28 @@ export function A11yResultsSection({ registryKey }: A11yResultsSectionProps) {
   const compliance = useA11yCompliance(registryKey);
 
   if (!compliance) {
-    return <NotTestedSection registryKey={registryKey} />;
+    return <NotTestedSection />;
   }
 
   return <ResultsSection compliance={compliance} registryKey={registryKey} />;
 }
 
-interface NotTestedSectionProps {
-  registryKey: string;
-}
-
-function NotTestedSection({ registryKey }: NotTestedSectionProps) {
+function NotTestedSection() {
   return (
     <section className="rounded-lg border border-border bg-card p-4 mb-8">
-      <div className="flex items-start gap-3">
-        <div className="p-2 rounded-full bg-muted">
-          <HelpCircle className="h-4 w-4 text-muted-foreground" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-foreground mb-1">
-            Accessibility Results
-          </h3>
-          <p className="text-sm text-muted-foreground mb-3">
-            No accessibility test results available for this component.
-          </p>
-          <div className="text-xs text-muted-foreground bg-muted/50 rounded p-2 mb-3 font-mono">
-            npm run test:a11y
-          </div>
-          <Link 
-            to={`/accessibility?component=${registryKey}`}
-            className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
-          >
-            View accessibility dashboard
-            <ArrowRight className="h-3 w-3" />
-          </Link>
-        </div>
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-semibold text-foreground">
+          Accessibility
+        </h3>
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium tracking-wide rounded border border-border bg-muted text-muted-foreground">
+          Not Tested
+        </span>
+      </div>
+      <p className="text-sm text-muted-foreground mb-2">
+        No accessibility test results available for this component.
+      </p>
+      <div className="text-xs text-muted-foreground bg-muted/50 rounded p-2 font-mono">
+        npm run test:a11y
       </div>
     </section>
   );
@@ -66,227 +54,163 @@ interface ResultsSectionProps {
 }
 
 function ResultsSection({ compliance, registryKey }: ResultsSectionProps) {
-  const { status, levelAchieved, violations, testedAt, issues, modes } = compliance;
-  const [showExamples, setShowExamples] = React.useState(false);
+  const { status, violations, issues, testedAt, modes } = compliance;
+  const [showVariants, setShowVariants] = React.useState(false);
   const exampleResults = useA11yExampleResults(registryKey);
 
   const statusConfig = getStatusConfig(status);
-  const testedDate = testedAt ? new Date(testedAt).toLocaleDateString() : "Never";
   
-  // Show top 2 issues inline
-  const topIssues = issues.slice(0, 2);
-  const remainingIssuesCount = issues.length - topIssues.length;
+  // Mode-specific statuses
+  const lightPassed = modes?.light?.status === "pass";
+  const darkPassed = modes?.dark?.status === "pass";
   
-  const hasModesData = modes && (modes.light || modes.dark);
+  // Determine check statuses
+  const hasContrastIssue = issues.includes("color-contrast");
+  const hasAriaIssue = issues.some(issue => 
+    issue.includes("aria") || 
+    issue.includes("label") || 
+    issue.includes("role") ||
+    issue.includes("name")
+  );
+  
+  const contrastPassed = !hasContrastIssue;
+  const ariaPassed = !hasAriaIssue;
+  
+  // Count variants tested
+  const variantsTested = exampleResults.length;
+  const variantsPassing = exampleResults.filter(
+    (e) => e.light?.status === "pass" && e.dark?.status === "pass"
+  ).length;
+  
   const hasExampleResults = exampleResults.length > 0;
   
-  // Check if any examples failed
-  const hasFailures = exampleResults.some(
-    (e) => e.light?.status === "fail" || e.dark?.status === "fail"
-  );
+  // Format date
+  const testedDate = testedAt ? new Date(testedAt).toLocaleDateString() : null;
 
   return (
-    <section className="rounded-lg border border-border bg-card p-4 mb-8">
-      <div className="flex items-start gap-3">
-        <div className={`p-2 rounded-full ${statusConfig.bgClass}`}>
-          {statusConfig.icon}
+    <section className="rounded-lg border border-border bg-card overflow-hidden mb-8">
+      {/* Header - compact with mode indicators */}
+      <div className="flex items-center justify-between gap-3 p-3 border-b border-border bg-muted/30">
+        <div className="flex items-center gap-3">
+          <h3 className="text-sm font-semibold text-foreground">Accessibility</h3>
+          <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded ${statusConfig.badgeClass}`}>
+            {statusConfig.icon}
+            {statusConfig.label}
+          </span>
         </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-sm font-semibold text-foreground">
-              Accessibility Results
-            </h3>
-            <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium tracking-wide rounded border ${statusConfig.badgeClass}`}>
-              {statusConfig.label}
-            </span>
-          </div>
-
-          {/* Mode-specific results */}
-          {hasModesData && (
-            <div className="flex flex-wrap gap-2 mt-2 mb-3">
-              {modes?.light && (
-                <ModeResultBadge mode="light" result={modes.light} />
-              )}
-              {modes?.dark && (
-                <ModeResultBadge mode="dark" result={modes.dark} />
-              )}
-            </div>
-          )}
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-2 text-xs mt-2 mb-3">
-            <div>
-              <span className="text-muted-foreground">Combined:</span>{" "}
-              <span className="text-foreground font-medium">{statusConfig.statusText}</span>
-            </div>
-            {levelAchieved && (
-              <div>
-                <span className="text-muted-foreground">Level:</span>{" "}
-                <span className="text-foreground font-medium">{levelAchieved}</span>
-              </div>
-            )}
-            <div>
-              <span className="text-muted-foreground">Total violations:</span>{" "}
-              <span className="text-foreground font-medium">{violations ?? 0}</span>
-            </div>
-            <div>
-              <span className="text-muted-foreground">Tested:</span>{" "}
-              <span className="text-foreground font-medium">{testedDate}</span>
-            </div>
-          </div>
-
-          {topIssues.length > 0 && (
-            <div className="text-xs mb-3">
-              <span className="text-muted-foreground">Top issues: </span>
-              <span className="text-foreground">
-                {topIssues.map((issue, i) => (
-                  <React.Fragment key={issue}>
-                    <code className="bg-muted px-1 rounded text-[10px]">{issue}</code>
-                    {i < topIssues.length - 1 && ", "}
-                  </React.Fragment>
-                ))}
-                {remainingIssuesCount > 0 && (
-                  <span className="text-muted-foreground"> +{remainingIssuesCount} more</span>
-                )}
-              </span>
-            </div>
-          )}
-
-          {/* Per-example results toggle */}
-          {hasExampleResults && (
-            <button
-              onClick={() => setShowExamples(!showExamples)}
-              className="flex items-center gap-1 text-xs text-primary hover:text-primary/80 mb-3"
-            >
-              {showExamples ? (
-                <>
-                  <ChevronUp className="h-3 w-3" />
-                  Hide variant details
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="h-3 w-3" />
-                  Show variant details ({exampleResults.length} examples{hasFailures && " - issues found"})
-                </>
-              )}
-            </button>
-          )}
-
-          {/* Per-example results table */}
-          {showExamples && hasExampleResults && (
-            <ExampleResultsTable exampleResults={exampleResults} />
-          )}
-
-          <p className="text-[10px] text-muted-foreground mb-3">
-            Tests run in both light and dark modes. WCAG level mapping based on automated ruleset coverage. This is a test signal, not a compliance certification.
-          </p>
-
-          <Link 
-            to={`/accessibility?component=${registryKey}`}
-            className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
+        <div className="flex items-center gap-1.5">
+          {/* Light mode indicator */}
+          <span 
+            className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] rounded ${
+              lightPassed ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"
+            }`}
+            title={lightPassed ? "Light mode passes" : "Light mode has issues"}
           >
-            View full details
-            <ArrowRight className="h-3 w-3" />
-          </Link>
+            <Sun className="h-3 w-3" />
+            {lightPassed ? "✓" : "✗"}
+          </span>
+          {/* Dark mode indicator */}
+          <span 
+            className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] rounded ${
+              darkPassed ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"
+            }`}
+            title={darkPassed ? "Dark mode passes" : "Dark mode has issues"}
+          >
+            <Moon className="h-3 w-3" />
+            {darkPassed ? "✓" : "✗"}
+          </span>
         </div>
       </div>
+
+      {/* Checks and violations row */}
+      <div className="flex items-center justify-between p-3 border-b border-border">
+        <div className="flex items-center gap-4">
+          <CheckIndicator passed={contrastPassed} label="Contrast" />
+          <CheckIndicator passed={ariaPassed} label="ARIA" />
+        </div>
+        <div className="text-sm">
+          {violations > 0 ? (
+            <span className="text-destructive font-medium">{violations} violation{violations !== 1 ? 's' : ''}</span>
+          ) : (
+            <span className="text-success font-medium">No violations</span>
+          )}
+        </div>
+      </div>
+
+      {/* Variant details toggle */}
+      {hasExampleResults && (
+        <button
+          onClick={() => setShowVariants(!showVariants)}
+          className="w-full flex items-center justify-between p-3 text-xs text-muted-foreground hover:bg-muted/50 transition-colors"
+        >
+          <span>
+            Show variant details ({variantsPassing}/{variantsTested} pass)
+          </span>
+          {showVariants ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+        </button>
+      )}
+
+      {/* Variant chips */}
+      {showVariants && hasExampleResults && (
+        <div className="px-3 pb-3 flex flex-wrap gap-2 border-t border-border pt-3">
+          {exampleResults.map((result) => {
+            const passed = result.light?.status === "pass" && result.dark?.status === "pass";
+            return (
+              <VariantChip 
+                key={result.exampleId} 
+                name={formatExampleId(result.exampleId)} 
+                passed={passed} 
+              />
+            );
+          })}
+        </div>
+      )}
+
+      {/* Footer with date */}
+      {testedDate && (
+        <div className="px-3 py-2 bg-muted/30 border-t border-border text-[10px] text-muted-foreground flex items-center gap-1.5">
+          <FlaskConical className="h-3 w-3" />
+          Last tested: {testedDate}
+        </div>
+      )}
     </section>
   );
 }
 
-interface ExampleResultsTableProps {
-  exampleResults: Array<{
-    exampleId: string;
-    light: ExampleResult | null;
-    dark: ExampleResult | null;
-  }>;
+interface CheckIndicatorProps {
+  passed: boolean;
+  label: string;
 }
 
-function ExampleResultsTable({ exampleResults }: ExampleResultsTableProps) {
+function CheckIndicator({ passed, label }: CheckIndicatorProps) {
   return (
-    <div className="mb-4 rounded border border-border overflow-hidden">
-      <table className="w-full text-xs">
-        <thead>
-          <tr className="bg-muted/50 border-b border-border">
-            <th className="text-left py-2 px-3 font-medium text-muted-foreground">Variant</th>
-            <th className="text-center py-2 px-3 font-medium text-muted-foreground">
-              <span className="flex items-center justify-center gap-1">
-                <Sun className="h-3 w-3" /> Light
-              </span>
-            </th>
-            <th className="text-center py-2 px-3 font-medium text-muted-foreground">
-              <span className="flex items-center justify-center gap-1">
-                <Moon className="h-3 w-3" /> Dark
-              </span>
-            </th>
-            <th className="text-left py-2 px-3 font-medium text-muted-foreground">Issues</th>
-          </tr>
-        </thead>
-        <tbody>
-          {exampleResults.map((result, index) => {
-            const lightStatus = result.light?.status ?? "pending";
-            const darkStatus = result.dark?.status ?? "pending";
-            
-            // Collect unique issues from both modes
-            const allIssues = [
-              ...(result.light?.issues || []),
-              ...(result.dark?.issues || []),
-            ];
-            const uniqueIssues = [...new Set(allIssues)];
-            
-            return (
-              <tr 
-                key={result.exampleId}
-                className={index % 2 === 0 ? "bg-background" : "bg-muted/20"}
-              >
-                <td className="py-2 px-3 font-mono text-foreground truncate max-w-[200px]">
-                  {formatExampleId(result.exampleId)}
-                </td>
-                <td className="py-2 px-3 text-center">
-                  <ExampleStatusIcon status={lightStatus} />
-                </td>
-                <td className="py-2 px-3 text-center">
-                  <ExampleStatusIcon status={darkStatus} />
-                </td>
-                <td className="py-2 px-3 text-muted-foreground truncate max-w-[200px]">
-                  {uniqueIssues.length > 0 ? (
-                    <span title={uniqueIssues.join(", ")}>
-                      {uniqueIssues.slice(0, 2).join(", ")}
-                      {uniqueIssues.length > 2 && ` +${uniqueIssues.length - 2}`}
-                    </span>
-                  ) : (
-                    "-"
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <span className={`inline-flex items-center gap-1.5 text-sm ${passed ? "text-success" : "text-destructive"}`}>
+      {passed ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
+      {label}
+    </span>
   );
 }
 
-function ExampleStatusIcon({ status }: { status: "pass" | "fail" | "pending" }) {
-  switch (status) {
-    case "pass":
-      return (
-        <span className="inline-flex items-center justify-center" title="Pass">
-          <Check className="h-4 w-4 text-success" />
-        </span>
-      );
-    case "fail":
-      return (
-        <span className="inline-flex items-center justify-center" title="Fail">
-          <X className="h-4 w-4 text-destructive" />
-        </span>
-      );
-    default:
-      return (
-        <span className="inline-flex items-center justify-center" title="Pending">
-          <HelpCircle className="h-3 w-3 text-muted-foreground" />
-        </span>
-      );
-  }
+interface VariantChipProps {
+  name: string;
+  passed: boolean;
+}
+
+function VariantChip({ name, passed }: VariantChipProps) {
+  return (
+    <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full ${
+      passed 
+        ? "bg-success/10 text-success" 
+        : "bg-destructive/10 text-destructive"
+    }`}>
+      {passed ? (
+        <Check className="h-3 w-3" />
+      ) : (
+        <X className="h-3 w-3" />
+      )}
+      {name}
+    </span>
+  );
 }
 
 /**
@@ -294,86 +218,19 @@ function ExampleStatusIcon({ status }: { status: "pass" | "fail" | "pending" }) 
  * Converts "example-0" to "Example 1", or uses the actual ID if it's descriptive
  */
 function formatExampleId(id: string): string {
-  // If it's a generic "example-N" ID, format it nicely
   if (id.startsWith("example-")) {
     const num = parseInt(id.replace("example-", ""), 10);
     return `Example ${num + 1}`;
   }
-  // Otherwise, format the ID (e.g., "all-severities" → "All Severities")
   return id
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
 
-interface ModeResultBadgeProps {
-  mode: "light" | "dark";
-  result: ModeComplianceResult;
-}
-
-function ModeResultBadge({ mode, result }: ModeResultBadgeProps) {
-  const config = getModeStatusConfig(result.status);
-  
-  // Show pass/fail counts if available
-  const countInfo = result.examplesPassed !== undefined && result.examplesFailed !== undefined
-    ? `${result.examplesPassed}/${result.examplesFound} passed`
-    : `${result.violations} violations`;
-  
-  return (
-    <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded ${config.bgClass}`}>
-      {mode === "light" ? (
-        <Sun className="h-3 w-3 text-muted-foreground" />
-      ) : (
-        <Moon className="h-3 w-3 text-muted-foreground" />
-      )}
-      <span className="capitalize text-muted-foreground">{mode}:</span>
-      {config.icon}
-      <span className={config.textClass}>{result.status.replace("_", " ")}</span>
-      <span className="text-muted-foreground">({countInfo})</span>
-    </span>
-  );
-}
-
-function getModeStatusConfig(status: ModeComplianceResult["status"]) {
-  switch (status) {
-    case "pass":
-      return {
-        icon: <Check className="h-3 w-3 text-success" />,
-        textClass: "text-success",
-        bgClass: "bg-success/5",
-      };
-    case "partial":
-      return {
-        icon: <AlertTriangle className="h-3 w-3 text-warning" />,
-        textClass: "text-warning",
-        bgClass: "bg-warning/5",
-      };
-    case "fail":
-      return {
-        icon: <X className="h-3 w-3 text-destructive" />,
-        textClass: "text-destructive",
-        bgClass: "bg-destructive/5",
-      };
-    case "no_examples":
-      return {
-        icon: <AlertTriangle className="h-3 w-3 text-warning" />,
-        textClass: "text-warning",
-        bgClass: "bg-warning/5",
-      };
-    default:
-      return {
-        icon: <HelpCircle className="h-3 w-3 text-muted-foreground" />,
-        textClass: "text-muted-foreground",
-        bgClass: "bg-muted",
-      };
-  }
-}
-
 interface StatusConfig {
   label: string;
-  statusText: string;
   icon: React.ReactNode;
-  bgClass: string;
   badgeClass: string;
 }
 
@@ -382,43 +239,33 @@ function getStatusConfig(status: ComplianceResult["status"]): StatusConfig {
     case "pass":
       return {
         label: "Pass",
-        statusText: "Passing",
-        icon: <Check className="h-4 w-4 text-success" />,
-        bgClass: "bg-success/10",
-        badgeClass: "border-success/50 bg-success/10 text-success",
+        icon: <Check className="h-3.5 w-3.5" />,
+        badgeClass: "border border-success/50 bg-success/10 text-success",
       };
     case "partial":
       return {
         label: "Partial",
-        statusText: "Partial",
-        icon: <AlertTriangle className="h-4 w-4 text-warning" />,
-        bgClass: "bg-warning/10",
-        badgeClass: "border-warning/50 bg-warning/10 text-warning",
+        icon: <AlertTriangle className="h-3.5 w-3.5" />,
+        badgeClass: "border border-warning/50 bg-warning/10 text-warning",
       };
     case "fail":
       return {
         label: "Fail",
-        statusText: "Failing",
-        icon: <X className="h-4 w-4 text-destructive" />,
-        bgClass: "bg-destructive/10",
-        badgeClass: "border-destructive/50 bg-destructive/10 text-destructive",
+        icon: <X className="h-3.5 w-3.5" />,
+        badgeClass: "border border-destructive/50 bg-destructive/10 text-destructive",
       };
     case "no_examples":
       return {
         label: "No Examples",
-        statusText: "No examples found",
-        icon: <AlertTriangle className="h-4 w-4 text-warning" />,
-        bgClass: "bg-warning/10",
-        badgeClass: "border-warning/50 bg-warning/10 text-warning",
+        icon: <AlertTriangle className="h-3.5 w-3.5" />,
+        badgeClass: "border border-warning/50 bg-warning/10 text-warning",
       };
     case "pending":
     default:
       return {
         label: "Pending",
-        statusText: "Pending",
-        icon: <HelpCircle className="h-4 w-4 text-muted-foreground" />,
-        bgClass: "bg-muted",
-        badgeClass: "border-border bg-muted text-muted-foreground",
+        icon: <HelpCircle className="h-3.5 w-3.5" />,
+        badgeClass: "border border-border bg-muted text-muted-foreground",
       };
   }
 }

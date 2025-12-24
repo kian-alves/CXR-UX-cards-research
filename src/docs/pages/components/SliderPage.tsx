@@ -36,7 +36,7 @@ export default function SliderPage() {
               value={volume} 
               onValueChange={setVolume} 
               max={100} 
-              step={1} 
+              step={1}
             />
           </div>
         </ExampleCard>
@@ -48,7 +48,7 @@ export default function SliderPage() {
       <Section title="Single Value" description="Standard slider with one thumb.">
         <ExampleCard title="Basic Slider">
           <div className="w-64">
-            <WexSlider defaultValue={[50]} max={100} />
+            <WexSlider defaultValue={[50]} max={100} aria-label="Basic slider" />
           </div>
         </ExampleCard>
       </Section>
@@ -103,7 +103,7 @@ export default function SliderPage() {
           <ExampleCard title="With Steps">
             <div className="w-full max-w-sm space-y-2">
               <WexLabel>Quality (step: 25)</WexLabel>
-              <WexSlider defaultValue={[50]} max={100} step={25} />
+              <WexSlider defaultValue={[50]} max={100} step={25} aria-label="Quality slider" />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>Low</span>
                 <span>Medium</span>

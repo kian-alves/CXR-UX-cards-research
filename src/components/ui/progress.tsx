@@ -17,7 +17,7 @@ export interface ProgressProps
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   ProgressProps
->(({ className, value, indeterminate, showLabel, labelFormat, ...props }, ref) => {
+>(({ className, value, indeterminate, showLabel, labelFormat, "aria-label": ariaLabel = "Progress", ...props }, ref) => {
   const displayValue = value ?? 0
   const label = labelFormat ? labelFormat(displayValue) : `${displayValue}%`
 
@@ -30,6 +30,7 @@ const Progress = React.forwardRef<
           className
         )}
         value={indeterminate ? undefined : value}
+        aria-label={ariaLabel}
         {...props}
       >
         <ProgressPrimitive.Indicator

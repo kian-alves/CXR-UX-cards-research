@@ -70,7 +70,7 @@ export default function GettingStartedPage() {
           <div className="flex items-center gap-2 text-sm">
             <Link 
               to="/architecture" 
-              className="text-primary hover:underline inline-flex items-center gap-1"
+              className="text-link hover:underline inline-flex items-center gap-1"
             >
               Learn about WEX architecture
               <ArrowRight className="h-3 w-3" />

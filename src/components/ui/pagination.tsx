@@ -158,7 +158,7 @@ const RowsPerPage = ({
   <div className={cn("flex items-center gap-2", className)}>
     <span className="text-sm text-wex-pagination-item-fg">Rows per page</span>
     <Select value={String(value)} onValueChange={(v) => onChange(Number(v))}>
-      <SelectTrigger className="h-8 w-[70px]">
+      <SelectTrigger className="h-8 w-[70px]" aria-label="Rows per page">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -249,6 +249,7 @@ const JumpToPage = ({
         onChange={(e) => setInputValue(e.target.value)}
         className="h-8 w-16 text-center"
         inputSize="sm"
+        aria-label="Page number"
       />
       <span className="text-sm text-wex-pagination-item-fg">of {totalPages}</span>
     </form>

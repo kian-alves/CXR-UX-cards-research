@@ -1,0 +1,2077 @@
+{
+  "_meta": {
+    "description": "A11y test manifest - defines which examples to test for color contrast",
+    "generatedAt": "2025-12-23T23:53:10.537Z",
+    "totalComponents": 57,
+    "howToUse": "Review this file, adjust 'test' flags as needed, then run tests"
+  },
+  "summary": {
+    "totalExamples": 242,
+    "toTest": 183,
+    "toSkip": 59,
+    "untitled": 81
+  },
+  "components": {
+    "accordion": {
+      "name": "WexAccordion",
+      "key": "accordion",
+      "route": "/components/accordion",
+      "totalExamples": 3,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "single-collapsible",
+          "title": "Single (Collapsible)",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "multiple",
+          "title": "Multiple",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 2,
+      "skipCount": 0
+    },
+    "alert-dialog": {
+      "name": "WexAlertDialog",
+      "key": "alert-dialog",
+      "route": "/components/alert-dialog",
+      "totalExamples": 3,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "confirmation",
+          "title": "Confirmation",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "destructive-action",
+          "title": "Destructive Action",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 2,
+      "skipCount": 0
+    },
+    "alert": {
+      "name": "WexAlert",
+      "key": "alert",
+      "route": "/components/alert",
+      "totalExamples": 8,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "destructive",
+          "title": "Destructive",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "success",
+          "title": "Success",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "warning",
+          "title": "Warning",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "info",
+          "title": "Info",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "with-icons",
+          "title": "With Icons",
+          "test": false,
+          "reason": "Duplicate (with icons?)"
+        },
+        {
+          "id": "without-title",
+          "title": "Without Title",
+          "test": false,
+          "reason": "Duplicate (without title)"
+        }
+      ],
+      "testCount": 5,
+      "skipCount": 2
+    },
+    "avatar": {
+      "name": "WexAvatar",
+      "key": "avatar",
+      "route": "/components/avatar",
+      "totalExamples": 7,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "all-sizes",
+          "title": "All Sizes",
+          "test": false,
+          "reason": "Duplicate (sizes?)"
+        },
+        {
+          "id": "circle-vs-square",
+          "title": "Circle vs Square",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "grouped-avatars",
+          "title": "Grouped Avatars",
+          "test": false,
+          "reason": "Duplicate (grouped)"
+        },
+        {
+          "id": "different-group-sizes",
+          "title": "Different Group Sizes",
+          "test": false,
+          "reason": "Duplicate (sizes?)"
+        },
+        {
+          "id": "status-indicators",
+          "title": "Status Indicators",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "badge-positions",
+          "title": "Badge Positions",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 3,
+      "skipCount": 3
+    },
+    "badge": {
+      "name": "WexBadge",
+      "key": "badge",
+      "route": "/components/badge",
+      "totalExamples": 15,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "all-sizes",
+          "title": "All Sizes",
+          "test": false,
+          "reason": "Size modifier (same colors)"
+        },
+        {
+          "id": "sizes-with-intents",
+          "title": "Sizes with Intents",
+          "test": false,
+          "reason": "Redundant (same colors as individual intents)"
+        },
+        {
+          "id": "default-vs-pill",
+          "title": "Default vs Pill",
+          "test": false,
+          "reason": "Shape modifier (same colors)"
+        },
+        {
+          "id": "pill-with-sizes",
+          "title": "Pill with Sizes",
+          "test": false,
+          "reason": "Shape/size modifier (same colors)"
+        },
+        {
+          "id": "default",
+          "title": "Default",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "secondary",
+          "title": "Secondary",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "outline",
+          "title": "Outline",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "success",
+          "title": "Success",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "warning",
+          "title": "Warning",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "destructive",
+          "title": "Destructive",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "info",
+          "title": "Info",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "status-indicators",
+          "title": "Status Indicators",
+          "test": false,
+          "reason": "Redundant (same colors as individual intents)"
+        },
+        {
+          "id": "counts",
+          "title": "Counts",
+          "test": false,
+          "reason": "Redundant (same colors)"
+        },
+        {
+          "id": "tags",
+          "title": "Tags",
+          "test": false,
+          "reason": "Redundant (uses secondary color)"
+        }
+      ],
+      "testCount": 7,
+      "skipCount": 7
+    },
+    "breadcrumb": {
+      "name": "WexBreadcrumb",
+      "key": "breadcrumb",
+      "route": "/components/breadcrumb",
+      "totalExamples": 2,
+      "untitledExamples": 2,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "button-group": {
+      "name": "WexButtonGroup",
+      "key": "button-group",
+      "route": "/components/button-group",
+      "totalExamples": 4,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "horizontal",
+          "title": "Horizontal",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "vertical",
+          "title": "Vertical",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-separator",
+          "title": "With Separator",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 3,
+      "skipCount": 0
+    },
+    "button": {
+      "name": "WexButton",
+      "key": "button",
+      "route": "/components/button",
+      "totalExamples": 16,
+      "untitledExamples": 2,
+      "examples": [
+        {
+          "id": "primary",
+          "title": "Primary",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "secondary",
+          "title": "Secondary",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "success",
+          "title": "Success",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "info",
+          "title": "Info",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "warning",
+          "title": "Warning",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "danger",
+          "title": "Danger",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "help",
+          "title": "Help",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "contrast",
+          "title": "Contrast",
+          "test": true,
+          "reason": "Unique color variant"
+        },
+        {
+          "id": "ghost",
+          "title": "Ghost",
+          "test": true,
+          "reason": "Unique style variant"
+        },
+        {
+          "id": "outline",
+          "title": "Outline",
+          "test": true,
+          "reason": "Unique style variant"
+        },
+        {
+          "id": "link",
+          "title": "Link",
+          "test": true,
+          "reason": "Unique style variant"
+        },
+        {
+          "id": "rounded-pill",
+          "title": "Rounded (Pill)",
+          "test": false,
+          "reason": "Shape modifier (same colors)"
+        },
+        {
+          "id": "loading-buttons",
+          "title": "Loading Buttons",
+          "test": false,
+          "reason": "State modifier (same colors)"
+        },
+        {
+          "id": "icon-size",
+          "title": "Icon Size",
+          "test": false,
+          "reason": "Size modifier (same colors)"
+        }
+      ],
+      "testCount": 11,
+      "skipCount": 3
+    },
+    "calendar": {
+      "name": "WexCalendar",
+      "key": "calendar",
+      "route": "/components/calendar",
+      "totalExamples": 8,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "single-date",
+          "title": "Single Date",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "multiple-dates",
+          "title": "Multiple Dates",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "date-range",
+          "title": "Date Range",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-default-month",
+          "title": "With Default Month",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-dates",
+          "title": "Disabled Dates",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "two-months",
+          "title": "Two Months",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-footer",
+          "title": "With Footer",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 6,
+      "skipCount": 1
+    },
+    "card": {
+      "name": "WexCard",
+      "key": "card",
+      "route": "/components/card",
+      "totalExamples": 9,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "elevated",
+          "title": "Elevated",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "outlined",
+          "title": "Outlined",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "flat",
+          "title": "Flat",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "form-card",
+          "title": "Form Card",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "settings-card",
+          "title": "Settings Card",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "user-profile-card",
+          "title": "User Profile Card",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "stats-card",
+          "title": "Stats Card",
+          "test": true,
+          "reason": "Uses adaptive text-wex-text-success for dark mode"
+        }
+      ],
+      "testCount": 8,
+      "skipCount": 0
+    },
+    "carousel": {
+      "name": "WexCarousel",
+      "key": "carousel",
+      "route": "/components/carousel",
+      "totalExamples": 1,
+      "untitledExamples": 1,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "chart": {
+      "name": "WexChart",
+      "key": "chart",
+      "route": "/components/chart",
+      "totalExamples": 5,
+      "untitledExamples": 0,
+      "examples": [
+        {
+          "id": "basic-bar-chart",
+          "title": "Basic Bar Chart",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "line-chart",
+          "title": "Line Chart",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "multi-series-bar-chart",
+          "title": "Multi-Series Bar Chart",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "area-chart",
+          "title": "Area Chart",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "pie-chart",
+          "title": "Pie Chart",
+          "test": false,
+          "reason": "Skip - Recharts SVG library (not WEX component)"
+        }
+      ],
+      "testCount": 5,
+      "skipCount": 0
+    },
+    "checkbox": {
+      "name": "WexCheckbox",
+      "key": "checkbox",
+      "route": "/components/checkbox",
+      "totalExamples": 8,
+      "untitledExamples": 2,
+      "examples": [
+        {
+          "id": "unchecked",
+          "title": "Unchecked",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "checked",
+          "title": "Checked",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-unchecked",
+          "title": "Disabled Unchecked",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "disabled-checked",
+          "title": "Disabled Checked",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "vertical-group",
+          "title": "Vertical Group",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "inline-group",
+          "title": "Inline Group",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 4,
+      "skipCount": 2
+    },
+    "collapsible": {
+      "name": "WexCollapsible",
+      "key": "collapsible",
+      "route": "/components/collapsible",
+      "totalExamples": 1,
+      "untitledExamples": 1,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "combobox": {
+      "name": "WexCombobox",
+      "key": "combobox",
+      "route": "/components/combobox",
+      "totalExamples": 4,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "basic",
+          "title": "Basic",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-custom-placeholders",
+          "title": "With Custom Placeholders",
+          "test": false,
+          "reason": "Duplicate (custom)"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        }
+      ],
+      "testCount": 1,
+      "skipCount": 2
+    },
+    "command": {
+      "name": "WexCommand",
+      "key": "command",
+      "route": "/components/command",
+      "totalExamples": 2,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "press-k-to-open",
+          "title": "Press ⌘K to open",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 1,
+      "skipCount": 0
+    },
+    "context-menu": {
+      "name": "WexContextMenu",
+      "key": "context-menu",
+      "route": "/components/context-menu",
+      "totalExamples": 2,
+      "untitledExamples": 2,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "data-table": {
+      "name": "WexDataTable",
+      "key": "data-table",
+      "route": "/components/data-table",
+      "totalExamples": 1,
+      "untitledExamples": 1,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "date-picker": {
+      "name": "WexDatePicker",
+      "key": "date-picker",
+      "route": "/components/date-picker",
+      "totalExamples": 5,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "basic",
+          "title": "Basic",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-input-field",
+          "title": "With Input Field",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-date-range",
+          "title": "With Date Range",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        }
+      ],
+      "testCount": 3,
+      "skipCount": 1
+    },
+    "dialog": {
+      "name": "WexDialog",
+      "key": "dialog",
+      "route": "/components/dialog",
+      "totalExamples": 4,
+      "untitledExamples": 4,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "drawer": {
+      "name": "WexDrawer",
+      "key": "drawer",
+      "route": "/components/drawer",
+      "totalExamples": 5,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "simple",
+          "title": "Simple",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-form",
+          "title": "With Form",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-footer-actions",
+          "title": "With Footer Actions",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "controlled",
+          "title": "Controlled",
+          "test": false,
+          "reason": "Duplicate (controlled)"
+        }
+      ],
+      "testCount": 3,
+      "skipCount": 1
+    },
+    "dropdown-menu": {
+      "name": "WexDropdownMenu",
+      "key": "dropdown-menu",
+      "route": "/components/dropdown-menu",
+      "totalExamples": 7,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "with-keyboard-shortcuts",
+          "title": "With Keyboard Shortcuts",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-submenus",
+          "title": "With Submenus",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-checkboxes",
+          "title": "With Checkboxes",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-radio-items",
+          "title": "With Radio Items",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-disabled-items",
+          "title": "With Disabled Items",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "with-groups",
+          "title": "With Groups",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 5,
+      "skipCount": 1
+    },
+    "empty": {
+      "name": "WexEmpty",
+      "key": "empty",
+      "route": "/components/empty",
+      "totalExamples": 3,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "search-empty",
+          "title": "Search Empty",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "file-not-found",
+          "title": "File Not Found",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 2,
+      "skipCount": 0
+    },
+    "field": {
+      "name": "WexField",
+      "key": "field",
+      "route": "/components/field",
+      "totalExamples": 5,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "with-error",
+          "title": "With Error",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "horizontal-layout",
+          "title": "Horizontal Layout",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "field-group",
+          "title": "Field Group",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "fieldset-with-legend",
+          "title": "Fieldset with Legend",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 4,
+      "skipCount": 0
+    },
+    "form": {
+      "name": "WexForm",
+      "key": "form",
+      "route": "/components/form",
+      "totalExamples": 18,
+      "untitledExamples": 2,
+      "examples": [
+        {
+          "id": "text-input",
+          "title": "Text Input",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "email-input",
+          "title": "Email Input",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "password-input",
+          "title": "Password Input",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "number-input",
+          "title": "Number Input",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-input",
+          "title": "Disabled Input",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "default-textarea",
+          "title": "Default Textarea",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-textarea",
+          "title": "Disabled Textarea",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "basic-select",
+          "title": "Basic Select",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-select",
+          "title": "Disabled Select",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "single-checkbox",
+          "title": "Single Checkbox",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "checkbox-group",
+          "title": "Checkbox Group",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-checkbox",
+          "title": "Disabled Checkbox",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "basic-radio-group",
+          "title": "Basic Radio Group",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "basic-switch",
+          "title": "Basic Switch",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "switch-with-default-on",
+          "title": "Switch with Default On",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-switch",
+          "title": "Disabled Switch",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        }
+      ],
+      "testCount": 11,
+      "skipCount": 5
+    },
+    "hover-card": {
+      "name": "WexHoverCard",
+      "key": "hover-card",
+      "route": "/components/hover-card",
+      "totalExamples": 5,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "user-profile",
+          "title": "User Profile",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "link-preview",
+          "title": "Link Preview",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "repository-info",
+          "title": "Repository Info",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "different-alignments",
+          "title": "Different Alignments",
+          "test": false,
+          "reason": "Duplicate (alignment)"
+        }
+      ],
+      "testCount": 3,
+      "skipCount": 1
+    },
+    "input-group": {
+      "name": "WexInputGroup",
+      "key": "input-group",
+      "route": "/components/input-group",
+      "totalExamples": 5,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "with-icon-start",
+          "title": "With Icon Start",
+          "test": false,
+          "reason": "Duplicate (with icons?)"
+        },
+        {
+          "id": "with-icon-end",
+          "title": "With Icon End",
+          "test": false,
+          "reason": "Duplicate (with icons?)"
+        },
+        {
+          "id": "with-text",
+          "title": "With Text",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-button",
+          "title": "With Button",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 2,
+      "skipCount": 2
+    },
+    "input-otp": {
+      "name": "WexInputOTP",
+      "key": "input-otp",
+      "route": "/components/input-otp",
+      "totalExamples": 1,
+      "untitledExamples": 0,
+      "examples": [
+        {
+          "id": "verification-code",
+          "title": "Verification Code",
+          "test": true,
+          "reason": "Default OTP input"
+        }
+      ],
+      "testCount": 1,
+      "skipCount": 0
+    },
+    "input": {
+      "name": "WexInput",
+      "key": "input",
+      "route": "/components/input",
+      "totalExamples": 18,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "all-sizes",
+          "title": "All Sizes",
+          "test": false,
+          "reason": "Duplicate (sizes?)"
+        },
+        {
+          "id": "default-outlined",
+          "title": "Default (Outlined)",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "filled",
+          "title": "Filled",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "left-icon",
+          "title": "Left Icon",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "right-icon-interactive",
+          "title": "Right Icon (Interactive)",
+          "test": false,
+          "reason": "Duplicate (interactive)"
+        },
+        {
+          "id": "both-icons-interactive-password",
+          "title": "Both Icons (Interactive Password)",
+          "test": false,
+          "reason": "Duplicate (interactive)"
+        },
+        {
+          "id": "invalid-input",
+          "title": "Invalid Input",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "invalid-with-icon",
+          "title": "Invalid with Icon",
+          "test": false,
+          "reason": "Duplicate (with icons?)"
+        },
+        {
+          "id": "text",
+          "title": "Text",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "email",
+          "title": "Email",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "password",
+          "title": "Password",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "number",
+          "title": "Number",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "search",
+          "title": "Search",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "url",
+          "title": "URL",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "default",
+          "title": "Default",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "read-only",
+          "title": "Read Only",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 12,
+      "skipCount": 5
+    },
+    "item": {
+      "name": "WexItem",
+      "key": "item",
+      "route": "/components/item",
+      "totalExamples": 4,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "with-icon-media",
+          "title": "With Icon Media",
+          "test": false,
+          "reason": "Duplicate (with icons?)"
+        },
+        {
+          "id": "multiple-items",
+          "title": "Multiple Items",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-header-and-footer",
+          "title": "With Header and Footer",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 2,
+      "skipCount": 1
+    },
+    "kbd": {
+      "name": "WexKbd",
+      "key": "kbd",
+      "route": "/components/kbd",
+      "totalExamples": 4,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "single-key",
+          "title": "Single Key",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "modifier-keys",
+          "title": "Modifier Keys",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "key-combinations",
+          "title": "Key Combinations",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 3,
+      "skipCount": 0
+    },
+    "label": {
+      "name": "WexLabel",
+      "key": "label",
+      "route": "/components/label",
+      "totalExamples": 3,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "with-input",
+          "title": "With Input",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "required-field",
+          "title": "Required Field",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 2,
+      "skipCount": 0
+    },
+    "menubar": {
+      "name": "WexMenubar",
+      "key": "menubar",
+      "route": "/components/menubar",
+      "totalExamples": 2,
+      "untitledExamples": 2,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "navigation-menu": {
+      "name": "WexNavigationMenu",
+      "key": "navigation-menu",
+      "route": "/components/navigation-menu",
+      "totalExamples": 2,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "focus-state",
+          "title": "Focus State",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 1,
+      "skipCount": 0
+    },
+    "pagination": {
+      "name": "WexPagination",
+      "key": "pagination",
+      "route": "/components/pagination",
+      "totalExamples": 6,
+      "untitledExamples": 6,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "popover": {
+      "name": "WexPopover",
+      "key": "popover",
+      "route": "/components/popover",
+      "totalExamples": 7,
+      "untitledExamples": 3,
+      "examples": [
+        {
+          "id": "simple-content",
+          "title": "Simple Content",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "date-picker",
+          "title": "Date Picker",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-form",
+          "title": "With Form",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "user-card",
+          "title": "User Card",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 4,
+      "skipCount": 0
+    },
+    "progress": {
+      "name": "WexProgress",
+      "key": "progress",
+      "route": "/components/progress",
+      "totalExamples": 8,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "indeterminate-progress",
+          "title": "Indeterminate Progress",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "labeled-progress",
+          "title": "Labeled Progress",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "custom-label-format",
+          "title": "Custom Label Format",
+          "test": false,
+          "reason": "Duplicate (custom)"
+        },
+        {
+          "id": "click-to-start",
+          "title": "Click to Start",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "file-upload",
+          "title": "File Upload",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "multi-step-process",
+          "title": "Multi-step Process",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "loading-state",
+          "title": "Loading State",
+          "test": false,
+          "reason": "Duplicate (loading)"
+        }
+      ],
+      "testCount": 5,
+      "skipCount": 2
+    },
+    "radio-group": {
+      "name": "WexRadioGroup",
+      "key": "radio-group",
+      "route": "/components/radio-group",
+      "totalExamples": 4,
+      "untitledExamples": 2,
+      "examples": [
+        {
+          "id": "horizontal",
+          "title": "Horizontal",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-disabled-options",
+          "title": "With Disabled Options",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        }
+      ],
+      "testCount": 1,
+      "skipCount": 1
+    },
+    "resizable": {
+      "name": "WexResizable",
+      "key": "resizable",
+      "route": "/components/resizable",
+      "totalExamples": 1,
+      "untitledExamples": 1,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "scroll-area": {
+      "name": "WexScrollArea",
+      "key": "scroll-area",
+      "route": "/components/scroll-area",
+      "totalExamples": 1,
+      "untitledExamples": 1,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "select": {
+      "name": "WexSelect",
+      "key": "select",
+      "route": "/components/select",
+      "totalExamples": 8,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "basic-select",
+          "title": "Basic Select",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "grouped-options",
+          "title": "Grouped Options",
+          "test": false,
+          "reason": "Duplicate (grouped)"
+        },
+        {
+          "id": "with-default-value",
+          "title": "With Default Value",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "required-field",
+          "title": "Required Field",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "default",
+          "title": "Default",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "disabled-option",
+          "title": "Disabled Option",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        }
+      ],
+      "testCount": 4,
+      "skipCount": 3
+    },
+    "separator": {
+      "name": "WexSeparator",
+      "key": "separator",
+      "route": "/components/separator",
+      "totalExamples": 3,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "horizontal",
+          "title": "Horizontal",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "vertical",
+          "title": "Vertical",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 2,
+      "skipCount": 0
+    },
+    "sheet": {
+      "name": "WexSheet",
+      "key": "sheet",
+      "route": "/components/sheet",
+      "totalExamples": 4,
+      "untitledExamples": 4,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "sidebar": {
+      "name": "WexSidebar",
+      "key": "sidebar",
+      "route": "/components/sidebar",
+      "totalExamples": 2,
+      "untitledExamples": 2,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "skeleton": {
+      "name": "WexSkeleton",
+      "key": "skeleton",
+      "route": "/components/skeleton",
+      "totalExamples": 13,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "rectangle-default",
+          "title": "Rectangle (Default)",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "circle",
+          "title": "Circle",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "text",
+          "title": "Text",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "pulse-default",
+          "title": "Pulse (Default)",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "wave",
+          "title": "Wave",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "none",
+          "title": "None",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "skeletoncard",
+          "title": "SkeletonCard",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "skeletonlist",
+          "title": "SkeletonList",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "skeletonlist-with-5-items",
+          "title": "SkeletonList with 5 items",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "user-profile",
+          "title": "User Profile",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "article-preview",
+          "title": "Article Preview",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "table-row",
+          "title": "Table Row",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 12,
+      "skipCount": 0
+    },
+    "slider": {
+      "name": "WexSlider",
+      "key": "slider",
+      "route": "/components/slider",
+      "totalExamples": 7,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "basic-slider",
+          "title": "Basic Slider",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "price-range",
+          "title": "Price Range",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "time-range",
+          "title": "Time Range",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-steps",
+          "title": "With Steps",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "custom-range",
+          "title": "Custom Range",
+          "test": false,
+          "reason": "Duplicate (custom)"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        }
+      ],
+      "testCount": 4,
+      "skipCount": 2
+    },
+    "sonner": {
+      "name": "WexSonner",
+      "key": "sonner",
+      "route": "/components/sonner",
+      "totalExamples": 5,
+      "untitledExamples": 5,
+      "examples": [],
+      "testCount": 0,
+      "skipCount": 0
+    },
+    "spinner": {
+      "name": "WexSpinner",
+      "key": "spinner",
+      "route": "/components/spinner",
+      "totalExamples": 4,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "sizes",
+          "title": "Sizes",
+          "test": false,
+          "reason": "Duplicate (sizes?)"
+        },
+        {
+          "id": "in-button",
+          "title": "In Button",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "page-loading",
+          "title": "Page Loading",
+          "test": false,
+          "reason": "Duplicate (loading)"
+        }
+      ],
+      "testCount": 1,
+      "skipCount": 2
+    },
+    "switch": {
+      "name": "WexSwitch",
+      "key": "switch",
+      "route": "/components/switch",
+      "totalExamples": 6,
+      "untitledExamples": 2,
+      "examples": [
+        {
+          "id": "off",
+          "title": "Off",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "on",
+          "title": "On",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-off",
+          "title": "Disabled Off",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "disabled-on",
+          "title": "Disabled On",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        }
+      ],
+      "testCount": 2,
+      "skipCount": 2
+    },
+    "table": {
+      "name": "WexTable",
+      "key": "table",
+      "route": "/components/table",
+      "totalExamples": 8,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "striped-table",
+          "title": "Striped Table",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "table-with-gridlines",
+          "title": "Table with Gridlines",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "striped-with-gridlines",
+          "title": "Striped with Gridlines",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "small",
+          "title": "Small",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "large",
+          "title": "Large",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-status-badges",
+          "title": "With Status Badges",
+          "test": false,
+          "reason": "Skip - badges are tested separately on BadgePage"
+        },
+        {
+          "id": "selectable-rows",
+          "title": "Selectable Rows",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 7,
+      "skipCount": 0
+    },
+    "tabs": {
+      "name": "WexTabs",
+      "key": "tabs",
+      "route": "/components/tabs",
+      "totalExamples": 7,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "scrollable-tab-list",
+          "title": "Scrollable Tab List",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "closable-tabs",
+          "title": "Closable Tabs",
+          "test": false,
+          "reason": "Skip - closable tabs use buttons inside tablist which violates aria-required-children"
+        },
+        {
+          "id": "full-width-tabs",
+          "title": "Full-Width Tabs",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "tabs-in-card",
+          "title": "Tabs in Card",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-tab",
+          "title": "Disabled Tab",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "controlled-tabs",
+          "title": "Controlled Tabs",
+          "test": false,
+          "reason": "Duplicate (controlled)"
+        }
+      ],
+      "testCount": 4,
+      "skipCount": 2
+    },
+    "textarea": {
+      "name": "WexTextarea",
+      "key": "textarea",
+      "route": "/components/textarea",
+      "totalExamples": 9,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "all-sizes",
+          "title": "All Sizes",
+          "test": false,
+          "reason": "Duplicate (sizes?)"
+        },
+        {
+          "id": "auto-resize-demo",
+          "title": "Auto-Resize Demo",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "with-character-count",
+          "title": "With Character Count",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "required-field",
+          "title": "Required Field",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "default",
+          "title": "Default",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "read-only",
+          "title": "Read Only",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "non-resizable",
+          "title": "Non-Resizable",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 6,
+      "skipCount": 2
+    },
+    "toast": {
+      "name": "WexToast",
+      "key": "toast",
+      "route": "/components/toast",
+      "totalExamples": 9,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "success",
+          "title": "Success",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "error",
+          "title": "Error",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "warning",
+          "title": "Warning",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "info",
+          "title": "Info",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "with-description",
+          "title": "With Description",
+          "test": false,
+          "reason": "Duplicate (with description)"
+        },
+        {
+          "id": "with-action",
+          "title": "With Action",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "loading",
+          "title": "Loading",
+          "test": false,
+          "reason": "Duplicate (loading)"
+        }
+      ],
+      "testCount": 6,
+      "skipCount": 2
+    },
+    "toggle-group": {
+      "name": "WexToggleGroup",
+      "key": "toggle-group",
+      "route": "/components/toggle-group",
+      "totalExamples": 3,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "single",
+          "title": "Single",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "multiple",
+          "title": "Multiple",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 2,
+      "skipCount": 0
+    },
+    "toggle": {
+      "name": "WexToggle",
+      "key": "toggle",
+      "route": "/components/toggle",
+      "totalExamples": 12,
+      "untitledExamples": 0,
+      "examples": [
+        {
+          "id": "text-formatting-toolbar",
+          "title": "Text Formatting Toolbar",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "default",
+          "title": "Default",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "outline",
+          "title": "Outline",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "with-text",
+          "title": "With Text",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "small-sm",
+          "title": "Small (sm)",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "default",
+          "title": "Default",
+          "test": true,
+          "reason": "Color variant"
+        },
+        {
+          "id": "large-lg",
+          "title": "Large (lg)",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "controlled-state",
+          "title": "Controlled State",
+          "test": false,
+          "reason": "Duplicate (controlled)"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        },
+        {
+          "id": "focus-state",
+          "title": "Focus State",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "alignment-toolbar",
+          "title": "Alignment Toolbar",
+          "test": false,
+          "reason": "Duplicate (alignment)"
+        },
+        {
+          "id": "feature-toggle",
+          "title": "Feature Toggle",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        }
+      ],
+      "testCount": 9,
+      "skipCount": 3
+    },
+    "tooltip": {
+      "name": "WexTooltip",
+      "key": "tooltip",
+      "route": "/components/tooltip",
+      "totalExamples": 6,
+      "untitledExamples": 2,
+      "examples": [
+        {
+          "id": "different-delays",
+          "title": "Different Delays",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "icon-buttons",
+          "title": "Icon Buttons",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "truncated-text",
+          "title": "Truncated Text",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "disabled-button-explanation",
+          "title": "Disabled Button Explanation",
+          "test": false,
+          "reason": "Duplicate (disabled)"
+        }
+      ],
+      "testCount": 3,
+      "skipCount": 1
+    }
+  }
+}

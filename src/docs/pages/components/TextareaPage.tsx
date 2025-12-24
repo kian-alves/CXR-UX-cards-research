@@ -124,17 +124,18 @@ export default function TextareaPage() {
       <Section title="States" description="Interactive and visual states.">
         <div className="space-y-4 max-w-md">
           <ExampleCard title="Default">
-            <WexTextarea placeholder="Default textarea" />
+            <WexTextarea placeholder="Default textarea" aria-label="Default textarea" />
           </ExampleCard>
 
           <ExampleCard title="Disabled">
-            <WexTextarea disabled placeholder="Disabled textarea" />
+            <WexTextarea disabled placeholder="Disabled textarea" aria-label="Disabled textarea" />
           </ExampleCard>
 
           <ExampleCard title="Read Only">
             <WexTextarea 
               readOnly 
               defaultValue="This content is read-only and cannot be modified."
+              aria-label="Read only content"
             />
           </ExampleCard>
 
@@ -142,6 +143,7 @@ export default function TextareaPage() {
             <WexTextarea 
               placeholder="Cannot resize this textarea..." 
               className="resize-none"
+              aria-label="Non-resizable textarea"
             />
           </ExampleCard>
         </div>

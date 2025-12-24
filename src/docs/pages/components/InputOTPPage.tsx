@@ -24,7 +24,7 @@ export default function InputOTPPage() {
       registryKey="input-otp"
     >
       <Section title="Overview">
-        <ExampleCard>
+        <ExampleCard title="Verification Code">
           <div className="space-y-2">
             <label id="otp-label" className="text-sm font-medium text-foreground">
               Enter verification code
