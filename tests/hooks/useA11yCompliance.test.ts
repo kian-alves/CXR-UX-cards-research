@@ -38,7 +38,7 @@ describe("useA11yCompliance", () => {
       expect(result.status).toMatch(/^(pass|partial|fail|pending|no_examples)$/);
       expect(typeof result.violations).toBe("number");
       expect(Array.isArray(result.issues)).toBe(true);
-      expect(result.scope).toBe("component-examples-only");
+      expect(result.scope).toBe("manifest-driven");
     }
   });
 
