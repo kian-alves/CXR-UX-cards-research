@@ -60,3 +60,19 @@ Object.defineProperty(window, "IntersectionObserver", {
   value: IntersectionObserverMock,
 });
 
+// Mock document.elementFromPoint (used by input-otp library)
+if (!document.elementFromPoint) {
+  document.elementFromPoint = () => null;
+}
+
+// Mock hasPointerCapture (used by Radix UI select)
+if (!Element.prototype.hasPointerCapture) {
+  Element.prototype.hasPointerCapture = () => false;
+}
+if (!Element.prototype.setPointerCapture) {
+  Element.prototype.setPointerCapture = () => {};
+}
+if (!Element.prototype.releasePointerCapture) {
+  Element.prototype.releasePointerCapture = () => {};
+}
+
