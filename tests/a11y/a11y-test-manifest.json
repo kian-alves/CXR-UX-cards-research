@@ -858,6 +858,59 @@
       "testCount": 4,
       "skipCount": 0
     },
+    "float-label": {
+      "name": "WexFloatLabel",
+      "key": "float-label",
+      "route": "/components/float-label",
+      "totalExamples": 7,
+      "untitledExamples": 1,
+      "examples": [
+        {
+          "id": "all-sizes",
+          "title": "All Sizes",
+          "test": false,
+          "reason": "Duplicate (sizes)"
+        },
+        {
+          "id": "email",
+          "title": "Email",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "password",
+          "title": "Password",
+          "test": true,
+          "reason": "Default (unknown pattern)"
+        },
+        {
+          "id": "number",
+          "title": "Number",
+          "test": false,
+          "reason": "Duplicate (input type)"
+        },
+        {
+          "id": "invalid-state",
+          "title": "Invalid State",
+          "test": true,
+          "reason": "Validation state"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "test": true,
+          "reason": "Disabled state"
+        },
+        {
+          "id": "controlled",
+          "title": "Controlled",
+          "test": false,
+          "reason": "Duplicate (stateful demo)"
+        }
+      ],
+      "testCount": 4,
+      "skipCount": 3
+    },
     "form": {
       "name": "WexForm",
       "key": "form",

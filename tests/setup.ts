@@ -7,6 +7,10 @@
  */
 
 import "@testing-library/jest-dom/vitest";
+import { expect } from "vitest";
+import { toHaveNoViolations } from "vitest-axe/matchers";
+
+expect.extend({ toHaveNoViolations });
 
 // Mock Element.scrollIntoView (used by cmdk/Command component)
 Element.prototype.scrollIntoView = function () {};

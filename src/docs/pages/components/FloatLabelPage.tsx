@@ -6,6 +6,7 @@ import { CodeBlock } from "@/docs/components/CodeBlock";
 import { TokenReference, type TokenRow } from "@/docs/components/TokenReference";
 import { Guidance } from "@/docs/components/ProseBlock";
 import { WexFloatLabel } from "@/components/wex";
+import { Mail, Lock, Search, User, Eye, EyeOff } from "lucide-react";
 
 // Token mappings for FloatLabel - Layer 3 component tokens
 const floatLabelTokens: TokenRow[] = [
@@ -74,6 +75,61 @@ export default function FloatLabelPage() {
         <CodeBlock language="tsx" code={`<WexFloatLabel label="Email Address" type="email" />
 <WexFloatLabel label="Password" type="password" />
 <WexFloatLabel label="Amount" type="number" />`} />
+      </Section>
+
+      {/* ============================================================
+          ICONS
+          ============================================================ */}
+      <Section title="With Icons" description="Left and right icons for visual context.">
+        <ExampleCard title="Left Icon">
+          <WexFloatLabel 
+            label="Email Address" 
+            type="email" 
+            leftIcon={<Mail className="h-4 w-4" />} 
+            containerClassName="max-w-sm" 
+          />
+        </ExampleCard>
+
+        <ExampleCard title="Right Icon">
+          <WexFloatLabel 
+            label="Search" 
+            rightIcon={<Search className="h-4 w-4" />} 
+            containerClassName="max-w-sm" 
+          />
+        </ExampleCard>
+
+        <ExampleCard title="Both Icons">
+          <WexFloatLabel 
+            label="Username" 
+            leftIcon={<User className="h-4 w-4" />}
+            rightIcon={<Search className="h-4 w-4" />}
+            containerClassName="max-w-sm" 
+          />
+        </ExampleCard>
+
+        <PasswordWithToggle />
+
+        <CodeBlock language="tsx" code={`import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+
+// Left icon
+<WexFloatLabel 
+  label="Email Address" 
+  type="email" 
+  leftIcon={<Mail className="h-4 w-4" />} 
+/>
+
+// Both icons (password with toggle)
+const [show, setShow] = useState(false);
+<WexFloatLabel 
+  label="Password" 
+  type={show ? "text" : "password"} 
+  leftIcon={<Lock className="h-4 w-4" />}
+  rightIcon={
+    <button onClick={() => setShow(!show)}>
+      {show ? <EyeOff /> : <Eye />}
+    </button>
+  }
+/>`} />
       </Section>
 
       {/* ============================================================
@@ -166,6 +222,32 @@ function ControlledExample() {
           Current value: {value ? `"${value}"` : "(empty)"}
         </p>
       </div>
+    </ExampleCard>
+  );
+}
+
+// Password with toggle visibility example
+function PasswordWithToggle() {
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  return (
+    <ExampleCard title="Password with Toggle">
+      <WexFloatLabel
+        label="Password"
+        type={showPassword ? "text" : "password"}
+        leftIcon={<Lock className="h-4 w-4" />}
+        rightIcon={
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="cursor-pointer hover:text-foreground transition-colors pointer-events-auto"
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+          </button>
+        }
+        containerClassName="max-w-sm"
+      />
     </ExampleCard>
   );
 }

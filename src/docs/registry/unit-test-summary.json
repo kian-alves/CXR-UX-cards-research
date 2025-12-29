@@ -1,22 +1,22 @@
 {
   "_meta": {
-    "generatedAt": "2025-12-29T15:33:54.206Z",
+    "generatedAt": "2025-12-29T20:54:05.428Z",
     "testRunner": "vitest",
-    "totalDuration": 44345.675537109375
+    "totalDuration": 28908.9609375
   },
   "totals": {
-    "suites": 306,
-    "tests": 745,
-    "passed": 719,
+    "suites": 316,
+    "tests": 779,
+    "passed": 750,
     "failed": 0,
-    "pending": 26,
-    "passRate": 97
+    "pending": 29,
+    "passRate": 96
   },
   "categories": {
     "components": {
-      "passed": 653,
+      "passed": 684,
       "failed": 0,
-      "total": 653,
+      "total": 684,
       "files": [
         {
           "name": "_template.test.tsx",
@@ -32,7 +32,7 @@
           "status": "passed",
           "passed": 31,
           "failed": 0,
-          "duration": 2740.3701171875
+          "duration": 1785.76171875
         },
         {
           "name": "wex-alert-dialog.test.tsx",
@@ -40,7 +40,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 290.812744140625
+          "duration": 138.756103515625
         },
         {
           "name": "wex-alert.test.tsx",
@@ -48,7 +48,7 @@
           "status": "passed",
           "passed": 7,
           "failed": 0,
-          "duration": 245.07763671875
+          "duration": 141.01513671875
         },
         {
           "name": "wex-aspect-ratio.test.tsx",
@@ -56,7 +56,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 21.3837890625
+          "duration": 20.3935546875
         },
         {
           "name": "wex-avatar.test.tsx",
@@ -64,7 +64,7 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 36.19189453125
+          "duration": 29.656005859375
         },
         {
           "name": "wex-badge.test.tsx",
@@ -72,7 +72,7 @@
           "status": "passed",
           "passed": 6,
           "failed": 0,
-          "duration": 58.453125
+          "duration": 40.281494140625
         },
         {
           "name": "wex-breadcrumb.test.tsx",
@@ -80,7 +80,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 187.487548828125
+          "duration": 110.419921875
         },
         {
           "name": "wex-button-group.test.tsx",
@@ -88,7 +88,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 30.48828125
+          "duration": 24.157958984375
         },
         {
           "name": "wex-button.test.tsx",
@@ -96,7 +96,7 @@
           "status": "passed",
           "passed": 47,
           "failed": 0,
-          "duration": 957.7158203125
+          "duration": 596.645263671875
         },
         {
           "name": "wex-calendar.test.tsx",
@@ -104,7 +104,7 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 295.249267578125
+          "duration": 236.15869140625
         },
         {
           "name": "wex-card.test.tsx",
@@ -112,7 +112,7 @@
           "status": "passed",
           "passed": 9,
           "failed": 0,
-          "duration": 49.58935546875
+          "duration": 33.021240234375
         },
         {
           "name": "wex-carousel.test.tsx",
@@ -120,7 +120,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 229.8583984375
+          "duration": 132.358642578125
         },
         {
           "name": "wex-chart.test.tsx",
@@ -128,7 +128,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 72.509765625
+          "duration": 30.277099609375
         },
         {
           "name": "wex-checkbox.test.tsx",
@@ -136,7 +136,7 @@
           "status": "passed",
           "passed": 29,
           "failed": 0,
-          "duration": 1235.05908203125
+          "duration": 657.1240234375
         },
         {
           "name": "wex-collapsible.test.tsx",
@@ -144,7 +144,7 @@
           "status": "passed",
           "passed": 27,
           "failed": 0,
-          "duration": 1659.703125
+          "duration": 992.1220703125
         },
         {
           "name": "wex-combobox.test.tsx",
@@ -152,7 +152,7 @@
           "status": "passed",
           "passed": 35,
           "failed": 0,
-          "duration": 4528.077880859375
+          "duration": 2868.760498046875
         },
         {
           "name": "wex-command.test.tsx",
@@ -160,7 +160,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 106.00732421875
+          "duration": 44.335205078125
         },
         {
           "name": "wex-context-menu.test.tsx",
@@ -168,7 +168,7 @@
           "status": "passed",
           "passed": 1,
           "failed": 0,
-          "duration": 35.9130859375
+          "duration": 26.228515625
         },
         {
           "name": "wex-data-table.test.tsx",
@@ -176,7 +176,7 @@
           "status": "passed",
           "passed": 4,
           "failed": 0,
-          "duration": 209.93798828125
+          "duration": 185.08203125
         },
         {
           "name": "wex-date-picker.test.tsx",
@@ -184,7 +184,7 @@
           "status": "passed",
           "passed": 4,
           "failed": 0,
-          "duration": 206.5966796875
+          "duration": 153.578125
         },
         {
           "name": "wex-dialog.test.tsx",
@@ -192,7 +192,7 @@
           "status": "passed",
           "passed": 23,
           "failed": 0,
-          "duration": 2360.46875
+          "duration": 1548.71923828125
         },
         {
           "name": "wex-drawer.test.tsx",
@@ -200,7 +200,7 @@
           "status": "passed",
           "passed": 16,
           "failed": 0,
-          "duration": 1345.00634765625
+          "duration": 716.274658203125
         },
         {
           "name": "wex-dropdown-menu.test.tsx",
@@ -208,7 +208,7 @@
           "status": "passed",
           "passed": 32,
           "failed": 0,
-          "duration": 5259.236328125
+          "duration": 3395.221923828125
         },
         {
           "name": "wex-empty.test.tsx",
@@ -216,7 +216,7 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 34.381103515625
+          "duration": 29.90283203125
         },
         {
           "name": "wex-field.test.tsx",
@@ -224,7 +224,15 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 99.129150390625
+          "duration": 28.84814453125
+        },
+        {
+          "name": "wex-float-label.test.tsx",
+          "path": "tests/components/wex-float-label.test.tsx",
+          "status": "passed",
+          "passed": 31,
+          "failed": 0,
+          "duration": 464.896240234375
         },
         {
           "name": "wex-form.test.tsx",
@@ -232,7 +240,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 168.039794921875
+          "duration": 105.397216796875
         },
         {
           "name": "wex-hover-card.test.tsx",
@@ -240,7 +248,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 320.9736328125
+          "duration": 145.823974609375
         },
         {
           "name": "wex-input-group.test.tsx",
@@ -248,7 +256,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 41.846923828125
+          "duration": 23.965576171875
         },
         {
           "name": "wex-input-otp.test.tsx",
@@ -256,7 +264,7 @@
           "status": "passed",
           "passed": 1,
           "failed": 0,
-          "duration": 270.778076171875
+          "duration": 123.693359375
         },
         {
           "name": "wex-input.test.tsx",
@@ -264,7 +272,7 @@
           "status": "passed",
           "passed": 54,
           "failed": 0,
-          "duration": 1512.24853515625
+          "duration": 984.6103515625
         },
         {
           "name": "wex-item.test.tsx",
@@ -272,7 +280,7 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 35.549560546875
+          "duration": 27.066650390625
         },
         {
           "name": "wex-kbd.test.tsx",
@@ -280,7 +288,7 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 29.010986328125
+          "duration": 25.007568359375
         },
         {
           "name": "wex-label.test.tsx",
@@ -288,7 +296,7 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 32.25927734375
+          "duration": 24.1591796875
         },
         {
           "name": "wex-menubar.test.tsx",
@@ -296,7 +304,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 221.7783203125
+          "duration": 107.076416015625
         },
         {
           "name": "wex-navigation-menu.test.tsx",
@@ -304,7 +312,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 226.601318359375
+          "duration": 90.21533203125
         },
         {
           "name": "wex-pagination.test.tsx",
@@ -312,7 +320,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 168.13427734375
+          "duration": 84.61767578125
         },
         {
           "name": "wex-popover.test.tsx",
@@ -320,7 +328,7 @@
           "status": "passed",
           "passed": 24,
           "failed": 0,
-          "duration": 2921.114013671875
+          "duration": 1974.378173828125
         },
         {
           "name": "wex-progress.test.tsx",
@@ -328,7 +336,7 @@
           "status": "passed",
           "passed": 4,
           "failed": 0,
-          "duration": 276.688232421875
+          "duration": 198.62060546875
         },
         {
           "name": "wex-radio-group.test.tsx",
@@ -336,7 +344,7 @@
           "status": "passed",
           "passed": 35,
           "failed": 0,
-          "duration": 1661.00927734375
+          "duration": 1358.5341796875
         },
         {
           "name": "wex-resizable.test.tsx",
@@ -344,7 +352,7 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 1.19580078125
+          "duration": 1.082275390625
         },
         {
           "name": "wex-scroll-area.test.tsx",
@@ -352,7 +360,7 @@
           "status": "passed",
           "passed": 2,
           "failed": 0,
-          "duration": 49.562744140625
+          "duration": 35.350341796875
         },
         {
           "name": "wex-select.test.tsx",
@@ -360,7 +368,7 @@
           "status": "passed",
           "passed": 33,
           "failed": 0,
-          "duration": 3086.00146484375
+          "duration": 2072.1220703125
         },
         {
           "name": "wex-separator.test.tsx",
@@ -368,7 +376,7 @@
           "status": "passed",
           "passed": 5,
           "failed": 0,
-          "duration": 235.273193359375
+          "duration": 100.385498046875
         },
         {
           "name": "wex-sheet.test.tsx",
@@ -376,7 +384,7 @@
           "status": "passed",
           "passed": 24,
           "failed": 0,
-          "duration": 2454.367431640625
+          "duration": 1659.901123046875
         },
         {
           "name": "wex-sidebar.test.tsx",
@@ -384,7 +392,7 @@
           "status": "passed",
           "passed": 1,
           "failed": 0,
-          "duration": 31.663330078125
+          "duration": 21.899169921875
         },
         {
           "name": "wex-skeleton.test.tsx",
@@ -392,7 +400,7 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 25.419189453125
+          "duration": 21.906005859375
         },
         {
           "name": "wex-slider.test.tsx",
@@ -400,7 +408,7 @@
           "status": "passed",
           "passed": 42,
           "failed": 0,
-          "duration": 1772.779541015625
+          "duration": 1083.600830078125
         },
         {
           "name": "wex-sonner.test.tsx",
@@ -408,7 +416,7 @@
           "status": "passed",
           "passed": 1,
           "failed": 0,
-          "duration": 68.163818359375
+          "duration": 55.408447265625
         },
         {
           "name": "wex-spinner.test.tsx",
@@ -416,7 +424,7 @@
           "status": "passed",
           "passed": 4,
           "failed": 0,
-          "duration": 133.377685546875
+          "duration": 104.907470703125
         },
         {
           "name": "wex-switch.test.tsx",
@@ -424,7 +432,7 @@
           "status": "passed",
           "passed": 29,
           "failed": 0,
-          "duration": 1071.489501953125
+          "duration": 634.472900390625
         },
         {
           "name": "wex-table.test.tsx",
@@ -432,7 +440,7 @@
           "status": "passed",
           "passed": 4,
           "failed": 0,
-          "duration": 195.312744140625
+          "duration": 93.816650390625
         },
         {
           "name": "wex-tabs.test.tsx",
@@ -440,7 +448,7 @@
           "status": "passed",
           "passed": 33,
           "failed": 0,
-          "duration": 2315.90625
+          "duration": 1532.1376953125
         },
         {
           "name": "wex-textarea.test.tsx",
@@ -448,7 +456,7 @@
           "status": "passed",
           "passed": 6,
           "failed": 0,
-          "duration": 204.769775390625
+          "duration": 211.61279296875
         },
         {
           "name": "wex-toast.test.tsx",
@@ -456,7 +464,7 @@
           "status": "passed",
           "passed": 5,
           "failed": 0,
-          "duration": 2.13916015625
+          "duration": 1.255615234375
         },
         {
           "name": "wex-toggle-group.test.tsx",
@@ -464,7 +472,7 @@
           "status": "passed",
           "passed": 3,
           "failed": 0,
-          "duration": 199.38818359375
+          "duration": 130.412109375
         },
         {
           "name": "wex-toggle.test.tsx",
@@ -472,7 +480,7 @@
           "status": "passed",
           "passed": 4,
           "failed": 0,
-          "duration": 291.38623046875
+          "duration": 153.055419921875
         },
         {
           "name": "wex-tooltip.test.tsx",
@@ -480,7 +488,7 @@
           "status": "passed",
           "passed": 15,
           "failed": 0,
-          "duration": 1863.8876953125
+          "duration": 1091.575439453125
         }
       ]
     },
@@ -495,7 +503,7 @@
           "status": "passed",
           "passed": 13,
           "failed": 0,
-          "duration": 138.297607421875
+          "duration": 181.286865234375
         },
         {
           "name": "cn.test.ts",
@@ -503,7 +511,7 @@
           "status": "passed",
           "passed": 8,
           "failed": 0,
-          "duration": 5.171142578125
+          "duration": 5.139404296875
         },
         {
           "name": "contrast.test.ts",
@@ -511,7 +519,7 @@
           "status": "passed",
           "passed": 25,
           "failed": 0,
-          "duration": 12.130126953125
+          "duration": 6.053466796875
         },
         {
           "name": "theme.test.ts",
@@ -519,7 +527,7 @@
           "status": "passed",
           "passed": 12,
           "failed": 0,
-          "duration": 5.182373046875
+          "duration": 6.216064453125
         }
       ]
     },
@@ -534,7 +542,7 @@
           "status": "passed",
           "passed": 8,
           "failed": 0,
-          "duration": 2.07373046875
+          "duration": 2.20068359375
         }
       ]
     }

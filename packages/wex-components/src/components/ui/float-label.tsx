@@ -76,7 +76,7 @@ const floatLabelInputVariants = cva(
 const floatLabelLabelVariants = cva(
   [
     // Positioning
-    "absolute left-3 pointer-events-none",
+    "absolute pointer-events-none",
     "origin-top-left transition-all duration-200 ease-out",
     // Default state (inside input)
     "text-wex-floatlabel-label-fg",
@@ -112,30 +112,57 @@ export interface FloatLabelProps
   invalid?: boolean
   /** Container className */
   containerClassName?: string
+  /** Icon to display on the left side of the input */
+  leftIcon?: React.ReactNode
+  /** Icon to display on the right side of the input */
+  rightIcon?: React.ReactNode
 }
 
 const FloatLabel = React.forwardRef<HTMLInputElement, FloatLabelProps>(
-  ({ className, containerClassName, label, size, invalid, id, ...props }, ref) => {
+  ({ className, containerClassName, label, size, invalid, id, leftIcon, rightIcon, ...props }, ref) => {
     // Generate a unique id if not provided
     const generatedId = React.useId()
     const inputId = id || generatedId
 
     return (
       <div className={cn(floatLabelVariants({ size }), containerClassName)}>
+        {/* Left icon */}
+        {leftIcon && (
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center pointer-events-none text-wex-input-placeholder z-10">
+            {leftIcon}
+          </div>
+        )}
+        
         <input
           id={inputId}
           ref={ref}
           placeholder=" " // Required for :placeholder-shown detection
           aria-invalid={invalid || undefined}
-          className={cn(floatLabelInputVariants({ size, invalid }), className)}
+          className={cn(
+            floatLabelInputVariants({ size, invalid }),
+            leftIcon && "pl-10",
+            rightIcon && "pr-10",
+            className
+          )}
           {...props}
         />
+        
         <label
           htmlFor={inputId}
-          className={cn(floatLabelLabelVariants({ size }))}
+          className={cn(
+            floatLabelLabelVariants({ size }),
+            leftIcon ? "left-10" : "left-3"
+          )}
         >
           {label}
         </label>
+        
+        {/* Right icon */}
+        {rightIcon && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center pointer-events-none text-wex-input-placeholder z-10">
+            {rightIcon}
+          </div>
+        )}
       </div>
     )
   }

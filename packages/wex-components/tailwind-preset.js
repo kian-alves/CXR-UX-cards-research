@@ -101,6 +101,11 @@ module.exports = {
         'wex-button-link-hover-fg': 'var(--wex-component-button-link-hover-fg)',
         'wex-button-link-active-fg': 'var(--wex-component-button-link-active-fg)',
         'wex-button-link-disabled-fg': 'var(--wex-component-button-link-disabled-fg)',
+
+        // Float label tokens
+        'wex-floatlabel-label-fg': 'var(--wex-component-floatlabel-label-fg)',
+        'wex-floatlabel-label-focus-fg': 'var(--wex-component-floatlabel-label-focus-fg)',
+        'wex-floatlabel-label-filled-fg': 'var(--wex-component-floatlabel-label-filled-fg)',
       },
       // Minimum touch target sizes for WCAG 2.5.5
       minHeight: {

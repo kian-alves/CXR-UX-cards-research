@@ -8,15 +8,15 @@
       "light",
       "dark"
     ],
-    "lastUpdated": "2025-12-24T02:35:44.556Z",
-    "totalComponents": 56
+    "lastUpdated": "2025-12-29T20:43:34.100Z",
+    "totalComponents": 57
   },
   "accordion": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:50.076Z",
+    "testedAt": "2025-12-29T20:42:27.584Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -86,7 +86,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:53.286Z",
+    "testedAt": "2025-12-29T20:42:30.720Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -156,7 +156,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:57.880Z",
+    "testedAt": "2025-12-29T20:42:35.218Z",
     "scope": "manifest-driven",
     "examplesFound": 5,
     "scenariosTested": [
@@ -271,7 +271,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:02.125Z",
+    "testedAt": "2025-12-29T20:42:39.611Z",
     "scope": "manifest-driven",
     "examplesFound": 3,
     "scenariosTested": [
@@ -362,7 +362,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:07.615Z",
+    "testedAt": "2025-12-29T20:42:45.197Z",
     "scope": "manifest-driven",
     "examplesFound": 7,
     "scenariosTested": [
@@ -513,7 +513,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:10.039Z",
+    "testedAt": "2025-12-29T20:42:47.663Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -570,7 +570,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:13.542Z",
+    "testedAt": "2025-12-29T20:42:51.392Z",
     "scope": "manifest-driven",
     "examplesFound": 3,
     "scenariosTested": [
@@ -653,7 +653,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:22.143Z",
+    "testedAt": "2025-12-29T20:42:59.215Z",
     "scope": "manifest-driven",
     "examplesFound": 11,
     "scenariosTested": [
@@ -848,7 +848,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:30.519Z",
+    "testedAt": "2025-12-29T20:43:08.110Z",
     "scope": "manifest-driven",
     "examplesFound": 6,
     "scenariosTested": [
@@ -974,7 +974,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:35.892Z",
+    "testedAt": "2025-12-29T20:43:13.617Z",
     "scope": "manifest-driven",
     "examplesFound": 8,
     "scenariosTested": [
@@ -1122,7 +1122,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:38.126Z",
+    "testedAt": "2025-12-29T20:43:15.928Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -1179,7 +1179,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:43.349Z",
+    "testedAt": "2025-12-29T20:43:19.977Z",
     "scope": "manifest-driven",
     "examplesFound": 4,
     "scenariosTested": [
@@ -1279,7 +1279,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:51.137Z",
+    "testedAt": "2025-12-29T20:42:28.526Z",
     "scope": "manifest-driven",
     "examplesFound": 4,
     "scenariosTested": [
@@ -1381,7 +1381,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:53.613Z",
+    "testedAt": "2025-12-29T20:42:31.054Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -1438,7 +1438,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:56.027Z",
+    "testedAt": "2025-12-29T20:42:33.473Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -1501,7 +1501,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:58.415Z",
+    "testedAt": "2025-12-29T20:42:35.995Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -1558,7 +1558,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:00.780Z",
+    "testedAt": "2025-12-29T20:42:38.444Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -1615,7 +1615,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:03.368Z",
+    "testedAt": "2025-12-29T20:42:41.291Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -1672,7 +1672,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:06.794Z",
+    "testedAt": "2025-12-29T20:42:44.752Z",
     "scope": "manifest-driven",
     "examplesFound": 3,
     "scenariosTested": [
@@ -1759,7 +1759,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:09.295Z",
+    "testedAt": "2025-12-29T20:42:47.203Z",
     "scope": "manifest-driven",
     "examplesFound": 4,
     "scenariosTested": [
@@ -1816,7 +1816,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:12.818Z",
+    "testedAt": "2025-12-29T20:42:50.599Z",
     "scope": "manifest-driven",
     "examplesFound": 3,
     "scenariosTested": [
@@ -1903,7 +1903,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:18.053Z",
+    "testedAt": "2025-12-29T20:42:55.245Z",
     "scope": "manifest-driven",
     "examplesFound": 5,
     "scenariosTested": [
@@ -2016,7 +2016,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:21.050Z",
+    "testedAt": "2025-12-29T20:42:58.184Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -2086,7 +2086,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:25.021Z",
+    "testedAt": "2025-12-29T20:43:02.253Z",
     "scope": "manifest-driven",
     "examplesFound": 4,
     "scenariosTested": [
@@ -2177,12 +2177,116 @@
       }
     }
   },
+  "float-label": {
+    "status": "pass",
+    "levelAchieved": "AA",
+    "violations": 0,
+    "issues": [],
+    "testedAt": "2025-12-29T20:42:28.730Z",
+    "scope": "manifest-driven",
+    "examplesFound": 4,
+    "scenariosTested": [
+      "email",
+      "password",
+      "invalid-state",
+      "disabled"
+    ],
+    "subject": "Component examples for WexFloatLabel",
+    "modes": {
+      "light": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4,
+        "failingElements": [],
+        "examples": {
+          "email": {
+            "status": "pass",
+            "violations": 0,
+            "issues": []
+          },
+          "password": {
+            "status": "pass",
+            "violations": 0,
+            "issues": []
+          },
+          "invalid-state": {
+            "status": "pass",
+            "violations": 0,
+            "issues": []
+          },
+          "disabled": {
+            "status": "pass",
+            "violations": 0,
+            "issues": []
+          }
+        },
+        "examplesTested": [
+          "email",
+          "password",
+          "invalid-state",
+          "disabled"
+        ],
+        "examplesSkipped": [
+          "all-sizes",
+          "number",
+          "controlled"
+        ],
+        "examplesPassed": 4,
+        "examplesFailed": 0
+      },
+      "dark": {
+        "status": "pass",
+        "levelAchieved": "AA",
+        "violations": 0,
+        "issues": [],
+        "examplesFound": 4,
+        "failingElements": [],
+        "examples": {
+          "email": {
+            "status": "pass",
+            "violations": 0,
+            "issues": []
+          },
+          "password": {
+            "status": "pass",
+            "violations": 0,
+            "issues": []
+          },
+          "invalid-state": {
+            "status": "pass",
+            "violations": 0,
+            "issues": []
+          },
+          "disabled": {
+            "status": "pass",
+            "violations": 0,
+            "issues": []
+          }
+        },
+        "examplesTested": [
+          "email",
+          "password",
+          "invalid-state",
+          "disabled"
+        ],
+        "examplesSkipped": [
+          "all-sizes",
+          "number",
+          "controlled"
+        ],
+        "examplesPassed": 4,
+        "examplesFailed": 0
+      }
+    }
+  },
   "form": {
     "status": "pass",
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:55.243Z",
+    "testedAt": "2025-12-29T20:42:36.712Z",
     "scope": "manifest-driven",
     "examplesFound": 11,
     "scenariosTested": [
@@ -2381,7 +2485,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:58.713Z",
+    "testedAt": "2025-12-29T20:42:40.297Z",
     "scope": "manifest-driven",
     "examplesFound": 3,
     "scenariosTested": [
@@ -2468,7 +2572,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:01.592Z",
+    "testedAt": "2025-12-29T20:42:43.309Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -2544,7 +2648,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:03.996Z",
+    "testedAt": "2025-12-29T20:42:45.796Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -2601,7 +2705,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:12.323Z",
+    "testedAt": "2025-12-29T20:42:54.086Z",
     "scope": "manifest-driven",
     "examplesFound": 12,
     "scenariosTested": [
@@ -2813,7 +2917,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:16.026Z",
+    "testedAt": "2025-12-29T20:42:57.206Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -2887,7 +2991,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:19.425Z",
+    "testedAt": "2025-12-29T20:43:00.601Z",
     "scope": "manifest-driven",
     "examplesFound": 3,
     "scenariosTested": [
@@ -2970,7 +3074,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:22.326Z",
+    "testedAt": "2025-12-29T20:43:03.556Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -3040,7 +3144,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:24.722Z",
+    "testedAt": "2025-12-29T20:43:05.889Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -3097,7 +3201,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:27.030Z",
+    "testedAt": "2025-12-29T20:43:08.224Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -3154,7 +3258,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:29.548Z",
+    "testedAt": "2025-12-29T20:43:10.755Z",
     "scope": "manifest-driven",
     "examplesFound": 6,
     "scenariosTested": [
@@ -3211,7 +3315,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:33.159Z",
+    "testedAt": "2025-12-29T20:42:28.610Z",
     "scope": "manifest-driven",
     "examplesFound": 4,
     "scenariosTested": [
@@ -3307,7 +3411,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:51.655Z",
+    "testedAt": "2025-12-29T20:42:33.425Z",
     "scope": "manifest-driven",
     "examplesFound": 5,
     "scenariosTested": [
@@ -3422,7 +3526,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:54.214Z",
+    "testedAt": "2025-12-29T20:42:35.972Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -3483,7 +3587,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:56.753Z",
+    "testedAt": "2025-12-29T20:42:38.432Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -3540,7 +3644,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:59.173Z",
+    "testedAt": "2025-12-29T20:42:41.118Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -3597,7 +3701,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:03.226Z",
+    "testedAt": "2025-12-29T20:42:45.219Z",
     "scope": "manifest-driven",
     "examplesFound": 4,
     "scenariosTested": [
@@ -3701,7 +3805,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:06.063Z",
+    "testedAt": "2025-12-29T20:42:48.167Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -3771,7 +3875,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:08.599Z",
+    "testedAt": "2025-12-29T20:42:50.753Z",
     "scope": "manifest-driven",
     "examplesFound": 4,
     "scenariosTested": [
@@ -3828,7 +3932,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:11.075Z",
+    "testedAt": "2025-12-29T20:42:53.473Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -3885,7 +3989,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:19.585Z",
+    "testedAt": "2025-12-29T20:43:01.228Z",
     "scope": "manifest-driven",
     "examplesFound": 12,
     "scenariosTested": [
@@ -4085,7 +4189,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:23.662Z",
+    "testedAt": "2025-12-29T20:43:05.158Z",
     "scope": "manifest-driven",
     "examplesFound": 4,
     "scenariosTested": [
@@ -4187,7 +4291,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:26.148Z",
+    "testedAt": "2025-12-29T20:43:07.562Z",
     "scope": "manifest-driven",
     "examplesFound": 5,
     "scenariosTested": [
@@ -4244,7 +4348,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:28.409Z",
+    "testedAt": "2025-12-29T20:42:27.016Z",
     "scope": "manifest-driven",
     "examplesFound": 1,
     "scenariosTested": [
@@ -4307,7 +4411,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:49.987Z",
+    "testedAt": "2025-12-29T20:42:29.922Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -4383,7 +4487,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:55.451Z",
+    "testedAt": "2025-12-29T20:42:35.449Z",
     "scope": "manifest-driven",
     "examplesFound": 6,
     "scenariosTested": [
@@ -4509,7 +4613,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:34:59.197Z",
+    "testedAt": "2025-12-29T20:42:39.465Z",
     "scope": "manifest-driven",
     "examplesFound": 3,
     "scenariosTested": [
@@ -4600,7 +4704,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:04.297Z",
+    "testedAt": "2025-12-29T20:42:44.485Z",
     "scope": "manifest-driven",
     "examplesFound": 6,
     "scenariosTested": [
@@ -4728,7 +4832,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:09.443Z",
+    "testedAt": "2025-12-29T20:42:49.451Z",
     "scope": "manifest-driven",
     "examplesFound": 6,
     "scenariosTested": [
@@ -4856,7 +4960,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:12.492Z",
+    "testedAt": "2025-12-29T20:42:52.653Z",
     "scope": "manifest-driven",
     "examplesFound": 2,
     "scenariosTested": [
@@ -4926,7 +5030,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:20.063Z",
+    "testedAt": "2025-12-29T20:42:59.416Z",
     "scope": "manifest-driven",
     "examplesFound": 9,
     "scenariosTested": [
@@ -5084,7 +5188,7 @@
     "levelAchieved": "AA",
     "violations": 0,
     "issues": [],
-    "testedAt": "2025-12-24T02:35:23.511Z",
+    "testedAt": "2025-12-29T20:43:02.962Z",
     "scope": "manifest-driven",
     "examplesFound": 3,
     "scenariosTested": [
