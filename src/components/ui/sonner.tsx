@@ -20,14 +20,16 @@ interface WexToasterProps extends Omit<ToasterProps, "position"> {
   position?: ToastPosition
 }
 
+// Get initial theme from DOM (runs during render, SSR-safe)
+function getInitialTheme(): "light" | "dark" {
+  if (typeof document === "undefined") return "light"
+  return document.documentElement.classList.contains("dark") ? "dark" : "light"
+}
+
 const Toaster = ({ position = "bottom-right", ...props }: WexToasterProps) => {
-  const [theme, setTheme] = useState<"light" | "dark">("light")
+  const [theme, setTheme] = useState<"light" | "dark">(getInitialTheme)
 
   useEffect(() => {
-    // Initial theme check
-    const isDark = document.documentElement.classList.contains("dark")
-    setTheme(isDark ? "dark" : "light")
-
     // Watch for theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {

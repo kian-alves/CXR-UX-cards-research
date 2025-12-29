@@ -305,7 +305,7 @@ export function ThemeExportView(_props: ThemeExportViewProps) {
   const highlightedCSS = React.useMemo(() => {
     try {
       return Prism.highlight(cssCode, Prism.languages.css, "css");
-    } catch (e) {
+    } catch {
       return cssCode;
     }
   }, [cssCode]);
@@ -314,7 +314,7 @@ export function ThemeExportView(_props: ThemeExportViewProps) {
   const highlightedJSON = React.useMemo(() => {
     try {
       return Prism.highlight(jsonCode, Prism.languages.json, "json");
-    } catch (e) {
+    } catch {
       return jsonCode;
     }
   }, [jsonCode]);

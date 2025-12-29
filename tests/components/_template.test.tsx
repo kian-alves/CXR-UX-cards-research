@@ -21,10 +21,11 @@
  * - For portal content, use getByRole("dialog")/getByRole("tooltip") over getByText
  */
 
-import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, it, expect, vi } from "vitest";
-import { createRef, useState } from "react";
+// Template imports - uncomment as needed when implementing tests
+// import { render, screen, waitFor } from "@testing-library/react";
+// import userEvent from "@testing-library/user-event";
+import { describe, it } from "vitest";
+// import { createRef, useState } from "react";
 
 // Example imports - replace with actual component
 // import { WexComponent, WexButton } from "@/components/wex";

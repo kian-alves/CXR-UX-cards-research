@@ -63,12 +63,12 @@ const payments: Payment[] = [
   },
 ];
 
-const statusMap = {
+const statusMap: Record<Payment["status"], "default" | "secondary" | "destructive"> = {
   pending: "secondary",
   processing: "default",
   success: "default",
   failed: "destructive",
-} as const;
+};
 
 export default function DataTablePage() {
   const columns: ColumnDef<Payment>[] = [
@@ -80,7 +80,7 @@ export default function DataTablePage() {
       cell: ({ row }) => {
         const status = row.getValue("status") as Payment["status"];
         return (
-          <WexBadge intent={statusMap[status] as any}>
+          <WexBadge intent={statusMap[status]}>
             {status}
           </WexBadge>
         );

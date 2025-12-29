@@ -28,8 +28,7 @@ TabsList.displayName = TabsPrimitive.List.displayName
 // ============================================================
 // ScrollableTabsList - Tab list with scroll arrows
 // ============================================================
-interface ScrollableTabsListProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {}
+type ScrollableTabsListProps = React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
 
 const ScrollableTabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,

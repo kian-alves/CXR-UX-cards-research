@@ -11,7 +11,7 @@
 
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { WexTooltip, WexButton } from "@/components/wex";
 
 // Helper to wrap tooltip with provider

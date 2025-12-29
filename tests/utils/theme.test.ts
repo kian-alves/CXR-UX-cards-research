@@ -4,7 +4,7 @@
  * Tests dark mode toggle, localStorage persistence, and system preference detection
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import {
   getStoredTheme,
   getSystemTheme,

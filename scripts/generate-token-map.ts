@@ -145,7 +145,7 @@ function extractClasses(line: string, tokenPatterns: RegExp[]): string[] {
   return classes;
 }
 
-function detectVariant(line: string, componentName: string): string {
+function detectVariant(line: string, _componentName: string): string {
   // Look for variant-like patterns
   const variantPatterns = [
     /variant:\s*["'](\w+)["']/,

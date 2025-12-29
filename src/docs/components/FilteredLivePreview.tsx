@@ -1411,11 +1411,7 @@ function AdditionalComponentsList({
 }: AdditionalComponentsListProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   
-  if (components.length === 0) {
-    return null;
-  }
-
-  // Get the token color for the swatch
+  // Get the token color for the swatch (must be before early return to respect rules of hooks)
   const tokenColor = React.useMemo(() => {
     if (typeof window === "undefined") return "hsl(0 0% 50%)";
     const value = getComputedStyle(document.documentElement)
@@ -1423,6 +1419,10 @@ function AdditionalComponentsList({
       .trim();
     return value ? `hsl(${value})` : "hsl(0 0% 50%)";
   }, [tokenName]);
+  
+  if (components.length === 0) {
+    return null;
+  }
 
   return (
     <div className="mt-6 border-t border-border pt-4">

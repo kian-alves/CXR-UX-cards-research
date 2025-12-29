@@ -74,14 +74,12 @@ export function ContrastBadge({ fgVar, bgVar, compact = false }: ContrastBadgePr
   const { ratio, rating } = contrastData;
   const config = getBadgeConfig(rating);
 
-  const RatingIcon = getRatingIcon(rating);
-
   return (
     <WexTooltip.Provider>
       <WexTooltip>
         <WexTooltip.Trigger asChild>
           <span className={config.className}>
-            <RatingIcon className="h-3 w-3" />
+            <RatingIcon rating={rating} className="h-3 w-3" />
             {compact ? (
               rating
             ) : (
@@ -171,15 +169,15 @@ function getBadgeConfig(rating: ContrastRating): BadgeConfig {
   }
 }
 
-function getRatingIcon(rating: ContrastRating): React.ComponentType<{ className?: string }> {
+function RatingIcon({ rating, className }: { rating: ContrastRating; className?: string }) {
   switch (rating) {
     case "AAA":
     case "AA":
-      return Check;
+      return <Check className={className} />;
     case "AA-large":
-      return AlertTriangle;
+      return <AlertTriangle className={className} />;
     case "Fail":
-      return X;
+      return <X className={className} />;
   }
 }
 
@@ -223,14 +221,13 @@ export function ContrastIndicator({ fgVar, bgVar }: Omit<ContrastBadgeProps, "co
 
   const { ratio, rating } = contrastData;
   const config = getIndicatorConfig(rating);
-  const RatingIcon = getRatingIcon(rating);
 
   return (
     <WexTooltip.Provider>
       <WexTooltip>
         <WexTooltip.Trigger asChild>
           <span className={config.className}>
-            <RatingIcon className="h-2.5 w-2.5" />
+            <RatingIcon rating={rating} className="h-2.5 w-2.5" />
             <span>{rating}</span>
           </span>
         </WexTooltip.Trigger>
