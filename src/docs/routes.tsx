@@ -29,6 +29,9 @@ const MyProfilePage = React.lazy(() => import("@/docs/pages/consumer/MyProfile")
 // Login page - standalone route
 const LoginPage = React.lazy(() => import("@/docs/pages/Login"));
 
+// Custom Components Demo page - standalone route
+const CustomComponentsDemo = React.lazy(() => import("@/docs/pages/consumer/CustomComponentsDemo"));
+
 // Foundation pages
 const TokenArchitecturePage = React.lazy(() => import("@/docs/pages/foundations/TokenArchitecturePage"));
 const ColorsPage = React.lazy(() => import("@/docs/pages/foundations/ColorsPage"));
@@ -130,6 +133,9 @@ export function DocsRoutes() {
         
         {/* Standalone Login route - bypasses DocsLayout */}
         <Route path="login" element={<LoginPage onLoginSuccess={() => window.location.href = '/'} />} />
+        
+        {/* Custom Components Demo route - bypasses DocsLayout */}
+        <Route path="/custom-components-demo" element={<CustomComponentsDemo />} />
         
         <Route element={<DocsLayout />}>
           {/* Design System overview moved to /design-system */}
