@@ -129,6 +129,7 @@ export const aiSuggestions: string[] = [
   "Contribute to HSA",
   "Manage Investments",
   "Manage My Expenses",
+  "Enroll in HSA",
 ];
 
 // Info Cards Data
@@ -177,7 +178,7 @@ export const paidClaimsCategoryData: CategoryData[] = [
 export const navigationItems = [
   { label: "Home", href: "/", icon: "home", hasDropdown: false },
   { label: "Accounts", href: "/account-overview", icon: "wallet", hasDropdown: true },
-  { label: "Claims", href: "#claims", icon: "file-text", hasDropdown: false },
+  { label: "Claims", href: "/claims", icon: "file-text", hasDropdown: false },
   { label: "Resources", href: "/resources", icon: "life-buoy", hasDropdown: false },
 ];
 
