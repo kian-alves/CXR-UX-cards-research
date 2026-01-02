@@ -1,6 +1,7 @@
 import { ConsumerNavigation } from "./consumer/ConsumerNavigation";
 import { AIChatSection } from "./consumer/AIChatSection";
 import { AccountsSection } from "./consumer/AccountsSection";
+import { MessageCenterWidget } from "./consumer/MessageCenterWidget";
 import { TasksSection } from "./consumer/TasksSection";
 import { TransactionsAndLinks } from "./consumer/TransactionsAndLinks";
 import { InfoCardsSection } from "./consumer/InfoCardsSection";
@@ -14,6 +15,7 @@ import { PromoBanner } from "./consumer/PromoBanner";
  * - Custom navigation header (bypasses DocsLayout)
  * - AI-powered chat interface
  * - Account management (HSA/FSA)
+ * - Message Center widget
  * - Tasks and transactions
  * - Quick links and info cards
  * - Data visualization charts
@@ -42,6 +44,9 @@ export default function ConsumerExperiencePage() {
 
         {/* Accounts Overview */}
         <AccountsSection />
+
+        {/* Message Center */}
+        <MessageCenterWidget />
 
         {/* Pending Tasks */}
         <TasksSection />
@@ -81,4 +86,3 @@ export default function ConsumerExperiencePage() {
     </div>
   );
 }
-
