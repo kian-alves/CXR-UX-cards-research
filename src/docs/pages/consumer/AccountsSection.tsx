@@ -46,7 +46,7 @@ export function AccountsSection() {
           {/* Account Cards Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* HSA Card */}
-            <WexCard>
+            <WexCard className="transition-all duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01] cursor-pointer">
               <WexCard.Content className="p-0">
                 {/* Top Section */}
                 <div className="p-4 space-y-4">
@@ -134,7 +134,7 @@ export function AccountsSection() {
             </WexCard>
 
             {/* FSA Card */}
-            <WexCard>
+            <WexCard className="transition-all duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01] cursor-pointer">
               <WexCard.Content className="p-0">
                 {/* Top Section */}
                 <div className="p-4 space-y-4">
