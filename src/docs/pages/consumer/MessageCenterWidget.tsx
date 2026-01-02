@@ -4,10 +4,12 @@ import { WexCard } from "@/components/wex/wex-card";
 import { WexButton } from "@/components/wex/wex-button";
 import { WexBadge } from "@/components/wex/wex-badge";
 import { WexSeparator } from "@/components/wex/wex-separator";
-import { ChevronRight, AlertTriangle, Mail, Star, Clock, Bell, FileText } from "lucide-react";
+import { WexDialog } from "@/components/wex/wex-dialog";
+import { ChevronRight, AlertTriangle, Mail, Star, Clock, Bell, FileText, Download } from "lucide-react";
 import { 
   getInitialMessages, 
   calculateUnreadCount,
+  saveReadStatus,
   UNREAD_COUNT_CHANGED_EVENT,
   type Message 
 } from "./messageCenterUtils";
@@ -257,6 +259,8 @@ export function MessageCenterWidget() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>(() => getMessageData());
   const [unreadCount, setUnreadCount] = useState<number>(() => calculateUnreadCount(messages));
+  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Listen for unread count changes
   useEffect(() => {
@@ -292,6 +296,28 @@ export function MessageCenterWidget() {
       default:
         return <Mail className="h-5 w-5 text-primary" />;
     }
+  };
+
+  const handleMessageClick = (messageId: string) => {
+    const message = messages.find(m => m.id === messageId);
+    if (message) {
+      setSelectedMessage(message);
+      setIsModalOpen(true);
+      
+      // Mark as read if unread
+      if (!message.isRead) {
+        saveReadStatus(messageId, true);
+        // Refresh messages to update UI
+        const updated = getMessageData();
+        setMessages(updated);
+        setUnreadCount(calculateUnreadCount(updated));
+      }
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedMessage(null);
   };
 
   // Calculate actual counts from message data
@@ -372,7 +398,7 @@ export function MessageCenterWidget() {
                 toDoMessages.map((message, index) => (
                   <div key={message.id}>
                     <button
-                      onClick={() => navigate("/message-center")}
+                      onClick={() => handleMessageClick(message.id)}
                       className="w-full text-left py-3 px-3 -mx-3 rounded-lg transition-colors hover:bg-muted/50 cursor-pointer group"
                     >
                       <div className="flex items-start gap-3">
@@ -402,6 +428,59 @@ export function MessageCenterWidget() {
 
         </div>
       </WexCard.Content>
+
+      {/* Message Detail Modal */}
+      <WexDialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <WexDialog.Content className="w-[442px] p-6">
+          <div className="space-y-0">
+            {/* Header */}
+            <div className="space-y-0 mb-4">
+              <WexDialog.Title className="text-base font-semibold text-[#1d2c38] tracking-[-0.176px] leading-6 mb-0">
+                {selectedMessage?.subject}
+              </WexDialog.Title>
+              <p className="text-sm text-[#1d2c38] tracking-[-0.084px] leading-6 mt-3">
+                {selectedMessage?.deliveryDate}
+              </p>
+              <WexSeparator className="my-3.5" />
+            </div>
+
+            {/* Content */}
+            <div className="space-y-0 min-h-[173px]">
+              <p className="text-sm text-[#1d2c38] tracking-[-0.084px] leading-6 mb-4">
+                {selectedMessage?.body || "Please see attachment."}
+              </p>
+              
+              {selectedMessage?.hasAttachment && (
+                <div className="border border-[#edeff0] rounded-md h-[68px] px-4 py-0 bg-white flex items-center">
+                  <div className="flex items-center gap-4 w-full">
+                    <FileText className="h-[22px] w-[22px] text-[#0058a3] shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-[#0058a3] tracking-[-0.084px] leading-6 truncate">
+                        {selectedMessage.attachmentFileName || "Attachment.pdf"}
+                      </p>
+                    </div>
+                    <WexButton
+                      intent="ghost"
+                      size="icon"
+                      className="h-[22px] w-[22px] shrink-0"
+                      aria-label="Download attachment"
+                    >
+                      <Download className="h-[22px] w-[22px] text-[#1d2c38]" />
+                    </WexButton>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="flex justify-end pt-4 mt-4">
+              <WexButton intent="primary" onClick={handleCloseModal} className="px-3 py-2">
+                Close
+              </WexButton>
+            </div>
+          </div>
+        </WexDialog.Content>
+      </WexDialog>
     </WexCard>
   );
 }
