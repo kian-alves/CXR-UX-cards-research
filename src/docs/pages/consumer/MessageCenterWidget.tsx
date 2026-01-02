@@ -5,7 +5,7 @@ import { WexButton } from "@/components/wex/wex-button";
 import { WexBadge } from "@/components/wex/wex-badge";
 import { WexSeparator } from "@/components/wex/wex-separator";
 import { WexDialog } from "@/components/wex/wex-dialog";
-import { ChevronRight, AlertTriangle, Mail, Star, Clock, Bell, FileText, Download } from "lucide-react";
+import { ChevronRight, AlertTriangle, Mail, Star, Clock, Bell, FileText, Download, Landmark } from "lucide-react";
 import { 
   getInitialMessages, 
   calculateUnreadCount,
@@ -13,6 +13,7 @@ import {
   UNREAD_COUNT_CHANGED_EVENT,
   type Message 
 } from "./messageCenterUtils";
+import { tasksData } from "./mockData";
 
 /**
  * Message Center Widget
@@ -30,11 +31,12 @@ interface MessageItem {
   category: string;
   date: string;
   actionDescription: string;
-  icon: "alert" | "bell" | "document";
+  icon: "alert" | "bell" | "document" | "banking" | "clock" | "mail";
   badge?: {
     label: string;
     intent: "destructive" | "info";
   };
+  type: "message" | "task";
 }
 
 // Initial messages data from Message Center
@@ -234,25 +236,52 @@ const getActionDescription = (subject: string, category: string): string => {
   return "Review this message and take appropriate action";
 };
 
-// Mock message data for To Do list - using actual messages from Message Center
+// Mock message data for To Do list - using actual messages from Message Center and Tasks
 const getToDoMessages = (messages: Message[]): MessageItem[] => {
-  // Get only urgent messages that require action (bold + unread)
+  // Get urgent messages (bold + unread)
   const actionRequiredMessages = messages
     .filter(msg => !msg.isArchived && msg.isBold && !msg.isRead)
-    .slice(0, 3);
+    .map(msg => ({
+      id: `msg-${msg.id}`,
+      title: msg.subject,
+      category: msg.category,
+      date: msg.deliveryDate,
+      actionDescription: getActionDescription(msg.subject, msg.category),
+      icon: "alert" as const,
+      badge: {
+        label: "Action Required",
+        intent: "destructive" as const,
+      },
+      type: "message" as const,
+    }));
 
-  return actionRequiredMessages.map(msg => ({
-    id: msg.id,
-    title: msg.subject,
-    category: msg.category,
-    date: msg.deliveryDate,
-    actionDescription: getActionDescription(msg.subject, msg.category),
-    icon: "alert" as const,
-    badge: {
-      label: "Action Required",
-      intent: "destructive" as const,
-    },
-  }));
+  // Get pending tasks and convert to MessageItem format
+  const taskItems = tasksData
+    .filter(task => task.isPending)
+    .map(task => ({
+      id: `task-${task.id}`,
+      title: task.title,
+      category: "Tasks",
+      date: "Today",
+      actionDescription: task.description,
+      icon: task.category as "alert" | "bell" | "document",
+      badge: task.isUrgent ? {
+        label: "Urgent",
+        intent: "destructive" as const,
+      } : undefined,
+      type: "task" as const,
+    }));
+
+  // Combine and sort: urgent items first, then by type
+  const allItems = [...actionRequiredMessages, ...taskItems];
+  allItems.sort((a, b) => {
+    // Urgent items first
+    if (a.badge && !b.badge) return -1;
+    if (!a.badge && b.badge) return 1;
+    return 0;
+  });
+
+  return allItems.slice(0, 10); // Show up to 10 items
 };
 
 export function MessageCenterWidget() {
@@ -285,7 +314,7 @@ export function MessageCenterWidget() {
     };
   }, []);
 
-  const getIcon = (iconType: "alert" | "bell" | "document") => {
+  const getIcon = (iconType: "alert" | "bell" | "document" | "banking" | "clock" | "mail") => {
     switch (iconType) {
       case "alert":
         return <AlertTriangle className="h-5 w-5 text-destructive" />;
@@ -293,25 +322,40 @@ export function MessageCenterWidget() {
         return <Bell className="h-5 w-5 text-primary" />;
       case "document":
         return <FileText className="h-5 w-5 text-muted-foreground" />;
+      case "banking":
+        return <Landmark className="h-5 w-5 text-primary" />;
+      case "clock":
+        return <Clock className="h-5 w-5 text-warning" />;
+      case "mail":
+        return <Mail className="h-5 w-5 text-primary" />;
       default:
         return <Mail className="h-5 w-5 text-primary" />;
     }
   };
 
-  const handleMessageClick = (messageId: string) => {
-    const message = messages.find(m => m.id === messageId);
-    if (message) {
-      setSelectedMessage(message);
-      setIsModalOpen(true);
-      
-      // Mark as read if unread
-      if (!message.isRead) {
-        saveReadStatus(messageId, true);
-        // Refresh messages to update UI
-        const updated = getMessageData();
-        setMessages(updated);
-        setUnreadCount(calculateUnreadCount(updated));
+  const handleItemClick = (itemId: string, itemType: "message" | "task") => {
+    if (itemType === "message") {
+      // Extract the actual message ID (remove "msg-" prefix)
+      const actualMessageId = itemId.replace("msg-", "");
+      const message = messages.find(m => m.id === actualMessageId);
+      if (message) {
+        setSelectedMessage(message);
+        setIsModalOpen(true);
+        
+        // Mark as read if unread
+        if (!message.isRead) {
+          saveReadStatus(actualMessageId, true);
+          // Refresh messages to update UI
+          const updated = getMessageData();
+          setMessages(updated);
+          setUnreadCount(calculateUnreadCount(updated));
+        }
       }
+    } else {
+      // For tasks, just navigate or perform the action
+      // For now, we'll just show a placeholder behavior
+      // In a real app, you'd navigate to the specific task page
+      console.log("Task clicked:", itemId);
     }
   };
 
@@ -398,16 +442,29 @@ export function MessageCenterWidget() {
                 toDoMessages.map((message, index) => (
                   <div key={message.id}>
                     <button
-                      onClick={() => handleMessageClick(message.id)}
+                      onClick={() => handleItemClick(message.id, message.type)}
                       className="w-full text-left py-3 px-3 -mx-3 rounded-lg transition-colors hover:bg-muted/50 cursor-pointer group"
                     >
                       <div className="flex items-start gap-3">
+                        {/* Icon */}
+                        <div className="mt-0.5 shrink-0">
+                          {getIcon(message.icon)}
+                        </div>
                         {/* Content */}
                         <div className="flex-1 min-w-0">
-                          <div className="mb-1">
+                          <div className="flex items-start gap-2 mb-1">
                             <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
                               {message.title}
                             </h4>
+                            {message.badge && (
+                              <WexBadge 
+                                intent={message.badge.intent} 
+                                size="sm" 
+                                className="shrink-0 text-xs px-2 py-0.5"
+                              >
+                                {message.badge.label}
+                              </WexBadge>
+                            )}
                           </div>
                           <p className="text-xs text-muted-foreground">
                             {message.actionDescription}
