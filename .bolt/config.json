@@ -1,0 +1,22 @@
+{
+  "name": "WEX Design System",
+  "version": "1.0.0",
+  "description": "A comprehensive design system built with React, TypeScript, Tailwind CSS, and shadcn/ui primitives",
+  "framework": "react",
+  "buildTool": "vite",
+  "packageManager": "npm",
+  "scripts": {
+    "install": "npm install",
+    "dev": "npm run dev",
+    "build": "npm run build",
+    "preview": "npm run preview"
+  },
+  "ports": {
+    "dev": 5174,
+    "preview": 4173
+  },
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
+
