@@ -16,10 +16,11 @@ import { WexCalendar } from "@/components/wex/wex-calendar";
 import { WexCheckbox } from "@/components/wex";
 import { wexToast } from "@/components/wex/wex-toast";
 import { WexSidebar } from "@/components/wex/wex-sidebar";
+import { WexDropdownMenu } from "@/components/wex/wex-dropdown-menu";
 import { Stepper } from "./components/Stepper";
 import { ConsumerNavigation } from "./ConsumerNavigation";
 import emptyStateIllustration from "./img/empty-state-illustration.svg";
-import { Pencil, Info, Plus, Calendar, X, Trash2 } from "lucide-react";
+import { Pencil, Info, Plus, Calendar, X, Trash2, MoreVertical } from "lucide-react";
 
 type SubPage = "my-profile" | "dependents" | "beneficiaries" | "banking" | "debit-card" | "login-security" | "communication";
 
@@ -38,6 +39,7 @@ type Dependent = {
 type Beneficiary = {
   id: string;
   firstName: string;
+  middleName?: string;
   lastName: string;
   ssn: string;
   birthDate: string;
@@ -65,14 +67,38 @@ export default function MyProfile() {
   const personalName = "Emily Rose Smith";
   const [searchParams, setSearchParams] = useSearchParams();
   
-  // Dependents state
-  const [dependents, setDependents] = useState<Dependent[]>([]);
+  // Dependents state - initialize from localStorage
+  const [dependents, setDependents] = useState<Dependent[]>(() => {
+    try {
+      const saved = localStorage.getItem('myprofile_dependents');
+      return saved ? JSON.parse(saved) : [];
+    } catch (error) {
+      console.error('Error loading dependents from localStorage:', error);
+      return [];
+    }
+  });
   
-  // Beneficiaries state
-  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
+  // Beneficiaries state - initialize from localStorage
+  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>(() => {
+    try {
+      const saved = localStorage.getItem('myprofile_beneficiaries');
+      return saved ? JSON.parse(saved) : [];
+    } catch (error) {
+      console.error('Error loading beneficiaries from localStorage:', error);
+      return [];
+    }
+  });
   
-  // Banking state
-  const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
+  // Banking state - initialize from localStorage
+  const [bankAccounts, setBankAccounts] = useState<BankAccount[]>(() => {
+    try {
+      const saved = localStorage.getItem('myprofile_bankAccounts');
+      return saved ? JSON.parse(saved) : [];
+    } catch (error) {
+      console.error('Error loading bank accounts from localStorage:', error);
+      return [];
+    }
+  });
   
   // Modal state
   const [isAddDependentModalOpen, setIsAddDependentModalOpen] = useState(false);
@@ -110,6 +136,7 @@ export default function MyProfile() {
   // Form state for beneficiaries
   const [beneficiaryFormData, setBeneficiaryFormData] = useState({
     firstName: "",
+    middleName: "",
     lastName: "",
     ssn: "",
     birthDate: "",
@@ -139,6 +166,10 @@ export default function MyProfile() {
   // Verification code resend timer state
   const [resendTimer, setResendTimer] = useState(0);
   const [showVerificationCode, setShowVerificationCode] = useState(false);
+  
+  // Validation error states
+  const [ssnError, setSsnError] = useState(false);
+  const [birthDateError, setBirthDateError] = useState(false);
 
 
   const [activeSubPage, setActiveSubPage] = useState<SubPage>(() => {
@@ -161,12 +192,63 @@ export default function MyProfile() {
     }
   }, [searchParams]);
 
+  // Auto-save dependents to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('myprofile_dependents', JSON.stringify(dependents));
+    } catch (error) {
+      console.error('Error saving dependents to localStorage:', error);
+    }
+  }, [dependents]);
+
+  // Auto-save beneficiaries to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('myprofile_beneficiaries', JSON.stringify(beneficiaries));
+    } catch (error) {
+      console.error('Error saving beneficiaries to localStorage:', error);
+    }
+  }, [beneficiaries]);
+
+  // Auto-save bank accounts to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('myprofile_bankAccounts', JSON.stringify(bankAccounts));
+    } catch (error) {
+      console.error('Error saving bank accounts to localStorage:', error);
+    }
+  }, [bankAccounts]);
+
   const handleSubPageChange = (subPage: SubPage) => {
     setActiveSubPage(subPage);
     setSearchParams({ subPage });
   };
 
   const handleFormChange = (field: string, value: string | boolean) => {
+    if (field === "ssn" && typeof value === "string") {
+      // Validate SSN: numbers only
+      if (value && !/^\d*$/.test(value)) {
+        setSsnError(true);
+        return; // Don't update if invalid
+      }
+      setSsnError(false);
+    }
+    
+    if (field === "birthDate" && typeof value === "string") {
+      // Format birth date: MM/DD/YYYY
+      const numbersOnly = value.replace(/\D/g, "");
+      let formatted = numbersOnly;
+      
+      if (numbersOnly.length >= 3) {
+        formatted = numbersOnly.slice(0, 2) + "/" + numbersOnly.slice(2);
+      }
+      if (numbersOnly.length >= 5) {
+        formatted = numbersOnly.slice(0, 2) + "/" + numbersOnly.slice(2, 4) + "/" + numbersOnly.slice(4, 8);
+      }
+      
+      value = formatted;
+    }
+    
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -199,6 +281,11 @@ export default function MyProfile() {
     });
     setEditingDependentId(dependent.id);
     setIsAddDependentModalOpen(true);
+  };
+
+  const maskSSN = (ssn: string) => {
+    if (!ssn || ssn.length < 4) return "***-**-****";
+    return `***-**-${ssn.slice(-4)}`;
   };
 
   const handleSaveDependent = () => {
@@ -283,6 +370,7 @@ export default function MyProfile() {
   const resetBeneficiaryForm = () => {
     setBeneficiaryFormData({
       firstName: "",
+      middleName: "",
       lastName: "",
       ssn: "",
       birthDate: "",
@@ -299,6 +387,7 @@ export default function MyProfile() {
   const handleEditBeneficiary = (beneficiary: Beneficiary) => {
     setBeneficiaryFormData({
       firstName: beneficiary.firstName,
+      middleName: beneficiary.middleName || "",
       lastName: beneficiary.lastName,
       ssn: beneficiary.ssn,
       birthDate: beneficiary.birthDate,
@@ -325,6 +414,7 @@ export default function MyProfile() {
             ? {
                 ...ben,
                 firstName: beneficiaryFormData.firstName,
+                middleName: beneficiaryFormData.middleName || undefined,
                 lastName: beneficiaryFormData.lastName,
                 ssn: beneficiaryFormData.ssn,
                 birthDate: beneficiaryFormData.birthDate,
@@ -349,6 +439,7 @@ export default function MyProfile() {
       const newBeneficiary: Beneficiary = {
         id: Date.now().toString(),
         firstName: beneficiaryFormData.firstName,
+        middleName: beneficiaryFormData.middleName || undefined,
         lastName: beneficiaryFormData.lastName,
         ssn: beneficiaryFormData.ssn,
         birthDate: beneficiaryFormData.birthDate,
@@ -500,12 +591,24 @@ export default function MyProfile() {
   const formatDate = (dateString: string): string => {
     if (!dateString) return "Not provided";
     try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
+      // Parse the date string - handle both MM/DD/YYYY format and ISO format
+      let date: Date;
+      
+      if (dateString.includes('/')) {
+        // Already in MM/DD/YYYY format
+        const [month, day, year] = dateString.split('/');
+        date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      } else {
+        // ISO format or other
+        date = new Date(dateString);
+      }
+      
+      // Format as MM/DD/YYYY
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const year = date.getFullYear();
+      
+      return `${month}/${day}/${year}`;
     } catch {
       return dateString;
     }
@@ -577,7 +680,7 @@ export default function MyProfile() {
     { label: "My Profile", key: "my-profile" },
     { label: "Dependents", key: "dependents" },
     { label: "Beneficiaries", key: "beneficiaries" },
-    { label: "Banking", key: "banking" },
+    { label: "Bank Accounts", key: "banking" },
     { label: "Debit Card", key: "debit-card" },
     { label: "Login & Security", key: "login-security" },
     { label: "Communication Preferences", key: "communication" },
@@ -646,11 +749,11 @@ export default function MyProfile() {
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex gap-1.5">
-                    <span className="text-gray-500">Primary email address:</span>
+                    <span className="text-gray-500">Primary email:</span>
                     <span className="text-gray-800">emily.grace@email.com</span>
                   </div>
                   <div className="flex gap-1.5">
-                    <span className="text-gray-500">Secondary email address:</span>
+                    <span className="text-gray-500">Secondary email:</span>
                     <span className="text-gray-800">emily.grace2@email.com</span>
                   </div>
                   <div className="flex gap-1.5">
@@ -727,7 +830,7 @@ export default function MyProfile() {
                   }}
                 >
                   <Plus className="h-4 w-4" />
-                  <span className="sm:ml-2">Add New Dependent</span>
+                  Add New Dependent
                 </WexButton>
               </div>
               <WexSeparator className="mt-4" />
@@ -750,47 +853,58 @@ export default function MyProfile() {
                 </WexEmpty>
               </div>
             ) : (
-              <div className="p-6 space-y-4">
+              <div className="p-6 flex flex-wrap gap-2">
                 {dependents.map((dependent) => (
-                  <div key={dependent.id} className="border-b border-[#e4e6e9] pb-4 last:border-b-0">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-base font-semibold text-[#243746] mb-2">
-                          {dependent.firstName} {dependent.middleName ? `${dependent.middleName} ` : ""}{dependent.lastName}
-                        </h3>
-                        <div className="space-y-1 text-sm text-[#243746]">
-                          <div className="flex gap-1.5">
-                            <span className="text-gray-500">Date of Birth:</span>
-                            <span>{formatDate(dependent.birthDate)}</span>
-                          </div>
-                          <div className="flex gap-1.5">
-                            <span className="text-gray-500">Full Time Student:</span>
-                            <span>{dependent.isFullTimeStudent ? "Yes" : "No"}</span>
-                          </div>
+                  <WexCard 
+                    key={dependent.id} 
+                    className="w-[325px] p-4 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)]"
+                  >
+                    <WexCard.Content className="p-0 flex flex-col gap-2">
+                      {/* Header with name and menu */}
+                      <div className="flex items-start justify-between w-full">
+                        <div className="flex flex-col">
+                          <h3 className="text-base font-semibold text-[#243746] tracking-[-0.176px] leading-6">
+                            {dependent.firstName} {dependent.middleName ? `${dependent.middleName} ` : ""}{dependent.lastName}
+                          </h3>
+                          <p className="text-[11px] text-[#515f6b] tracking-[0.055px] leading-4">
+                            {dependent.relationship === "spouse" ? "Spouse" : "Dependent"}
+                          </p>
+                        </div>
+                        <WexDropdownMenu>
+                          <WexDropdownMenu.Trigger asChild>
+                            <WexButton intent="ghost" size="icon" className="h-[35px] w-[35px]">
+                              <MoreVertical className="h-4 w-4" />
+                            </WexButton>
+                          </WexDropdownMenu.Trigger>
+                          <WexDropdownMenu.Content align="end">
+                            <WexDropdownMenu.Item onClick={() => handleEditDependent(dependent)}>
+                              <Pencil className="h-4 w-4 mr-2" />
+                              Edit
+                            </WexDropdownMenu.Item>
+                            <WexDropdownMenu.Item 
+                              onClick={() => handleRemoveClick(dependent)}
+                              className="text-destructive"
+                            >
+                              <Trash2 className="h-4 w-4 mr-2" />
+                              Remove
+                            </WexDropdownMenu.Item>
+                          </WexDropdownMenu.Content>
+                        </WexDropdownMenu>
+                      </div>
+
+                      {/* Details */}
+                      <div className="flex flex-col gap-1">
+                        <div className="flex gap-1.5 text-sm tracking-[-0.084px] leading-6">
+                          <span className="text-[#515f6b]">Date of Birth:</span>
+                          <span className="text-[#12181d]">{formatDate(dependent.birthDate)}</span>
+                        </div>
+                        <div className="flex gap-1.5 text-sm tracking-[-0.084px] leading-6">
+                          <span className="text-[#515f6b]">Full Time Student:</span>
+                          <span className="text-[#12181d]">{dependent.isFullTimeStudent ? "Yes" : "No"}</span>
                         </div>
                       </div>
-                      <div className="flex gap-2">
-                        <WexButton
-                          intent="ghost"
-                          size="sm"
-                          className="text-[#0058a3] hover:bg-blue-50"
-                          onClick={() => handleEditDependent(dependent)}
-                        >
-                          <Pencil className="h-4 w-4 mr-1" />
-                          Edit
-                        </WexButton>
-                        <WexButton
-                          intent="ghost"
-                          size="sm"
-                          className="text-[#d23f57] hover:bg-red-50"
-                          onClick={() => handleRemoveClick(dependent)}
-                        >
-                          <Trash2 className="h-4 w-4 mr-1" />
-                          Remove
-                        </WexButton>
-                      </div>
-                    </div>
-                  </div>
+                    </WexCard.Content>
+                  </WexCard>
                 ))}
               </div>
             )}
@@ -814,7 +928,7 @@ export default function MyProfile() {
                   }}
                 >
                   <Plus className="h-4 w-4" />
-                  <span className="sm:ml-2">Add New Beneficiary</span>
+                  Add New Beneficiary
                 </WexButton>
               </div>
               <WexSeparator className="mt-4" />
@@ -893,7 +1007,7 @@ export default function MyProfile() {
           <>
             <div className="pt-4 pb-2">
               <div className="px-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <h2 className="text-2xl font-semibold text-gray-800">Banking</h2>
+                <h2 className="text-2xl font-semibold text-gray-800">Bank Accounts</h2>
                 <WexButton
                   intent="outline"
                   size="sm"
@@ -915,7 +1029,7 @@ export default function MyProfile() {
                   }}
                 >
                   <Plus className="h-4 w-4" />
-                  <span className="sm:ml-2">Add New Bank Account</span>
+                  Add New Bank Account
                 </WexButton>
               </div>
               <WexSeparator className="mt-4" />
@@ -1162,11 +1276,11 @@ export default function MyProfile() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F1FAFE]">
+    <div className="min-h-screen bg-[#F1FAFE] flex flex-col">
       <ConsumerNavigation />
 
       {/* Main Content */}
-      <div className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6 md:px-8">
+      <div className="flex-1 mx-auto max-w-[1440px] px-4 py-8 sm:px-6 md:px-8 w-full">
         <div className="mx-auto max-w-[1376px]">
           {/* Page Header */}
           <div className="mb-6 space-y-3 md:mb-8">
@@ -1203,7 +1317,7 @@ export default function MyProfile() {
 
           <WexSidebar.Provider defaultOpen={true} className="min-h-full">
             <WexCard className="rounded-2xl overflow-hidden h-full w-full">
-              <div className="flex min-h-full w-full">
+              <div className="flex min-h-[700px] w-full">
                 {/* Left Sidebar (desktop) */}
                 <WexSidebar
                   collapsible="none"
@@ -1289,110 +1403,133 @@ export default function MyProfile() {
           </div>
 
           {/* Form Content */}
-          <div className="flex flex-col gap-4 px-[24px] pb-0">
-            <WexFloatLabel
-              label="First Name"
-              value={formData.firstName}
-              onChange={(e) => handleFormChange("firstName", e.target.value)}
-            />
-            <WexFloatLabel
-              label="Middle Name"
-              value={formData.middleName}
-              onChange={(e) => handleFormChange("middleName", e.target.value)}
-            />
+          <div className="flex flex-col gap-[16px] px-[24px] pb-0">
+            {/* Row 1: First Name + MI */}
+            <div className="flex gap-[16px] items-start">
+              <div className="flex-1">
+                <WexFloatLabel
+                  label="First Name"
+                  value={formData.firstName}
+                  onChange={(e) => handleFormChange("firstName", e.target.value)}
+                />
+              </div>
+              <div className="w-[88px]">
+                <WexFloatLabel
+                  label="MI"
+                  value={formData.middleName}
+                  onChange={(e) => handleFormChange("middleName", e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* Row 2: Last Name */}
             <WexFloatLabel
               label="Last Name"
               value={formData.lastName}
               onChange={(e) => handleFormChange("lastName", e.target.value)}
             />
-            <WexFloatLabel
-              label="SSN"
-              value={formData.ssn}
-              onChange={(e) => handleFormChange("ssn", e.target.value)}
-            />
-            {/* Birth Date with Calendar Picker */}
-            <WexPopover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-              <WexPopover.Trigger asChild>
-                <div className="relative w-full">
-                  <WexFloatLabel
-                    label="Birth Date"
-                    value={formData.birthDate}
-                    onChange={(e) => handleFormChange("birthDate", e.target.value)}
-                    onClick={() => setIsCalendarOpen(true)}
-                    rightIcon={<Calendar className="h-4 w-4" />}
-                  />
-                </div>
-              </WexPopover.Trigger>
-              <WexPopover.Content className="w-auto p-0" align="start" side="bottom" sideOffset={4}>
-                <WexCalendar
-                  mode="single"
-                  selected={
-                    formData.birthDate
-                      ? (() => {
-                          // Parse MM/DD/YYYY format
-                          const parts = formData.birthDate.split("/");
-                          if (parts.length === 3) {
-                            const month = parseInt(parts[0], 10) - 1; // Month is 0-indexed
-                            const day = parseInt(parts[1], 10);
-                            const year = parseInt(parts[2], 10);
-                            const date = new Date(year, month, day);
-                            if (!isNaN(date.getTime())) {
-                              return date;
-                            }
-                          }
-                          // Fallback: try parsing as ISO string
-                          const date = new Date(formData.birthDate);
-                          return !isNaN(date.getTime()) ? date : undefined;
-                        })()
-                      : undefined
-                  }
-                  onSelect={(date: Date | undefined) => {
-                    if (date) {
-                      // Format date as MM/DD/YYYY
-                      const month = String(date.getMonth() + 1).padStart(2, "0");
-                      const day = String(date.getDate()).padStart(2, "0");
-                      const year = date.getFullYear();
-                      handleFormChange("birthDate", `${month}/${day}/${year}`);
-                    } else {
-                      handleFormChange("birthDate", "");
-                    }
-                    setIsCalendarOpen(false);
-                  }}
-                  initialFocus
-                />
-              </WexPopover.Content>
-            </WexPopover>
-            
-            {/* Gender Select with Float Label Wrapper */}
-            <div className="relative w-full">
-              <WexSelect
-                value={formData.gender}
-                onValueChange={(value) => handleFormChange("gender", value)}
-              >
-                <WexSelect.Trigger className={`h-14 w-full rounded-md px-3 text-sm shadow-sm border border-wex-input-border bg-wex-input-bg text-wex-input-fg hover:border-wex-input-border-hover focus:outline-none focus:border-wex-input-border-focus focus:ring-1 focus:ring-wex-input-focus-ring ${formData.gender ? "pt-2 pb-2" : "pt-5 pb-2"}`}>
-                  <WexSelect.Value placeholder=" " />
-                </WexSelect.Trigger>
-                <WexSelect.Content>
-                  <WexSelect.Item value="male">Male</WexSelect.Item>
-                  <WexSelect.Item value="female">Female</WexSelect.Item>
-                  <WexSelect.Item value="other">Other</WexSelect.Item>
-                  <WexSelect.Item value="prefer-not-to-say">Prefer not to say</WexSelect.Item>
-                </WexSelect.Content>
-              </WexSelect>
-              <label
-                className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
-                  formData.gender
-                    ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
-                    : "left-3 top-4 text-sm text-[#7c858e]"
-                }`}
-              >
-                Gender
-              </label>
+
+            {/* Row 3: SSN */}
+            <div className="flex flex-col gap-1">
+              <WexFloatLabel
+                label="SSN"
+                value={formData.ssn}
+                onChange={(e) => handleFormChange("ssn", e.target.value)}
+                invalid={ssnError}
+              />
+              {ssnError && (
+                <p className="text-[12px] text-[hsl(var(--wex-destructive))] px-3">
+                  SSN must be numbers only
+                </p>
+              )}
             </div>
 
-            {/* Full time student Radio Group */}
-            <div className="flex gap-4 items-center">
-              <span className="text-base text-[#243746] tracking-[-0.176px]">Full time student?</span>
+            {/* Row 4: Birth Date + Gender */}
+            <div className="flex gap-[16px] items-start">
+              {/* Birth Date with Calendar Picker */}
+              <div className="flex-1">
+                <WexPopover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+                  <WexPopover.Trigger asChild>
+                    <div className="relative w-full">
+                      <WexFloatLabel
+                        label="Birth Date"
+                        value={formData.birthDate}
+                        onChange={(e) => handleFormChange("birthDate", e.target.value)}
+                        onClick={() => setIsCalendarOpen(true)}
+                        rightIcon={<Calendar className="h-4 w-4" />}
+                      />
+                    </div>
+                  </WexPopover.Trigger>
+                  <WexPopover.Content className="w-auto p-0" align="start" side="bottom" sideOffset={4}>
+                    <WexCalendar
+                      mode="single"
+                      selected={
+                        formData.birthDate
+                          ? (() => {
+                              // Parse MM/DD/YYYY format
+                              const parts = formData.birthDate.split("/");
+                              if (parts.length === 3) {
+                                const month = parseInt(parts[0], 10) - 1; // Month is 0-indexed
+                                const day = parseInt(parts[1], 10);
+                                const year = parseInt(parts[2], 10);
+                                const date = new Date(year, month, day);
+                                if (!isNaN(date.getTime())) {
+                                  return date;
+                                }
+                              }
+                              // Fallback: try parsing as ISO string
+                              const date = new Date(formData.birthDate);
+                              return !isNaN(date.getTime()) ? date : undefined;
+                            })()
+                          : undefined
+                      }
+                      onSelect={(date: Date | undefined) => {
+                        if (date) {
+                          // Format date as MM/DD/YYYY
+                          const month = String(date.getMonth() + 1).padStart(2, "0");
+                          const day = String(date.getDate()).padStart(2, "0");
+                          const year = date.getFullYear();
+                          handleFormChange("birthDate", `${month}/${day}/${year}`);
+                        } else {
+                          handleFormChange("birthDate", "");
+                        }
+                        setIsCalendarOpen(false);
+                      }}
+                      initialFocus
+                    />
+                  </WexPopover.Content>
+                </WexPopover>
+              </div>
+              
+              {/* Gender Select with Float Label Wrapper */}
+              <div className="relative flex-1">
+                <WexSelect
+                  value={formData.gender}
+                  onValueChange={(value) => handleFormChange("gender", value)}
+                >
+                  <WexSelect.Trigger className={`h-14 w-full rounded-md px-3 text-sm shadow-sm border border-wex-input-border bg-wex-input-bg text-wex-input-fg hover:border-wex-input-border-hover focus:outline-none focus:border-wex-input-border-focus focus:ring-1 focus:ring-wex-input-focus-ring ${formData.gender ? "pt-2 pb-2" : "pt-5 pb-2"}`}>
+                    <WexSelect.Value placeholder=" " />
+                  </WexSelect.Trigger>
+                  <WexSelect.Content>
+                    <WexSelect.Item value="male">Male</WexSelect.Item>
+                    <WexSelect.Item value="female">Female</WexSelect.Item>
+                  </WexSelect.Content>
+                </WexSelect>
+                <label
+                  className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
+                    formData.gender
+                      ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
+                      : "left-3 top-4 text-sm text-[#7c858e]"
+                  }`}
+                >
+                  Gender
+                </label>
+              </div>
+            </div>
+
+            {/* Row 5: Full time student Radio Group */}
+            <div className="flex gap-[16px] items-center">
+              <span className="text-base text-black tracking-[-0.176px]">Full time student?</span>
               <WexRadioGroup
                 value={formData.isFullTimeStudent}
                 onValueChange={(value) => handleFormChange("isFullTimeStudent", value)}
@@ -1409,7 +1546,7 @@ export default function MyProfile() {
               </WexRadioGroup>
             </div>
 
-            {/* Relationship Select with Float Label Wrapper */}
+            {/* Row 6: Relationship */}
             <div className="relative w-full">
               <WexSelect
                 value={formData.relationship}
@@ -1420,8 +1557,7 @@ export default function MyProfile() {
                 </WexSelect.Trigger>
                 <WexSelect.Content>
                   <WexSelect.Item value="spouse">Spouse</WexSelect.Item>
-                  <WexSelect.Item value="child">Child</WexSelect.Item>
-                  <WexSelect.Item value="other">Other</WexSelect.Item>
+                  <WexSelect.Item value="dependent">Dependent</WexSelect.Item>
                 </WexSelect.Content>
               </WexSelect>
               <label
@@ -1437,10 +1573,11 @@ export default function MyProfile() {
           </div>
 
           {/* Footer */}
-          <div className="flex gap-2 justify-end p-[17.5px] pt-0">
+          <div className="flex gap-[7px] justify-end p-[17.5px] pt-0">
             <WexDialog.Close asChild>
               <WexButton
-                intent="outline"
+                intent="ghost"
+                className="px-[12.25px] py-[8.75px] text-[15.75px] text-[#1d2c38]"
                 onClick={() => {
                   resetForm();
                   setEditingDependentId(null);
@@ -1452,6 +1589,7 @@ export default function MyProfile() {
             </WexDialog.Close>
             <WexButton
               intent="primary"
+              className={`px-[13.25px] py-[9.75px] text-[15.75px] ${!formData.firstName || !formData.lastName || !formData.ssn || !formData.birthDate || !formData.gender || !formData.relationship ? "opacity-70" : ""}`}
               onClick={handleSaveDependent}
               disabled={!formData.firstName || !formData.lastName || !formData.ssn || !formData.birthDate || !formData.gender || !formData.relationship}
             >
@@ -1529,106 +1667,126 @@ export default function MyProfile() {
           </div>
 
           {/* Form Content */}
-          <div className="flex flex-col gap-4 px-[24px] pb-0">
-            {/* Personal Information */}
-            <WexFloatLabel
-              label="First Name"
-              value={beneficiaryFormData.firstName}
-              onChange={(e) => handleBeneficiaryFormChange("firstName", e.target.value)}
-            />
+          <div className="flex flex-col gap-[16px] px-[24px] pb-0">
+            {/* Row 1: First Name + Middle Name */}
+            <div className="flex gap-[16px] items-start">
+              <div className="flex-1">
+                <WexFloatLabel
+                  label="First Name"
+                  value={beneficiaryFormData.firstName}
+                  onChange={(e) => handleBeneficiaryFormChange("firstName", e.target.value)}
+                />
+              </div>
+              <div className="w-[88px]">
+                <WexFloatLabel
+                  label="MI"
+                  value={beneficiaryFormData.middleName}
+                  onChange={(e) => handleBeneficiaryFormChange("middleName", e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* Row 2: Last Name */}
             <WexFloatLabel
               label="Last Name"
               value={beneficiaryFormData.lastName}
               onChange={(e) => handleBeneficiaryFormChange("lastName", e.target.value)}
             />
+
+            {/* Row 3: SSN */}
             <WexFloatLabel
               label="SSN"
               value={beneficiaryFormData.ssn}
               onChange={(e) => handleBeneficiaryFormChange("ssn", e.target.value)}
             />
-            
-            {/* Birth Date with Calendar Picker */}
-            <WexPopover open={isBeneficiaryCalendarOpen} onOpenChange={setIsBeneficiaryCalendarOpen}>
-              <WexPopover.Trigger asChild>
-                <div className="relative w-full">
-                  <WexFloatLabel
-                    label="Birth Date"
-                    value={beneficiaryFormData.birthDate}
-                    onChange={(e) => handleBeneficiaryFormChange("birthDate", e.target.value)}
-                    onClick={() => setIsBeneficiaryCalendarOpen(true)}
-                    rightIcon={<Calendar className="h-4 w-4" />}
-                  />
-                </div>
-              </WexPopover.Trigger>
-              <WexPopover.Content className="w-auto p-0" align="start" side="bottom" sideOffset={4}>
-                <WexCalendar
-                  mode="single"
-                  selected={
-                    beneficiaryFormData.birthDate
-                      ? (() => {
-                          const parts = beneficiaryFormData.birthDate.split("/");
-                          if (parts.length === 3) {
-                            const month = parseInt(parts[0], 10) - 1;
-                            const day = parseInt(parts[1], 10);
-                            const year = parseInt(parts[2], 10);
-                            const date = new Date(year, month, day);
-                            if (!isNaN(date.getTime())) {
-                              return date;
-                            }
-                          }
-                          const date = new Date(beneficiaryFormData.birthDate);
-                          return !isNaN(date.getTime()) ? date : undefined;
-                        })()
-                      : undefined
-                  }
-                  onSelect={(date: Date | undefined) => {
-                    if (date) {
-                      const month = String(date.getMonth() + 1).padStart(2, "0");
-                      const day = String(date.getDate()).padStart(2, "0");
-                      const year = date.getFullYear();
-                      handleBeneficiaryFormChange("birthDate", `${month}/${day}/${year}`);
-                    } else {
-                      handleBeneficiaryFormChange("birthDate", "");
-                    }
-                    setIsBeneficiaryCalendarOpen(false);
-                  }}
-                  initialFocus
-                />
-              </WexPopover.Content>
-            </WexPopover>
 
-            {/* Relationship Select with Float Label Wrapper */}
-            <div className="relative w-full">
-              <WexSelect
-                value={beneficiaryFormData.relationship}
-                onValueChange={(value) => handleBeneficiaryFormChange("relationship", value)}
-              >
-                <WexSelect.Trigger className={`h-14 w-full rounded-md px-3 text-sm shadow-sm border border-wex-input-border bg-wex-input-bg text-wex-input-fg hover:border-wex-input-border-hover focus:outline-none focus:border-wex-input-border-focus focus:ring-1 focus:ring-wex-input-focus-ring ${beneficiaryFormData.relationship ? "pt-2 pb-2" : "pt-5 pb-2"}`}>
-                  <WexSelect.Value placeholder=" " />
-                </WexSelect.Trigger>
-                <WexSelect.Content>
-                  <WexSelect.Item value="spouse">Spouse</WexSelect.Item>
-                  <WexSelect.Item value="child">Child</WexSelect.Item>
-                  <WexSelect.Item value="parent">Parent</WexSelect.Item>
-                  <WexSelect.Item value="sibling">Sibling</WexSelect.Item>
-                  <WexSelect.Item value="other">Other</WexSelect.Item>
-                </WexSelect.Content>
-              </WexSelect>
-              <label
-                className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
-                  beneficiaryFormData.relationship
-                    ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
-                    : "left-3 top-4 text-sm text-[#7c858e]"
-                }`}
-              >
-                Relationship
-              </label>
+            {/* Row 4: Birth Date + Relationship */}
+            <div className="flex gap-[16px] items-start">
+              {/* Birth Date with Calendar Picker */}
+              <div className="flex-1">
+                <WexPopover open={isBeneficiaryCalendarOpen} onOpenChange={setIsBeneficiaryCalendarOpen}>
+                  <WexPopover.Trigger asChild>
+                    <div className="relative w-full">
+                      <WexFloatLabel
+                        label="Birth Date"
+                        value={beneficiaryFormData.birthDate}
+                        onChange={(e) => handleBeneficiaryFormChange("birthDate", e.target.value)}
+                        onClick={() => setIsBeneficiaryCalendarOpen(true)}
+                        rightIcon={<Calendar className="h-4 w-4" />}
+                      />
+                    </div>
+                  </WexPopover.Trigger>
+                  <WexPopover.Content className="w-auto p-0" align="start" side="bottom" sideOffset={4}>
+                    <WexCalendar
+                      mode="single"
+                      selected={
+                        beneficiaryFormData.birthDate
+                          ? (() => {
+                              const parts = beneficiaryFormData.birthDate.split("/");
+                              if (parts.length === 3) {
+                                const month = parseInt(parts[0], 10) - 1;
+                                const day = parseInt(parts[1], 10);
+                                const year = parseInt(parts[2], 10);
+                                const date = new Date(year, month, day);
+                                if (!isNaN(date.getTime())) {
+                                  return date;
+                                }
+                              }
+                              const date = new Date(beneficiaryFormData.birthDate);
+                              return !isNaN(date.getTime()) ? date : undefined;
+                            })()
+                          : undefined
+                      }
+                      onSelect={(date: Date | undefined) => {
+                        if (date) {
+                          const month = String(date.getMonth() + 1).padStart(2, "0");
+                          const day = String(date.getDate()).padStart(2, "0");
+                          const year = date.getFullYear();
+                          handleBeneficiaryFormChange("birthDate", `${month}/${day}/${year}`);
+                        } else {
+                          handleBeneficiaryFormChange("birthDate", "");
+                        }
+                        setIsBeneficiaryCalendarOpen(false);
+                      }}
+                      initialFocus
+                    />
+                  </WexPopover.Content>
+                </WexPopover>
+              </div>
+
+              {/* Relationship Select with Float Label Wrapper */}
+              <div className="relative flex-1">
+                <WexSelect
+                  value={beneficiaryFormData.relationship}
+                  onValueChange={(value) => handleBeneficiaryFormChange("relationship", value)}
+                >
+                  <WexSelect.Trigger className={`h-14 w-full rounded-md px-3 text-sm shadow-sm border border-wex-input-border bg-wex-input-bg text-wex-input-fg hover:border-wex-input-border-hover focus:outline-none focus:border-wex-input-border-focus focus:ring-1 focus:ring-wex-input-focus-ring ${beneficiaryFormData.relationship ? "pt-2 pb-2" : "pt-5 pb-2"}`}>
+                    <WexSelect.Value placeholder=" " />
+                  </WexSelect.Trigger>
+                  <WexSelect.Content>
+                    <WexSelect.Item value="spouse">Spouse</WexSelect.Item>
+                    <WexSelect.Item value="child">Child</WexSelect.Item>
+                    <WexSelect.Item value="parent">Parent</WexSelect.Item>
+                    <WexSelect.Item value="sibling">Sibling</WexSelect.Item>
+                    <WexSelect.Item value="other">Other</WexSelect.Item>
+                  </WexSelect.Content>
+                </WexSelect>
+                <label
+                  className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
+                    beneficiaryFormData.relationship
+                      ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
+                      : "left-3 top-4 text-sm text-[#7c858e]"
+                  }`}
+                >
+                  Relationship
+                </label>
+              </div>
             </div>
 
-            {/* Beneficiary Type Radio Group */}
-            <div className="flex gap-4 items-center">
+            {/* Row 5: Beneficiary Type Radio Group */}
+            <div className="flex gap-[16px] items-center">
               <div className="flex items-center gap-1">
-                <span className="text-base text-[#243746] tracking-[-0.176px]">Beneficiary Type</span>
+                <span className="text-base text-black tracking-[-0.176px]">Beneficiary Type:</span>
                 <Info className="h-4 w-4 text-[#7c858e]" />
               </div>
               <WexRadioGroup
@@ -1647,63 +1805,74 @@ export default function MyProfile() {
               </WexRadioGroup>
             </div>
 
-            {/* Address Information */}
+            {/* Row 6: Address */}
             <WexFloatLabel
-              label="Address line 1"
+              label="Address"
               value={beneficiaryFormData.addressLine1}
               onChange={(e) => handleBeneficiaryFormChange("addressLine1", e.target.value)}
             />
+
+            {/* Row 7: Address line 2 */}
             <WexFloatLabel
               label="Address line 2"
               value={beneficiaryFormData.addressLine2}
               onChange={(e) => handleBeneficiaryFormChange("addressLine2", e.target.value)}
             />
+
+            {/* Row 8: City */}
             <WexFloatLabel
               label="City"
               value={beneficiaryFormData.city}
               onChange={(e) => handleBeneficiaryFormChange("city", e.target.value)}
             />
             
-            {/* State Select with Float Label Wrapper */}
-            <div className="relative w-full">
-              <WexSelect
-                value={beneficiaryFormData.state}
-                onValueChange={(value) => handleBeneficiaryFormChange("state", value)}
-              >
-                <WexSelect.Trigger className={`h-14 w-full rounded-md px-3 text-sm shadow-sm border border-wex-input-border bg-wex-input-bg text-wex-input-fg hover:border-wex-input-border-hover focus:outline-none focus:border-wex-input-border-focus focus:ring-1 focus:ring-wex-input-focus-ring ${beneficiaryFormData.state ? "pt-2 pb-2" : "pt-5 pb-2"}`}>
-                  <WexSelect.Value placeholder=" " />
-                </WexSelect.Trigger>
-                <WexSelect.Content>
-                  {usStates.map((state) => (
-                    <WexSelect.Item key={state} value={state}>
-                      {state}
-                    </WexSelect.Item>
-                  ))}
-                </WexSelect.Content>
-              </WexSelect>
-              <label
-                className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
-                  beneficiaryFormData.state
-                    ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
-                    : "left-3 top-4 text-sm text-[#7c858e]"
-                }`}
-              >
-                Select State
-              </label>
-            </div>
+            {/* Row 9: State + Zip Code */}
+            <div className="flex gap-[16px] items-start">
+              {/* State Select with Float Label Wrapper */}
+              <div className="relative flex-1">
+                <WexSelect
+                  value={beneficiaryFormData.state}
+                  onValueChange={(value) => handleBeneficiaryFormChange("state", value)}
+                >
+                  <WexSelect.Trigger className={`h-14 w-full rounded-md px-3 text-sm shadow-sm border border-wex-input-border bg-wex-input-bg text-wex-input-fg hover:border-wex-input-border-hover focus:outline-none focus:border-wex-input-border-focus focus:ring-1 focus:ring-wex-input-focus-ring ${beneficiaryFormData.state ? "pt-2 pb-2" : "pt-5 pb-2"}`}>
+                    <WexSelect.Value placeholder=" " />
+                  </WexSelect.Trigger>
+                  <WexSelect.Content>
+                    {usStates.map((state) => (
+                      <WexSelect.Item key={state} value={state}>
+                        {state}
+                      </WexSelect.Item>
+                    ))}
+                  </WexSelect.Content>
+                </WexSelect>
+                <label
+                  className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
+                    beneficiaryFormData.state
+                      ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
+                      : "left-3 top-4 text-sm text-[#7c858e]"
+                  }`}
+                >
+                  State
+                </label>
+              </div>
 
-            <WexFloatLabel
-              label="Zip Code"
-              value={beneficiaryFormData.zipCode}
-              onChange={(e) => handleBeneficiaryFormChange("zipCode", e.target.value)}
-            />
+              {/* Zip Code */}
+              <div className="flex-1">
+                <WexFloatLabel
+                  label="Zip Code"
+                  value={beneficiaryFormData.zipCode}
+                  onChange={(e) => handleBeneficiaryFormChange("zipCode", e.target.value)}
+                />
+              </div>
+            </div>
           </div>
 
           {/* Footer */}
-          <div className="flex gap-2 justify-end p-[17.5px] pt-0">
+          <div className="flex gap-[7px] justify-end p-[17.5px] pt-0">
             <WexDialog.Close asChild>
               <WexButton
-                intent="outline"
+                intent="ghost"
+                className="px-[12.25px] py-[8.75px] text-[15.75px] text-[#1d2c38]"
                 onClick={() => {
                   resetBeneficiaryForm();
                   setEditingBeneficiaryId(null);
@@ -1715,6 +1884,7 @@ export default function MyProfile() {
             </WexDialog.Close>
             <WexButton
               intent="primary"
+              className={`px-[13.25px] py-[9.75px] text-[15.75px] ${!beneficiaryFormData.firstName || !beneficiaryFormData.lastName || !beneficiaryFormData.ssn || !beneficiaryFormData.birthDate || !beneficiaryFormData.relationship || !beneficiaryFormData.addressLine1 || !beneficiaryFormData.city || !beneficiaryFormData.state || !beneficiaryFormData.zipCode ? "opacity-70" : ""}`}
               onClick={handleSaveBeneficiary}
               disabled={!beneficiaryFormData.firstName || !beneficiaryFormData.lastName || !beneficiaryFormData.ssn || !beneficiaryFormData.birthDate || !beneficiaryFormData.relationship || !beneficiaryFormData.addressLine1 || !beneficiaryFormData.city || !beneficiaryFormData.state || !beneficiaryFormData.zipCode}
             >
