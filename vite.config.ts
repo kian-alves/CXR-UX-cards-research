@@ -3,10 +3,9 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => ({
-  // Only set base path for production builds (GitHub Pages deployment)
-  // Local development will work at root path
-  base: mode === 'production' ? '/CXR-UX/' : '/',
+export default defineConfig(() => ({
+  // Use /CXR-UX/ only for GitHub Pages builds, root path for everything else
+  base: process.env.GITHUB_PAGES ? '/CXR-UX/' : '/',
   plugins: [react()],
   server: {
     port: 5174,
