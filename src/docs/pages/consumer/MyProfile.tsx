@@ -5,6 +5,7 @@ import { WexAlert } from "@/components/wex/wex-alert";
 import { WexEmpty } from "@/components/wex/wex-empty";
 import { WexSeparator } from "@/components/wex/wex-separator";
 import { WexCard } from "@/components/wex/wex-card";
+import { WexBadge } from "@/components/wex/wex-badge";
 import { WexDialog } from "@/components/wex/wex-dialog";
 import { WexAlertDialog } from "@/components/wex/wex-alert-dialog";
 import { WexFloatLabel } from "@/components/wex/wex-float-label";
@@ -20,7 +21,7 @@ import { WexDropdownMenu } from "@/components/wex/wex-dropdown-menu";
 import { Stepper } from "./components/Stepper";
 import { ConsumerNavigation } from "./ConsumerNavigation";
 import emptyStateIllustration from "./img/empty-state-illustration.svg";
-import { Pencil, Info, Plus, Calendar, X, Trash2, MoreVertical } from "lucide-react";
+import { Pencil, Info, Plus, Calendar, X, Trash2, MoreVertical, Eye, RefreshCw } from "lucide-react";
 
 type SubPage = "my-profile" | "dependents" | "beneficiaries" | "banking" | "debit-card" | "login-security" | "communication";
 
@@ -63,6 +64,15 @@ type BankAccount = {
   selectedDirectDepositOptions: string[]; // Array of selected plan years/accounts
 };
 
+type DebitCard = {
+  id: string;
+  cardholderName: string;
+  cardNumber: string;  // Last 4 digits
+  status: "active" | "inactive" | "lost" | "stolen";
+  expirationDate: string;  // MM/DD/YYYY
+  effectiveDate: string;   // MM/DD/YYYY
+};
+
 export default function MyProfile() {
   const personalName = "Emily Rose Smith";
   const [searchParams, setSearchParams] = useSearchParams();
@@ -93,9 +103,78 @@ export default function MyProfile() {
   const [bankAccounts, setBankAccounts] = useState<BankAccount[]>(() => {
     try {
       const saved = localStorage.getItem('myprofile_bankAccounts');
-      return saved ? JSON.parse(saved) : [];
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // If empty array in localStorage, use default
+        if (parsed.length === 0) {
+          const defaultAccount = [{
+            id: "1",
+            routingNumber: "123456789",
+            accountNumber: "3522",
+            confirmAccountNumber: "3522",
+            accountNickname: "Ella's Bank",
+            accountType: "checking",
+            verificationMethod: "text",
+            selectedDirectDepositOptions: []
+          }];
+          localStorage.setItem('myprofile_bankAccounts', JSON.stringify(defaultAccount));
+          return defaultAccount;
+        }
+        return parsed;
+      }
+      // Default bank account if none saved
+      const defaultAccount = [{
+        id: "1",
+        routingNumber: "123456789",
+        accountNumber: "3522",
+        confirmAccountNumber: "3522",
+        accountNickname: "Ella's Bank",
+        accountType: "checking",
+        verificationMethod: "text",
+        selectedDirectDepositOptions: []
+      }];
+      localStorage.setItem('myprofile_bankAccounts', JSON.stringify(defaultAccount));
+      return defaultAccount;
     } catch (error) {
       console.error('Error loading bank accounts from localStorage:', error);
+      return [];
+    }
+  });
+  
+  // Debit Card state - initialize with default card
+  const [debitCards, setDebitCards] = useState<DebitCard[]>(() => {
+    try {
+      const saved = localStorage.getItem('myprofile_debitCards');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // If empty array in localStorage, use default
+        if (parsed.length === 0) {
+          const defaultCard = [{
+            id: "1",
+            cardholderName: "Emily Rose",
+            cardNumber: "3455",
+            status: "active" as const,
+            expirationDate: "10/31/2025",
+            effectiveDate: "10/23/2019"
+          }];
+          localStorage.setItem('myprofile_debitCards', JSON.stringify(defaultCard));
+          return defaultCard;
+        }
+        return parsed;
+      }
+      // Default debit card if none saved
+      const defaultCard = [{
+        id: "1",
+        cardholderName: "Emily Rose",
+        cardNumber: "3455",
+        status: "active" as const,
+        expirationDate: "10/31/2025",
+        effectiveDate: "10/23/2019"
+      }];
+      localStorage.setItem('myprofile_debitCards', JSON.stringify(defaultCard));
+      return defaultCard;
+    } catch (error) {
+      console.error('Error loading debit cards from localStorage:', error);
       return [];
     }
   });
@@ -355,6 +434,30 @@ export default function MyProfile() {
 
   // Beneficiary handlers
   const handleBeneficiaryFormChange = (field: string, value: string) => {
+    if (field === "ssn") {
+      // Validate SSN: numbers only
+      if (value && !/^\d*$/.test(value)) {
+        setSsnError(true);
+        return; // Don't update if invalid
+      }
+      setSsnError(false);
+    }
+    
+    if (field === "birthDate") {
+      // Format birth date: MM/DD/YYYY
+      const numbersOnly = value.replace(/\D/g, "");
+      let formatted = numbersOnly;
+      
+      if (numbersOnly.length >= 3) {
+        formatted = numbersOnly.slice(0, 2) + "/" + numbersOnly.slice(2);
+      }
+      if (numbersOnly.length >= 5) {
+        formatted = numbersOnly.slice(0, 2) + "/" + numbersOnly.slice(2, 4) + "/" + numbersOnly.slice(4, 8);
+      }
+      
+      value = formatted;
+    }
+    
     setBeneficiaryFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -855,7 +958,7 @@ export default function MyProfile() {
                   >
                     <WexCard.Content className="p-0 flex flex-col gap-2">
                       {/* Header with name and menu */}
-                      <div className="flex items-start justify-between w-full">
+                      <div className="flex items-center justify-between w-full gap-0">
                         <div className="flex flex-col">
                           <h3 className="text-base font-semibold text-[#243746] tracking-[-0.176px] leading-6">
                             {dependent.firstName} {dependent.middleName ? `${dependent.middleName} ` : ""}{dependent.lastName}
@@ -945,51 +1048,58 @@ export default function MyProfile() {
                 </WexEmpty>
               </div>
             ) : (
-              <div className="p-6 space-y-4">
+              <div className="p-6 flex flex-wrap gap-2">
                 {beneficiaries.map((beneficiary) => (
-                  <div key={beneficiary.id} className="border-b border-[#e4e6e9] pb-4 last:border-b-0">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-base font-semibold text-[#243746] mb-2">
-                          {beneficiary.firstName} {beneficiary.lastName}
-                        </h3>
-                        <div className="space-y-1 text-sm text-[#243746]">
-                          <div className="flex gap-1.5">
-                            <span className="text-gray-500">Type:</span>
-                            <span className="capitalize">{beneficiary.beneficiaryType}</span>
-                          </div>
-                          <div className="flex gap-1.5">
-                            <span className="text-gray-500">Relationship:</span>
-                            <span>{beneficiary.relationship}</span>
-                          </div>
-                          <div className="flex gap-1.5">
-                            <span className="text-gray-500">Address:</span>
-                            <span>{beneficiary.addressLine1}, {beneficiary.city}, {beneficiary.state} {beneficiary.zipCode}</span>
-                          </div>
+                  <WexCard 
+                    key={beneficiary.id} 
+                    className="w-[325px] p-4 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)]"
+                  >
+                    <WexCard.Content className="p-0 flex flex-col gap-2">
+                      {/* Header with name and menu */}
+                      <div className="flex items-center justify-between w-full gap-0">
+                        <div className="flex flex-col">
+                          <h3 className="text-base font-semibold text-[#243746] tracking-[-0.176px] leading-6">
+                            {beneficiary.firstName} {beneficiary.middleName ? `${beneficiary.middleName} ` : ""}{beneficiary.lastName}
+                          </h3>
+                          <p className="text-[11px] text-[#515f6b] tracking-[0.055px] leading-4">
+                            Beneficiary
+                          </p>
+                        </div>
+                        <WexDropdownMenu>
+                          <WexDropdownMenu.Trigger asChild>
+                            <WexButton intent="ghost" size="icon" className="h-[35px] w-[35px]">
+                              <MoreVertical className="h-4 w-4" />
+                            </WexButton>
+                          </WexDropdownMenu.Trigger>
+                          <WexDropdownMenu.Content align="end">
+                            <WexDropdownMenu.Item onClick={() => handleEditBeneficiary(beneficiary)}>
+                              <Pencil className="h-4 w-4 mr-2" />
+                              Edit
+                            </WexDropdownMenu.Item>
+                            <WexDropdownMenu.Item 
+                              onClick={() => handleRemoveBeneficiaryClick(beneficiary)}
+                              className="text-destructive"
+                            >
+                              <Trash2 className="h-4 w-4 mr-2" />
+                              Remove
+                            </WexDropdownMenu.Item>
+                          </WexDropdownMenu.Content>
+                        </WexDropdownMenu>
+                      </div>
+
+                      {/* Details */}
+                      <div className="flex flex-col gap-1">
+                        <div className="flex gap-1.5 text-sm tracking-[-0.084px] leading-6">
+                          <span className="text-[#515f6b]">Beneficiary Type:</span>
+                          <span className="text-[#12181d] capitalize">{beneficiary.beneficiaryType}</span>
+                        </div>
+                        <div className="flex gap-1.5 text-sm tracking-[-0.084px] leading-6">
+                          <span className="text-[#515f6b]">Share:</span>
+                          <span className="text-[#12181d]">100%</span>
                         </div>
                       </div>
-                      <div className="flex gap-2">
-                        <WexButton
-                          intent="ghost"
-                          size="sm"
-                          className="text-[#0058a3] hover:bg-blue-50"
-                          onClick={() => handleEditBeneficiary(beneficiary)}
-                        >
-                          <Pencil className="h-4 w-4 mr-1" />
-                          Edit
-                        </WexButton>
-                        <WexButton
-                          intent="ghost"
-                          size="sm"
-                          className="text-[#d23f57] hover:bg-red-50"
-                          onClick={() => handleRemoveBeneficiaryClick(beneficiary)}
-                        >
-                          <Trash2 className="h-4 w-4 mr-1" />
-                          Remove
-                        </WexButton>
-                      </div>
-                    </div>
-                  </div>
+                    </WexCard.Content>
+                  </WexCard>
                 ))}
               </div>
             )}
@@ -1046,51 +1156,54 @@ export default function MyProfile() {
                 </WexEmpty>
               </div>
             ) : (
-              <div className="p-6 space-y-4">
+              <div className="p-6 flex flex-wrap gap-2">
                 {bankAccounts.map((bankAccount) => (
-                  <div key={bankAccount.id} className="border-b border-[#e4e6e9] pb-4 last:border-b-0">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-base font-semibold text-[#243746] mb-2">
-                          {bankAccount.accountNickname || `${bankAccount.accountType.charAt(0).toUpperCase() + bankAccount.accountType.slice(1)} Account`}
-                        </h3>
-                        <div className="space-y-1 text-sm text-[#243746]">
-                          <div className="flex gap-1.5">
-                            <span className="text-gray-500">Account Type:</span>
-                            <span className="capitalize">{bankAccount.accountType}</span>
-                          </div>
-                          <div className="flex gap-1.5">
-                            <span className="text-gray-500">Account Number:</span>
-                            <span>****{bankAccount.accountNumber.slice(-4)}</span>
-                          </div>
-                          <div className="flex gap-1.5">
-                            <span className="text-gray-500">Routing Number:</span>
-                            <span>****{bankAccount.routingNumber.slice(-4)}</span>
-                          </div>
+                  <WexCard 
+                    key={bankAccount.id} 
+                    className="w-[325px] p-4 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)]"
+                  >
+                    <WexCard.Content className="p-0 flex flex-col gap-2">
+                      {/* Header with name and menu */}
+                      <div className="flex items-center justify-between w-full gap-0">
+                        <div className="flex flex-col">
+                          <h3 className="text-base font-semibold text-[#243746] tracking-[-0.176px] leading-6">
+                            {bankAccount.accountNickname || "Bank Account"}
+                          </h3>
+                          <p className="text-[11px] text-[#515f6b] tracking-[0.055px] leading-4">
+                            {bankAccount.accountType.charAt(0).toUpperCase() + bankAccount.accountType.slice(1)} Account
+                          </p>
+                        </div>
+                        <WexDropdownMenu>
+                          <WexDropdownMenu.Trigger asChild>
+                            <WexButton intent="ghost" size="icon" className="h-[35px] w-[35px]">
+                              <MoreVertical className="h-4 w-4" />
+                            </WexButton>
+                          </WexDropdownMenu.Trigger>
+                          <WexDropdownMenu.Content align="end">
+                            <WexDropdownMenu.Item onClick={() => handleEditBankAccount(bankAccount)}>
+                              <Pencil className="h-4 w-4 mr-2" />
+                              Edit
+                            </WexDropdownMenu.Item>
+                            <WexDropdownMenu.Item 
+                              onClick={() => handleRemoveBankAccountClick(bankAccount)}
+                              className="text-destructive"
+                            >
+                              <Trash2 className="h-4 w-4 mr-2" />
+                              Remove
+                            </WexDropdownMenu.Item>
+                          </WexDropdownMenu.Content>
+                        </WexDropdownMenu>
+                      </div>
+
+                      {/* Details */}
+                      <div className="flex flex-col gap-1">
+                        <div className="flex gap-1.5 text-sm tracking-[-0.084px] leading-6">
+                          <span className="text-[#515f6b]">Account Number:</span>
+                          <span className="text-[#12181d]">••••{bankAccount.accountNumber.slice(-4)}</span>
                         </div>
                       </div>
-                      <div className="flex gap-2">
-                        <WexButton
-                          intent="ghost"
-                          size="sm"
-                          className="text-[#0058a3] hover:bg-blue-50"
-                          onClick={() => handleEditBankAccount(bankAccount)}
-                        >
-                          <Pencil className="h-4 w-4 mr-1" />
-                          Edit
-                        </WexButton>
-                        <WexButton
-                          intent="ghost"
-                          size="sm"
-                          className="text-[#d23f57] hover:bg-red-50"
-                          onClick={() => handleRemoveBankAccountClick(bankAccount)}
-                        >
-                          <Trash2 className="h-4 w-4 mr-1" />
-                          Remove
-                        </WexButton>
-                      </div>
-                    </div>
-                  </div>
+                    </WexCard.Content>
+                  </WexCard>
                 ))}
               </div>
             )}
@@ -1106,22 +1219,89 @@ export default function MyProfile() {
               </div>
               <WexSeparator className="mt-4" />
             </div>
-            <div className="flex flex-col items-center justify-center px-8 py-16">
-              <WexEmpty className="border-0 py-12">
-                <WexEmpty.Header>
-                  <WexEmpty.Media variant="default">
-                    <img 
-                      src={emptyStateIllustration} 
-                      alt="" 
-                      className="h-[191px] w-[235px]"
-                    />
-                  </WexEmpty.Media>
-                  <WexEmpty.Title className="text-base font-normal text-[#243746]">
-                    No debit card information available
-                  </WexEmpty.Title>
-                </WexEmpty.Header>
-              </WexEmpty>
-            </div>
+            {debitCards.length === 0 ? (
+              <div className="flex flex-col items-center justify-center px-8 py-16">
+                <WexEmpty className="border-0 py-12">
+                  <WexEmpty.Header>
+                    <WexEmpty.Media variant="default">
+                      <img 
+                        src={emptyStateIllustration} 
+                        alt="" 
+                        className="h-[191px] w-[235px]"
+                      />
+                    </WexEmpty.Media>
+                    <WexEmpty.Title className="text-base font-normal text-[#243746]">
+                      No debit card information available
+                    </WexEmpty.Title>
+                  </WexEmpty.Header>
+                </WexEmpty>
+              </div>
+            ) : (
+              <div className="p-6 flex flex-wrap gap-2">
+                {debitCards.map((card) => (
+                  <WexCard 
+                    key={card.id} 
+                    className="w-[325px] p-4 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)]"
+                  >
+                    <WexCard.Content className="p-0 flex flex-col gap-2">
+                      {/* Header with name and menu */}
+                      <div className="flex items-center justify-between w-full gap-0">
+                        <h3 className="text-base font-semibold text-[#243746] tracking-[-0.176px] leading-6">
+                          {card.cardholderName}
+                        </h3>
+                        <WexDropdownMenu>
+                          <WexDropdownMenu.Trigger asChild>
+                            <WexButton intent="ghost" size="icon" className="h-[35px] w-[35px]">
+                              <MoreVertical className="h-4 w-4" />
+                            </WexButton>
+                          </WexDropdownMenu.Trigger>
+                          <WexDropdownMenu.Content align="end">
+                            <WexDropdownMenu.Item>
+                              <Eye className="h-4 w-4 mr-2" />
+                              View Details
+                            </WexDropdownMenu.Item>
+                            <WexDropdownMenu.Item>
+                              <RefreshCw className="h-4 w-4 mr-2" />
+                              Order Replacement
+                            </WexDropdownMenu.Item>
+                          </WexDropdownMenu.Content>
+                        </WexDropdownMenu>
+                      </div>
+                      
+                      {/* Card number WITH badge - 18px font */}
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg font-semibold text-[#1d2c38] tracking-wide">
+                          •••• {card.cardNumber}
+                        </span>
+                        <WexBadge variant={card.status === "active" ? "info" : "default"}>
+                          {card.status.charAt(0).toUpperCase() + card.status.slice(1)}
+                        </WexBadge>
+                      </div>
+                      
+                      {/* Details - Expires and Effective */}
+                      <div className="flex flex-col gap-1">
+                        <div className="flex gap-1.5 text-sm tracking-[-0.084px] leading-6">
+                          <span className="text-[#515f6b]">Expires:</span>
+                          <span className="text-[#12181d]">{card.expirationDate}</span>
+                        </div>
+                        <div className="flex gap-1.5 text-sm tracking-[-0.084px] leading-6">
+                          <span className="text-[#515f6b]">Effective:</span>
+                          <span className="text-[#12181d]">{card.effectiveDate}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Report Lost/Stolen Button - KEEP at bottom */}
+                      <WexButton 
+                        intent="outline" 
+                        className="w-full border-destructive text-destructive hover:bg-destructive/10"
+                      >
+                        Report Lost/Stolen
+                      </WexButton>
+                    </WexCard.Content>
+                  </WexCard>
+                ))}
+              </div>
+            )}
           </>
         );
 
@@ -1512,7 +1692,7 @@ export default function MyProfile() {
                 <label
                   className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
                     formData.gender
-                      ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
+                      ? "left-3 top-[10px] text-xs text-[#7c858e] scale-75 -translate-y-2.5"
                       : "left-3 top-4 text-sm text-[#7c858e]"
                   }`}
                 >
@@ -1557,7 +1737,7 @@ export default function MyProfile() {
               <label
                 className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
                   formData.relationship
-                    ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
+                    ? "left-3 top-[10px] text-xs text-[#7c858e] scale-75 -translate-y-2.5"
                     : "left-3 top-4 text-sm text-[#7c858e]"
                 }`}
               >
@@ -1688,11 +1868,19 @@ export default function MyProfile() {
             />
 
             {/* Row 3: SSN */}
-            <WexFloatLabel
-              label="SSN"
-              value={beneficiaryFormData.ssn}
-              onChange={(e) => handleBeneficiaryFormChange("ssn", e.target.value)}
-            />
+            <div className="flex flex-col gap-1">
+              <WexFloatLabel
+                label="SSN"
+                value={beneficiaryFormData.ssn}
+                onChange={(e) => handleBeneficiaryFormChange("ssn", e.target.value)}
+                invalid={ssnError}
+              />
+              {ssnError && (
+                <p className="text-[12px] text-[hsl(var(--wex-destructive))] px-3">
+                  SSN must be numbers only
+                </p>
+              )}
+            </div>
 
             {/* Row 4: Birth Date + Relationship */}
             <div className="flex gap-[16px] items-start">
@@ -1759,16 +1947,14 @@ export default function MyProfile() {
                   </WexSelect.Trigger>
                   <WexSelect.Content>
                     <WexSelect.Item value="spouse">Spouse</WexSelect.Item>
-                    <WexSelect.Item value="child">Child</WexSelect.Item>
-                    <WexSelect.Item value="parent">Parent</WexSelect.Item>
-                    <WexSelect.Item value="sibling">Sibling</WexSelect.Item>
+                    <WexSelect.Item value="dependent">Dependent</WexSelect.Item>
                     <WexSelect.Item value="other">Other</WexSelect.Item>
                   </WexSelect.Content>
                 </WexSelect>
                 <label
                   className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
                     beneficiaryFormData.relationship
-                      ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
+                      ? "left-3 top-[10px] text-xs text-[#7c858e] scale-75 -translate-y-2.5"
                       : "left-3 top-4 text-sm text-[#7c858e]"
                   }`}
                 >
@@ -1842,7 +2028,7 @@ export default function MyProfile() {
                 <label
                   className={`absolute pointer-events-none transition-all duration-200 ease-out origin-top-left ${
                     beneficiaryFormData.state
-                      ? "left-3 top-2 text-xs text-[#7c858e] scale-75 -translate-y-2.5"
+                      ? "left-3 top-[10px] text-xs text-[#7c858e] scale-75 -translate-y-2.5"
                       : "left-3 top-4 text-sm text-[#7c858e]"
                   }`}
                 >
