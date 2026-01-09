@@ -10,7 +10,7 @@ interface ProseBlockProps {
  */
 export function ProseBlock({ children }: ProseBlockProps) {
   return (
-    <div className="prose prose-slate dark:prose-invert max-w-none">
+    <div className="prose prose-slate max-w-none">
       <div className="text-foreground leading-relaxed space-y-4">
         {children}
       </div>

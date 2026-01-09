@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Toaster as Sonner, toast } from "sonner"
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
@@ -20,33 +19,10 @@ interface WexToasterProps extends Omit<ToasterProps, "position"> {
   position?: ToastPosition
 }
 
-// Get initial theme from DOM (runs during render, SSR-safe)
-function getInitialTheme(): "light" | "dark" {
-  if (typeof document === "undefined") return "light"
-  return document.documentElement.classList.contains("dark") ? "dark" : "light"
-}
-
 const Toaster = ({ position = "bottom-right", ...props }: WexToasterProps) => {
-  const [theme, setTheme] = useState<"light" | "dark">(getInitialTheme)
-
-  useEffect(() => {
-    // Watch for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class") {
-          const isDark = document.documentElement.classList.contains("dark")
-          setTheme(isDark ? "dark" : "light")
-        }
-      })
-    })
-
-    observer.observe(document.documentElement, { attributes: true })
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <Sonner
-      theme={theme}
+      theme="light"
       position={position}
       className="toaster group"
       toastOptions={{

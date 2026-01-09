@@ -97,12 +97,7 @@ export function ConsumerNavigation() {
           <img
             src={`${import.meta.env.BASE_URL}WEX_Logo_Red_Vector.svg`}
             alt="WEX"
-            className="h-8 dark:hidden"
-          />
-          <img
-            src={`${import.meta.env.BASE_URL}WEX_Logo_White_Vector.svg`}
-            alt="WEX"
-            className="h-8 hidden dark:block"
+            className="h-8"
           />
         </Link>
 

@@ -261,10 +261,10 @@ interface CascadeLayerRowProps {
 
 function CascadeLayerRow({ layer }: CascadeLayerRowProps) {
   const layerColors: Record<number, string> = {
-    1: "bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700",
-    2: "bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-700",
-    3: "bg-amber-100 dark:bg-amber-900/30 border-amber-300 dark:border-amber-700",
-    4: "bg-purple-100 dark:bg-purple-900/30 border-purple-300 dark:border-purple-700",
+    1: "bg-blue-100 border-blue-300",
+    2: "bg-green-100 border-green-300",
+    3: "bg-amber-100 border-amber-300",
+    4: "bg-purple-100 border-purple-300",
   };
   
   const layerLabels: Record<number, string> = {

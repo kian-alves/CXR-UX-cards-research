@@ -3,6 +3,7 @@ import { WexButton } from "@/components/wex/wex-button"
 import { WexFloatLabel } from "@/components/wex/wex-float-label"
 import { WexCard } from "@/components/wex/wex-card"
 import WexLogo from "/WEX_Logo_Red_Vector.svg"
+import LoginBgSvg from "./consumer/img/login-bg.svg?url"
 import { useAuth } from "@/docs/context/AuthContext"
 
 interface LoginProps {
@@ -21,10 +22,14 @@ export default function Login({ onLoginSuccess }: LoginProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--wex-palette-blue-50))] relative overflow-hidden">
-      {/* Background decorative elements - simplified version */}
+    <div className="min-h-screen relative overflow-hidden">
+      {/* SVG Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Decorative circles/squares would go here - simplified for now */}
+        <img 
+          src={LoginBgSvg} 
+          alt="" 
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* Main Content */}

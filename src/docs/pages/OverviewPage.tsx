@@ -17,7 +17,7 @@ import {
  * Now featuring "Glassmorphism" refinements for a premium feel.
  */
 export default function OverviewPage() {
-  const glassCard = "relative overflow-hidden bg-white/10 dark:bg-white/[0.03] backdrop-blur-2xl border border-white/30 dark:border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] transition-all duration-500 hover:bg-white/20 dark:hover:bg-white/[0.06] hover:border-white/50 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] hover:-translate-y-1 group/card";
+  const glassCard = "relative overflow-hidden bg-white/10 backdrop-blur-2xl border border-white/30 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] transition-all duration-500 hover:bg-white/20 hover:border-white/50 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] hover:-translate-y-1 group/card";
 
   return (
     <article className="relative pb-20">

@@ -6,10 +6,6 @@ import './styles/wex.shadcn-bridge.css'
 import './styles/wex.components-bridge.css'
 import './index.css'
 import App from './App.tsx'
-import { initializeTheme } from '@/docs/utils/theme'
-
-// Initialize theme before rendering to prevent flash
-initializeTheme()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
