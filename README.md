@@ -6,7 +6,7 @@ A comprehensive design system built with React, TypeScript, Tailwind CSS, and sh
 
 This project is fully configured for [Bolt](https://bolt.new)! 
 
-1. Import repository: `https://github.com/kian-alves/CXR-UX-cards-research` (branch: `card-test`)
+1. Import repository: `https://github.com/kian-alves/CXR-UX-cards-research` (branch: `main`)
 2. Bolt will automatically install dependencies and start the dev server
 3. Check `.bolt/QUICKSTART.md` for a guided tour
 

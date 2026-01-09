@@ -84,7 +84,7 @@
   "metadata": {
     "author": "WEX Inc.",
     "repository": "https://github.com/kian-alves/CXR-UX-cards-research",
-    "branch": "card-test",
+    "branch": "main",
     "license": "Private",
     "nodeVersion": ">=18.0.0"
   }

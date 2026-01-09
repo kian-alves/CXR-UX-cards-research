@@ -14,7 +14,7 @@ The **WEX Design System** is a comprehensive React-based design system with:
 ### Step 1: Import the Project
 ```
 Import from GitHub: https://github.com/kian-alves/CXR-UX-cards-research
-Branch: card-test
+Branch: main
 ```
 
 ### Step 2: Wait for Setup

@@ -9,14 +9,14 @@ https://github.com/kian-alves/CXR-UX-cards-research
 
 ### Step 2: Select Branch
 ```
-card-test
+main
 ```
 
 ### Step 3: Import in Bolt
 1. Go to [Bolt](https://bolt.new)
 2. Click "Import from GitHub" or similar option
 3. Paste the repository URL
-4. Select branch: `card-test`
+4. Select branch: `main`
 5. Click "Import"
 
 ### Step 4: Wait for Setup (2-3 minutes)
@@ -177,7 +177,7 @@ If you encounter issues:
 Your project is now fully configured for Bolt. Just import and start building!
 
 **Repository**: https://github.com/kian-alves/CXR-UX-cards-research  
-**Branch**: card-test  
+**Branch**: main  
 **Import Time**: ~2-3 minutes  
 **First Page Load**: ~1 second  
 
