@@ -580,9 +580,7 @@ export default function HSABeneficiariesPage() {
                           </WexSelect.Trigger>
                           <WexSelect.Content>
                             <WexSelect.Item value="spouse">Spouse</WexSelect.Item>
-                            <WexSelect.Item value="child">Child</WexSelect.Item>
-                            <WexSelect.Item value="parent">Parent</WexSelect.Item>
-                            <WexSelect.Item value="sibling">Sibling</WexSelect.Item>
+                            <WexSelect.Item value="dependent">Dependent</WexSelect.Item>
                             <WexSelect.Item value="other">Other</WexSelect.Item>
                           </WexSelect.Content>
                         </WexSelect>

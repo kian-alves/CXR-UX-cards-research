@@ -461,8 +461,8 @@ export function ThemeExportView(_props: ThemeExportViewProps) {
                 </WexButton>
               </div>
             </div>
-            <div className="p-4 overflow-x-auto overflow-y-auto max-h-[400px] bg-muted/50 dark:bg-slate-950">
-              <pre className="text-xs font-mono !m-0 !bg-transparent text-foreground dark:text-slate-100">
+            <div className="p-4 overflow-x-auto overflow-y-auto max-h-[400px] bg-muted/50">
+              <pre className="text-xs font-mono !m-0 !bg-transparent text-foreground">
                 <code 
                   className="language-css !text-sm !leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: highlightedCSS }}
@@ -503,8 +503,8 @@ export function ThemeExportView(_props: ThemeExportViewProps) {
                 </WexButton>
               </div>
             </div>
-            <div className="p-4 overflow-x-auto overflow-y-auto max-h-[400px] bg-muted/50 dark:bg-slate-950">
-              <pre className="text-xs font-mono !m-0 !bg-transparent text-foreground dark:text-slate-100">
+            <div className="p-4 overflow-x-auto overflow-y-auto max-h-[400px] bg-muted/50">
+              <pre className="text-xs font-mono !m-0 !bg-transparent text-foreground">
                 <code 
                   className="language-json !text-sm !leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: highlightedJSON }}

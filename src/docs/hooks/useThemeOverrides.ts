@@ -179,17 +179,10 @@ function applyToDOM(overrides: ThemeOverrides): void {
   if (typeof window === "undefined") return;
   
   const root = document.documentElement;
-  const isDark = root.classList.contains("dark");
-  const activeOverrides = isDark ? overrides.dark : overrides.light;
-  const inactiveOverrides = isDark ? overrides.light : overrides.dark;
+  // Always use light mode overrides
+  const activeOverrides = overrides.light;
   
-  // First, REMOVE all inactive mode overrides from the DOM
-  // This prevents stale values from the other mode persisting
-  Object.keys(inactiveOverrides).forEach((token) => {
-    root.style.removeProperty(token);
-  });
-  
-  // Then apply each active override as a CSS variable
+  // Apply each override as a CSS variable
   Object.entries(activeOverrides).forEach(([token, value]) => {
     root.style.setProperty(token, value);
   });

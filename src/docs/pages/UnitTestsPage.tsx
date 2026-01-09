@@ -126,8 +126,8 @@ function CategoryCard({
 }
 
 function getTestDepthLabel(count: number): { label: string; color: string } {
-  if (count >= 30) return { label: "Comprehensive", color: "bg-green-500/20 text-green-700 dark:text-green-400" };
-  if (count >= 15) return { label: "Extended", color: "bg-blue-500/20 text-blue-700 dark:text-blue-400" };
+  if (count >= 30) return { label: "Comprehensive", color: "bg-green-500/20 text-green-700" };
+  if (count >= 15) return { label: "Extended", color: "bg-blue-500/20 text-blue-700" };
   if (count >= 5) return { label: "Standard", color: "bg-muted text-muted-foreground" };
   return { label: "Basic", color: "bg-muted/50 text-muted-foreground" };
 }
@@ -305,9 +305,9 @@ export default function UnitTestsPage() {
       {/* Test Files */}
       <Section title="Test Files" className="mb-16">
         <p className="text-muted-foreground mb-6">
-          Individual test files sorted by coverage depth. Files with <span className="px-1.5 py-0.5 rounded text-xs bg-green-500/20 text-green-700 dark:text-green-400 font-medium">Comprehensive</span> coverage 
+          Individual test files sorted by coverage depth. Files with <span className="px-1.5 py-0.5 rounded text-xs bg-green-500/20 text-green-700 font-medium">Comprehensive</span> coverage 
           (30+ tests) include interactions, keyboard navigation, state management, and accessibility tests.
-          <span className="px-1.5 py-0.5 rounded text-xs bg-blue-500/20 text-blue-700 dark:text-blue-400 font-medium ml-1">Extended</span> coverage 
+          <span className="px-1.5 py-0.5 rounded text-xs bg-blue-500/20 text-blue-700 font-medium ml-1">Extended</span> coverage 
           (15+ tests) includes most test categories.
         </p>
         <WexTabs defaultValue="components" className="w-full">

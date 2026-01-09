@@ -165,7 +165,7 @@ export function Stepper({ steps, currentStepId, onStepChange, className }: Stepp
                   aria-current={primaryState === "current" ? "step" : undefined}
                 >
                   {primaryState === "completed" ? (
-                    <Check className="h-4 w-4 text-green-600 dark:text-green-400" />
+                    <Check className="h-4 w-4 text-green-600" />
                   ) : (
                     <span className={cn(
                       "text-sm font-semibold leading-6",
@@ -245,7 +245,7 @@ export function Stepper({ steps, currentStepId, onStepChange, className }: Stepp
                               aria-current={secondaryState === "current" ? "step" : undefined}
                             >
                               {secondaryState === "completed" ? (
-                                <Check className="h-3 w-3 text-green-600 dark:text-green-400" />
+                                <Check className="h-3 w-3 text-green-600" />
                               ) : null}
                             </button>
                             

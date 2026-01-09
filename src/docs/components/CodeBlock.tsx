@@ -43,9 +43,9 @@ export function CodeBlock({ code, language = "tsx", filename }: CodeBlockProps) 
   };
 
   return (
-    <div className="group relative rounded-lg border border-border bg-muted/50 dark:bg-card overflow-hidden">
+    <div className="group relative rounded-lg border border-border bg-muted/50 overflow-hidden">
       {/* Header bar with filename and copy button */}
-      <div className="flex items-center justify-between border-b border-border bg-muted/80 dark:bg-muted/30 px-4 py-2">
+      <div className="flex items-center justify-between border-b border-border bg-muted/80 px-4 py-2">
         <div className="flex items-center gap-2">
           {/* Traffic light dots */}
           <div className="flex gap-1.5">

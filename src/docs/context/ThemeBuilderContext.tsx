@@ -152,66 +152,12 @@ export function ThemeBuilderProvider({ children, lastVisitedPage }: ThemeBuilder
   // Selected token (V4 - for direct palette shade selection)
   const [selectedToken, setSelectedToken] = React.useState<string | null>(null);
   
-  // Editing mode (light/dark) - also toggles document class
-  const [editMode, setEditModeState] = React.useState<"light" | "dark">(() => {
-    // Initialize from current DOM state
-    if (typeof document !== "undefined") {
-      return document.documentElement.classList.contains("dark") ? "dark" : "light";
-    }
-    return "light";
-  });
+  // Editing mode - always light mode
+  const editMode = "light" as const;
   
-  // Store original theme to restore on exit
-  const originalTheme = React.useRef<"light" | "dark">("light");
-  
-  // Capture original theme on mount
-  React.useEffect(() => {
-    originalTheme.current = document.documentElement.classList.contains("dark") 
-      ? "dark" 
-      : "light";
-  }, []);
-  
-  // Listen for DOM class changes (e.g., from header theme toggle) and sync editMode
-  React.useEffect(() => {
-    if (typeof document === "undefined") return;
-    
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class") {
-          const isDark = document.documentElement.classList.contains("dark");
-          const newMode = isDark ? "dark" : "light";
-          setEditModeState(newMode);
-        }
-      });
-    });
-    
-    observer.observe(document.documentElement, { attributes: true });
-    return () => observer.disconnect();
-  }, []);
-  
-  // Custom setEditMode that also applies dark class to document
-  const setEditMode = React.useCallback((mode: "light" | "dark") => {
-    setEditModeState(mode);
-    if (typeof document !== "undefined") {
-      if (mode === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, []);
-  
-  // Restore original theme when unmounting (exiting Theme Builder)
-  React.useEffect(() => {
-    return () => {
-      if (typeof document !== "undefined") {
-        if (originalTheme.current === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      }
-    };
+  // No-op setter for backward compatibility
+  const setEditMode = React.useCallback(() => {
+    // Dark mode removed - always light
   }, []);
   
   // A11y issue counts per mode (computed once)
