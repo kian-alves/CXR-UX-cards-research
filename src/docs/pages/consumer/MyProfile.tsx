@@ -169,7 +169,6 @@ export default function MyProfile() {
   
   // Validation error states
   const [ssnError, setSsnError] = useState(false);
-  const [birthDateError, setBirthDateError] = useState(false);
 
 
   const [activeSubPage, setActiveSubPage] = useState<SubPage>(() => {
@@ -281,11 +280,6 @@ export default function MyProfile() {
     });
     setEditingDependentId(dependent.id);
     setIsAddDependentModalOpen(true);
-  };
-
-  const maskSSN = (ssn: string) => {
-    if (!ssn || ssn.length < 4) return "***-**-****";
-    return `***-**-${ssn.slice(-4)}`;
   };
 
   const handleSaveDependent = () => {
