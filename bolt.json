@@ -1,0 +1,92 @@
+{
+  "$schema": "https://bolt.new/schema.json",
+  "name": "wex-design-system",
+  "displayName": "WEX Design System",
+  "description": "A comprehensive design system built with React, TypeScript, Tailwind CSS, and shadcn/ui primitives. Includes 60+ accessible components and complete consumer experience pages.",
+  "version": "1.0.0",
+  "type": "web-app",
+  "framework": "react",
+  "language": "typescript",
+  "packageManager": "npm",
+  "buildTool": "vite",
+  "setup": {
+    "install": "npm install",
+    "dev": "npm run dev",
+    "build": "npm run build",
+    "preview": "npm run preview"
+  },
+  "ports": {
+    "dev": 5174,
+    "preview": 4173
+  },
+  "features": [
+    "react-19",
+    "typescript",
+    "vite",
+    "tailwindcss",
+    "react-router",
+    "design-system",
+    "accessibility",
+    "dark-mode-ready",
+    "localstorage-persistence"
+  ],
+  "quickstart": ".bolt/QUICKSTART.md",
+  "documentation": ".bolt/README.md",
+  "setup-guide": ".bolt/SETUP.md",
+  "ignore": ".boltignore",
+  "entry": {
+    "main": "src/main.tsx",
+    "html": "index.html"
+  },
+  "routes": [
+    {
+      "path": "/",
+      "description": "Home page"
+    },
+    {
+      "path": "/login",
+      "description": "Login page (no auth required - just click Continue)"
+    },
+    {
+      "path": "/my-profile",
+      "description": "User profile with sub-pages for dependents, beneficiaries, banking, etc."
+    },
+    {
+      "path": "/message-center",
+      "description": "Message and notification center"
+    },
+    {
+      "path": "/hsa-enrollment/*",
+      "description": "HSA enrollment flow (multi-step)"
+    },
+    {
+      "path": "/design-system",
+      "description": "Component showcase and documentation"
+    }
+  ],
+  "highlights": [
+    "🎨 60+ accessible UI components",
+    "👤 Complete consumer experience pages",
+    "💾 Automatic data persistence (localStorage)",
+    "✅ Form validation with real-time feedback",
+    "📱 Fully responsive design",
+    "♿ WCAG 2.1 AA compliant",
+    "🌙 Dark mode ready",
+    "⚡ Fast HMR with Vite"
+  ],
+  "dependencies": {
+    "runtime": ["react", "react-dom", "react-router-dom"],
+    "ui": ["@radix-ui/*", "lucide-react"],
+    "styling": ["tailwindcss", "class-variance-authority"],
+    "forms": ["react-hook-form", "zod"],
+    "utilities": ["date-fns", "clsx", "tailwind-merge"]
+  },
+  "metadata": {
+    "author": "WEX Inc.",
+    "repository": "https://github.com/kian-alves/CXR-UX-cards-research",
+    "branch": "card-test",
+    "license": "Private",
+    "nodeVersion": ">=18.0.0"
+  }
+}
+

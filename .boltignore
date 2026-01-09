@@ -1,0 +1,52 @@
+# Bolt Ignore File
+# Files and directories that Bolt should ignore
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+build/
+.vite/
+
+# Test outputs
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Large documentation files (keep only essentials)
+docs/TOKEN_CASCADE_ANALYSIS.md
+ANGULAR_IMPLEMENTATION_GUIDE.md
+PRIMENG_*.md
+
